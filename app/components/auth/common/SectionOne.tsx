@@ -10,7 +10,7 @@ type Props = {};
 
 const SectionOne = (props: Props) => {
   return (
-    <div className="flex-1 hidden sm:flex flex-col rounded-xl bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
+    <div className="flex-1 hidden lg:flex flex-col rounded-xl bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
       <div className="flex flex-col space-y-4 w-full items-center overflow-visible">
         <div className="w-full">
           <Header />
