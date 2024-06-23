@@ -15,8 +15,8 @@ export default function page({}: Props) {
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       {/* Main container in Middle */}
-      <div className="flex flex-col justify-center items-start  space-y-4 w-96 overflow-visible">
-        <div>
+      <div className="flex flex-col justify-center items-center sm:items-start   space-y-4 w-96 overflow-visible p-4">
+        <div className="flex flex-col justify-center items-center sm:items-start">
           <p className="font-bold text-3xl">Sign In</p>
           <p className="text-sm">Sign in to your account</p>
         </div>
@@ -46,7 +46,7 @@ export default function page({}: Props) {
         </div>
 
         {/* Social Account buttons container*/}
-        <div className="flex w-full justify-center items-center space-x-4">
+        <div className="flex w-full justify-center items-center space-x-2 sm:space-x-4">
           <div className="h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
             <Image src={GoogleIcon} alt="logo" />
             <p className="text-xs font-semibold">Sign in with Google</p>

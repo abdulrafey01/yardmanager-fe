@@ -9,10 +9,12 @@ type Props = {};
 const page = (props: Props) => {
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
-      <div className="flex flex-col space-y-6 w-96">
+      <div className="flex flex-col space-y-6 w-72 sm:w-96">
         {/* Text */}
         <div className="flex flex-col space-y-2">
-          <p className="font-bold text-3xl">Let's get you signed in.</p>
+          <p className="font-bold text-2xl sm:text-3xl">
+            Let's get you signed in.
+          </p>
           <p className="text-sm text-[#9CA3AF]">
             Enter your email or mobile number associated with podium account and
             we’ll send you a temporary access code!
