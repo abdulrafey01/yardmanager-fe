@@ -9,7 +9,7 @@ const Header = (props: Props) => {
     <div className="  flex justify-start items-center text-white space-x-1">
       <Image src={YardIcon} alt="logo" />
       <div className="h-6 w-[2.2px] bg-white"></div>
-      <p>My Yard Manager</p>
+      <p className="text-xs sm:text-base">My Yard Manager</p>
     </div>
   );
 };
