@@ -7,7 +7,6 @@ import {
   deleteInvoice,
   setShowDeleteModal,
 } from "../../../lib/features/invoice/invoiceSlice";
-
 const DeleteModal = () => {
   const dispatch = useDispatch();
   const { deleteInvoiceIndex, showDeleteModal } = useSelector(

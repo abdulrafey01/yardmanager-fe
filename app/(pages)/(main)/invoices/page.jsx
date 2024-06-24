@@ -5,6 +5,9 @@ import PlusIcon from "../../../assets/main/29-plus.svg";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import { useSelector } from "react-redux";
 import InvoiceRow from "../../../components/invoices/InvoiceRow";
+import { displayData } from "../../../helpers/pagination";
+import TableHeadRow from "../../../components/common/TableHeadRow";
+import TableDataRow from "../../../components/common/TableDataRow";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.invoice.data);
@@ -13,27 +16,11 @@ const page = () => {
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataToShow, setDataToShow] = React.useState([]);
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
-
   useEffect(() => {
-    displayData(dataFromServer, pageNumber);
+    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
+    setDataToShow(dataToShow);
+    setTotalPage(totalPage);
   }, [dataFromServer, pageNumber]);
-  const displayData = (data, pageNumber) => {
-    // Total Length
-    let dataLength = data.length;
-    console.log(dataLength);
-    //  Max to Display on single page
-    let maxData = 12;
-    // Start index to display data
-    let dataStart = (pageNumber - 1) * maxData;
-    if (dataLength > maxData) {
-      let newData = data.slice(dataStart, maxData + dataStart);
-      console.log(newData);
-      setDataToShow(newData);
-    }
-    // Total Number of pages
-    setTotalPage(Math.ceil(dataLength / maxData));
-  };
-
   return (
     <div className="p-4 bg-[#f9fafb] flex-1 flex flex-col space-y-4">
       {/* Title Container*/}
@@ -62,18 +49,18 @@ const page = () => {
         {/* Table Body */}
         <div className="bg-white">
           <table className="table-auto w-full ">
-            <thead className="bg-[#f2fff8] border border-[#EDEEF2] text-sm">
-              <tr>
-                <th className="p-3 text-left">User Name</th>
-                <th className="p-3 text-left">Invoice #</th>
-                <th className="p-3 text-left">Customer Name</th>
-                <th className="p-3 text-left">Email Address</th>
-                <th className="p-3 text-left">Grand Total</th>
-                <th className="p-3 text-left">Order Date</th>
-                <th className="p-3 text-left">Status</th>
-                <th className="p-3 text-left">Action</th>
-              </tr>
-            </thead>
+            <TableHeadRow
+              titles={[
+                "Name",
+                "ID",
+                "Email",
+                "Phone",
+                "Amount",
+                "Date",
+                "Status",
+                "Action",
+              ]}
+            />
             <tbody className="text-sm w-full">
               {dataToShow.map((item, index) => (
                 <InvoiceRow
@@ -102,7 +89,7 @@ const page = () => {
               onClick={() =>
                 setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
               }
-              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+              className="cursor-pointer select-none py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
             >
               Previous
             </div>
@@ -112,7 +99,7 @@ const page = () => {
                   pageNumber === totalPage ? pageNumber : pageNumber + 1
                 )
               }
-              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+              className="cursor-pointer select-none py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
             >
               Next
             </div>

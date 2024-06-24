@@ -1,19 +1,11 @@
-"use client";
 import React from "react";
 
 import EditIcon from "../../assets/main/32-edit.svg";
 import PrevIcon from "../../assets/main/33-eye.svg";
 import DelIcon from "../../assets/main/34-trash.svg";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
-import {
-  deleteInvoice,
-  setDeleteInvoiceIndex,
-  setShowDeleteModal,
-} from "../../../lib/features/invoice/invoiceSlice";
 
-const InvoiceActionMenu = ({ showActionMenu, index }) => {
-  const dispatch = useDispatch();
+const RoleActionMenu = ({ showActionMenu, index }) => {
   return (
     <div
       className={`bg-white border border-gray-300 ${
@@ -43,4 +35,4 @@ const InvoiceActionMenu = ({ showActionMenu, index }) => {
   );
 };
 
-export default InvoiceActionMenu;
+export default RoleActionMenu;

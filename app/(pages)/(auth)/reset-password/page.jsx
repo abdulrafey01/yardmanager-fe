@@ -1,11 +1,14 @@
+"use client";
 import Input from "../../../components/auth/common/Input";
 import React from "react";
 
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 import AuthButton from "../../../components/auth/common/AuthButton";
 import AuthToast from "../../../abstracts/AuthToast";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   return (
     <div className="flex-1 flex justify-center items-center">
       <AuthToast show={true} />
@@ -24,7 +27,13 @@ const page = () => {
           <Input placeholder="Retype Password" icon={PwdIcon} />
         </div>
         {/* Button */}
-        <AuthButton title="Reset Password" />
+        <div
+          onClick={() => {
+            router.push("/invoices");
+          }}
+        >
+          <AuthButton title="Reset Password" />
+        </div>
       </div>
     </div>
   );

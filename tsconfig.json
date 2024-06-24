@@ -27,7 +27,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "app/(pages)/(main)/roles/page.jsx", "app/abstracts/AuthToast.jsx"  ],
   "exclude": [
     "node_modules"
   ]

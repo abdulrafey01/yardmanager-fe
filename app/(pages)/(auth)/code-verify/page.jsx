@@ -2,10 +2,13 @@
 import React from "react";
 
 import AuthButton from "../../../components/auth/common/AuthButton";
+import { useRouter } from "next/navigation";
 const page = () => {
   function maxLengthCheck(object) {
     if (object.value.length > 1) object.value = object.value.slice(0, 1);
   }
+
+  const router = useRouter();
   return (
     <div className="flex-1 flex justify-center items-center">
       {/* Main container */}
@@ -58,7 +61,9 @@ const page = () => {
           </div>
         </div>
         {/* Button */}
-        <AuthButton title="Verify Code" />
+        <div onClick={() => router.push("/forgot-password")}>
+          <AuthButton title="Verify Code" />
+        </div>
         {/* Text */}
         <div className="flex justify-start items-center space-x-1">
           <p className="text-gray-600">Didn’t receive the OTP? </p>

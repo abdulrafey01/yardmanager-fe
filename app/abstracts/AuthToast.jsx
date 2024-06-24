@@ -2,11 +2,7 @@ import React from "react";
 import Image from "next/image";
 import ArrowImg from "../assets/auth/5-Vector.svg";
 
-type Props = {
-  show: boolean;
-};
-
-const AuthToast = ({ show }: Props) => {
+const AuthToast = ({ show }) => {
   return (
     <div
       className={`absolute top-0 right-0 h-14 w-96 ${

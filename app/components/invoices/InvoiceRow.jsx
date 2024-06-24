@@ -20,7 +20,7 @@ const InvoiceRow = ({
     <tr
       // On mouseleaving the row, close the action menu
       onMouseLeave={() => setShowMenu(-1)}
-      className="border relative border-[#EDEEF2]"
+      className="border relative border-[#EDEEF2] even:bg-[#a5a5a50a] "
     >
       <td className=" p-3 text-left">{name}</td>
       <td className=" p-3 text-left">{id}</td>
@@ -46,9 +46,9 @@ const InvoiceRow = ({
           src={MenuIcon}
           alt="menu"
         />
+        {/* Action Menu Container */}
+        <InvoiceActionMenu showActionMenu={showMenu} index={index} />
       </td>
-      {/* Action Menu Container */}
-      <InvoiceActionMenu showActionMenu={showMenu} index={index} />
     </tr>
   );
 };

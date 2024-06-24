@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 
@@ -7,8 +8,10 @@ import FbIcon from "../../../assets/auth/4-logos_facebook.svg";
 import Image from "next/image";
 import Input from "../../../components/auth/common/Input";
 import AuthButton from "../../../components/auth/common/AuthButton";
+import { useRouter } from "next/navigation";
 
 export default function page() {
+  const router = useRouter();
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       {/* Main container in Middle */}
@@ -34,7 +37,13 @@ export default function page() {
           </div>
         </div>
         {/* Button */}
-        <AuthButton title="Sign In" />
+        <div
+          onClick={() => {
+            router.push("/code-verify");
+          }}
+        >
+          <AuthButton title="Sign In" />
+        </div>
         {/* "or continuue" line */}
         <div className="flex justify-center items-center w-full">
           <div className="h-px flex-1 bg-[#78FFB6]"></div>

@@ -1,9 +1,12 @@
+"use client";
 import Input from "../../../components/auth/common/Input";
 import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
 import React from "react";
 import AuthButton from "../../../components/auth/common/AuthButton";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       <div className="flex flex-col space-y-6 w-72 sm:w-96">
@@ -20,7 +23,13 @@ const page = () => {
         {/* Input */}
         <Input placeholder="Email or Mobile Number" icon={MsgIcon} />
         {/* Button */}
-        <AuthButton title="Send Code" />
+        <div
+          onClick={() => {
+            router.push("/reset-password");
+          }}
+        >
+          <AuthButton title="Send Code" />
+        </div>
       </div>
     </div>
   );

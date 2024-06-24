@@ -29,6 +29,7 @@ import SubSvgB from "../../assets/main/13-subsblack.svg";
 import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
+import { useRouter } from "next/navigation";
 
 const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
@@ -48,6 +49,7 @@ const SideBar = () => {
       name: "Invoices",
       iconW: InvSvg,
       iconB: InvSvgB,
+      route: "/invoices",
     },
     {
       name: "Location",
@@ -73,6 +75,7 @@ const SideBar = () => {
       name: "Role / Permissions",
       iconW: RoleSvg,
       iconB: RoleSvgB,
+      route: "/roles",
     },
     {
       name: "My Vehicle",
@@ -102,6 +105,8 @@ const SideBar = () => {
       iconB: TermSvgB,
     },
   ];
+
+  const router = useRouter();
   return (
     <div className="flex-1 bg-black flex flex-col justify-start items-center p-6 space-y-6">
       {/* Top part */}
@@ -118,6 +123,7 @@ const SideBar = () => {
               onClick={() => {
                 setActiveMainBtn(index);
                 setActiveBottomBtn(-1);
+                router.push(item.route);
               }}
               className={`w-full flex space-x-2 items-center ${
                 activeMainBtn === index
