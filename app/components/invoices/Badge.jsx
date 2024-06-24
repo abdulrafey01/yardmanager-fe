@@ -1,10 +1,6 @@
 import React from "react";
 
-type Props = {
-  received?: boolean;
-};
-
-const Badge = ({ received }: Props) => {
+const Badge = ({ received }) => {
   return (
     <div
       className={` rounded-full ${

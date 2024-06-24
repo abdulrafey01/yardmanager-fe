@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteInvoice,
   setShowDeleteModal,
-} from "@/lib/features/invoice/invoiceSlice";
+} from "../../../lib/features/invoice/invoiceSlice";
 
 const DeleteModal = () => {
   const dispatch = useDispatch();
   const { deleteInvoiceIndex, showDeleteModal } = useSelector(
-    (state: any) => state.invoice
+    (state) => state.invoice
   );
   return (
     <div

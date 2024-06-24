@@ -1,13 +1,7 @@
-import SectionOne from "@/app/components/auth/common/SectionOne";
 import React from "react";
+import SectionOne from "../../components/auth/common/SectionOne";
 
-type Props = {};
-
-const layout = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+const layout = ({ children }) => {
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
       <SectionOne />

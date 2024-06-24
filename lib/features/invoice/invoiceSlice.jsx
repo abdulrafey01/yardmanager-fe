@@ -1,14 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
-export interface InvoiceState {
-  data: any[];
-  showActionMenu: boolean;
-  showDeleteModal: boolean;
-  deleteInvoiceIndex: number;
-}
-
-const initialState: InvoiceState = {
+const initialState = {
   data: [
     {
       name: "Shahid",

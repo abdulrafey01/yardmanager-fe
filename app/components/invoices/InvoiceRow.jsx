@@ -4,19 +4,6 @@ import MenuIcon from "../../assets/main/31-icon.svg";
 import Image from "next/image";
 import InvoiceActionMenu from "./InvoiceActionMenu";
 
-type Props = {
-  name: string;
-  id: string;
-  email: string;
-  phone: string;
-  amount: string;
-  date: string;
-  status: string;
-  index: number;
-  showModal: number;
-  setShowModal: React.Dispatch<React.SetStateAction<number>>;
-};
-
 const InvoiceRow = ({
   name,
   id,
@@ -26,11 +13,15 @@ const InvoiceRow = ({
   date,
   status,
   index,
-  showModal,
-  setShowModal,
-}: Props) => {
+  showMenu,
+  setShowMenu,
+}) => {
   return (
-    <tr className="border relative border-[#EDEEF2]">
+    <tr
+      // On mouseleaving the row, close the action menu
+      onMouseLeave={() => setShowMenu(-1)}
+      className="border relative border-[#EDEEF2]"
+    >
       <td className=" p-3 text-left">{name}</td>
       <td className=" p-3 text-left">{id}</td>
       <td className=" p-3 text-left">{email}</td>
@@ -43,12 +34,12 @@ const InvoiceRow = ({
       <td className=" py-4 flex justify-center items-center ">
         <Image
           onClick={() => {
-            // if clicked on same row icon, close the modal else close all and open respective row icon
-            if (showModal === index) {
-              setShowModal(-1);
+            // if clicked on same row icon, close the Menu else close all and open respective row icon
+            if (showMenu === index) {
+              setShowMenu(-1);
             } else {
-              setShowModal(-1);
-              setShowModal(index);
+              setShowMenu(-1);
+              setShowMenu(index);
             }
           }}
           className="cursor-pointer"
@@ -57,7 +48,7 @@ const InvoiceRow = ({
         />
       </td>
       {/* Action Menu Container */}
-      <InvoiceActionMenu showModal={showModal} index={index} />
+      <InvoiceActionMenu showActionMenu={showMenu} index={index} />
     </tr>
   );
 };

@@ -1,4 +1,3 @@
-import SectionOne from "@/app/components/auth/common/SectionOne";
 import React from "react";
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 
@@ -6,12 +5,10 @@ import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
 import GoogleIcon from "../../../assets/auth/3-Socialicon.svg";
 import FbIcon from "../../../assets/auth/4-logos_facebook.svg";
 import Image from "next/image";
-import Input from "@/app/components/auth/common/Input";
-import AuthButton from "@/app/components/auth/common/AuthButton";
+import Input from "../../../components/auth/common/Input";
+import AuthButton from "../../../components/auth/common/AuthButton";
 
-type Props = {};
-
-export default function page({}: Props) {
+export default function page() {
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       {/* Main container in Middle */}

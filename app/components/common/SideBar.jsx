@@ -29,9 +29,8 @@ import SubSvgB from "../../assets/main/13-subsblack.svg";
 import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
-type Props = {};
 
-const SideBar = (props: Props) => {
+const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const sideButtonsMain = [

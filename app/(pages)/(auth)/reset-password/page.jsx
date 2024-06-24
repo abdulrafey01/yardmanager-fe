@@ -1,13 +1,11 @@
-import Input from "@/app/components/auth/common/Input";
+import Input from "../../../components/auth/common/Input";
 import React from "react";
 
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
-import AuthButton from "@/app/components/auth/common/AuthButton";
-import AuthToast from "@/app/abstracts/AuthToast";
+import AuthButton from "../../../components/auth/common/AuthButton";
+import AuthToast from "../../../abstracts/AuthToast";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <div className="flex-1 flex justify-center items-center">
       <AuthToast show={true} />

@@ -6,9 +6,7 @@ import BoxImg1 from "../../../assets/auth/Illustrations-3.svg";
 import BoxImg2 from "../../../assets/auth/Illustrations-4.svg";
 import BoxImg3 from "../../../assets/auth/Illustrations-5.svg";
 import Header from "../../common/Header";
-type Props = {};
-
-const SectionOne = (props: Props) => {
+const SectionOne = () => {
   return (
     <div className="flex-1 hidden lg:flex flex-col rounded-xl bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
       <div className="flex flex-col space-y-4 w-full items-center overflow-visible">

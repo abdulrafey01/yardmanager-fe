@@ -3,23 +3,21 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import PlusIcon from "../../../assets/main/29-plus.svg";
 import SearchIcon from "../../../assets/main/30-search.svg";
-import InvoiceRow from "@/app/components/invoices/InvoiceRow";
 import { useSelector } from "react-redux";
+import InvoiceRow from "../../../components/invoices/InvoiceRow";
 
-type Props = {};
-
-const page = (props: Props) => {
-  const dataFromServer = useSelector((state: any) => state.invoice.data);
+const page = () => {
+  const dataFromServer = useSelector((state) => state.invoice.data);
 
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-  const [dataToShow, setDataToShow] = React.useState<any[]>([]);
-  const [showActionModal, setShowActionModal] = React.useState(-1);
+  const [dataToShow, setDataToShow] = React.useState([]);
+  const [showActionMenu, setShowActionMenu] = React.useState(-1);
 
   useEffect(() => {
     displayData(dataFromServer, pageNumber);
   }, [dataFromServer, pageNumber]);
-  const displayData = (data: any, pageNumber: any) => {
+  const displayData = (data, pageNumber) => {
     // Total Length
     let dataLength = data.length;
     console.log(dataLength);
@@ -87,8 +85,8 @@ const page = (props: Props) => {
                   date={item.date}
                   status={item.status}
                   index={index}
-                  showModal={showActionModal}
-                  setShowModal={setShowActionModal}
+                  showMenu={showActionMenu}
+                  setShowMenu={setShowActionMenu}
                 />
               ))}
             </tbody>

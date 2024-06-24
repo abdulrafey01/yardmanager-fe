@@ -10,18 +10,14 @@ import {
   deleteInvoice,
   setDeleteInvoiceIndex,
   setShowDeleteModal,
-} from "@/lib/features/invoice/invoiceSlice";
-type Props = {
-  showModal: number;
-  index: number;
-};
+} from "../../../lib/features/invoice/invoiceSlice";
 
-const InvoiceActionMenu = ({ showModal, index }: Props) => {
+const InvoiceActionMenu = ({ showActionMenu, index }) => {
   const dispatch = useDispatch();
   return (
     <div
       className={`bg-white border border-gray-300 ${
-        showModal === index ? "block" : "hidden"
+        showActionMenu === index ? "block" : "hidden"
       } shadow-lg absolute right-6 p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
       <div className=" flex justify-center items-center space-x-2 ">

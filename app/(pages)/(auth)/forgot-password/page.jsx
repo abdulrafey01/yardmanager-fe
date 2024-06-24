@@ -1,12 +1,9 @@
-import Input from "@/app/components/auth/common/Input";
-import SectionOne from "@/app/components/auth/common/SectionOne";
+import Input from "../../../components/auth/common/Input";
 import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
 import React from "react";
-import AuthButton from "@/app/components/auth/common/AuthButton";
+import AuthButton from "../../../components/auth/common/AuthButton";
 
-type Props = {};
-
-const page = (props: Props) => {
+const page = () => {
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       <div className="flex flex-col space-y-6 w-72 sm:w-96">

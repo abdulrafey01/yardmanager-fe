@@ -1,11 +1,9 @@
 "use client";
-import AuthButton from "@/app/components/auth/common/AuthButton";
 import React from "react";
 
-type Props = {};
-
-const page = (props: Props) => {
-  function maxLengthCheck(object: any) {
+import AuthButton from "../../../components/auth/common/AuthButton";
+const page = () => {
+  function maxLengthCheck(object) {
     if (object.value.length > 1) object.value = object.value.slice(0, 1);
   }
   return (

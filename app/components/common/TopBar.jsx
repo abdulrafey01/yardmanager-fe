@@ -4,9 +4,7 @@ import Avatar from "../../assets/main/27-avatar.svg";
 import DownArrowIcon from "../../assets/main/28-downarrow.svg";
 import Image from "next/image";
 
-type Props = {};
-
-const TopBar = (props: Props) => {
+const TopBar = () => {
   return (
     <div className="w-full bg-white p-3 flex justify-between items-center">
       <div className="flex space-x-2 cursor-pointer">

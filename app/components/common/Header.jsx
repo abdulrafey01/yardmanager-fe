@@ -2,9 +2,7 @@ import React from "react";
 
 import YardIcon from "../../assets/auth/yardicon-1.svg";
 import Image from "next/image";
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <div className="  flex justify-start items-center text-white space-x-1">
       <Image src={YardIcon} alt="logo" />
