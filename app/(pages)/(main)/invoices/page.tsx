@@ -4,91 +4,51 @@ import React, { useEffect } from "react";
 import PlusIcon from "../../../assets/main/29-plus.svg";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import InvoiceRow from "@/app/components/invoices/InvoiceRow";
+import { useSelector } from "react-redux";
 
 type Props = {};
 
 const page = (props: Props) => {
-  const data = [
-    {
-      name: "Shahid",
-      id: "7826274843",
-      email: "shahid@example.com",
-      phone: "123-456-7890",
-      amount: "$272789",
-      date: "24/04/2024",
-      status: "Received",
-    },
-    {
-      name: "Raja Noraiz",
-      id: "7826274844",
-      email: "noriazraja2121@gmail.com",
-      phone: "234-567-8901",
-      amount: "$272789",
-      date: "24/04/2024",
-      status: "Pending",
-    },
-    {
-      name: "Alice Johnson",
-      id: "7826274845",
-      email: "alice.johnson@example.com",
-      phone: "345-678-9012",
-      amount: "$152340",
-      date: "25/04/2024",
-      status: "Received",
-    },
-    {
-      name: "Bob Smith",
-      id: "7826274846",
-      email: "bob.smith@example.com",
-      phone: "456-789-0123",
-      amount: "$450600",
-      date: "26/04/2024",
-      status: "Pending",
-    },
-    {
-      name: "Carol White",
-      id: "7826274847",
-      email: "carol.white@example.com",
-      phone: "567-890-1234",
-      amount: "$783200",
-      date: "27/04/2024",
-      status: "Received",
-    },
-    // Add more objects as needed
-  ];
+  const dataFromServer = useSelector((state: any) => state.invoice.data);
 
+  const [pageNumber, setPageNumber] = React.useState(1);
+  const [totalPage, setTotalPage] = React.useState(0);
+  const [dataToShow, setDataToShow] = React.useState<any[]>([]);
+  const [showActionModal, setShowActionModal] = React.useState(-1);
+
+  useEffect(() => {
+    displayData(dataFromServer, pageNumber);
+  }, [dataFromServer, pageNumber]);
   const displayData = (data: any, pageNumber: any) => {
     // Total Length
     let dataLength = data.length;
     console.log(dataLength);
-    //  Max to Display on singple page
-    let maxData = 2;
+    //  Max to Display on single page
+    let maxData = 12;
     // Start index to display data
     let dataStart = (pageNumber - 1) * maxData;
     if (dataLength > maxData) {
       let newData = data.slice(dataStart, maxData + dataStart);
       console.log(newData);
+      setDataToShow(newData);
     }
     // Total Number of pages
-    let totalPage = Math.ceil(dataLength / maxData);
+    setTotalPage(Math.ceil(dataLength / maxData));
   };
 
-  useEffect(() => {
-    displayData(data, 2);
-  }, []);
   return (
     <div className="p-4 bg-[#f9fafb] flex-1 flex flex-col space-y-4">
       {/* Title Container*/}
       <div className="flex items-center justify-between  w-full p-2">
         <p className="font-bold text-lg">Manage Invoices</p>
         {/* Create Button */}
-        <div className="bg-[#78FFB6] p-3 text-left rounded-lg flex space-x-2">
+        <div className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-3 text-left rounded-lg flex space-x-2">
           <p className="font-bold text-sm">Create Invoice</p>
           <Image src={PlusIcon} alt="arrowIcon" />
         </div>
       </div>
       {/* Table */}
-      <div className=" flex-1 bg-white  border rounded-xl border-gray-300 flex flex-col">
+      <div className=" border rounded-xl border-gray-300 flex flex-col">
         {/* Table Head */}
         <div className="p-4 w-full rounded-t-lg flex justify-between items-center">
           <p className="font-medium text-xl">Invoice List</p>
@@ -117,7 +77,7 @@ const page = (props: Props) => {
               </tr>
             </thead>
             <tbody className="text-sm w-full">
-              {data.map((item, index) => (
+              {dataToShow.map((item, index) => (
                 <InvoiceRow
                   name={item.name}
                   id={item.id}
@@ -126,11 +86,39 @@ const page = (props: Props) => {
                   amount={item.amount}
                   date={item.date}
                   status={item.status}
-                  key={index}
+                  index={index}
+                  showModal={showActionModal}
+                  setShowModal={setShowActionModal}
                 />
               ))}
             </tbody>
           </table>
+        </div>
+        {/* Footer */}
+        <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
+          <p className="font-semibold text-sm">
+            Page {pageNumber} of {totalPage}
+          </p>
+          <div className="flex space-x-2">
+            <div
+              onClick={() =>
+                setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
+              }
+              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+            >
+              Previous
+            </div>
+            <div
+              onClick={() =>
+                setPageNumber(
+                  pageNumber === totalPage ? pageNumber : pageNumber + 1
+                )
+              }
+              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+            >
+              Next
+            </div>
+          </div>
         </div>
       </div>
     </div>

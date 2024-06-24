@@ -106,7 +106,7 @@ const SideBar = (props: Props) => {
   return (
     <div className="flex-1 bg-black flex flex-col justify-start items-center p-6 space-y-6">
       {/* Top part */}
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-6 ">
         <Header />
         {/* Line */}
         <Image src={LineSvg} alt="line" />
@@ -121,8 +121,10 @@ const SideBar = (props: Props) => {
                 setActiveBottomBtn(-1);
               }}
               className={`w-full flex space-x-2 items-center ${
-                activeMainBtn === index ? "bg-[#78FFB6] hover:bg-[#78FFB6]" : ""
-              } rounded-lg p-3 cursor-pointer hover:bg-[#ecf2ef49]`}
+                activeMainBtn === index
+                  ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
+                  : "hover:bg-[#ecf2ef49]"
+              } rounded-lg p-3 cursor-pointer `}
             >
               <Image
                 src={activeMainBtn === index ? item.iconB : item.iconW}
@@ -145,7 +147,7 @@ const SideBar = (props: Props) => {
       </div>
 
       {/* Bottom Part */}
-      <div className="w-full">
+      <div className="w-full flex-1 flex flex-col items-center justify-end ">
         {sideButtonsBottom.map((item, index) => {
           return (
             <div
@@ -156,8 +158,8 @@ const SideBar = (props: Props) => {
               className={`w-full flex space-x-2 items-center ${
                 activeBottomBtn === index
                   ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
-                  : ""
-              } rounded-lg p-3 cursor-pointer hover:bg-[#ecf2ef49]`}
+                  : "hover:bg-[#ecf2ef49]"
+              } rounded-lg p-3 cursor-pointer `}
             >
               <Image
                 src={activeBottomBtn === index ? item.iconB : item.iconW}
