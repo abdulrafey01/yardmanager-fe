@@ -8,12 +8,14 @@ import MenuIcon from "../../../assets/main/37-menu.svg";
 import TableHeadRow from "../../../components/common/TableHeadRow";
 import RoleRow from "../../../components/roles/RoleRow";
 import { displayData } from "../../../helpers/pagination";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TableDataRow from "../../../components/common/TableDataRow";
+import { setShowAddRoleMenu } from "../../../../lib/features/roles/roleSlice";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.roles.rolesData);
 
+  const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
 
@@ -27,11 +29,14 @@ const page = () => {
   }, [dataFromServer, pageNumber]);
   const { rolesData } = useSelector((state) => state.roles);
   return (
-    <div className="p-4 bg-[#f9fafb] flex-1 flex flex-col space-y-4">
+    <div className="p-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
         {/* Create Role Button */}
         <WhiteBtn title={"Add Employee"} />
-        <GreenBtn title={"Create New Role"} />
+        <GreenBtn
+          onClick={() => dispatch(setShowAddRoleMenu(true))}
+          title={"Create New Role"}
+        />
       </div>
       {/* Table */}
       <div className=" border rounded-xl border-gray-300 flex flex-col">
@@ -48,7 +53,7 @@ const page = () => {
               <input
                 type="text"
                 placeholder="Search"
-                className="w-full outline-none"
+                className="w-full outline-none bg-transparent"
               />
             </div>
             <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
@@ -95,7 +100,7 @@ const page = () => {
               onClick={() =>
                 setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
               }
-              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
             >
               Previous
             </div>
@@ -105,7 +110,7 @@ const page = () => {
                   pageNumber === totalPage ? pageNumber : pageNumber + 1
                 )
               }
-              className="cursor-pointer py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
             >
               Next
             </div>

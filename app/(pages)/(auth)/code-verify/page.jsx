@@ -68,7 +68,9 @@ const page = () => {
         <div className="flex justify-start items-center space-x-1">
           <p className="text-gray-600">Didn’t receive the OTP? </p>
 
-          <p className="font-semibold text-[#6DE8A6]">Resend</p>
+          <p className="font-semibold text-[#6DE8A6] cursor-pointer select-none">
+            Resend
+          </p>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ const InvoiceRow = ({
     <tr
       // On mouseleaving the row, close the action menu
       onMouseLeave={() => setShowMenu(-1)}
-      className="border relative border-[#EDEEF2] even:bg-[#a5a5a50a] "
+      className="border relative border-[#EDEEF2] even:bg-[#fbfbfb] bg-white"
     >
       <td className=" p-3 text-left">{name}</td>
       <td className=" p-3 text-left">{id}</td>
@@ -31,7 +31,7 @@ const InvoiceRow = ({
       <td className=" p-3 text-left">
         <Badge received={status === "Received"} />
       </td>
-      <td className=" py-4 flex justify-center items-center ">
+      <td className=" py-8  flex justify-center items-center ">
         <Image
           onClick={() => {
             // if clicked on same row icon, close the Menu else close all and open respective row icon

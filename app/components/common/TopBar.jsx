@@ -7,7 +7,7 @@ import Image from "next/image";
 const TopBar = () => {
   return (
     <div className="w-full bg-white p-3 flex justify-between items-center">
-      <div className="flex space-x-2 cursor-pointer">
+      <div className="hidden md:flex space-x-2 cursor-pointer">
         <p className="text-[#4A5578] ">Dashboard</p>
         <Image src={ArrowIcon} alt="arrowIcon" />
       </div>

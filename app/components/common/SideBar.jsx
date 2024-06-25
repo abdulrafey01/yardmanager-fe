@@ -29,11 +29,15 @@ import SubSvgB from "../../assets/main/13-subsblack.svg";
 import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
+import BurgerIcon from "../../assets/main/38-burger.svg";
+
+import ArrowIcon from "../../assets/main/26-arrow.svg";
 import { useRouter } from "next/navigation";
 
 const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
+  const [showSideBar, setShowSideBar] = useState(false);
   const sideButtonsMain = [
     {
       name: "Dashboard",
@@ -108,84 +112,106 @@ const SideBar = () => {
 
   const router = useRouter();
   return (
-    <div className="hidden flex-1 bg-black md:flex flex-col justify-start items-center p-6 space-y-6">
-      {/* Top part */}
-      <div className="flex flex-col space-y-6 ">
-        <Header />
-        {/* Line */}
-        <Image src={LineSvg} alt="line" />
-      </div>
-      {/* Middle Part */}
-      <div className="w-full ">
-        {sideButtonsMain.map((item, index) => {
-          return (
-            <div
-              onClick={() => {
-                setActiveMainBtn(index);
-                setActiveBottomBtn(-1);
-                router.push(item.route);
-              }}
-              className={`w-full flex space-x-2 items-center ${
-                activeMainBtn === index
-                  ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
-                  : "hover:bg-[#ecf2ef49]"
-              } rounded-lg p-3 cursor-pointer `}
-            >
-              <Image
-                src={activeMainBtn === index ? item.iconB : item.iconW}
-                alt="icon"
-                width={20}
-                height={20}
-              />
-              <p
-                className={`${
+    <>
+      <div
+        className={`${
+          showSideBar ? "flex" : "hidden"
+        } flex-1 bg-black md:flex absolute z-10 md:relative h-full md:h-auto flex-col justify-start items-center p-6 space-y-6`}
+      >
+        {/* Burger Icon */}
+        {/* Top part */}
+        <div className="flex flex-col space-y-6 ">
+          <div className="flex items-center justify-between">
+            <Header />
+            <Image
+              src={ArrowIcon}
+              alt="arrow"
+              className="rotate-180 cursor-pointer  md:hidden"
+              onClick={() => setShowSideBar(!showSideBar)}
+            />
+          </div>
+          {/* Line */}
+          <Image src={LineSvg} alt="line" />
+        </div>
+        {/* Middle Part */}
+        <div className="w-full ">
+          {sideButtonsMain.map((item, index) => {
+            return (
+              <div
+                onClick={() => {
+                  setActiveMainBtn(index);
+                  setActiveBottomBtn(-1);
+                  router.push(item.route);
+                }}
+                className={`w-full flex space-x-2 items-center ${
                   activeMainBtn === index
-                    ? "text-black font-medium"
-                    : "text-white"
-                } text-xs sm:text-base`}
+                    ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
+                    : "hover:bg-[#ecf2ef49]"
+                } rounded-lg p-3 cursor-pointer `}
               >
-                {item.name}
-              </p>
-            </div>
-          );
-        })}
-      </div>
+                <Image
+                  src={activeMainBtn === index ? item.iconB : item.iconW}
+                  alt="icon"
+                  width={20}
+                  height={20}
+                />
+                <p
+                  className={`${
+                    activeMainBtn === index
+                      ? "text-black font-medium"
+                      : "text-white"
+                  } text-xs sm:text-base`}
+                >
+                  {item.name}
+                </p>
+              </div>
+            );
+          })}
+        </div>
 
-      {/* Bottom Part */}
-      <div className="w-full flex-1 flex flex-col items-center justify-end ">
-        {sideButtonsBottom.map((item, index) => {
-          return (
-            <div
-              onClick={() => {
-                setActiveBottomBtn(index);
-                setActiveMainBtn(-1);
-              }}
-              className={`w-full flex space-x-2 items-center ${
-                activeBottomBtn === index
-                  ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
-                  : "hover:bg-[#ecf2ef49]"
-              } rounded-lg p-3 cursor-pointer `}
-            >
-              <Image
-                src={activeBottomBtn === index ? item.iconB : item.iconW}
-                alt="icon"
-                width={20}
-                height={20}
-              />
-              <p
-                className={`${
+        {/* Bottom Part */}
+        <div className="w-full flex-1 flex flex-col items-center justify-end ">
+          {sideButtonsBottom.map((item, index) => {
+            return (
+              <div
+                onClick={() => {
+                  setActiveBottomBtn(index);
+                  setActiveMainBtn(-1);
+                }}
+                className={`w-full flex space-x-2 items-center ${
                   activeBottomBtn === index
-                    ? "text-black font-medium"
-                    : "text-white"
-                } text-xs sm:text-base`}
+                    ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
+                    : "hover:bg-[#ecf2ef49]"
+                } rounded-lg p-3 cursor-pointer `}
               >
-                {item.name}
-              </p>
-            </div>
-          );
-        })}
+                <Image
+                  src={activeBottomBtn === index ? item.iconB : item.iconW}
+                  alt="icon"
+                  width={20}
+                  height={20}
+                />
+                <p
+                  className={`${
+                    activeBottomBtn === index
+                      ? "text-black font-medium"
+                      : "text-white"
+                  } text-xs sm:text-base`}
+                >
+                  {item.name}
+                </p>
+              </div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+      {/* Burger Icon */}
+      <div
+        onClick={() => setShowSideBar(!showSideBar)}
+        className={`md:hidden absolute top-3 right-3  rotate-180    rounded-full  cursor-pointer hover:bg-slate-200`}
+      >
+        <Image src={BurgerIcon} alt="Sidebar" height={30} width={30} />
+      </div>
+    </>
   );
 };
 

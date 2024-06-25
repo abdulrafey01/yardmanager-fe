@@ -12,6 +12,7 @@ const layout = ({ children }) => {
     <Provider store={makeStore()}>
       <div className="flex relative bg-[#F9FAFB] min-h-screen">
         <DeleteModal />
+
         <SideBar />
         <div className="flex-[5] flex flex-col">
           <TopBar />

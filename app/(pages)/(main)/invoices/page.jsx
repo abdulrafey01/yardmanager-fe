@@ -33,22 +33,22 @@ const page = () => {
         </div>
       </div>
       {/* Table */}
-      <div className=" border rounded-xl border-gray-300 flex flex-col">
+      <div className=" border rounded-xl   border-gray-300 flex flex-col overflow-x-scroll w-screen sm:w-full sm:overflow-x-visible">
         {/* Table Head */}
-        <div className="p-4 w-full rounded-t-lg flex justify-between items-center">
+        <div className="p-4 w-full  rounded-t-lg flex justify-between items-center">
           <p className="font-medium text-xl">Invoice List</p>
           <div className="flex p-2 w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
             <Image src={SearchIcon} alt="SearchIcon" />
             <input
               type="text"
               placeholder="Search"
-              className="w-full outline-none"
+              className="w-full outline-none bg-transparent"
             />
           </div>
         </div>
         {/* Table Body */}
-        <div className="bg-white">
-          <table className="table-auto w-full ">
+        <div className="bg-white ">
+          <table className="table-auto w-full   ">
             <TableHeadRow
               titles={[
                 "Name",

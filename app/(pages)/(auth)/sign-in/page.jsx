@@ -29,10 +29,17 @@ export default function page() {
               <div className="bg-white flex justify-center items-center rounded-sm border-white">
                 <input type="checkbox" className="h-3.5 w-3.5 outline-none" />
               </div>
-              <p>Remember Me</p>
+              <p className="text-sm sm:text-base">Remember Me</p>
             </div>
-            <div>
-              <p className="font-semibold">Forgot Password?</p>
+            <div
+              onClick={() => {
+                router.push("/forgot-password");
+              }}
+              className="cursor-pointer"
+            >
+              <p className="text-sm sm:text-base font-semibold">
+                Forgot Password?
+              </p>
             </div>
           </div>
         </div>
@@ -53,11 +60,11 @@ export default function page() {
 
         {/* Social Account buttons container*/}
         <div className="flex w-full justify-center items-center space-x-2 sm:space-x-4">
-          <div className="h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
+          <div className="cursor-pointer select-none h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
             <Image src={GoogleIcon} alt="logo" />
             <p className="text-xs font-semibold">Sign in with Google</p>
           </div>
-          <div className="h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
+          <div className="cursor-pointer select-none h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
             <Image src={FbIcon} alt="logo" />
             <p className="text-xs font-semibold">Signup with Facebook</p>
           </div>
@@ -66,7 +73,10 @@ export default function page() {
         {/* Last Line container */}
         <div className="flex justify-center items-center w-full space-x-1">
           <p className="text-gray-600">Don't have an account? </p>
-          <p className="font-semibold text-[#78FFB6]"> Create Account!</p>
+          <p className="font-semibold text-[#78FFB6] cursor-pointer select-none">
+            {" "}
+            Create Account!
+          </p>
         </div>
       </div>
     </div>
