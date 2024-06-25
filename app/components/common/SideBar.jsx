@@ -108,7 +108,7 @@ const SideBar = () => {
 
   const router = useRouter();
   return (
-    <div className="flex-1 bg-black flex flex-col justify-start items-center p-6 space-y-6">
+    <div className="hidden flex-1 bg-black md:flex flex-col justify-start items-center p-6 space-y-6">
       {/* Top part */}
       <div className="flex flex-col space-y-6 ">
         <Header />

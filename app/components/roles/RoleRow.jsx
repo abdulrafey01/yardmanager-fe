@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 import MenuIcon from "../../assets/main/31-icon.svg";
@@ -7,7 +8,10 @@ const RoleRow = ({ role, employees, index, showMenu, setShowMenu }) => {
   return (
     <tr
       // On mouseleaving the row, close the action menu
-      onMouseLeave={() => setShowMenu(-1)}
+      onMouseLeave={() => {
+        console.log("onmouseleave");
+        setShowMenu(-1);
+      }}
       className="border relative border-[#EDEEF2] even:bg-[#a5a5a50a] "
     >
       <td className=" p-3 text-left">{index + 1}</td>

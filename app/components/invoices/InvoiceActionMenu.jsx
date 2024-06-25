@@ -7,7 +7,6 @@ import DelIcon from "../../assets/main/34-trash.svg";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
 import {
-  deleteInvoice,
   setDeleteInvoiceIndex,
   setShowDeleteModal,
 } from "../../../lib/features/invoice/invoiceSlice";

@@ -22,7 +22,7 @@ const TableDataRow = ({ titles, tableType, showMenu, setShowMenu, index }) => {
         </td>
       ))}
 
-      <td className="pl-6 text-left  ">
+      <td className="pl-6 relative  text-left ">
         <Image
           onClick={() => {
             // if clicked on same row icon, close the Menu else close all and open respective row icon
@@ -37,11 +37,11 @@ const TableDataRow = ({ titles, tableType, showMenu, setShowMenu, index }) => {
           src={MenuIcon}
           alt="menu"
         />
+        {/* Action Menu Container */}
+        {tableType === "roles" && (
+          <RoleActionMenu showActionMenu={showMenu} index={index} />
+        )}
       </td>
-      {/* Action Menu Container */}
-      {tableType === "roles" && (
-        <RoleActionMenu showActionMenu={showMenu} index={index} />
-      )}
     </tr>
   );
 };
