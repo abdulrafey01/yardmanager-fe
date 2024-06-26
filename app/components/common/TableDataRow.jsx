@@ -7,17 +7,19 @@ import Image from "next/image";
 
 const TableDataRow = ({ titles, tableType, showMenu, setShowMenu, index }) => {
   return (
-    <tr
-      // On mouseleaving the row, close the action menu
-      onMouseLeave={() => setShowMenu(-1)}
-      className="border relative border-[#EDEEF2] even:bg-[#a5a5a50a] "
-    >
+    <tr className="border relative border-[#EDEEF2] even:bg-[#a5a5a50a] ">
       {/* If roles table thens= show serial number */}
       {tableType === "roles" ? (
-        <td className=" p-3 text-left">{index + 1}</td>
+        <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+          {index + 1}
+        </td>
       ) : null}
       {titles.map((title, index) => (
-        <td key={index} className="p-3 text-left">
+        <td
+          onClick={() => setShowMenu(-1)}
+          key={index}
+          className="p-3 text-left"
+        >
           {title}
         </td>
       ))}

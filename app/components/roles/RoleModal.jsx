@@ -25,7 +25,7 @@ const RoleModal = () => {
   }, [showSuccessModal]);
   return (
     <div
-      className={`absolute z-20 w-full h-full  ${
+      className={`fixed z-20 w-full h-full  ${
         // Show the modal if either of them are true
         showDeleteRoleModal || showSuccessModal ? "block" : "hidden"
       }`}

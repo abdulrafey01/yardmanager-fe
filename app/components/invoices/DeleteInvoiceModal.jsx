@@ -14,7 +14,7 @@ const DeleteInvoiceModal = () => {
   );
   return (
     <div
-      className={`absolute z-20 w-full h-full ${
+      className={`fixed z-20 w-full h-full ${
         showDeleteModal ? "block" : "hidden"
       }`}
     >

@@ -17,18 +17,26 @@ const InvoiceRow = ({
   setShowMenu,
 }) => {
   return (
-    <tr
-      // On mouseleaving the row, close the action menu
-      onMouseLeave={() => setShowMenu(-1)}
-      className="border relative border-[#EDEEF2] even:bg-[#fbfbfb] bg-white"
-    >
-      <td className=" p-3 text-left">{name}</td>
-      <td className=" p-3 text-left">{id}</td>
-      <td className=" p-3 text-left">{email}</td>
-      <td className=" p-3 text-left">{phone}</td>
-      <td className=" p-3   text-left">{amount}</td>
-      <td className=" p-3 text-left">{date}</td>
-      <td className=" p-3 text-left">
+    <tr className="border  relative border-[#EDEEF2] even:bg-[#fbfbfb] bg-white">
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+        {name}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+        {id}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+        {email}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+        {phone}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3   text-left">
+        {amount}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
+        {date}
+      </td>
+      <td onClick={() => setShowMenu(-1)} className=" p-3 text-left">
         <Badge received={status === "Received"} />
       </td>
       <td className=" p-3 relative  flex justify-center   ">

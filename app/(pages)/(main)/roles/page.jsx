@@ -30,7 +30,7 @@ const page = () => {
   }, [dataFromServer, pageNumber]);
   const { rolesData } = useSelector((state) => state.roles);
   return (
-    <div className="p-4 flex-grow bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 h-full">
+    <div className="p-4  bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 h-full">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
         {/* Create Role Button */}
         <WhiteBtn title={"Add Employee"} />
