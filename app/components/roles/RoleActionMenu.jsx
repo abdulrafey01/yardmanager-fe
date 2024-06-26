@@ -6,6 +6,7 @@ import DelIcon from "../../assets/main/34-trash.svg";
 import Image from "next/image";
 import {
   setDeleteRoleIndex,
+  setShowSideRoleMenu,
   setShowDeleteRoleModal,
 } from "../../../lib/features/roles/roleSlice";
 import { useDispatch } from "react-redux";
@@ -16,13 +17,33 @@ const RoleActionMenu = ({ showActionMenu, index }) => {
     <div
       className={`bg-white border border-gray-300 ${
         showActionMenu === index ? "block" : "hidden"
-      } shadow-lg absolute top-12 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
+      } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
-      <div className="cursor-pointer flex justify-center items-center space-x-2 ">
+      <div
+        onClick={() => {
+          dispatch(
+            setShowSideRoleMenu({
+              value: true,
+              mode: "edit",
+            })
+          );
+        }}
+        className="cursor-pointer flex justify-center items-center space-x-2 "
+      >
         <Image src={EditIcon} alt="edit" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Edit</p>
       </div>
-      <div className="cursor-pointer flex justify-center items-center space-x-2 ">
+      <div
+        onClick={() => {
+          dispatch(
+            setShowSideRoleMenu({
+              value: true,
+              mode: "preview",
+            })
+          );
+        }}
+        className="cursor-pointer flex justify-center items-center space-x-2 "
+      >
         <Image src={PrevIcon} alt="preview" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Preview</p>
       </div>

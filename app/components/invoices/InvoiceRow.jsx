@@ -26,28 +26,30 @@ const InvoiceRow = ({
       <td className=" p-3 text-left">{id}</td>
       <td className=" p-3 text-left">{email}</td>
       <td className=" p-3 text-left">{phone}</td>
-      <td className=" p-3 text-left">{amount}</td>
+      <td className=" p-3   text-left">{amount}</td>
       <td className=" p-3 text-left">{date}</td>
       <td className=" p-3 text-left">
         <Badge received={status === "Received"} />
       </td>
-      <td className=" py-8  flex justify-center items-center ">
-        <Image
-          onClick={() => {
-            // if clicked on same row icon, close the Menu else close all and open respective row icon
-            if (showMenu === index) {
-              setShowMenu(-1);
-            } else {
-              setShowMenu(-1);
-              setShowMenu(index);
-            }
-          }}
-          className="cursor-pointer"
-          src={MenuIcon}
-          alt="menu"
-        />
-        {/* Action Menu Container */}
-        <InvoiceActionMenu showActionMenu={showMenu} index={index} />
+      <td className=" p-3 relative  flex justify-center   ">
+        <div className="absolute top-8 md:top-4">
+          <Image
+            onClick={() => {
+              // if clicked on same row icon, close the Menu else close all and open respective row icon
+              if (showMenu === index) {
+                setShowMenu(-1);
+              } else {
+                setShowMenu(-1);
+                setShowMenu(index);
+              }
+            }}
+            className="cursor-pointer"
+            src={MenuIcon}
+            alt="menu"
+          />
+          {/* Action Menu Container */}
+          <InvoiceActionMenu showActionMenu={showMenu} index={index} />
+        </div>
       </td>
     </tr>
   );

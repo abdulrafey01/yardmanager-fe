@@ -4,15 +4,14 @@ import SideBar from "../../components/common/SideBar";
 
 import { Provider } from "react-redux";
 import { makeStore } from "../../../lib/store";
-import DeleteModal from "../../components/common/DeleteModal";
+import AbsoluteMenusAndModals from "../../components/common/AbsoluteMenusAndModals";
 import TopBar from "../../components/common/TopBar";
 
 const layout = ({ children }) => {
   return (
     <Provider store={makeStore()}>
-      <div className="flex relative bg-[#F9FAFB] min-h-screen">
-        <DeleteModal />
-
+      <div className="flex relative flex-grow  min-h-screen">
+        <AbsoluteMenusAndModals />
         <SideBar />
         <div className="flex-[5] flex flex-col">
           <TopBar />

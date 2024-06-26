@@ -10,7 +10,8 @@ import RoleRow from "../../../components/roles/RoleRow";
 import { displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableDataRow from "../../../components/common/TableDataRow";
-import { setShowAddRoleMenu } from "../../../../lib/features/roles/roleSlice";
+import { setShowSideRoleMenu } from "../../../../lib/features/roles/roleSlice";
+import AddRoleMenu from "../../../components/roles/SideRoleMenu";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.roles.rolesData);
@@ -29,12 +30,14 @@ const page = () => {
   }, [dataFromServer, pageNumber]);
   const { rolesData } = useSelector((state) => state.roles);
   return (
-    <div className="p-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4">
+    <div className="p-4 flex-grow bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 h-full">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
         {/* Create Role Button */}
         <WhiteBtn title={"Add Employee"} />
         <GreenBtn
-          onClick={() => dispatch(setShowAddRoleMenu(true))}
+          onClick={() =>
+            dispatch(setShowSideRoleMenu({ value: true, mode: "add" }))
+          }
           title={"Create New Role"}
         />
       </div>

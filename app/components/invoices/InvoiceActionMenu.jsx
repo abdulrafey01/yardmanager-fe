@@ -17,7 +17,7 @@ const InvoiceActionMenu = ({ showActionMenu, index }) => {
     <div
       className={`bg-white border border-gray-300 ${
         showActionMenu === index ? "block" : "hidden"
-      } shadow-lg absolute top-12 right-6 p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
+      } shadow-lg absolute top-8 right-[-5px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
       <div className=" flex justify-center items-center space-x-2 ">
         <Image src={EditIcon} alt="edit" height={20} width={20} />
