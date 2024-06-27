@@ -29,7 +29,7 @@ const page = () => {
       <div className="flex items-center justify-between  w-full p-2">
         <p className="font-bold text-lg">Manage Invoices</p>
         {/* Create Button */}
-        <div className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-2 text-left rounded-lg flex space-x-2">
+        <div className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-3 text-left rounded-lg flex space-x-2">
           <p className="font-bold text-sm">Create Invoice</p>
           <Image src={PlusIcon} alt="arrowIcon" />
         </div>

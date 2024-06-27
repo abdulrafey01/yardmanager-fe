@@ -56,9 +56,10 @@ const SideBar = () => {
       route: "/invoices",
     },
     {
-      name: "Location",
+      name: "Locations",
       iconW: LocSvg,
       iconB: LocSvgB,
+      route: "/locations",
     },
     {
       name: "Parts",
@@ -102,11 +103,13 @@ const SideBar = () => {
       name: "Privacy Policy",
       iconW: PvcSvg,
       iconB: PvcSvgB,
+      route: "/privacy-policy",
     },
     {
       name: "Terms & Conditions",
       iconW: TermSvg,
       iconB: TermSvgB,
+      route: "/terms-condition",
     },
   ];
 
@@ -177,6 +180,7 @@ const SideBar = () => {
                 onClick={() => {
                   setActiveBottomBtn(index);
                   setActiveMainBtn(-1);
+                  router.push(item.route);
                 }}
                 className={`w-full flex space-x-2 items-center ${
                   activeBottomBtn === index
