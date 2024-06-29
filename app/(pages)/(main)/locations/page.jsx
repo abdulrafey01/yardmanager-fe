@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
-import { setShowLocationSideMenu } from "../../../../lib/features/locations/locationSlice";
 import {
   setCurrentPage,
   setShowSideMenu,

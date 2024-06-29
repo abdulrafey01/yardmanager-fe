@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
-import { setShowInventorySideMenu } from "../../../../lib/features/inventory/inventorySlice";
 import {
   setCurrentPage,
   setShowSideMenu,

@@ -10,10 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
-import {
-  setCurrentPage,
-  setShowSideMenu,
-} from "../../../../lib/features/shared/sharedSlice";
+import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.invoice.data);
