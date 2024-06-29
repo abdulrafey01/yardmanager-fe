@@ -9,8 +9,6 @@ import RoleSideMenu from "../roles/RoleSideMenu";
 const SideMenu = () => {
   const { currentPage } = useSelector((state) => state.shared);
 
-  const dispatch = useDispatch();
-
   return currentPage === "Parts" ? (
     <PartSideMenu />
   ) : currentPage === "Inventory" ? (
