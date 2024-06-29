@@ -11,7 +11,7 @@ import "../../styles.css";
 const layout = ({ children }) => {
   return (
     <Provider store={makeStore()}>
-      <div className="flex relative  min-h-screen no-scrollbar">
+      <div className="flex relative  min-h-screen">
         <AbsoluteMenusAndModals />
         <SideBar />
         <div className="flex-[5] flex flex-col">

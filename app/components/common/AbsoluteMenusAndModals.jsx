@@ -4,7 +4,7 @@ import RoleModal from "../roles/RoleModal";
 import LocationModal from "../locations/LocationModal";
 import DeleteInvoiceModal from "../invoices/DeleteInvoiceModal";
 import AddRoleMenu from "../roles/SideRoleMenu";
-import LocationSideMenu from "../locations/LocationSideMenu";
+import SideMenu from "./SideMenu";
 const AbsoluteMenusAndModals = () => {
   const dispatch = useDispatch();
   const { deleteInvoiceIndex, showDeleteModal } = useSelector(
@@ -13,7 +13,7 @@ const AbsoluteMenusAndModals = () => {
   return (
     <>
       <AddRoleMenu />
-      <LocationSideMenu />
+      <SideMenu />
       <RoleModal />
       <LocationModal />
       <DeleteInvoiceModal />

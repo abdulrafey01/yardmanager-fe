@@ -6,14 +6,13 @@ import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
 import { displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSideRoleMenu } from "../../../../lib/features/roles/roleSlice";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
-import { setShowLocationSideMenu } from "../../../../lib/features/locations/locationSlice";
+import { setShowInventorySideMenu } from "../../../../lib/features/inventory/inventorySlice";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.locations.locationData);
+  const dataFromServer = useSelector((state) => state.inventory.inventoryData);
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -34,12 +33,12 @@ const page = () => {
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
-        {/* Add Location Button */}
+        {/* Add Inventory Button */}
         <GreenBtn
           onClick={() =>
-            dispatch(setShowLocationSideMenu({ value: true, mode: "add" }))
+            dispatch(setShowInventorySideMenu({ value: true, mode: "add" }))
           }
-          title={"Add New Location"}
+          title={"Add New Inventory"}
         />
       </div>
       {/* Table */}
@@ -47,9 +46,9 @@ const page = () => {
         {/* Table Title container */}
         <div className="p-4 w-full rounded-t-lg flex justify-between items-center">
           <p className="hidden sm:block font-bold text-lg md:text-2xl">
-            List of Locations
+            List of Inventories
           </p>
-          <p className="sm:hidden font-bold text-lg md:text-2xl">Locations</p>
+          <p className="sm:hidden font-bold text-lg md:text-2xl">Inventorys</p>
           {/* Search input */}
           <div className="flex  space-x-4">
             <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
@@ -67,13 +66,23 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className="  overflow-visible  ">
+        <div className=" overflow-auto overflow-y-visible">
           {/* Head */}
-          <TableHead titles={["Location"]} />
+          <TableHead
+            titles={["SKU", "Part", "Year", "Model", "Make", "Variant"]}
+          />
           {/* Body */}
           {dataToShow.map((data, index) => (
             <TableRow
-              titles={[data.locationName]}
+              titles={[
+                data.sku,
+                data.part,
+                data.year,
+                data.model,
+                data.make,
+                data.variant,
+              ]}
+              type="inventory"
               key={index}
               showMenu={showActionMenu}
               setShowMenu={setShowActionMenu}
