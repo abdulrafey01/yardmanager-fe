@@ -5,10 +5,10 @@ import Image from "next/image";
 import GreenToggle from "./GreenToggle";
 import { useSelector } from "react-redux";
 const PermissionMenu = ({ title }) => {
-  const { showSideRoleMenu } = useSelector((state) => state.roles);
+  const { showSideMenu } = useSelector((state) => state.shared);
   useEffect(() => {
     setOpenPermissionDetail(false);
-  }, [showSideRoleMenu]);
+  }, [showSideMenu]);
 
   const [openPermissionDetail, setOpenPermissionDetail] = React.useState(false);
   return (

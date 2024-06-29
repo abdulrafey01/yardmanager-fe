@@ -3,7 +3,7 @@ import React from "react";
 const Badge = ({ received }) => {
   return (
     <div
-      className={` rounded-full ${
+      className={`w-24 rounded-full ${
         received ? "bg-[#ecfdf3] " : "bg-[#fff4ed]"
       } p-1 flex justify-center items-center space-x-1`}
     >
@@ -15,7 +15,7 @@ const Badge = ({ received }) => {
       <p
         className={`${
           received ? "text-[#027A48]" : "text-[#68200c]"
-        } font-semibold text-xs`}
+        } font-semibold text-sm`}
       >
         {received ? "Received" : "Pending"}
       </p>

@@ -10,6 +10,10 @@ import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
 import { setShowPartSideMenu } from "../../../../lib/features/parts/partSlice";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+} from "../../../../lib/features/shared/sharedSlice";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.parts.partData);
@@ -23,6 +27,7 @@ const page = () => {
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
 
   useEffect(() => {
+    dispatch(setCurrentPage("Parts"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
@@ -36,7 +41,7 @@ const page = () => {
         {/* Add Part Button */}
         <GreenBtn
           onClick={() =>
-            dispatch(setShowPartSideMenu({ value: true, mode: "add" }))
+            dispatch(setShowSideMenu({ value: true, mode: "add" }))
           }
           title={"Add New Part"}
         />

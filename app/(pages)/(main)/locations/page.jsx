@@ -6,11 +6,14 @@ import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
 import { displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSideRoleMenu } from "../../../../lib/features/roles/roleSlice";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
 import { setShowLocationSideMenu } from "../../../../lib/features/locations/locationSlice";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+} from "../../../../lib/features/shared/sharedSlice";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.locations.locationData);
@@ -24,6 +27,7 @@ const page = () => {
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
 
   useEffect(() => {
+    dispatch(setCurrentPage("Locations"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
@@ -37,7 +41,7 @@ const page = () => {
         {/* Add Location Button */}
         <GreenBtn
           onClick={() =>
-            dispatch(setShowLocationSideMenu({ value: true, mode: "add" }))
+            dispatch(setShowSideMenu({ value: true, mode: "add" }))
           }
           title={"Add New Location"}
         />

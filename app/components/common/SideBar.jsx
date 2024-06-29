@@ -33,7 +33,8 @@ import BurgerIcon from "../../assets/main/38-burger.svg";
 
 import ArrowIcon from "../../assets/main/26-arrow.svg";
 import { useRouter } from "next/navigation";
-
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../lib/features/shared/sharedSlice";
 const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
@@ -116,6 +117,7 @@ const SideBar = () => {
   ];
 
   const router = useRouter();
+  const dispatch = useDispatch();
   return (
     <>
       <div

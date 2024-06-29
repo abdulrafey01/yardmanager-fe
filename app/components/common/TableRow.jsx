@@ -3,8 +3,12 @@ import React from "react";
 import DotsIcon from "../../assets/main/31-icon.svg";
 import Image from "next/image";
 import ActionMenu from "../common/ActionMenu";
+import { useSelector } from "react-redux";
+import Badge from "../invoices/Badge";
+import "../../styles.css";
 
-const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, type }) => {
+const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
+  const { currentPage } = useSelector((state) => state.shared);
   const renderPartRow = (titles) => {
     // If index is 1 which means it has variant array then map the variant array differently
     return titles.map((title, index) =>
@@ -35,6 +39,30 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, type }) => {
       )
     );
   };
+
+  const renderInvoiceRow = (titles) => {
+    return titles.map((title, index) =>
+      index === 6 ? (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
+          } min-w-32  p-3 flex-1`}
+        >
+          <Badge received={title === "Received"} />
+        </div>
+      ) : (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
+          } min-w-32 overflow-auto no-scrollbar  p-3 flex-1`}
+        >
+          {title}
+        </div>
+      )
+    );
+  };
   return (
     <div className="w-full flex flex-col ">
       {/* Row */}
@@ -42,8 +70,10 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, type }) => {
       <div
         className={`w-full border border-[#EDEEF2] text-sm flex justify-between `}
       >
-        {type === "part"
+        {currentPage === "Parts"
           ? renderPartRow(titles)
+          : currentPage === "Invoices"
+          ? renderInvoiceRow(titles)
           : titles.map((title, index) => (
               <div
                 onClick={() => setShowMenu(-1)}
@@ -73,7 +103,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, type }) => {
             alt="MenuIcon"
             className="cursor-pointer "
           ></Image>
-          <ActionMenu type={type} showActionMenu={showMenu} index={rowIndex} />
+          <ActionMenu showActionMenu={showMenu} index={rowIndex} />
         </div>
       </div>
     </div>

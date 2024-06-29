@@ -2,16 +2,19 @@
 import Image from "next/image";
 import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
-import WhiteBtn from "../../../abstracts/WhiteBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import TableHeadRow from "../../../components/common/TableHeadRow";
-import RoleRow from "../../../components/roles/RoleRow";
 import { displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
-import TableDataRow from "../../../components/common/TableDataRow";
-import { setShowSideRoleMenu } from "../../../../lib/features/roles/roleSlice";
-import AddRoleMenu from "../../../components/roles/SideRoleMenu";
+import TableHead from "../../../components/common/TableHead";
+import TableRow from "../../../components/common/TableRow";
+import "../../../styles.css";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+} from "../../../../lib/features/shared/sharedSlice";
+
+import WhiteBtn from "../../../abstracts/WhiteBtn";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.roles.rolesData);
@@ -23,20 +26,24 @@ const page = () => {
   const [dataToShow, setDataToShow] = React.useState([]);
 
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
+
   useEffect(() => {
+    dispatch(setCurrentPage("Roles"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
   }, [dataFromServer, pageNumber]);
-  const { rolesData } = useSelector((state) => state.roles);
+
   return (
-    <div className="p-4  bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 h-full">
+    // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
+    // pr-6 for small devices to make content away from scrollbar due to screen width
+    <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
         {/* Create Role Button */}
         <WhiteBtn title={"Add Employee"} />
         <GreenBtn
           onClick={() =>
-            dispatch(setShowSideRoleMenu({ value: true, mode: "add" }))
+            dispatch(setShowSideMenu({ value: true, mode: "add" }))
           }
           title={"Create New Role"}
         />
@@ -66,32 +73,20 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className="bg-white">
-          <table className="table-auto w-full ">
-            <TableHeadRow
-              titles={["Sr #", "Role Name", "Employees", "Action"]}
+        <div className=" overflow-y-visible ">
+          {/* Head */}
+          <TableHead titles={["Sr #", "Role Name", "Employees"]} />
+          {/* Body */}
+          {dataToShow.map((data, index) => (
+            <TableRow
+              titles={[data.srNo, data.roleName, data.employees]}
+              type="part"
+              key={index}
+              showMenu={showActionMenu}
+              setShowMenu={setShowActionMenu}
+              rowIndex={index}
             />
-            <tbody className="text-sm w-full">
-              {dataToShow.map((role, index) => (
-                // <RoleRow
-                //   key={index}
-                //   index={index}
-                //   role={role.roleName}
-                //   employees={role.employees}
-                //   showMenu={showActionMenu}
-                //   setShowMenu={setShowActionMenu}
-                // />
-                <TableDataRow
-                  titles={[role.roleName, role.employees]}
-                  tableType={"roles"}
-                  showMenu={showActionMenu}
-                  setShowMenu={setShowActionMenu}
-                  key={index}
-                  index={index}
-                />
-              ))}
-            </tbody>
-          </table>
+          ))}
         </div>
         {/* Footer */}
         <div className="p-4 w-full rounded-b-lg flex justify-between items-center">

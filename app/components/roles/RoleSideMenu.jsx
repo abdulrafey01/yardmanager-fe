@@ -1,35 +1,36 @@
 "use client";
 import React, { useEffect, useRef } from "react";
 import PermissionMenu from "../common/PermissionMenu";
-import {
-  setShowSideRoleMenu,
-  setShowSuccessModal,
-} from "../../../lib/features/roles/roleSlice";
+
 import { useDispatch, useSelector } from "react-redux";
 import "../../../app/styles.css";
+import {
+  setShowSideMenu,
+  setShowSuccessModal,
+} from "../../../lib/features/shared/sharedSlice";
 const AddRoleMenu = () => {
-  const { showSideRoleMenu, showSuccessModal } = useSelector(
-    (state) => state.roles
+  const { showSideMenu, showSuccessModal } = useSelector(
+    (state) => state.shared
   );
   const dispatch = useDispatch();
   const menuRef = useRef();
 
   useEffect(() => {
-    if (showSideRoleMenu.value && menuRef.current) {
+    if (showSideMenu.value && menuRef.current) {
       menuRef.current.scrollTop = 0;
     }
     // Set scroll top position when opened and when role added so that modal can be viewed
-  }, [showSideRoleMenu]);
+  }, [showSideMenu]);
   return (
     <div
       className={`absolute ${
-        showSideRoleMenu.value ? "flex" : "hidden"
+        showSideMenu.value ? "flex" : "hidden"
       } w-full  h-full  z-20 overflow-y-clip `}
     >
       {/* Black part */}
       <div
         onClick={() => {
-          dispatch(setShowSideRoleMenu({ value: false }));
+          dispatch(setShowSideMenu({ value: false }));
           console.log("clicked");
         }}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
@@ -42,7 +43,7 @@ const AddRoleMenu = () => {
       >
         <div className="p-6 flex flex-col space-y-4">
           <p className="font-semibold">
-            {showSideRoleMenu.mode === "edit" ? "Edit Role" : "Add New Role"}
+            {showSideMenu.mode === "edit" ? "Edit Role" : "Add New Role"}
           </p>
           {/* Role name input */}
           <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -54,13 +55,13 @@ const AddRoleMenu = () => {
           </div>
           <div
             className={`w-full flex flex-col space-y-4 ${
-              showSideRoleMenu.mode === "preview" &&
+              showSideMenu.mode === "preview" &&
               "opacity-50 pointer-events-none"
             }`}
           >
             <p className=" font-semibold">Permissions</p>
             <p className=" ">
-              {showSideRoleMenu.mode === "edit"
+              {showSideMenu.mode === "edit"
                 ? "Edit permissions to the role you are creating and manage your users effectively!"
                 : "Assign permissions to the role you are creating and manage your           employees effectively!"}
             </p>
@@ -69,8 +70,7 @@ const AddRoleMenu = () => {
         {/* This additional container to make them opaque in preview mode */}
         <div
           className={`${
-            showSideRoleMenu.mode === "preview" &&
-            "opacity-50 pointer-events-none"
+            showSideMenu.mode === "preview" && "opacity-50 pointer-events-none"
           }  flex flex-col  items-center w-full `}
         >
           {/* Toggle Line */}
@@ -88,7 +88,7 @@ const AddRoleMenu = () => {
         <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
           <div
             onClick={() => {
-              dispatch(setShowSideRoleMenu({ value: false, mode: "add" }));
+              dispatch(setShowSideMenu({ value: false, mode: "add" }));
             }}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >

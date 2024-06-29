@@ -10,6 +10,10 @@ import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
 import { setShowInventorySideMenu } from "../../../../lib/features/inventory/inventorySlice";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+} from "../../../../lib/features/shared/sharedSlice";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.inventory.inventoryData);
@@ -23,6 +27,7 @@ const page = () => {
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
 
   useEffect(() => {
+    dispatch(setCurrentPage("Inventory"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
@@ -36,7 +41,7 @@ const page = () => {
         {/* Add Inventory Button */}
         <GreenBtn
           onClick={() =>
-            dispatch(setShowInventorySideMenu({ value: true, mode: "add" }))
+            dispatch(setShowSideMenu({ value: true, mode: "add" }))
           }
           title={"Add New Inventory"}
         />
@@ -82,7 +87,6 @@ const page = () => {
                 data.make,
                 data.variant,
               ]}
-              type="inventory"
               key={index}
               showMenu={showActionMenu}
               setShowMenu={setShowActionMenu}
