@@ -13,6 +13,7 @@ import { deletePart } from "../../../lib/features/parts/partSlice";
 import { deleteLocation } from "../../../lib/features/locations/locationSlice";
 import { deleteInvoice } from "../../../lib/features/invoice/invoiceSlice";
 import { deleteRole } from "../../../lib/features/roles/roleSlice";
+import { deleteItemsPermanently } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
 const RoleModal = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ const RoleModal = () => {
       case "Roles":
         dispatch(deleteRole(deleteIndex));
         break;
+      case "DeletedItems":
+        dispatch(deleteItemsPermanently(deleteIndex));
+        break;
       default:
         break;
     }
@@ -54,21 +58,17 @@ const RoleModal = () => {
     switch (currentPage) {
       case "Inventory":
         return "Delete Inventory";
-        break;
       case "Invoices":
         return "Delete Invoice";
-
-        break;
       case "Locations":
         return "Delete Location";
 
-        break;
       case "Parts":
         return "Delete Part";
       case "Roles":
         return "Delete Role";
-
-        break;
+      case "DeletedItems":
+        return "Delete Permanently";
       default:
         break;
     }
@@ -90,6 +90,9 @@ const RoleModal = () => {
       case "Roles":
         return "Are you sure you want to delete this role? Deleting it will remove all employees associated with this role from the system.";
         break;
+      case "DeletedItems":
+        return "Are you sure you want to delete this part? Deleting it will completely remove it from the system.";
+
       default:
         break;
     }

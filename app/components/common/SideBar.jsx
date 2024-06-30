@@ -73,6 +73,7 @@ const SideBar = () => {
       name: "Deleted Items",
       iconW: DelSvg,
       iconB: DelSvgB,
+      route: "/deleted-items",
     },
     {
       name: "Employees",
@@ -89,6 +90,7 @@ const SideBar = () => {
       name: "My Vehicle",
       iconW: CarSvg,
       iconB: CarSvgB,
+      route: "/vehicle",
     },
     {
       name: "Subscription",
@@ -123,7 +125,7 @@ const SideBar = () => {
       <div
         className={`${
           showSideBar ? "flex" : "hidden"
-        } flex-1 bg-black  lg:flex absolute z-10 md:relative h-full md:h-auto flex-col justify-start items-center p-6 space-y-6 overflow-y-auto `}
+        } flex-1 bg-black  xl:flex absolute z-10 md:relative h-full md:h-auto flex-col justify-start items-center p-6 space-y-6 overflow-y-auto `}
       >
         {/* Top part */}
         <div className="flex flex-col space-y-6 ">

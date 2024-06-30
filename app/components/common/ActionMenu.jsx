@@ -5,6 +5,7 @@ import PrevIcon from "../../assets/main/33-eye.svg";
 import DelIcon from "../../assets/main/34-trash.svg";
 import CartIcon from "../../assets/main/42-cart.svg";
 import DuplicateIcon from "../../assets/main/43-duplicate.svg";
+import RestoreIcon from "../../assets/main/47-restore.svg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -17,7 +18,37 @@ const ActionMenu = ({ showActionMenu, index }) => {
   const dispatch = useDispatch();
   const { currentPage } = useSelector((state) => state.shared);
 
-  return (
+  const renderDeletedItemsActionMenu = () => {
+    return (
+      <div
+        className={`bg-white border border-gray-300 ${
+          showActionMenu === index ? "block" : "hidden"
+        } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
+      >
+        <div
+          onClick={() => {}}
+          className="cursor-pointer flex justify-center items-center space-x-2 "
+        >
+          <Image src={RestoreIcon} alt="edit" height={20} width={20} />
+          <p className="font-semibold hover:font-bold">Restore</p>
+        </div>
+        <div
+          onClick={() => {
+            dispatch(setDeleteIndex(index));
+            dispatch(setShowDeleteModal(true));
+            console.log("deleted");
+          }}
+          className=" flex cursor-pointer justify-center items-center space-x-2 "
+        >
+          <Image src={DelIcon} alt="delete" height={20} width={20} />
+          <p className="font-semibold hover:font-bold">Delete</p>
+        </div>
+      </div>
+    );
+  };
+  return currentPage === "DeletedItems" ? (
+    renderDeletedItemsActionMenu()
+  ) : (
     <div
       className={`bg-white border border-gray-300 ${
         showActionMenu === index ? "block" : "hidden"

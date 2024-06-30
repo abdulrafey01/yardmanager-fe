@@ -30,7 +30,7 @@ const page = () => {
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
-  }, [dataFromServer, pageNumber]);
+  }, [dispatch, dataFromServer, pageNumber]);
 
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
