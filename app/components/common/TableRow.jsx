@@ -143,6 +143,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
         </div>
       ) : index === 6 ? (
         <div
+          onClick={() => setShowMenu(-1)}
           className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -158,6 +159,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
         </div>
       ) : index === 7 ? (
         <div
+          onClick={() => setShowMenu(-1)}
           className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex items-center flex-1 ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -212,8 +214,8 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
               </div>
             ))}
         <div
-          className={` min-w-16 p-3 pl-8 relative text-center ${
-            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] flex items-center"
+          className={` min-w-16 p-3 pl-8 relative text-center flex items-center ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
           <Image

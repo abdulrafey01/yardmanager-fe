@@ -6,6 +6,7 @@ import InventorySideMenu from "../inventory/InventorySideMenu";
 import PartSideMenu from "../parts/PartSideMenu";
 import LocationSideMenu from "../locations/LocationSideMenu";
 import RoleSideMenu from "../roles/RoleSideMenu";
+import VehicleSideMenu from "../Vehicle/VehicleSideMenu";
 const SideMenu = () => {
   const { currentPage } = useSelector((state) => state.shared);
 
@@ -15,6 +16,8 @@ const SideMenu = () => {
     <InventorySideMenu />
   ) : currentPage === "Locations" ? (
     <LocationSideMenu />
+  ) : currentPage === "Vehicle" ? (
+    <VehicleSideMenu />
   ) : (
     <RoleSideMenu />
   );
