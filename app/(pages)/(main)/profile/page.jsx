@@ -13,6 +13,7 @@ const page = () => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
 
+  // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 640) {
@@ -37,7 +38,7 @@ const page = () => {
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col  space-y-4  w-screen md:w-full ">
       {/* Header Imgs container */}
-      <div className="flex relative w-full p-2 bg-green-500">
+      <div className="flex relative w-full p-2">
         <Image src={ProfileHeaderImg} className="rounded-lg w-full" />
         <div className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold">
           Edit display Image

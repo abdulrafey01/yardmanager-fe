@@ -4,9 +4,11 @@ import Avatar from "../../assets/main/27-avatar.svg";
 import DownArrowIcon from "../../assets/main/28-downarrow.svg";
 import Image from "next/image";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const TopBar = () => {
   const { currentPage } = useSelector((state) => state.shared);
+  const router = useRouter();
 
   return (
     <div className="w-full bg-white p-3 flex justify-between items-center">
@@ -14,7 +16,11 @@ const TopBar = () => {
         <p className="text-[#4A5578] ">{currentPage}</p>
         <Image src={ArrowIcon} alt="arrowIcon" />
       </div>
-      <div className="flex space-x-2 justify-center items-center">
+      {/* Avatar and text container */}
+      <div
+        onClick={() => router.push("/profile")}
+        className="flex space-x-2 justify-center items-center cursor-pointer select-none"
+      >
         <div>
           <Image src={Avatar} alt="avatar" />
         </div>
