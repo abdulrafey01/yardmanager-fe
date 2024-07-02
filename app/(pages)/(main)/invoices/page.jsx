@@ -11,6 +11,7 @@ import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
 import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const dataFromServer = useSelector((state) => state.invoice.data);
@@ -22,7 +23,7 @@ const page = () => {
   const [dataToShow, setDataToShow] = React.useState([]);
 
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
-
+  const router = useRouter();
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
@@ -37,7 +38,12 @@ const page = () => {
       <div className="flex items-center justify-between  w-full p-2">
         <p className="font-bold text-lg">Manage Invoices</p>
         {/* Create Button */}
-        <div className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-3 text-left rounded-lg flex space-x-2">
+        <div
+          onClick={() => {
+            router.push("/invoices/create");
+          }}
+          className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-3 text-left rounded-lg flex space-x-2"
+        >
           <p className="font-bold text-sm">Create Invoice</p>
           <Image src={PlusIcon} alt="arrowIcon" />
         </div>
