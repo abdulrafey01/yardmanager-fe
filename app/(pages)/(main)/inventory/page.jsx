@@ -48,13 +48,13 @@ const page = () => {
       {/* Table */}
       <div className=" border rounded-xl border-gray-300 flex flex-col">
         {/* Table Title container */}
-        <div className="p-4 w-full rounded-t-lg flex justify-between items-center">
+        <div className="p-4 w-full rounded-t-lg flex gap-2 justify-between items-center">
           <p className="hidden sm:block font-bold text-lg md:text-2xl">
             List of Inventories
           </p>
-          <p className="sm:hidden font-bold text-lg md:text-2xl">Inventorys</p>
+          <p className="sm:hidden font-bold text-lg md:text-2xl">Inventory</p>
           {/* Search input */}
-          <div className="flex  space-x-4">
+          <div className="flex space-x-2 sm:space-x-4">
             <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
               <Image src={SearchIcon} alt="SearchIcon" />
               <input

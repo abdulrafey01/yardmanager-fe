@@ -13,6 +13,7 @@ import {
   setShowDeleteModal,
   setShowSideMenu,
 } from "../../../lib/features/shared/sharedSlice";
+import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
 const ActionMenu = ({ showActionMenu, index }) => {
   const dispatch = useDispatch();
@@ -26,7 +27,9 @@ const ActionMenu = ({ showActionMenu, index }) => {
         } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
       >
         <div
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(setShowRestoreModal(true));
+          }}
           className="cursor-pointer flex justify-center items-center space-x-2 "
         >
           <Image src={RestoreIcon} alt="edit" height={20} width={20} />

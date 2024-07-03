@@ -46,7 +46,7 @@ export default function page() {
         {/* Button */}
         <div
           onClick={() => {
-            router.push("/code-verify");
+            router.push("/forgot-password");
           }}
         >
           <AuthButton title="Sign In" />

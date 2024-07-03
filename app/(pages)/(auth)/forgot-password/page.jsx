@@ -25,7 +25,7 @@ const page = () => {
         {/* Button */}
         <div
           onClick={() => {
-            router.push("/reset-password");
+            router.push("/code-verify");
           }}
         >
           <AuthButton title="Send Code" />

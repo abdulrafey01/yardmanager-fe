@@ -47,7 +47,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
           onClick={() => setShowMenu(-1)}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16  p-3  flex-1 flex items-center`}
+          } min-w-20 break-all  p-3  flex-1 flex items-center`}
         >
           <Badge received={title === "Received"} />
         </div>
@@ -241,7 +241,9 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       {/* Row */}
       {/* For even rows bg-white */}
       <div
-        className={`w-full border border-[#EDEEF2] text-sm flex justify-between `}
+        className={`w-full border border-[#EDEEF2] ${
+          rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+        } text-sm flex justify-between `}
       >
         {currentPage === "Parts"
           ? renderPartRow(titles)

@@ -61,7 +61,7 @@ const page = () => {
           </div>
         </div>
         {/* Button */}
-        <div onClick={() => router.push("/forgot-password")}>
+        <div onClick={() => router.push("/reset-password")}>
           <AuthButton title="Verify Code" />
         </div>
         {/* Text */}

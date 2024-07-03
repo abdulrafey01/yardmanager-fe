@@ -33,12 +33,15 @@ import BurgerIcon from "../../assets/main/38-burger.svg";
 
 import ArrowIcon from "../../assets/main/26-arrow.svg";
 import { useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
-import { setCurrentPage } from "../../../lib/features/shared/sharedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCurrentPage,
+  setShowSideBar,
+} from "../../../lib/features/shared/sharedSlice";
 const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
-  const [showSideBar, setShowSideBar] = useState(false);
+  const { showSideBar } = useSelector((state) => state.shared);
   const sideButtonsMain = [
     {
       name: "Dashboard",
@@ -104,6 +107,7 @@ const SideBar = () => {
       name: "Settings",
       iconW: SettSvg,
       iconB: SetSvgB,
+      route: "/settings",
     },
     {
       name: "Privacy Policy",
@@ -136,7 +140,7 @@ const SideBar = () => {
               src={ArrowIcon}
               alt="arrow"
               className="rotate-180 cursor-pointer  md:hidden"
-              onClick={() => setShowSideBar(!showSideBar)}
+              onClick={() => dispatch(setShowSideBar(!showSideBar))}
             />
           </div>
           {/* Line */}
@@ -151,6 +155,7 @@ const SideBar = () => {
                   setActiveMainBtn(index);
                   setActiveBottomBtn(-1);
                   router.push(item.route);
+                  dispatch(setShowSideBar(false));
                 }}
                 className={`w-full flex space-x-2 items-center ${
                   activeMainBtn === index
@@ -187,6 +192,7 @@ const SideBar = () => {
                   setActiveBottomBtn(index);
                   setActiveMainBtn(-1);
                   router.push(item.route);
+                  dispatch(setShowSideBar(false));
                 }}
                 className={`w-full flex space-x-2 items-center ${
                   activeBottomBtn === index
@@ -213,13 +219,6 @@ const SideBar = () => {
             );
           })}
         </div>
-      </div>
-      {/* Burger Icon */}
-      <div
-        onClick={() => setShowSideBar(!showSideBar)}
-        className={`md:hidden absolute top-3 right-3  rotate-180    rounded-full  cursor-pointer hover:bg-slate-200`}
-      >
-        <Image src={BurgerIcon} alt="Sidebar" height={30} width={30} />
       </div>
     </>
   );

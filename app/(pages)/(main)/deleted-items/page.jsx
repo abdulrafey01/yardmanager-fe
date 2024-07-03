@@ -45,7 +45,7 @@ const page = () => {
           <p className="hidden sm:block font-bold text-lg md:text-2xl">
             Deleted Items
           </p>
-          <p className="sm:hidden font-bold text-xs md:text-2xl px-1">
+          <p className="sm:hidden text-center font-bold text-xs md:text-2xl px-1">
             Deleted Items
           </p>
           {/* Search input */}
