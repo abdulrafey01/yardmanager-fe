@@ -15,7 +15,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       index === 1 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-scroll sm:overflow-visible p-3 flex-1  items-center flex space-x-1 ${
+          className={` min-w-16 flex-wrap gap-2 p-3 flex-1  items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -47,7 +47,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
           onClick={() => setShowMenu(-1)}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16  p-3 overflow-auto no-scrollbar flex-1 flex items-center`}
+          } min-w-16  p-3  flex-1 flex items-center`}
         >
           <Badge received={title === "Received"} />
         </div>
@@ -56,7 +56,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
           onClick={() => setShowMenu(-1)}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 overflow-auto no-scrollbar  p-3 flex-1 flex items-center`}
+          } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
         >
           {title}
         </div>
@@ -66,10 +66,19 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
 
   const renderDeletedItemsRow = (titles) => {
     return titles.map((title, index) =>
-      index === 3 ? (
+      index === 0 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 p-3 flex-1 overflow-x-auto no-scrollbar  flex space-x-1  items-center ${
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16 break-all text-center  p-3  flex items-center`}
+        >
+          {title}
+        </div>
+      ) : index === 3 ? (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` min-w-22 p-3 flex-1 flex-wrap gap-2   flex   items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -84,7 +93,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : index === 4 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex-1  flex  items-center space-x-1 ${
+          className={` min-w-22  flex-wrap gap-2  p-3 flex-1  flex  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -99,7 +108,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 p-3 flex-1 flex items-center ${
+          className={` min-w-16 p-3 flex-1 flex break-all text-center items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -110,11 +119,20 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
   };
   const renderVehicleRow = (titles) => {
     return titles.map((title, index) =>
-      // if index is 3 show it like this and if index is 4 show it like that
+      index === 0 ? (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16 break-all text-center  p-3  flex items-center`}
+        >
+          {title}
+        </div>
+      ) : // if index is 3 show it like this and if index is 4 show it like that
       index === 3 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 p-3 flex-1 overflow-x-auto no-scrollbar items-center flex space-x-1 ${
+          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -129,7 +147,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : index === 4 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex-1   items-center flex space-x-1 ${
+          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -144,7 +162,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : index === 6 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex-1 flex items-center ${
+          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -160,7 +178,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : index === 7 ? (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex items-center flex-1 ${
+          className={` min-w-16 break-all text-center p-3 flex items-center flex-1 ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -176,7 +194,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
       ) : (
         <div
           onClick={() => setShowMenu(-1)}
-          className={` min-w-16 overflow-x-auto no-scrollbar p-3 flex-1 flex items-center ${
+          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -186,6 +204,38 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
     );
   };
 
+  const renderEmployeeRow = (titles) => {
+    return titles.map((title, index) =>
+      index === 0 ? (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16 break-all text-center  p-3  flex items-center`}
+        >
+          {title}
+        </div>
+      ) : index === 6 ? (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16  p-3 break-all text-center flex-1 flex items-center`}
+        >
+          <Badge active={title === "Active"} />
+        </div>
+      ) : (
+        <div
+          onClick={() => setShowMenu(-1)}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
+        >
+          {title}
+        </div>
+      )
+    );
+  };
   return (
     <div className="w-full flex flex-col ">
       {/* Row */}
@@ -201,18 +251,31 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
           ? renderDeletedItemsRow(titles)
           : currentPage === "Vehicle"
           ? renderVehicleRow(titles)
-          : titles.map((title, index) => (
-              <div
-                onClick={() => setShowMenu(-1)}
-                className={` ${
-                  rowIndex % 2 === 0
-                    ? "bg-white"
-                    : "bg-[#fbfbfb] flex items-center"
-                } min-w-16  p-3 overflow-auto no-scrollbar flex-1`}
-              >
-                {title}
-              </div>
-            ))}
+          : currentPage === "Employee"
+          ? renderEmployeeRow(titles)
+          : titles.map((title, index) =>
+              index === 0 ? (
+                <div
+                  onClick={() => setShowMenu(-1)}
+                  className={` ${
+                    rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+                  } min-w-16 break-all text-center  p-3  flex items-center`}
+                >
+                  {title}
+                </div>
+              ) : (
+                <div
+                  onClick={() => setShowMenu(-1)}
+                  className={` ${
+                    rowIndex % 2 === 0
+                      ? "bg-white"
+                      : "bg-[#fbfbfb] flex  items-center"
+                  } min-w-16  p-3  flex-1`}
+                >
+                  {title}
+                </div>
+              )
+            )}
         <div
           className={` min-w-16 p-3 pl-8 relative text-center flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "

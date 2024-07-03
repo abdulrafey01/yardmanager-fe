@@ -79,6 +79,7 @@ const SideBar = () => {
       name: "Employees",
       iconW: EmpSvg,
       iconB: EmpSvgB,
+      route: "/employees",
     },
     {
       name: "Role / Permissions",
