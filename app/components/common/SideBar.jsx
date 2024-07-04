@@ -47,6 +47,7 @@ const SideBar = () => {
       name: "Dashboard",
       iconW: HomeSvg,
       iconB: HomeSvgB,
+      route: "/dashboard",
     },
     {
       name: "Inventory",

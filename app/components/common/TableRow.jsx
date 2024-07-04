@@ -249,6 +249,8 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
           ? renderPartRow(titles)
           : currentPage === "Invoices"
           ? renderInvoiceRow(titles)
+          : currentPage === "Dashboard"
+          ? renderInvoiceRow(titles)
           : currentPage === "DeletedItems"
           ? renderDeletedItemsRow(titles)
           : currentPage === "Vehicle"
