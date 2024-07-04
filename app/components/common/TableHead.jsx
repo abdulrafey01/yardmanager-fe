@@ -7,7 +7,11 @@ const TableHead = ({ titles }) => {
 
   const renderFirstCell = (title) => {
     // Only for Invoices and Parts page we render the first cell larger
-    if (currentPage === "Invoices" || currentPage === "Parts") {
+    if (
+      currentPage === "Invoices" ||
+      currentPage === "Parts" ||
+      currentPage === "Dashboard"
+    ) {
       return <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>;
     } else {
       return <p className=" min-w-16 p-3 bg-[#f2fff8] ">{title}</p>;
