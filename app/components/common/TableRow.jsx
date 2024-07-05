@@ -7,13 +7,14 @@ import { useSelector } from "react-redux";
 import Badge from "../invoices/Badge";
 import "../../styles.css";
 
-const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
+const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
   const { currentPage } = useSelector((state) => state.shared);
   const renderPartRow = (titles) => {
     // If index is 1 which means it has variant array then map the variant array differently
     return titles.map((title, index) =>
       index === 1 ? (
         <div
+          key={index}
           onClick={() => setShowMenu(-1)}
           className={` min-w-16 flex-wrap gap-2 p-3 flex-1  items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -21,6 +22,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
         >
           {titles[1].map((variant, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A] rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
             >
               {variant}
@@ -29,6 +31,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
         </div>
       ) : (
         <div
+          key={index}
           onClick={() => setShowMenu(-1)}
           className={` min-w-16 p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -44,6 +47,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
     return titles.map((title, index) =>
       index === 6 ? (
         <div
+          key={index}
           onClick={() => setShowMenu(-1)}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -299,7 +303,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex }) => {
             alt="MenuIcon"
             className="cursor-pointer "
           ></Image>
-          <ActionMenu showActionMenu={showMenu} index={rowIndex} />
+          <ActionMenu showActionMenu={showMenu} index={rowIndex} id={id} />
         </div>
       </div>
     </div>

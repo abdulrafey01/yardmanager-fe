@@ -1,13 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
   setShowSuccessModal,
 } from "../../../lib/features/shared/sharedSlice";
+import { addLocation } from "../../../lib/features/locations/locationActions";
 
 const LocationSideMenu = () => {
   const { showSideMenu, currentPage } = useSelector((state) => state.shared);
+  const [formData, setFormData] = useState({
+    location: "",
+  });
 
+  //  Function to handle input change
+  const onInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Function to handle form submit
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addLocation(formData));
+  };
   const dispatch = useDispatch();
   return (
     <div
@@ -38,6 +52,8 @@ const LocationSideMenu = () => {
           {/* Location name input */}
           <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
             <input
+              onChange={onInputChange}
+              name="location"
               className="w-full outline-none"
               type="text"
               placeholder="Location Name"
@@ -63,9 +79,7 @@ const LocationSideMenu = () => {
             Cancel
           </div>
           <div
-            onClick={() => {
-              dispatch(setShowSuccessModal(true));
-            }}
+            onClick={onFormSubmit}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
           >
             Add Location

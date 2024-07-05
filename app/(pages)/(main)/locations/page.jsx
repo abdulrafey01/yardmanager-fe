@@ -13,11 +13,13 @@ import {
   setCurrentPage,
   setShowSideMenu,
 } from "../../../../lib/features/shared/sharedSlice";
+import { fetchAllLocations } from "../../../../lib/features/locations/locationActions";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.locations.locationData);
+  const { error, locationData } = useSelector((state) => state.locations);
 
   const dispatch = useDispatch();
+  const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
 
@@ -26,12 +28,24 @@ const page = () => {
   const [showActionMenu, setShowActionMenu] = React.useState(-1);
 
   useEffect(() => {
+    dispatch(fetchAllLocations());
+  }, [dispatch]);
+  useEffect(() => {
     dispatch(setCurrentPage("Locations"));
     let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
     setDataToShow(dataToShow);
     setTotalPage(totalPage);
   }, [dispatch, dataFromServer, pageNumber]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    if (locationData) {
+      setDataFromServer(locationData);
+      console.log(locationData);
+    }
+  }, [error, locationData]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -76,11 +90,12 @@ const page = () => {
           {/* Body */}
           {dataToShow.map((data, index) => (
             <TableRow
-              titles={[data.locationName]}
+              titles={[data.location]}
               key={index}
               showMenu={showActionMenu}
               setShowMenu={setShowActionMenu}
               rowIndex={index}
+              id={data.id}
             />
           ))}
         </div>

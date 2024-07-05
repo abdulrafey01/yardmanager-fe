@@ -15,7 +15,7 @@ import {
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
-const ActionMenu = ({ showActionMenu, index }) => {
+const ActionMenu = ({ showActionMenu, index, id }) => {
   const dispatch = useDispatch();
   const { currentPage } = useSelector((state) => state.shared);
 

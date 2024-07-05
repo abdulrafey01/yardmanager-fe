@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 
 import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
@@ -9,9 +9,36 @@ import Image from "next/image";
 import Input from "../../../components/auth/common/Input";
 import AuthButton from "../../../components/auth/common/AuthButton";
 import { useRouter } from "next/navigation";
+import { login } from "../../../../lib/features/auth/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function page() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { token, error } = useSelector((state) => state.auth);
+  const [formData, setFormData] = React.useState({ email: "", password: "" });
+
+  // Function to handle input change
+  const onInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Function to handle form submit
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(login(formData));
+  };
+
+  useEffect(() => {
+    if (token) {
+      console.log("token", token);
+      router.push("/dashboard");
+    }
+    if (error) {
+      console.log("error", error);
+    }
+  }, [dispatch, token, error]);
+
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
       {/* Main container in Middle */}
@@ -22,8 +49,18 @@ export default function page() {
         </div>
         {/* Input container */}
         <div className="flex flex-col space-y-4">
-          <Input placeholder="Active Email Address" icon={MsgIcon} />
-          <Input placeholder="Password" icon={PwdIcon} />
+          <Input
+            name={"email"}
+            onChange={onInputChange}
+            placeholder="Active Email Address"
+            icon={MsgIcon}
+          />
+          <Input
+            name={"password"}
+            onChange={onInputChange}
+            placeholder="Password"
+            icon={PwdIcon}
+          />
           <div className="flex justify-between items-center">
             <div className="flex justify-center items-center space-x-2">
               <div className="bg-white flex justify-center items-center rounded-sm border-white">
@@ -44,12 +81,8 @@ export default function page() {
           </div>
         </div>
         {/* Button */}
-        <div
-          onClick={() => {
-            router.push("/forgot-password");
-          }}
-        >
-          <AuthButton title="Sign In" />
+        <div>
+          <AuthButton onClick={onFormSubmit} title="Sign In" />
         </div>
         {/* "or continuue" line */}
         <div className="flex justify-center items-center w-full">
