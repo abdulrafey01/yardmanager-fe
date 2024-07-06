@@ -10,6 +10,7 @@ const SuccessModal = () => {
   );
 
   const dispatch = useDispatch();
+  const { toastmsg } = useSelector((state) => state.locations);
   // Disappear success modal after 3 seconds bc it doesnt have cross icon
   useEffect(() => {
     if (showSuccessModal) {

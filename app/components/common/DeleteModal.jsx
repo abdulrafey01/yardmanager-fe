@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { deleteInventory } from "../../../lib/features/inventory/inventorySlice";
 import { deletePart } from "../../../lib/features/parts/partSlice";
-import { deleteLocation } from "../../../lib/features/locations/locationSlice";
+import { deleteLocation } from "../../../lib/features/locations/locationActions";
 import { deleteInvoice } from "../../../lib/features/invoice/invoiceSlice";
 import { deleteRole } from "../../../lib/features/roles/roleSlice";
 
@@ -21,32 +21,32 @@ import {
 } from "../../../lib/features/deleted-items/deletedItemsSlice";
 const DeleteModal = () => {
   const dispatch = useDispatch();
-  const { deleteIndex, showDeleteModal, showSuccessModal, currentPage } =
+  const { selectedItem, showDeleteModal, showSuccessModal, currentPage } =
     useSelector((state) => state.shared);
   const deleteRow = () => {
     switch (currentPage) {
       case "Inventory":
-        dispatch(deleteInventory(deleteIndex));
+        dispatch(deleteInventory(selectedItem));
         break;
       case "Invoices":
-        dispatch(deleteInvoice(deleteIndex));
+        dispatch(deleteInvoice(selectedItem));
         break;
       case "Locations":
-        dispatch(deleteLocation(deleteIndex));
+        dispatch(deleteLocation(selectedItem._id));
         break;
       case "Parts":
-        dispatch(deletePart(deleteIndex));
+        dispatch(deletePart(selectedItem));
       case "Roles":
-        dispatch(deleteRole(deleteIndex));
+        dispatch(deleteRole(selectedItem));
         break;
       case "DeletedItems":
-        dispatch(deleteItemsPermanently(deleteIndex));
+        dispatch(deleteItemsPermanently(selectedItem));
         break;
       case "Vehicle":
-        dispatch(deleteVehicle(deleteIndex));
+        dispatch(deleteVehicle(selectedItem));
         break;
       case "Employee":
-        dispatch(deleteEmployee(deleteIndex));
+        dispatch(deleteEmployee(selectedItem));
       default:
         break;
     }

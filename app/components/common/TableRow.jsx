@@ -3,19 +3,21 @@ import React from "react";
 import DotsIcon from "../../assets/main/31-icon.svg";
 import Image from "next/image";
 import ActionMenu from "../common/ActionMenu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Badge from "../invoices/Badge";
 import "../../styles.css";
+import { setShowActionMenu } from "../../../lib/features/shared/sharedSlice";
 
-const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
-  const { currentPage } = useSelector((state) => state.shared);
+const TableRow = ({ titles, rowIndex, item }) => {
+  const { currentPage, showActionMenu } = useSelector((state) => state.shared);
+  const dispatch = useDispatch();
   const renderPartRow = (titles) => {
     // If index is 1 which means it has variant array then map the variant array differently
     return titles.map((title, index) =>
       index === 1 ? (
         <div
           key={index}
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 flex-wrap gap-2 p-3 flex-1  items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -32,7 +34,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
       ) : (
         <div
           key={index}
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -48,7 +50,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
       index === 6 ? (
         <div
           key={index}
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-20 break-all  p-3  flex-1 flex items-center`}
@@ -57,7 +59,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
@@ -72,7 +74,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16 break-all text-center  p-3  flex items-center`}
@@ -81,7 +83,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 3 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 p-3 flex-1 flex-wrap gap-2   flex   items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -96,7 +98,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 4 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22  flex-wrap gap-2  p-3 flex-1  flex  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -111,7 +113,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 p-3 flex-1 flex break-all text-center items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -125,7 +127,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16 break-all text-center  p-3  flex items-center`}
@@ -135,7 +137,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
       ) : // if index is 3 show it like this and if index is 4 show it like that
       index === 3 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
@@ -150,7 +152,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 4 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
@@ -165,7 +167,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 6 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -181,7 +183,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 7 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 break-all text-center p-3 flex items-center flex-1 ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -197,7 +199,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
@@ -212,7 +214,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16 break-all text-center  p-3  flex items-center`}
@@ -221,7 +223,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : index === 6 ? (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16  p-3 break-all text-center flex-1 flex items-center`}
@@ -230,7 +232,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       ) : (
         <div
-          onClick={() => setShowMenu(-1)}
+          onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
@@ -239,6 +241,19 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
         </div>
       )
     );
+  };
+
+  const renderLocationRow = (titles) => {
+    return titles.map((title, index) => (
+      <div
+        onClick={() => dispatch(setShowActionMenu(-1))}
+        className={` ${
+          rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] flex  items-center"
+        } min-w-16  p-3  flex-1`}
+      >
+        {title}
+      </div>
+    ));
   };
   return (
     <div className="w-full flex flex-col ">
@@ -261,10 +276,12 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
           ? renderVehicleRow(titles)
           : currentPage === "Employee"
           ? renderEmployeeRow(titles)
+          : currentPage === "Locations"
+          ? renderLocationRow(titles)
           : titles.map((title, index) =>
               index === 0 ? (
                 <div
-                  onClick={() => setShowMenu(-1)}
+                  onClick={() => dispatch(setShowActionMenu(-1))}
                   className={` ${
                     rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
                   } min-w-16 break-all text-center  p-3  flex items-center`}
@@ -273,7 +290,7 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
                 </div>
               ) : (
                 <div
-                  onClick={() => setShowMenu(-1)}
+                  onClick={() => dispatch(setShowActionMenu(-1))}
                   className={` ${
                     rowIndex % 2 === 0
                       ? "bg-white"
@@ -292,18 +309,18 @@ const TableRow = ({ titles, showMenu, setShowMenu, rowIndex, id }) => {
           <Image
             onClick={() => {
               // if clicked on same row icon, close the Menu else close all and open respective row icon
-              if (showMenu === rowIndex) {
-                setShowMenu(-1);
+              if (showActionMenu === rowIndex) {
+                dispatch(setShowActionMenu(-1));
               } else {
-                setShowMenu(-1);
-                setShowMenu(rowIndex);
+                dispatch(setShowActionMenu(-1));
+                dispatch(setShowActionMenu(rowIndex));
               }
             }}
             src={DotsIcon}
             alt="MenuIcon"
             className="cursor-pointer "
           ></Image>
-          <ActionMenu showActionMenu={showMenu} index={rowIndex} id={id} />
+          <ActionMenu index={rowIndex} item={item} />
         </div>
       </div>
     </div>

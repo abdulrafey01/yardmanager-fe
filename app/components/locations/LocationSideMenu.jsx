@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
   setShowSuccessModal,
 } from "../../../lib/features/shared/sharedSlice";
-import { addLocation } from "../../../lib/features/locations/locationActions";
+import {
+  addLocation,
+  updateLocation,
+} from "../../../lib/features/locations/locationActions";
 
 const LocationSideMenu = () => {
-  const { showSideMenu, currentPage } = useSelector((state) => state.shared);
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [formData, setFormData] = useState({
     location: "",
   });
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setFormData({ location: selectedItem.location });
+      }
+    } else {
+      setFormData({ location: "" });
+    }
+  }, [selectedItem, showSideMenu]);
 
   //  Function to handle input change
   const onInputChange = (e) => {
@@ -20,7 +34,11 @@ const LocationSideMenu = () => {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
+    if (showSideMenu.mode === "edit") {
+      dispatch(updateLocation({ formData, id: selectedItem._id }));
+    }
     dispatch(addLocation(formData));
+    dispatch(setShowSideMenu({ value: false }));
   };
   const dispatch = useDispatch();
   return (
@@ -47,25 +65,30 @@ const LocationSideMenu = () => {
           <p className="font-semibold">
             {showSideMenu.mode === "edit"
               ? "Edit Location"
+              : showSideMenu.mode === "preview"
+              ? "Preview Location"
               : "Add New Location"}
           </p>
-          {/* Location name input */}
-          <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-            <input
-              onChange={onInputChange}
-              name="location"
-              className="w-full outline-none"
-              type="text"
-              placeholder="Location Name"
-            />
+          {/* This additional container to make them opaque in preview mode */}
+          <div
+            className={`${
+              showSideMenu.mode === "preview" &&
+              "opacity-50 pointer-events-none"
+            }  flex flex-col space-y-4  items-center w-full `}
+          >
+            {/* Location name input */}
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                onChange={onInputChange}
+                name="location"
+                className="w-full outline-none"
+                type="text"
+                placeholder="Location Name"
+                value={formData.location}
+              />
+            </div>
           </div>
         </div>
-        {/* This additional container to make them opaque in preview mode */}
-        <div
-          className={`${
-            showSideMenu.mode === "preview" && "opacity-50 pointer-events-none"
-          }  flex flex-col  items-center w-full `}
-        ></div>
 
         {/* Buttons */}
 
@@ -80,9 +103,11 @@ const LocationSideMenu = () => {
           </div>
           <div
             onClick={onFormSubmit}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
+              showSideMenu.mode === "preview" && "hidden"
+            }`}
           >
-            Add Location
+            {showSideMenu.mode === "edit" ? "Edit Location" : "Add Location"}
           </div>
         </div>
       </div>

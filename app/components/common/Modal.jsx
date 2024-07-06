@@ -18,8 +18,9 @@ import RestoreModal from "../common/RestoreModal";
 import SuccessModal from "../common/SuccessModal";
 const Modal = () => {
   const dispatch = useDispatch();
-  const { deleteIndex, showDeleteModal, showSuccessModal, currentPage } =
-    useSelector((state) => state.shared);
+  const { showDeleteModal, showSuccessModal, currentPage } = useSelector(
+    (state) => state.shared
+  );
   const { showRestoreModal } = useSelector((state) => state.deletedItems);
 
   return (

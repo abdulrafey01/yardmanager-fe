@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -12,11 +12,17 @@ import "../../../styles.css";
 import {
   setCurrentPage,
   setShowSideMenu,
+  setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
-import { fetchAllLocations } from "../../../../lib/features/locations/locationActions";
+import {
+  fetchAllLocations,
+  fetchLocationsByPage,
+} from "../../../../lib/features/locations/locationActions";
 
 const page = () => {
-  const { error, locationData } = useSelector((state) => state.locations);
+  const { error, locationData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.locations
+  );
 
   const dispatch = useDispatch();
   const [dataFromServer, setDataFromServer] = React.useState([]);
@@ -25,27 +31,25 @@ const page = () => {
 
   const [dataToShow, setDataToShow] = React.useState([]);
 
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
-
-  useEffect(() => {
-    dispatch(fetchAllLocations());
-  }, [dispatch]);
   useEffect(() => {
     dispatch(setCurrentPage("Locations"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchLocationsByPage(pageNumber));
+  }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (error) {
       console.log(error);
     }
+    // When location data has come set total pages
     if (locationData) {
       setDataFromServer(locationData);
-      console.log(locationData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
     }
-  }, [error, locationData]);
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [error, locationData, toastMsg]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -88,14 +92,12 @@ const page = () => {
           {/* Head */}
           <TableHead titles={["Location"]} />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
               titles={[data.location]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
-              id={data.id}
+              item={data}
             />
           ))}
         </div>

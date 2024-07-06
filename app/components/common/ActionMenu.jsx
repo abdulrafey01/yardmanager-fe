@@ -9,15 +9,16 @@ import RestoreIcon from "../../assets/main/47-restore.svg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setDeleteIndex,
+  setSelectedItem,
+  setShowActionMenu,
   setShowDeleteModal,
   setShowSideMenu,
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
-const ActionMenu = ({ showActionMenu, index, id }) => {
+const ActionMenu = ({ index, item }) => {
   const dispatch = useDispatch();
-  const { currentPage } = useSelector((state) => state.shared);
+  const { currentPage, showActionMenu } = useSelector((state) => state.shared);
 
   const renderDeletedItemsActionMenu = () => {
     return (
@@ -28,6 +29,7 @@ const ActionMenu = ({ showActionMenu, index, id }) => {
       >
         <div
           onClick={() => {
+            dispatch(setShowActionMenu(-1));
             dispatch(setShowRestoreModal(true));
           }}
           className="cursor-pointer flex justify-center items-center space-x-2 "
@@ -37,7 +39,8 @@ const ActionMenu = ({ showActionMenu, index, id }) => {
         </div>
         <div
           onClick={() => {
-            dispatch(setDeleteIndex(index));
+            dispatch(setSelectedItem(index));
+            dispatch(setShowActionMenu(-1));
             dispatch(setShowDeleteModal(true));
             console.log("deleted");
           }}
@@ -59,6 +62,8 @@ const ActionMenu = ({ showActionMenu, index, id }) => {
     >
       <div
         onClick={() => {
+          dispatch(setSelectedItem(item));
+          dispatch(setShowActionMenu(-1));
           dispatch(
             setShowSideMenu({
               value: true,
@@ -73,6 +78,9 @@ const ActionMenu = ({ showActionMenu, index, id }) => {
       </div>
       <div
         onClick={() => {
+          dispatch(setShowActionMenu(-1));
+          dispatch(setSelectedItem(item));
+
           dispatch(
             setShowSideMenu({
               value: true,
@@ -87,7 +95,8 @@ const ActionMenu = ({ showActionMenu, index, id }) => {
       </div>
       <div
         onClick={() => {
-          dispatch(setDeleteIndex(index));
+          dispatch(setSelectedItem(item));
+          dispatch(setShowActionMenu(-1));
           dispatch(setShowDeleteModal(true));
           console.log("deleted");
         }}
