@@ -36,8 +36,9 @@ const LocationSideMenu = () => {
     e.preventDefault();
     if (showSideMenu.mode === "edit") {
       dispatch(updateLocation({ formData, id: selectedItem._id }));
+    } else {
+      dispatch(addLocation(formData));
     }
-    dispatch(addLocation(formData));
     dispatch(setShowSideMenu({ value: false }));
   };
   const dispatch = useDispatch();
