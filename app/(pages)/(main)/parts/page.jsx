@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -12,26 +12,39 @@ import "../../../styles.css";
 import {
   setCurrentPage,
   setShowSideMenu,
+  setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
+import { fetchPartsByPage } from "../../../../lib/features/parts/partActions";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.parts.partData);
+  const { error, partData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.parts
+  );
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-
-  const [dataToShow, setDataToShow] = React.useState([]);
-
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
+  const [dataFromServer, setDataFromServer] = React.useState([]);
 
   useEffect(() => {
     dispatch(setCurrentPage("Parts"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchPartsByPage(pageNumber));
+  }, [dispatch, pageNumber]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    // When part data has come, set total pages
+    if (partData) {
+      setDataFromServer(partData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
+    }
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [error, partData, toastMsg]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -74,14 +87,12 @@ const page = () => {
           {/* Head */}
           <TableHead titles={["Name", "Variants"]} />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
-              titles={[data.name, data.variants]}
-              type="part"
+              titles={[data.name, data.variant]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
+              item={data}
             />
           ))}
         </div>

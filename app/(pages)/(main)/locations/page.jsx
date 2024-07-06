@@ -29,8 +29,6 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
 
-  const [dataToShow, setDataToShow] = React.useState([]);
-
   useEffect(() => {
     dispatch(setCurrentPage("Locations"));
     dispatch(fetchLocationsByPage(pageNumber));

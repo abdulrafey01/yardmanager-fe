@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteInventory } from "../../../lib/features/inventory/inventorySlice";
-import { deletePart } from "../../../lib/features/parts/partSlice";
 import { deleteLocation } from "../../../lib/features/locations/locationActions";
 import { deleteInvoice } from "../../../lib/features/invoice/invoiceSlice";
 import { deleteRole } from "../../../lib/features/roles/roleSlice";
@@ -19,6 +18,7 @@ import {
   deleteItemsPermanently,
   setShowRestoreModal,
 } from "../../../lib/features/deleted-items/deletedItemsSlice";
+import { deletePart } from "../../../lib/features/parts/partActions";
 const DeleteModal = () => {
   const dispatch = useDispatch();
   const { selectedItem, showDeleteModal, showSuccessModal, currentPage } =
@@ -35,7 +35,7 @@ const DeleteModal = () => {
         dispatch(deleteLocation(selectedItem._id));
         break;
       case "Parts":
-        dispatch(deletePart(selectedItem));
+        dispatch(deletePart(selectedItem._id));
       case "Roles":
         dispatch(deleteRole(selectedItem));
         break;
