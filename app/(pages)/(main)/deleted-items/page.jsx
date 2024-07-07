@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -12,27 +12,39 @@ import "../../../styles.css";
 import {
   setCurrentPage,
   setShowSideMenu,
+  setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
+import { fetchDeletedItemsByPage } from "../../../../lib/features/deleted-items/deletedItemsActions";
 
 const page = () => {
-  const dataFromServer = useSelector(
-    (state) => state.deletedItems.deletedItemsData
+  const { error, deletedItemsData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.deletedItems
   );
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-
-  const [dataToShow, setDataToShow] = React.useState([]);
-
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
+  const [dataFromServer, setDataFromServer] = React.useState([]);
 
   useEffect(() => {
     dispatch(setCurrentPage("DeletedItems"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchDeletedItemsByPage(pageNumber));
+  }, [dispatch, pageNumber]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    // When deleted data has come, set total pages
+    if (deletedItemsData) {
+      setDataFromServer(deletedItemsData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
+    }
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [error, deletedItemsData, toastMsg]);
 
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -69,26 +81,25 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className=" overflow-auto overflow-y-visible">
+        <div className=" overflow-auto overflow-y-visible min-h-56">
           {/* Head */}
           <TableHead
             titles={["SKU", "Part", "Year", "Model", "Make", "Variant"]}
           />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
               titles={[
                 data.sku,
-                data.part,
-                data.year,
+                data.part?.name,
+                data.lastYear,
                 data.model,
                 data.make,
                 data.variant,
               ]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
+              item={data}
             />
           ))}
         </div>

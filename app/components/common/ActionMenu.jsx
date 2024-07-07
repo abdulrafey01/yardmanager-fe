@@ -29,6 +29,7 @@ const ActionMenu = ({ index, item }) => {
       >
         <div
           onClick={() => {
+            dispatch(setSelectedItem(item));
             dispatch(setShowActionMenu(-1));
             dispatch(setShowRestoreModal(true));
           }}
@@ -39,7 +40,7 @@ const ActionMenu = ({ index, item }) => {
         </div>
         <div
           onClick={() => {
-            dispatch(setSelectedItem(index));
+            dispatch(setSelectedItem(item));
             dispatch(setShowActionMenu(-1));
             dispatch(setShowDeleteModal(true));
             console.log("deleted");

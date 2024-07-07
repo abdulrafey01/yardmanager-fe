@@ -94,7 +94,7 @@ const page = () => {
             <TableRow
               titles={[
                 data.sku,
-                data.part.name,
+                data.part?.name,
                 data.lastYear,
                 data.model,
                 data.make,

@@ -1,15 +1,23 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../../components/common/SideBar";
 
-import { Provider } from "react-redux";
-import { makeStore } from "../../../lib/store";
 import AbsoluteMenusAndModals from "../../components/common/AbsoluteMenusAndModals";
 import TopBar from "../../components/common/TopBar";
 import "../../styles.css";
 import AuthToast from "../../abstracts/Toast";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
 const layout = ({ children }) => {
+  const router = useRouter();
+  const { token } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!token) {
+      router.push("/sign-in");
+    }
+  }, [token, router]);
   return (
     <div className="flex relative  min-h-screen">
       <AuthToast show={true} />

@@ -7,12 +7,7 @@ import { useRouter } from "next/navigation";
 
 const layout = ({ children }) => {
   const router = useRouter();
-  useEffect(() => {
-    const token = getCookie("token");
-    if (!token) {
-      router.push("/sign-in");
-    }
-  }, []);
+
   return <Provider store={makeStore()}>{children}</Provider>;
 };
 

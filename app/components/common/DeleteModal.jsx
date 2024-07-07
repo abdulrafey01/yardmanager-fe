@@ -14,10 +14,7 @@ import CrossIcon from "../../assets/main/36-x.svg";
 import Image from "next/image";
 import { setShowDeleteModal } from "../../../lib/features/shared/sharedSlice";
 
-import {
-  deleteItemsPermanently,
-  setShowRestoreModal,
-} from "../../../lib/features/deleted-items/deletedItemsSlice";
+import { deleteInventoryPermanently } from "../../../lib/features/deleted-items/deletedItemsActions";
 import { deletePart } from "../../../lib/features/parts/partActions";
 const DeleteModal = () => {
   const dispatch = useDispatch();
@@ -40,7 +37,7 @@ const DeleteModal = () => {
         dispatch(deleteRole(selectedItem._id));
         break;
       case "DeletedItems":
-        dispatch(deleteItemsPermanently(selectedItem));
+        dispatch(deleteInventoryPermanently(selectedItem._id));
         break;
       case "Vehicle":
         dispatch(deleteVehicle(selectedItem));
