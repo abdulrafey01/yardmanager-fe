@@ -4,7 +4,7 @@ import React from "react";
 
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 import AuthButton from "../../../components/auth/common/AuthButton";
-import AuthToast from "../../../abstracts/AuthToast";
+import AuthToast from "../../../abstracts/Toast";
 import { useRouter } from "next/navigation";
 
 const page = () => {
