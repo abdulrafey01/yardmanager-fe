@@ -6,8 +6,6 @@ import { getCookie } from "../helpers/storage";
 import { useRouter } from "next/navigation";
 
 const layout = ({ children }) => {
-  const router = useRouter();
-
   return <Provider store={makeStore()}>{children}</Provider>;
 };
 

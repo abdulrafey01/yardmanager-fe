@@ -17,7 +17,7 @@ const layout = ({ children }) => {
     if (!token) {
       router.push("/sign-in");
     }
-  }, [token, router]);
+  }, [token]);
   return (
     <div className="flex relative  min-h-screen">
       <AuthToast show={true} />
