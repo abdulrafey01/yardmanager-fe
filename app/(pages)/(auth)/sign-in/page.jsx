@@ -32,7 +32,9 @@ export default function page() {
   useEffect(() => {
     if (token) {
       console.log("token", token);
-      router.push("/dashboard");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 2000);
     }
     if (error) {
       console.log("error", error);
