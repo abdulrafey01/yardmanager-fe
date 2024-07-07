@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -12,27 +12,41 @@ import "../../../styles.css";
 import {
   setCurrentPage,
   setShowSideMenu,
+  setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
 
 import WhiteBtn from "../../../abstracts/WhiteBtn";
+import { fetchRolesByPage } from "../../../../lib/features/roles/roleActions";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.roles.rolesData);
+  const { error, rolesData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.roles
+  );
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-
-  const [dataToShow, setDataToShow] = React.useState([]);
-
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
+  const [dataFromServer, setDataFromServer] = React.useState([]);
 
   useEffect(() => {
     dispatch(setCurrentPage("Roles"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchRolesByPage(pageNumber));
+  }, [dispatch, pageNumber]);
+
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    // When role data has come, set total pages
+    if (rolesData) {
+      setDataFromServer(rolesData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
+    }
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [error, rolesData, toastMsg]);
 
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -75,16 +89,14 @@ const page = () => {
         {/* Table Container */}
         <div className=" overflow-y-visible ">
           {/* Head */}
-          <TableHead titles={["Sr #", "Role Name", "Employees"]} />
+          <TableHead titles={["Sr #", "Role Name"]} />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
-              titles={[data.srNo, data.roleName, data.employees]}
-              type="part"
+              titles={[index + 1, data.name]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
+              item={data}
             />
           ))}
         </div>

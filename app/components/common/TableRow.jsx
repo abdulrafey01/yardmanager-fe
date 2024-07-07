@@ -292,10 +292,8 @@ const TableRow = ({ titles, rowIndex, item }) => {
                 <div
                   onClick={() => dispatch(setShowActionMenu(-1))}
                   className={` ${
-                    rowIndex % 2 === 0
-                      ? "bg-white"
-                      : "bg-[#fbfbfb] flex  items-center"
-                  } min-w-16  p-3  flex-1`}
+                    rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+                  } min-w-16  p-3 flex  items-center  flex-1`}
                 >
                   {title}
                 </div>

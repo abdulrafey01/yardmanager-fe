@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deleteInventory } from "../../../lib/features/inventory/inventorySlice";
+import { deleteInventory } from "../../../lib/features/inventory/inventoryActions";
 import { deleteLocation } from "../../../lib/features/locations/locationActions";
 import { deleteInvoice } from "../../../lib/features/invoice/invoiceSlice";
-import { deleteRole } from "../../../lib/features/roles/roleSlice";
+import { deleteRole } from "../../../lib/features/roles/roleActions";
 
 import { deleteVehicle } from "../../../lib/features/vehicle/vehicleSlice";
 import { deleteEmployee } from "../../../lib/features/employee/employeeSlice";
@@ -26,7 +26,7 @@ const DeleteModal = () => {
   const deleteRow = () => {
     switch (currentPage) {
       case "Inventory":
-        dispatch(deleteInventory(selectedItem));
+        dispatch(deleteInventory(selectedItem._id));
         break;
       case "Invoices":
         dispatch(deleteInvoice(selectedItem));
@@ -37,7 +37,7 @@ const DeleteModal = () => {
       case "Parts":
         dispatch(deletePart(selectedItem._id));
       case "Roles":
-        dispatch(deleteRole(selectedItem));
+        dispatch(deleteRole(selectedItem._id));
         break;
       case "DeletedItems":
         dispatch(deleteItemsPermanently(selectedItem));

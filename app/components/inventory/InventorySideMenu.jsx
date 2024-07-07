@@ -10,12 +10,143 @@ import {
 import XIcon from "../../assets/main/45-xclose.svg";
 
 import EnlargeIcon from "../../assets/main/46-enlarge.svg";
-import React from "react";
+import DownArrow from "../../assets/main/28-downarrow.svg";
+import React, { useEffect, useRef } from "react";
+import {
+  addInventory,
+  updateInventory,
+} from "../../../lib/features/inventory/inventoryActions";
+import { searchLocationByName } from "../../../lib/features/locations/locationActions";
+import "../../styles.css";
+import { searchPartByName } from "../../../lib/features/parts/partActions";
 const InventorySideMenu = () => {
-  const { showSideMenu, currentPage } = useSelector((state) => state.shared);
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { locationSearchData } = useSelector((state) => state.locations);
+  const { partSearchData } = useSelector((state) => state.parts);
 
   const [imgArray, setImgArray] = React.useState(null);
+  const [showLocDropDown, setShowLocDropDown] = React.useState(false);
+  const [showPartDropDown, setShowPartDropDown] = React.useState(false);
+  // Values for inputs
+  const [locValue, setLocValue] = React.useState("");
+  const [partValue, setPartValue] = React.useState("");
   const dispatch = useDispatch();
+
+  // useref is used to prevent adding new key on every character change
+  const formDataRef = useRef(new FormData());
+
+  const [formState, setFormState] = React.useState({
+    name: "",
+    sku: "",
+    year: "",
+    model: "",
+    make: "",
+    variant: "",
+    notes: "",
+    startYear: "",
+    lastYear: "",
+    price: "",
+  });
+
+  // Function to handle input change
+  const onInputChange = (e) => {
+    // formDataRef.current.set(e.target.name, e.target.value);
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const onLocInputChange = (e) => {
+    setLocValue(e.target.value);
+    if (e.target.value.length >= 3) {
+      setShowLocDropDown(true);
+      dispatch(searchLocationByName(e.target.value));
+    } else {
+      setShowLocDropDown(false);
+    }
+  };
+
+  const onLocNameClick = (loc) => {
+    formDataRef.current.set("location", loc._id);
+    setLocValue(loc.location);
+    setShowLocDropDown(false);
+  };
+
+  const onPartNameClick = (part) => {
+    formDataRef.current.set("part", part._id);
+    setPartValue(part.name);
+    setShowPartDropDown(false);
+  };
+
+  const onPartInputChange = (e) => {
+    setPartValue(e.target.value);
+    if (e.target.value.length >= 3) {
+      setShowPartDropDown(true);
+      dispatch(searchPartByName(e.target.value));
+    } else {
+      setShowPartDropDown(false);
+    }
+  };
+  // Function to handle image change
+  const onImageChange = (e) => {
+    // formData not set directly becauese files after selecting appearing in box are coming from imgArray
+    const files = Array.from(e.target.files);
+    setImgArray(files);
+    for (let i = 0; i < files.length; i++) {
+      formDataRef.current.append("images", files[i]);
+    }
+  };
+
+  // Function to handle form submit
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+
+    formDataRef.current.set("name", formState.name);
+    formDataRef.current.set("sku", formState.sku);
+    formDataRef.current.set("year", formState.year);
+    formDataRef.current.set("model", formState.model);
+    formDataRef.current.set("make", formState.make);
+    formDataRef.current.set("variant", formState.variant);
+    formDataRef.current.set("notes", formState.notes);
+    formDataRef.current.set("startYear", formState.startYear);
+    formDataRef.current.set("lastYear", formState.lastYear);
+    formDataRef.current.set("price", formState.price);
+
+    if (showSideMenu.mode === "edit") {
+      dispatch(
+        updateInventory({ formData: formDataRef.current, id: selectedItem._id })
+      );
+    } else {
+      dispatch(addInventory(formDataRef.current));
+    }
+    dispatch(setShowSideMenu({ value: false }));
+  };
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setFormState(selectedItem);
+        setLocValue(selectedItem.location.location);
+        setPartValue(selectedItem.part.name);
+        setImgArray(selectedItem.images);
+      }
+    } else {
+      setFormState({
+        name: "",
+        sku: "",
+        year: "",
+        model: "",
+        make: "",
+        variant: "",
+        notes: "",
+        startYear: "",
+        lastYear: "",
+        price: "",
+      });
+      setImgArray(null);
+      setLocValue("");
+      setPartValue("");
+    }
+  }, [selectedItem, showSideMenu]);
   return (
     <div
       className={`absolute flex w-full ${
@@ -32,10 +163,7 @@ const InventorySideMenu = () => {
       ></div>
 
       {/* Main container */}
-      <div
-        // ref={menuRef}
-        className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start "
-      >
+      <div className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start ">
         <div className="p-6 flex w-full flex-col space-y-4">
           <p className="font-semibold">
             {showSideMenu.mode === "edit"
@@ -55,15 +183,76 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Inventory Name"
+                name="name"
+                value={formState.name}
+                onChange={onInputChange}
               />
             </div>
-            {/* Inventory Location input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Location"
-              />
+            <div className="flex gap-4">
+              {/* Inventory Location input */}
+              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  value={locValue}
+                  placeholder="Location"
+                  name="location"
+                  onChange={onLocInputChange}
+                  autoComplete="off"
+                />
+                <Image src={DownArrow} alt="downarrow" />
+                {/* Dropdown */}
+                <div
+                  className={`${
+                    locationSearchData.length > 0 && showLocDropDown
+                      ? "block"
+                      : "hidden"
+                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                >
+                  {locationSearchData.map((loc) => {
+                    return (
+                      <p
+                        onClick={() => onLocNameClick(loc)}
+                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                      >
+                        {loc.location}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* Inventory Part input */}
+              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  value={partValue}
+                  placeholder="Part"
+                  name="location"
+                  onChange={onPartInputChange}
+                  autoComplete="off"
+                />
+                <Image src={DownArrow} alt="downarrow" />
+                {/* Dropdown */}
+                <div
+                  className={`${
+                    partSearchData.length > 0 && showPartDropDown
+                      ? "block"
+                      : "hidden"
+                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                >
+                  {partSearchData.map((part) => {
+                    return (
+                      <p
+                        onClick={() => onPartNameClick(part)}
+                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                      >
+                        {part.name}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
             {/* Inventory Dates input */}
@@ -73,6 +262,9 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type="text"
                   placeholder="Start Date"
+                  value={formState.startYear}
+                  name="startYear"
+                  onChange={onInputChange}
                 />
               </div>
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -80,6 +272,9 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type="text"
                   placeholder="End Date"
+                  value={formState.lastYear}
+                  name="lastYear"
+                  onChange={onInputChange}
                 />
               </div>
             </div>
@@ -89,6 +284,9 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Model"
+                value={formState.model}
+                name="model"
+                onChange={onInputChange}
               />
             </div>
             {/* Inventory Make input */}
@@ -97,6 +295,9 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Make"
+                name="make"
+                value={formState.make}
+                onChange={onInputChange}
               />
             </div>
 
@@ -106,15 +307,34 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Variant"
+                name="variant"
+                value={formState.variant}
+                onChange={onInputChange}
               />
             </div>
-            {/* Inventory Price input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Price"
-              />
+            <div className="flex gap-4">
+              {/* Inventory Price input */}
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="number"
+                  placeholder="Price"
+                  name="price"
+                  value={formState.price}
+                  onChange={onInputChange}
+                />
+              </div>
+              {/* Inventory SKU input */}
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="number"
+                  placeholder="SKU"
+                  name="sku"
+                  value={formState.sku}
+                  onChange={onInputChange}
+                />
+              </div>
             </div>
             {/* Inventory Notes input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -122,6 +342,9 @@ const InventorySideMenu = () => {
                 className="w-full outline-none min-h-20 max-h-32"
                 type="text"
                 placeholder="Notes"
+                name="notes"
+                value={formState.notes}
+                onChange={onInputChange}
               />
             </div>
             {/* Inventory Image input */}
@@ -131,7 +354,11 @@ const InventorySideMenu = () => {
                   {imgArray.map((img, index) => (
                     <div className="relative ">
                       <Image
-                        src={URL.createObjectURL(img)}
+                        src={
+                          typeof img === "string"
+                            ? img
+                            : URL.createObjectURL(img)
+                        }
                         width={80}
                         height={80}
                         alt="img"
@@ -161,12 +388,7 @@ const InventorySideMenu = () => {
                   <Image src={UploadIcon} alt="UploadIcon" />
                   <p className="text-[#01E268]">Upload Part Image</p>{" "}
                   <input
-                    onChange={(e) => {
-                      // console.log(e.target.files[0]);
-
-                      setImgArray(Array.from(e.target.files));
-                      console.log(imgArray);
-                    }}
+                    onChange={onImageChange}
                     id="dropzone"
                     className="hidden"
                     type="file"
@@ -189,12 +411,12 @@ const InventorySideMenu = () => {
             Cancel
           </div>
           <div
-            onClick={() => {
-              dispatch(setShowSuccessModal(true));
-            }}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
+            onClick={onFormSubmit}
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
+              showSideMenu.mode === "preview" && "hidden"
+            }`}
           >
-            Add Inventory
+            {showSideMenu.mode === "edit" ? "Edit Inventory" : "Add Inventory"}
           </div>
         </div>
       </div>

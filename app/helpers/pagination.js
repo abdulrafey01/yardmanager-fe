@@ -1,4 +1,5 @@
 export const calcTotalPage = (dataLength) => {
+  console.log(dataLength);
   let maxData = 10;
   // Total Number of pages
   let totalPage = Math.ceil(dataLength / maxData);
@@ -10,7 +11,7 @@ export const displayData = (data, pageNumber) => {
   // Total Length
   let dataToShow = [];
   let dataLength = data.length;
-  console.log(dataLength);
+  // console.log(dataLength);
   //  Max to Display on single page
   let maxData = 12;
   // Start index to display data

@@ -7,7 +7,7 @@ import { makeStore } from "../../../lib/store";
 import AbsoluteMenusAndModals from "../../components/common/AbsoluteMenusAndModals";
 import TopBar from "../../components/common/TopBar";
 import "../../styles.css";
-import AuthToast from "../../abstracts/AuthToast";
+import AuthToast from "../../abstracts/Toast";
 
 const layout = ({ children }) => {
   return (

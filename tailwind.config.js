@@ -14,14 +14,14 @@ const config = {
       },
       keyframes: {
         slideInOut: {
-          "0%": { transform: "translateX(100%)" },
-          "10%": { transform: "translateX(0)" },
-          "90%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(100%)" },
+          "0%": { transform: "translateX(100%)" }, //currently outside
+          "10%": { transform: "translateX(0)" }, // come in
+          "90%": { transform: "translateX(0)" }, // stay in
+          "100%": { transform: "translateX(100%)" }, // go out
         },
       },
       animation: {
-        slideInOut: "slideInOut 2s ease-out",
+        slideInOut: "slideInOut 3s ease-out",
       },
     },
   },

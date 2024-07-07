@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import PermissionMenu from "../common/PermissionMenu";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -8,12 +8,201 @@ import {
   setShowSideMenu,
   setShowSuccessModal,
 } from "../../../lib/features/shared/sharedSlice";
+import { permission } from "process";
+import { addRole, updateRole } from "../../../lib/features/roles/roleActions";
 const AddRoleMenu = () => {
-  const { showSideMenu, showSuccessModal } = useSelector(
-    (state) => state.shared
-  );
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const dispatch = useDispatch();
   const menuRef = useRef();
+  const [formData, setFormData] = useState(null);
+  const [roleName, setRoleName] = useState("");
+
+  const [rolePerm, setRolePerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [empPerm, setEmpPerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [invoicePerm, setInvoicePerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [invtPerm, setInvtPerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [locPerm, setLocPerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [recyclePerm, setRecyclePerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [settingsPerm, setSettingsPerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  const [partsPerm, setPartsPerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setRoleName(selectedItem.name);
+        setEmpPerm(selectedItem.privileges[0].permissions);
+        setInvoicePerm(selectedItem.privileges[1].permissions);
+        setInvtPerm(selectedItem.privileges[2].permissions);
+        setPartsPerm(selectedItem.privileges[3].permissions);
+        setSettingsPerm(selectedItem.privileges[4].permissions);
+        setLocPerm(selectedItem.privileges[5].permissions);
+        setRecyclePerm(selectedItem.privileges[6].permissions);
+        setRolePerm(selectedItem.privileges[7].permissions);
+      }
+    } else {
+      setRoleName("");
+      setEmpPerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setInvoicePerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setInvtPerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setPartsPerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setSettingsPerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setLocPerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setRecyclePerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+      setRolePerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
+    }
+  }, [selectedItem, showSideMenu]);
+
+  // For formData being updated side by side
+  useEffect(() => {
+    setFormData({
+      name: roleName,
+      privileges: [
+        {
+          name: "employees",
+          permissions: empPerm,
+        },
+        {
+          name: "invoices",
+          permissions: invoicePerm,
+        },
+        {
+          name: "inventory",
+          permissions: invtPerm,
+        },
+        {
+          name: "locations",
+          permissions: locPerm,
+        },
+        {
+          name: "recycled",
+          permissions: recyclePerm,
+        },
+        {
+          name: "settings",
+          permissions: settingsPerm,
+        },
+        {
+          name: "parts",
+          permissions: partsPerm,
+        },
+        {
+          name: "roles",
+          permissions: rolePerm,
+        },
+      ],
+    });
+  }, [
+    roleName,
+    rolePerm,
+    empPerm,
+    invoicePerm,
+    invtPerm,
+    locPerm,
+    recyclePerm,
+    settingsPerm,
+    partsPerm,
+  ]);
+  const onInputChange = (e) => {
+    setRoleName(e.target.value);
+  };
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    if (showSideMenu.mode === "edit") {
+      dispatch(updateRole({ formData, id: selectedItem._id }));
+    } else {
+      dispatch(addRole(formData));
+    }
+    // dispatch(setShowSuccessModal(true));
+    dispatch(setShowSideMenu({ value: false }));
+  };
 
   useEffect(() => {
     if (showSideMenu.value && menuRef.current) {
@@ -51,6 +240,8 @@ const AddRoleMenu = () => {
               className="w-full outline-none"
               type="text"
               placeholder="Role Name"
+              value={roleName}
+              onChange={onInputChange}
             />
           </div>
           <div
@@ -74,13 +265,46 @@ const AddRoleMenu = () => {
           }  flex flex-col  items-center w-full `}
         >
           {/* Toggle Line */}
-          <PermissionMenu title={"Roles & Permissions"} />
-          <PermissionMenu title={"Employees"} />
-          <PermissionMenu title={"Invoices"} />
-          <PermissionMenu title={"Inventory"} />
-          <PermissionMenu title={"Settings"} />
-          <PermissionMenu title={"Location"} />
-          <PermissionMenu title={"Recycled Items"} />
+          <PermissionMenu
+            perm={rolePerm}
+            setPerm={setRolePerm}
+            title={"Roles & Permissions"}
+          />
+          <PermissionMenu
+            perm={empPerm}
+            setPerm={setEmpPerm}
+            title={"Employees"}
+          />
+          <PermissionMenu
+            perm={invoicePerm}
+            setPerm={setInvoicePerm}
+            title={"Invoices"}
+          />
+          <PermissionMenu
+            perm={invtPerm}
+            setPerm={setInvtPerm}
+            title={"Inventory"}
+          />
+          <PermissionMenu
+            perm={settingsPerm}
+            setPerm={setSettingsPerm}
+            title={"Settings"}
+          />
+          <PermissionMenu
+            perm={locPerm}
+            setPerm={setLocPerm}
+            title={"Location"}
+          />
+          <PermissionMenu
+            perm={partsPerm}
+            setPerm={setPartsPerm}
+            title={"Parts"}
+          />
+          <PermissionMenu
+            perm={recyclePerm}
+            setPerm={setRecyclePerm}
+            title={"Recycled Items"}
+          />
         </div>
 
         {/* Buttons */}
@@ -95,12 +319,12 @@ const AddRoleMenu = () => {
             Cancel
           </div>
           <div
-            onClick={() => {
-              dispatch(setShowSuccessModal(true));
-            }}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
+            onClick={onFormSubmit}
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
+              showSideMenu.mode === "preview" && "hidden"
+            }`}
           >
-            Add Role
+            {showSideMenu.mode === "edit" ? "Edit Role" : "Add Role"}
           </div>
         </div>
       </div>

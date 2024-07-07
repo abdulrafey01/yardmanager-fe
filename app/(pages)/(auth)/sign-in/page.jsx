@@ -52,13 +52,14 @@ export default function page() {
           <Input
             name={"email"}
             onChange={onInputChange}
-            placeholder="Active Email Address"
+            placeholder="Email Address"
             icon={MsgIcon}
           />
           <Input
             name={"password"}
             onChange={onInputChange}
             placeholder="Password"
+            type="password"
             icon={PwdIcon}
           />
           <div className="flex justify-between items-center">
@@ -93,7 +94,7 @@ export default function page() {
 
         {/* Social Account buttons container*/}
         <div className="flex w-full justify-center items-center space-x-2 sm:space-x-4">
-          <div className="cursor-pointer select-none h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
+          <div className="cursor-pointer  select-none h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
             <Image src={GoogleIcon} alt="logo" />
             <p className="text-xs font-semibold">Sign in with Google</p>
           </div>

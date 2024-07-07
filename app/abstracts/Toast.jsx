@@ -11,16 +11,14 @@ const AuthToast = ({ show }) => {
     if (showToast.value) {
       setTimeout(() => {
         dispatch(setShowToast({ value: false, msg: "" }));
-      }, 1900);
+      }, 2900);
     }
   }, [showToast]);
   return (
     <div
       className={` ${
         showToast.value ? "animate-slideInOut" : "hidden"
-      } fixed z-50 top-0 right-0 h-14 w-96 ${
-        show ? "animate-slideInOut" : "hidden"
-      } bg-[#c2e8d0] rounded-lg flex justify-start items-center p-4 space-x-2 `}
+      } fixed z-50 top-4 right-4 h-14 w-96  bg-[#c2e8d0] rounded-lg flex justify-start items-center p-4 space-x-2 `}
     >
       <Image src={ArrowImg} alt="logo" />
       <p className="text-sm font-semibold">{showToast.msg}</p>

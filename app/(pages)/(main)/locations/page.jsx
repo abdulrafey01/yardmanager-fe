@@ -86,7 +86,7 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className="  overflow-visible  ">
+        <div className="overflow-visible">
           {/* Head */}
           <TableHead titles={["Location"]} />
           {/* Body */}
