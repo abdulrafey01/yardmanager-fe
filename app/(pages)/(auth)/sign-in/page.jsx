@@ -37,7 +37,7 @@ export default function page() {
     if (error) {
       console.log("error", error);
     }
-  }, [dispatch, token, error]);
+  }, [token, error]);
 
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
