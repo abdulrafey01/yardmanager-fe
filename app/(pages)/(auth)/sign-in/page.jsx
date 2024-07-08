@@ -12,11 +12,11 @@ import { useRouter } from "next/navigation";
 import { login } from "../../../../lib/features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../../helpers/storage";
+import { setShowToast } from "../../../../lib/features/shared/sharedSlice";
 
 export default function page() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { token, error } = useSelector((state) => state.auth);
   const [formData, setFormData] = React.useState({ email: "", password: "" });
 
   // Function to handle input change
@@ -29,16 +29,6 @@ export default function page() {
     e.preventDefault();
     dispatch(login(formData));
   };
-
-  useEffect(() => {
-    if (getCookie("token")) {
-      console.log("token", token);
-      router.push("/dashboard");
-    }
-    if (error) {
-      console.log("error", error);
-    }
-  }, [token, error]);
 
   return (
     <div className="flex-1 flex flex-col  justify-center items-center">
