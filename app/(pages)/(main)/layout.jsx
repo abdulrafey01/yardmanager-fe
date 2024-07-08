@@ -8,13 +8,14 @@ import "../../styles.css";
 import AuthToast from "../../abstracts/Toast";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { getCookie } from "../../helpers/storage";
 
 const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!token) {
+    if (!getCookie("token")) {
       router.push("/sign-in");
     }
   }, [token]);

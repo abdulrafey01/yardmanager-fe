@@ -11,6 +11,7 @@ import AuthButton from "../../../components/auth/common/AuthButton";
 import { useRouter } from "next/navigation";
 import { login } from "../../../../lib/features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../../../helpers/storage";
 
 export default function page() {
   const router = useRouter();
@@ -30,11 +31,9 @@ export default function page() {
   };
 
   useEffect(() => {
-    if (token) {
+    if (getCookie("token")) {
       console.log("token", token);
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 2000);
+      router.push("/dashboard");
     }
     if (error) {
       console.log("error", error);
