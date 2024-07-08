@@ -5,6 +5,7 @@ import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../helpers/storage";
 import { useRouter } from "next/navigation";
+import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 
 const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
@@ -23,11 +24,11 @@ const layout = ({ children }) => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, msg: toastMsg }));
     }
-  }, [token, error, toastMsg]);
+  }, [token, error, toastMsg, dispatch]);
 
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
-      <Toast show={true} />
+      <Toast />
       <SectionOne />
       {children}
     </div>

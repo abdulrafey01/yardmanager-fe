@@ -5,23 +5,26 @@ import SideBar from "../../components/common/SideBar";
 import AbsoluteMenusAndModals from "../../components/common/AbsoluteMenusAndModals";
 import TopBar from "../../components/common/TopBar";
 import "../../styles.css";
-import AuthToast from "../../abstracts/Toast";
-import { useSelector } from "react-redux";
+import Toast from "../../abstracts/Toast";
+import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../../helpers/storage";
+import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 
 const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!getCookie("token")) {
       router.push("/sign-in");
     }
   }, [token]);
+
   return (
     <div className="flex relative  min-h-screen">
-      <AuthToast show={true} />
+      <Toast />
       <AbsoluteMenusAndModals />
       <SideBar />
       <div className="flex-[5] flex flex-col">
