@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
 import UploadIcon from "../../assets/main/44-upload.svg";
-
 import {
   setShowSideMenu,
   setShowSuccessModal,
@@ -19,6 +18,7 @@ import {
 import { searchLocationByName } from "../../../lib/features/locations/locationActions";
 import "../../styles.css";
 import { searchPartByName } from "../../../lib/features/parts/partActions";
+import MultiInput from "../common/MultiInput";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -39,9 +39,9 @@ const InventorySideMenu = () => {
     name: "",
     sku: "",
     year: "",
-    model: "",
-    make: "",
-    variant: "",
+    model: [],
+    make: [],
+    variant: [],
     notes: "",
     startYear: "",
     lastYear: "",
@@ -120,6 +120,28 @@ const InventorySideMenu = () => {
     dispatch(setShowSideMenu({ value: false }));
   };
 
+  const removeModelFromList = (index) => {
+    setFormState({
+      ...formState,
+      model: formState.model.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+  const removeMakeFromList = (index) => {
+    setFormState({
+      ...formState,
+      make: formState.make.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+  const removeVariantFromList = (index) => {
+    setFormState({
+      ...formState,
+      variant: formState.variant.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -134,9 +156,9 @@ const InventorySideMenu = () => {
         name: "",
         sku: "",
         year: "",
-        model: "",
-        make: "",
-        variant: "",
+        model: [],
+        make: [],
+        variant: [],
         notes: "",
         startYear: "",
         lastYear: "",
@@ -260,7 +282,7 @@ const InventorySideMenu = () => {
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
-                  type="text"
+                  type="number"
                   placeholder="Start Date"
                   value={formState.startYear}
                   name="startYear"
@@ -270,7 +292,7 @@ const InventorySideMenu = () => {
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
-                  type="text"
+                  type="number"
                   placeholder="End Date"
                   value={formState.lastYear}
                   name="lastYear"
@@ -279,39 +301,45 @@ const InventorySideMenu = () => {
               </div>
             </div>
             {/* Inventory Model input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Model"
-                value={formState.model}
-                name="model"
-                onChange={onInputChange}
-              />
-            </div>
+            <MultiInput
+              dataToMap={formState.model}
+              placeholder="Model"
+              name="model"
+              onPressEnter={(e) => {
+                setFormState({
+                  ...formState,
+                  model: [...formState.model, e.target.value],
+                });
+              }}
+              removeItemFunction={removeModelFromList}
+            />
             {/* Inventory Make input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Make"
-                name="make"
-                value={formState.make}
-                onChange={onInputChange}
-              />
-            </div>
-
+            <MultiInput
+              dataToMap={formState.make}
+              placeholder="Make"
+              name="make"
+              onPressEnter={(e) => {
+                setFormState({
+                  ...formState,
+                  make: [...formState.make, e.target.value],
+                });
+              }}
+              removeItemFunction={removeMakeFromList}
+            />
             {/* Inventory Variant input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Variant"
-                name="variant"
-                value={formState.variant}
-                onChange={onInputChange}
-              />
-            </div>
+            <MultiInput
+              dataToMap={formState.variant}
+              placeholder="Variant"
+              name="variant"
+              onPressEnter={(e) => {
+                setFormState({
+                  ...formState,
+                  variant: [...formState.variant, e.target.value],
+                });
+              }}
+              removeItemFunction={removeVariantFromList}
+            />
+
             <div className="flex gap-4">
               {/* Inventory Price input */}
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">

@@ -9,13 +9,10 @@ import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../../helpers/storage";
-import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 
 const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
-
   useEffect(() => {
     if (!getCookie("token")) {
       router.push("/sign-in");
