@@ -10,7 +10,7 @@ export const calcTotalPage = (dataLength) => {
 export const displayData = (data, pageNumber) => {
   // Total Length
   let dataToShow = [];
-  let dataLength = data.length;
+  let dataLength = data?.length;
   // console.log(dataLength);
   //  Max to Display on single page
   let maxData = 12;

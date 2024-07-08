@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MainInput from "../../../../components/common/MainInput";
 
 import MsgIcon from "../../../../assets/auth/1-AdornmentEnd.svg";
@@ -9,15 +9,216 @@ import BasketIcon from "../../../../assets/main/54-basket.svg";
 import PaymentIcon from "../../../../assets/main/55-payment.svg";
 import SelectIcon from "../../../../assets/main/28-downarrow.svg";
 import Image from "next/image";
-import { useDispatch } from "react-redux";
-import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+  setShowToast,
+} from "../../../../../lib/features/shared/sharedSlice";
 import GreenBtn from "../../../../abstracts/GreenBtn";
 import WhiteBtn from "../../../../abstracts/WhiteBtn";
+import DownArrow from "../../../../assets/main/28-downarrow.svg";
+import { searchInventoryByName } from "../../../../../lib/features/inventory/inventoryActions";
+import ProductDetailRow from "../../../../components/invoices/ProductDetailRow";
+import {
+  addInvoice,
+  updateInvoice,
+} from "../../../../../lib/features/invoice/invoiceActions";
 const page = () => {
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { inventorySearchData, toastMsg: searchToast } = useSelector(
+    (state) => state.inventory
+  );
+  const { error, toastMsg } = useSelector((state) => state.invoice);
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const [subTotal, setSubTotal] = useState(0);
+  const [grandTotal, setGrandTotal] = useState(0);
+
+  // can use other way when do refactor but for now
+  const [pageMode, setPageMode] = useState("add");
+
   const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    products: [],
+    tax: 0,
+    paid: 0,
+    status: false,
+    notes: "",
+    datePaid: "",
+  });
+  // For setting productName
+  const [productName, setProductName] = useState("");
+
+  // For setting productData
+  const [productData, setProductData] = useState({
+    product: "",
+    name: "",
+    quantity: 0,
+    price: 0,
+    date: "",
+    total: 0,
+  });
+
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+    if (error) {
+      console.log(error);
+    }
+    if (searchToast) {
+      dispatch(setShowToast({ value: true, msg: searchToast }));
+    }
+  }, [toastMsg, error, searchToast]);
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    console.log("showSideMenu:", showSideMenu);
+    console.log("selectedItem:", selectedItem);
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setFormData({
+          name: selectedItem.name,
+          email: selectedItem.email,
+          phone: selectedItem.phone,
+          products: selectedItem.products,
+          tax: selectedItem.tax,
+          paid: selectedItem.paid,
+          status: selectedItem.status,
+          notes: selectedItem.notes,
+          datePaid: selectedItem.datePaid,
+        });
+        setPageMode("edit");
+      }
+
+      // so that we can go back to invoices page
+      dispatch(setShowSideMenu({ value: false }));
+    }
+    console.log(selectedItem);
+  }, [selectedItem, showSideMenu]);
+
+  const onInputChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const onProductNameInputChange = (e) => {
+    setProductName(e.target.value);
+    if (e.target.value.length >= 3) {
+      setShowDropdown(true);
+      dispatch(searchInventoryByName(e.target.value));
+    } else {
+      setShowDropdown(false);
+    }
+  };
+
+  const onProductNameClick = (item) => {
+    setProductData({ ...productData, product: item._id, name: item.name });
+    setProductName(item.name);
+    setShowDropdown(false);
+  };
+
+  const onProductDetailInputChange = (e) => {
+    setProductData({
+      ...productData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onAddProductClick = () => {
+    setFormData({
+      ...formData,
+      products: [
+        ...formData.products,
+        { ...productData, total: productData.price * productData.quantity }, //setting total price for product
+      ],
+    });
+    setProductData({
+      product: "",
+      name: "",
+      quantity: "",
+      price: "",
+      date: "",
+      total: 0,
+    });
+    setProductName("");
+  };
+
+  // Remove added product
+  const onRemoveProductClick = (index) => {
+    setFormData({
+      ...formData,
+      products: formData.products.filter((_, i) => i !== index),
+    });
+  };
+
+  useEffect(() => {
+    console.log(formData);
+    if (subTotal) {
+      setGrandTotal(subTotal + subTotal * (formData.tax / 100));
+    } else {
+      // Reduce function is used when calculation is required. It is same as map but calculates instead of render
+      setSubTotal(
+        formData.products.reduce((preVal, item) => {
+          return (
+            preVal + (item.total ? item.total : item.quantity * item.price)
+          );
+        }, 0)
+      );
+    }
+  }, [formData, subTotal]);
+
+  // on changing grand totak
+  useEffect(() => {
+    if (grandTotal) {
+      setFormData({ ...formData, paid: grandTotal });
+    }
+  }, [grandTotal]);
+
+  // On form submit
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    // console.log(formData);
+    if (pageMode === "edit") {
+      dispatch(
+        updateInvoice({
+          formData,
+          id: selectedItem._id,
+        })
+      );
+    } else {
+      dispatch(addInvoice(formData));
+    }
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      products: [],
+      tax: 0,
+      paid: 0,
+      status: false,
+      notes: "",
+      datePaid: "",
+    });
+    setProductData({
+      product: "",
+      name: "",
+      quantity: "",
+      price: "",
+      date: "",
+      total: 0,
+    });
+    setSubTotal(0);
+    setGrandTotal(0);
+  };
+
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* Main container */}
@@ -36,9 +237,27 @@ const page = () => {
           </p>
           {/* Inputs container */}
           <div className="flex flex-col space-y-4 lg:space-y-0 lg:flex-row lg:justify-between lg:items-center lg:space-x-4">
-            <MainInput placeholder={"Customer Name"} icon={PrfIcon} />
-            <MainInput placeholder={"Customer Email Address"} icon={MsgIcon} />
-            <MainInput placeholder={"Customer Phone Number"} icon={PhoneIcon} />
+            <MainInput
+              onChange={onInputChange}
+              name="name"
+              value={formData.name}
+              placeholder={"Customer Name"}
+              icon={PrfIcon}
+            />
+            <MainInput
+              onChange={onInputChange}
+              value={formData.email}
+              name="email"
+              placeholder={"Customer Email Address"}
+              icon={MsgIcon}
+            />
+            <MainInput
+              onChange={onInputChange}
+              value={formData.phone}
+              name="phone"
+              placeholder={"Customer Phone Number"}
+              icon={PhoneIcon}
+            />
           </div>
         </div>
         {/* Product Container */}
@@ -51,7 +270,7 @@ const page = () => {
               <p className=" min-w-16 p-4 bg-[#78FFB6] flex-[2] rounded-t-xl">
                 Product Name
               </p>
-              <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Quality</p>
+              <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Quantity</p>
               <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Unit Price</p>
               <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Date</p>
               <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1 text-center">
@@ -66,20 +285,48 @@ const page = () => {
               {/* Row 1 */}
               <div className="w-full flex-col lg:flex-row lg:flex justify-between border-gray-300 border-b">
                 <div className=" min-w-16 p-4 flex-[2] rounded-t-xl flex items-center">
-                  <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                  {/* Inventory Name input */}
+                  <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                     <input
                       className="w-full outline-none"
                       type="text"
-                      placeholder=" Name"
+                      value={productName}
+                      placeholder="Name"
+                      name="location"
+                      onChange={onProductNameInputChange}
+                      autoComplete="off"
                     />
+                    <Image src={DownArrow} alt="downarrow" />
+                    {/* Dropdown */}
+                    <div
+                      className={`${
+                        inventorySearchData.length > 0 && showDropdown
+                          ? "block"
+                          : "hidden"
+                      } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                    >
+                      {inventorySearchData.map((item) => {
+                        return (
+                          <p
+                            onClick={() => onProductNameClick(item)}
+                            className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                          >
+                            {item.name}
+                          </p>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
                 <div className=" min-w-16 p-4 flex-1 flex items-center">
                   <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                     <input
                       className="w-full outline-none"
-                      type="text"
+                      type="number"
                       placeholder="Quantity"
+                      name="quantity"
+                      value={productData.quantity}
+                      onChange={onProductDetailInputChange}
                     />
                   </div>
                 </div>
@@ -87,8 +334,11 @@ const page = () => {
                   <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                     <input
                       className="w-full outline-none"
-                      type="text"
+                      type="number"
                       placeholder="Unit Price"
+                      name="price"
+                      value={productData.price}
+                      onChange={onProductDetailInputChange}
                     />
                   </div>
                 </div>
@@ -97,10 +347,14 @@ const page = () => {
                     <input
                       className="w-full outline-none text-sm"
                       type="date"
+                      placeholder="Date"
+                      name="date"
+                      value={productData.date}
+                      onChange={onProductDetailInputChange}
                     />
                   </div>
                 </div>
-                {/* Total inout hidden in lg devices */}
+                {/* Total input hidden in lg devices */}
                 <div className="lg:hidden min-w-16 p-4 flex-1 flex items-center">
                   <div className=" w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                     <input
@@ -119,70 +373,30 @@ const page = () => {
                   Total $
                 </p>
 
-                <div className="hidden lg:flex min-w-16 p-4 flex-1 rounded-t-xl  items-center justify-center">
+                <div
+                  onClick={onAddProductClick}
+                  className="hidden lg:flex min-w-16 p-4 flex-1 rounded-t-xl cursor-pointer  items-center justify-center"
+                >
                   <div className="flex justify-center items-center p-2 w-20 bg-[#F3F3F3] rounded-lg text-sm">
                     Add New
                   </div>
                 </div>
               </div>
               {/* Row 2 */}
-              <div className="w-full hidden lg:flex justify-between border-gray-300 border-b">
-                <div className=" min-w-16 p-4 flex-[2] rounded-t-xl flex items-center">
-                  <p className=" min-w-16 p-2 flex-1 flex items-center justify-center">
-                    Bugatti W16 engine is a quad-turbocharged, W16s
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    09
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    $32839
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    24/07/2024
-                  </p>
-                </div>
-                <p className=" min-w-16 p-2 flex-1 font-bold flex items-center justify-center">
-                  $888393.00
-                </p>
-                <div className=" min-w-16 p-4 flex-1 rounded-t-xl flex items-center justify-center">
-                  <Image src={BasketIcon} alt="delete" />
-                </div>
-              </div>
-              {/* Row 3 */}
-              <div className="w-full hidden lg:flex justify-between">
-                <div className=" min-w-16 p-4 flex-[2] rounded-t-xl flex items-center">
-                  <p className=" min-w-16 p-2 flex-1 flex items-center justify-center">
-                    Bugatti W16 engine is a quad-turbocharged, W16s
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    09
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    $32839
-                  </p>
-                </div>
-                <div className=" min-w-16 p-4 flex-1 flex items-center">
-                  <p className=" min-w-16 p-2 flex-1  flex items-center justify-start font-bold">
-                    24/07/2024
-                  </p>
-                </div>
-                <p className=" min-w-16 p-2 flex-1 font-bold flex items-center justify-center">
-                  $888393.00
-                </p>
-                <div className=" min-w-16 p-4 flex-1 rounded-t-xl flex items-center justify-center">
-                  <Image src={BasketIcon} alt="delete" />
-                </div>
-              </div>
+              {formData.products.map((product, index) => {
+                return (
+                  <ProductDetailRow
+                    name={product.name}
+                    quantity={product.quantity}
+                    price={product.price}
+                    date={product.date}
+                    total={product.total}
+                    key={index}
+                    index={index}
+                    onRemoveProductClick={onRemoveProductClick}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -195,6 +409,9 @@ const page = () => {
           <textarea
             className="w-full border border-gray-300 rounded-lg p-4 max-h-80 min-h-40 outline-none hover:border-gray-500"
             placeholder="Add a personal note to the invoice"
+            name="note"
+            value={formData.note}
+            onChange={onInputChange}
           />
         </div>
         {/* Payment Details Container */}
@@ -214,7 +431,12 @@ const page = () => {
             </div>
 
             <div className="lg:w-2/3 w-full">
-              <MainInput type="date" placeholder={"Select Payment Method"} />
+              <MainInput
+                type="date"
+                name={"datePaid"}
+                onChange={onInputChange}
+                placeholder={"Select Payment Method"}
+              />
             </div>
           </div>
           <div className="w-full flex-1 flex justify-end  ">
@@ -224,6 +446,10 @@ const page = () => {
                 <p className="text-[#667085]">Enter Tax:</p>
                 <div className="w-2/3">
                   <MainInput
+                    type="number"
+                    name={"tax"}
+                    value={formData.tax}
+                    onChange={onInputChange}
                     placeholder={"Tax Percentage %"}
                     icon={PaymentIcon}
                   />
@@ -232,18 +458,19 @@ const page = () => {
               {/* Row 2 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Sub Total:</p>
-                <p className="font-bold">$9828</p>
+
+                <p className="font-bold">{subTotal}</p>
               </div>
               {/* Row 3 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Tax Amount:</p>
-                <p className="font-bold">$92</p>
+                <p className="font-bold">{formData.tax}</p>
               </div>
               <hr />
               {/* Row 4 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Grand Total:</p>
-                <p className="font-bold">$69807</p>
+                <p className="font-bold">{grandTotal}</p>
               </div>
               <div></div>
             </div>
@@ -256,7 +483,7 @@ const page = () => {
           </div>
           <div className="flex-1 flex justify-end space-x-4 items-center">
             <WhiteBtn title={"Preview"} />
-            <GreenBtn title={"Save Invoice"} />
+            <GreenBtn onClick={onFormSubmit} title={"Save Invoice"} />
           </div>
         </div>
       </div>

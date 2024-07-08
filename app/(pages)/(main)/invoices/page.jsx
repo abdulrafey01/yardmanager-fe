@@ -3,34 +3,58 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 
 import PlusIcon from "../../../assets/main/29-plus.svg";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
 import "../../../styles.css";
-import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
+import {
+  setCurrentPage,
+  setShowToast,
+} from "../../../../lib/features/shared/sharedSlice";
 import { useRouter } from "next/navigation";
+import { fetchInvoicesByPage } from "../../../../lib/features/invoice/invoiceActions";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.invoice.data);
+  const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.invoice
+  );
+
+  const { showSideMenu } = useSelector((state) => state.shared);
+  const router = useRouter();
 
   const dispatch = useDispatch();
+  const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
 
-  const [dataToShow, setDataToShow] = React.useState([]);
-
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
-  const router = useRouter();
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchInvoicesByPage(pageNumber));
+  }, [dispatch, pageNumber]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    // When invoice data has come set total pages
+    if (invoiceData) {
+      setDataFromServer(invoiceData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
+    }
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [error, invoiceData, toastMsg]);
+
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      router.push(`/invoices/create`);
+    }
+  }, [showSideMenu]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -73,7 +97,7 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className=" overflow-auto overflow-y-visible">
+        <div className="overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={[
@@ -87,21 +111,20 @@ const page = () => {
             ]}
           />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
               titles={[
                 data.name,
-                data.id,
+                data._id,
                 data.email,
                 data.phone,
-                data.amount,
-                data.date,
+                data.paid,
+                data.datePaid,
                 data.status,
               ]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
+              item={data}
             />
           ))}
         </div>

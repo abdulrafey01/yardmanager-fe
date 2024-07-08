@@ -21,9 +21,9 @@ const SideMenu = () => {
     <VehicleSideMenu />
   ) : currentPage === "Employee" ? (
     <EmployeeSideMenu />
-  ) : (
+  ) : currentPage === "Roles" ? (
     <RoleSideMenu />
-  );
+  ) : null;
 };
 
 export default SideMenu;
