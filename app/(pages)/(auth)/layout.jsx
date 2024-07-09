@@ -24,6 +24,7 @@ const layout = ({ children }) => {
   // For Routing auth
   useEffect(() => {
     if (token) {
+      // console.log("token", token);
       router.push("/dashboard");
     }
   }, [token]);

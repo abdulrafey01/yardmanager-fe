@@ -9,24 +9,16 @@ import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../../helpers/storage";
-import { setToken } from "../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
       router.push("/sign-in");
     }
   }, [token]);
-
-  useEffect(() => {
-    if (getCookie("token")) {
-      dispatch(setToken(getCookie("token")));
-    }
-  }, []);
 
   return (
     <div className="flex relative  min-h-screen">
