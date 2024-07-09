@@ -124,12 +124,14 @@ const SideBar = () => {
     },
   ];
 
+  // Disable side buttons on certain pages
   useEffect(() => {
     if (currentPage === "MyProfile") {
       setActiveBottomBtn(-1);
       setActiveMainBtn(-1);
     }
   }, [currentPage]);
+
   const router = useRouter();
   const dispatch = useDispatch();
   return (
