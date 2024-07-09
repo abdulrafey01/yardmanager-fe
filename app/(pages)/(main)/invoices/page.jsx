@@ -50,6 +50,7 @@ const page = () => {
     }
   }, [error, invoiceData, toastMsg]);
 
+  // If clicked on edit or preview button  of action menu then redirect to create page
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       router.push(`/invoices/create`);

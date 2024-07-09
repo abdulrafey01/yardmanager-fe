@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 const Badge = ({ received, active }) => {
   const { currentPage } = useSelector((state) => state.shared);
-  return currentPage === "Invoices" || "Dashboard" ? (
+  return currentPage === "Invoices" || currentPage === "Dashboard" ? (
     <div
       className={`w-24 rounded-full ${
         received ? "bg-[#ecfdf3] " : "bg-[#fff4ed]"

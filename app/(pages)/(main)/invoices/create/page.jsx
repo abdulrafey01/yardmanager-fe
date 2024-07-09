@@ -102,7 +102,6 @@ const page = () => {
       // so that we can go back to invoices page
       dispatch(setShowSideMenu({ value: false }));
     }
-    console.log(selectedItem);
   }, [selectedItem, showSideMenu]);
 
   const onInputChange = (e) => {
@@ -161,9 +160,11 @@ const page = () => {
 
   useEffect(() => {
     console.log(formData);
-    if (subTotal) {
-      setGrandTotal(subTotal + subTotal * (formData.tax / 100));
-    } else {
+    setGrandTotal(subTotal + subTotal * (formData.tax / 100));
+  }, [subTotal, formData.tax]);
+
+  useEffect(() => {
+    if (formData) {
       // Reduce function is used when calculation is required. It is same as map but calculates instead of render
       setSubTotal(
         formData.products.reduce((preVal, item) => {
@@ -173,9 +174,8 @@ const page = () => {
         }, 0)
       );
     }
-  }, [formData, subTotal]);
-
-  // on changing grand totak
+  }, [formData]);
+  // on changing grand total
   useEffect(() => {
     if (grandTotal) {
       setFormData({ ...formData, paid: grandTotal });
@@ -390,7 +390,11 @@ const page = () => {
                     quantity={product.quantity}
                     price={product.price}
                     date={product.date}
-                    total={product.total}
+                    total={
+                      product.total // as product.total is present when we are adding but not presenting when editing product data shows
+                        ? product.total
+                        : product.price * product.quantity
+                    }
                     key={index}
                     index={index}
                     onRemoveProductClick={onRemoveProductClick}
@@ -425,6 +429,7 @@ const page = () => {
             </div>
             <div className="lg:w-2/3 w-full">
               <MainInput
+                className="pr-3"
                 placeholder={"Select Payment Method"}
                 icon={SelectIcon}
               />

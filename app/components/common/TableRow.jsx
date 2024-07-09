@@ -55,7 +55,7 @@ const TableRow = ({ titles, rowIndex, item }) => {
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-20 break-all  p-3  flex-1 flex items-center`}
         >
-          <Badge received={title === "Received"} />
+          <Badge received={title} />
         </div>
       ) : (
         <div
@@ -228,7 +228,7 @@ const TableRow = ({ titles, rowIndex, item }) => {
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           } min-w-16  p-3 break-all text-center flex-1 flex items-center`}
         >
-          <Badge active={title === "Active"} />
+          <Badge active={title} />
         </div>
       ) : (
         <div

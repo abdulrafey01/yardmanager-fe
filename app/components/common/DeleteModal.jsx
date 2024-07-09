@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { deleteInventory } from "../../../lib/features/inventory/inventoryActions";
 import { deleteLocation } from "../../../lib/features/locations/locationActions";
-import { deleteInvoice } from "../../../lib/features/invoice/invoiceSlice";
+import { deleteInvoice } from "../../../lib/features/invoice/invoiceActions";
 import { deleteRole } from "../../../lib/features/roles/roleActions";
 
 import { deleteVehicle } from "../../../lib/features/vehicle/vehicleSlice";
-import { deleteEmployee } from "../../../lib/features/employee/employeeSlice";
+import { deleteEmployee } from "../../../lib/features/employee/employeeActions";
 
 import DelIcon from "../../assets/main/35-trash.svg";
 import CrossIcon from "../../assets/main/36-x.svg";
@@ -26,7 +26,7 @@ const DeleteModal = () => {
         dispatch(deleteInventory(selectedItem._id));
         break;
       case "Invoices":
-        dispatch(deleteInvoice(selectedItem));
+        dispatch(deleteInvoice(selectedItem._id));
         break;
       case "Locations":
         dispatch(deleteLocation(selectedItem._id));
@@ -43,7 +43,7 @@ const DeleteModal = () => {
         dispatch(deleteVehicle(selectedItem));
         break;
       case "Employee":
-        dispatch(deleteEmployee(selectedItem));
+        dispatch(deleteEmployee(selectedItem._id));
       default:
         break;
     }

@@ -4,15 +4,110 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
-import React from "react";
+import React, { useEffect } from "react";
 import MainInput from "../common/MainInput";
 import PWDIcon from "../../assets/auth/2-AdornmentEnd.svg";
-const InventorySideMenu = () => {
-  const { showSideMenu, currentPage } = useSelector((state) => state.shared);
+import DropDownInput from "../common/DropDownInput";
+import {
+  addEmployee,
+  searchEmployeeByName,
+  updateEmployee,
+} from "../../../lib/features/employee/employeeActions";
+import { searchLocationByName } from "../../../lib/features/locations/locationActions";
+import { searchRoleByName } from "../../../lib/features/roles/roleActions";
+const EmployeeSideMenu = () => {
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { roleSearchData, toastMsg: roleToast } = useSelector(
+    (state) => state.roles
+  );
+  const [roleInputValue, setRoleInputValue] = React.useState("");
+  const [formState, setFormState] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+    position: "",
+    date: "",
+  });
+  const formData = new FormData();
 
-  const [imgArray, setImgArray] = React.useState(null);
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (roleToast) {
+      dispatch(setShowToast({ value: true, msg: roleToast }));
+    }
+  }, [roleToast]);
+
+  const onInputChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setFormState({
+          ...formState,
+          firstName: selectedItem.name.first,
+          lastName: selectedItem.name.last,
+          email: selectedItem.email,
+          role: selectedItem.role.name,
+          position: selectedItem.position,
+          date: selectedItem.date,
+        });
+        setRoleInputValue(selectedItem.role.name);
+      }
+    }
+  }, [selectedItem, showSideMenu]);
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(formState);
+    // check if password and confirm password are same
+    if (formState.password !== formState.confirmPassword) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Password and confirm password should be same",
+        })
+      );
+    }
+
+    // set form data with form state
+    formData.append("name[first]", formState.firstName);
+    formData.append("name[last]", formState.lastName);
+    formData.append("email", formState.email);
+    formData.append("password", formState.confirmPassword);
+    formData.append("role", formState.role);
+    formData.append("position", formState.position);
+    formData.append("date", formState.date);
+
+    //  if in edit mode update else add
+    if (showSideMenu.mode === "edit") {
+      dispatch(updateEmployee({ formData, id: selectedItem._id }));
+    } else {
+      dispatch(addEmployee(formData));
+    }
+    // close the menu after submitting
+    dispatch(setShowSideMenu({ value: false }));
+
+    // reset the form values
+    setFormState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "",
+      position: "",
+      date: "",
+    });
+    setRoleInputValue("");
+  };
   return (
     <div
       className={`absolute flex w-full ${
@@ -51,6 +146,9 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type="text"
                   placeholder="First Name"
+                  value={formState.firstName}
+                  name="firstName"
+                  onChange={onInputChange}
                 />
               </div>
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -58,6 +156,9 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type="text"
                   placeholder="Last Name"
+                  value={formState.lastName}
+                  name="lastName"
+                  onChange={onInputChange}
                 />
               </div>
             </div>
@@ -67,23 +168,33 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Email Address"
+                value={formState.email}
+                name="email"
+                onChange={onInputChange}
               />
             </div>
 
-            {/* Inventory Dates input */}
+            {/* Double input */}
             <div className="flex space-x-4">
+              <DropDownInput
+                onSearch={searchRoleByName}
+                searchData={roleSearchData}
+                keyToShow={"name"}
+                inputValue={roleInputValue}
+                setInputValue={setRoleInputValue}
+                setIdFunc={(val) => {
+                  setFormState({ ...formState, role: val });
+                }}
+                placeholder={"Select Role"}
+              />
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
                   type="text"
-                  placeholder="Select Role"
-                />
-              </div>
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="text"
+                  value={formState.position}
                   placeholder="Position"
+                  name="position"
+                  onChange={onInputChange}
                 />
               </div>
             </div>
@@ -91,19 +202,36 @@ const InventorySideMenu = () => {
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
-                type="text"
+                type="date"
                 placeholder="Date Hired"
+                value={formState.date}
+                name="date"
+                onChange={onInputChange}
               />
             </div>
             {/* Employee password input */}
 
             <div className="w-full ">
-              <MainInput placeholder="Password" icon={PWDIcon} />
+              <MainInput
+                placeholder="Password"
+                icon={PWDIcon}
+                type={"password"}
+                value={formState.password}
+                onChange={onInputChange}
+                name={"password"}
+              />
             </div>
 
             {/* Confirm password input */}
             <div className="w-full ">
-              <MainInput placeholder="Confirm Password" icon={PWDIcon} />
+              <MainInput
+                placeholder="Confirm Password"
+                icon={PWDIcon}
+                type={"password"}
+                value={formState.confirmPassword}
+                onChange={onInputChange}
+                name={"confirmPassword"}
+              />
             </div>
           </div>
         </div>
@@ -119,9 +247,7 @@ const InventorySideMenu = () => {
             Cancel
           </div>
           <div
-            onClick={() => {
-              dispatch(setShowSuccessModal(true));
-            }}
+            onClick={onFormSubmit}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
           >
             Send Invite
@@ -132,4 +258,4 @@ const InventorySideMenu = () => {
   );
 };
 
-export default InventorySideMenu;
+export default EmployeeSideMenu;
