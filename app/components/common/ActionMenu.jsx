@@ -16,7 +16,7 @@ import {
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
-const ActionMenu = ({ index, item }) => {
+const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
 
@@ -61,8 +61,10 @@ const ActionMenu = ({ index, item }) => {
         showActionMenu === index ? "block" : "hidden"
       } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
+      {/* {permissions?.update && ( */}
       <div
         onClick={() => {
+          // console.log(permissions);
           dispatch(setSelectedItem(item));
           dispatch(setShowActionMenu(-1));
           dispatch(
@@ -72,11 +74,12 @@ const ActionMenu = ({ index, item }) => {
             })
           );
         }}
-        className="cursor-pointer flex justify-center items-center space-x-2 "
+        className={`cursor-pointer flex justify-center items-center space-x-2 `}
       >
         <Image src={EditIcon} alt="edit" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Edit</p>
       </div>
+      {/* )} */}
       <div
         onClick={() => {
           dispatch(setShowActionMenu(-1));
@@ -94,6 +97,7 @@ const ActionMenu = ({ index, item }) => {
         <Image src={PrevIcon} alt="preview" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Preview</p>
       </div>
+      {/* {permissions?.delete && ( */}
       <div
         onClick={() => {
           dispatch(setSelectedItem(item));
@@ -106,6 +110,8 @@ const ActionMenu = ({ index, item }) => {
         <Image src={DelIcon} alt="delete" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Delete</p>
       </div>
+      {/* )} */}
+
       {currentPage === "Inventory" && (
         <>
           <div

@@ -7,18 +7,24 @@ import { useEffect, useState } from "react";
 import { addPart, updatePart } from "../../../lib/features/parts/partActions";
 import CrossIcon from "../../assets/main/64-cross.svg";
 import Image from "next/image";
+import GreenToggle from "../common/GreenToggle";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [formData, setFormData] = useState({
     name: "",
     variant: [],
+    color: false,
   });
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
-        setFormData({ name: selectedItem.name, variant: selectedItem.variant });
+        setFormData({
+          name: selectedItem.name,
+          variant: selectedItem.variant,
+          color: selectedItem.color,
+        });
       }
     } else {
       setFormData({ name: "", variant: [] });
@@ -119,6 +125,23 @@ const PartSideMenu = () => {
                     e.target.value = "";
                   }
                 }}
+              />
+            </div>
+            {/* Color toggle */}
+            <div className="w-full flex justify-between items-center">
+              {/* Text container */}
+              <div>
+                <p className="text-lg font-bold">Color</p>
+                <p className="text-[#6E7793] text-sm">
+                  Require color when adding these parts in inventory{" "}
+                </p>
+              </div>
+              {/* Toggle container */}
+              <GreenToggle
+                onChange={(e) =>
+                  setFormData({ ...formData, color: e.target.checked })
+                }
+                checked={Boolean(formData.color)}
               />
             </div>
           </div>

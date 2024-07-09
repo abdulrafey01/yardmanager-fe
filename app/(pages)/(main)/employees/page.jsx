@@ -15,17 +15,31 @@ import {
   setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchEmployeesByPage } from "../../../../lib/features/employee/employeeActions";
+import { getLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const { error, employeeData, toastMsg, totalDataLength } = useSelector(
     (state) => state.employee
   );
+  const { user } = useSelector((state) => state.auth);
+
+  const [pagePermission, setPagePermission] = React.useState(null);
 
   const dispatch = useDispatch();
   const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
 
+  // Get page permission
+  // useEffect(() => {
+  //   if (getLocalStorage("user")) {
+  //     setPagePermission(
+  //       JSON.parse(getLocalStorage("user")).data.role.privileges.find(
+  //         (privilege) => privilege.name === "employees"
+  //       )?.permissions
+  //     );
+  //   }
+  // }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Employee"));
     dispatch(fetchEmployeesByPage(pageNumber));
@@ -48,6 +62,8 @@ const page = () => {
   }, [error, employeeData, toastMsg]);
 
   return (
+    // pagePermission?.read ? (
+
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
@@ -113,6 +129,7 @@ const page = () => {
               key={index}
               rowIndex={index}
               item={data}
+              // permissions={pagePermission}
             />
           ))}
         </div>
@@ -145,6 +162,9 @@ const page = () => {
       </div>
     </div>
   );
+  // ) : (
+  //   <p>You don't have permission to access this page</p>
+  // );
 };
 
 export default page;

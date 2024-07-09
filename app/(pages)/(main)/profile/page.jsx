@@ -33,7 +33,7 @@ const page = () => {
     };
   }, []);
   useEffect(() => {
-    dispatch(setCurrentPage("My Profile"));
+    dispatch(setCurrentPage("MyProfile"));
   }, [dispatch]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that

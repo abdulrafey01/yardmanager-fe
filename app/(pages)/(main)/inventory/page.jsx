@@ -15,11 +15,14 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchInventoryByPage } from "../../../../lib/features/inventory/inventoryActions";
 import { calcTotalPage } from "../../../helpers/pagination";
+import { getLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
     (state) => state.inventory
   );
+  const { user } = useSelector((state) => state.auth);
+  const [pagePermission, setPagePermission] = React.useState(null);
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -30,6 +33,20 @@ const page = () => {
     dispatch(setCurrentPage("Inventory"));
     dispatch(fetchInventoryByPage(pageNumber));
   }, [dispatch, pageNumber]);
+
+  // useEffect(() => {
+  //   if (getLocalStorage("user")) {
+  //     setPagePermission(
+  //       JSON.parse(getLocalStorage("user")).data.role.privileges.find(
+  //         (privilege) => privilege.name === "inventory"
+  //       )?.permissions
+  //     );
+  //   }
+  // }, [user]);
+
+  // useEffect(() => {
+  //   console.log(pagePermission);
+  // }, [pagePermission]);
 
   useEffect(() => {
     if (error) {
@@ -49,15 +66,18 @@ const page = () => {
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
+    // pagePermission?.read ? (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       <div className="flex items-center justify-end space-x-4  w-full p-2">
         {/* Add Inventory Button */}
+        {/* {pagePermission.write && ( */}
         <GreenBtn
           onClick={() =>
             dispatch(setShowSideMenu({ value: true, mode: "add" }))
           }
           title={"Add New Inventory"}
         />
+        {/* )} */}
       </div>
       {/* Table */}
       <div className=" border rounded-xl border-gray-300 flex flex-col">
@@ -103,6 +123,7 @@ const page = () => {
               key={index}
               rowIndex={index}
               item={data}
+              // permissions={pagePermission}
             />
           ))}
         </div>
@@ -134,6 +155,9 @@ const page = () => {
         </div>
       </div>
     </div>
+    // ) : (
+    //   <p>You don't have permission to access this page</p>
+    // )
   );
 };
 

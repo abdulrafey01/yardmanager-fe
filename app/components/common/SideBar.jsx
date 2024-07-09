@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import Image from "next/image";
 import LineSvg from "../../assets/auth/6-Line_01.svg";
@@ -41,7 +41,7 @@ import {
 const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
-  const { showSideBar } = useSelector((state) => state.shared);
+  const { showSideBar, currentPage } = useSelector((state) => state.shared);
   const sideButtonsMain = [
     {
       name: "Dashboard",
@@ -124,6 +124,12 @@ const SideBar = () => {
     },
   ];
 
+  useEffect(() => {
+    if (currentPage === "MyProfile") {
+      setActiveBottomBtn(-1);
+      setActiveMainBtn(-1);
+    }
+  }, [currentPage]);
   const router = useRouter();
   const dispatch = useDispatch();
   return (
