@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Header from "./Header";
 import { logout } from "../../../lib/features/auth/authSlice";
+import { removeCookie } from "../../helpers/storage";
 
 const TopBar = () => {
   const { currentPage, showSideBar } = useSelector((state) => state.shared);
@@ -79,7 +80,10 @@ const TopBar = () => {
           } bg-white z-50 overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
         >
           <div
-            onClick={() => dispatch(logout())}
+            onClick={() => {
+              removeCookie("token");
+              dispatch(logout());
+            }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
             Logout

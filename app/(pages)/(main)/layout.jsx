@@ -17,7 +17,7 @@ const layout = ({ children }) => {
     if (!getCookie("token")) {
       router.push("/sign-in");
     }
-  }, [getCookie("token")]);
+  }, [token]);
 
   return (
     <div className="flex relative  min-h-screen">
