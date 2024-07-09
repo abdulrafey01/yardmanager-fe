@@ -13,7 +13,7 @@ const layout = ({ children }) => {
   const router = useRouter();
   // For Routing auth
   useEffect(() => {
-    if (getCookie("token")) {
+    if (token) {
       // console.log("token", token);
       router.push("/dashboard");
     }
