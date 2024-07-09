@@ -13,12 +13,11 @@ import { getCookie } from "../../helpers/storage";
 const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
-
   useEffect(() => {
-    if (!getCookie("token") && !token) {
+    if (!getCookie("token")) {
       router.push("/sign-in");
     }
-  }, [token]);
+  }, [getCookie("token")]);
 
   return (
     <div className="flex relative  min-h-screen">
