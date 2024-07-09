@@ -11,12 +11,7 @@ const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const router = useRouter();
-  // For Routing auth
   useEffect(() => {
-    if (token) {
-      // console.log("token", token);
-      router.push("/dashboard");
-    }
     if (error) {
       console.log("error", error);
     }
@@ -24,8 +19,15 @@ const layout = ({ children }) => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, msg: toastMsg }));
     }
-  }, [token, error, toastMsg, dispatch]);
+  }, [error, toastMsg, dispatch]);
 
+  // For Routing auth
+  useEffect(() => {
+    if (token) {
+      // console.log("token", token);
+      router.push("/dashboard");
+    }
+  }, [token]);
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
       <Toast />
