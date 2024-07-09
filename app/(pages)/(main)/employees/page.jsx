@@ -15,7 +15,6 @@ import {
   setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchEmployeesByPage } from "../../../../lib/features/employee/employeeActions";
-import { getLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const { error, employeeData, toastMsg, totalDataLength } = useSelector(

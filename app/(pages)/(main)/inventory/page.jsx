@@ -15,7 +15,6 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchInventoryByPage } from "../../../../lib/features/inventory/inventoryActions";
 import { calcTotalPage } from "../../../helpers/pagination";
-import { getLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
