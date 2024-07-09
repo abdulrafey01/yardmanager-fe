@@ -15,10 +15,10 @@ const layout = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!token) {
+    if (!getCookie("token")) {
       router.push("/sign-in");
     }
-  }, [token]);
+  }, [getCookie("token")]);
 
   return (
     <div className="flex relative  min-h-screen">
