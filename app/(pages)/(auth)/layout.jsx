@@ -23,11 +23,11 @@ const layout = ({ children }) => {
 
   // For Routing auth
   useEffect(() => {
-    if (getCookie("token")) {
+    if (token) {
       // console.log("token", token);
       router.push("/dashboard");
     }
-  }, [getCookie("token")]);
+  }, [token]);
   return (
     <div className="min-h-screen flex justify-center items-center p-4">
       <Toast />
