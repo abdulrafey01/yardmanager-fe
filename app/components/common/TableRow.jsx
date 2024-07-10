@@ -318,11 +318,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             alt="MenuIcon"
             className="cursor-pointer "
           ></Image>
-          <ActionMenu
-            // permissions={permissions}
-            index={rowIndex}
-            item={item}
-          />
+          <ActionMenu permissions={permissions} index={rowIndex} item={item} />
         </div>
       </div>
     </div>

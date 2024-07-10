@@ -17,11 +17,18 @@ import {
 } from "../../../lib/features/employee/employeeActions";
 import { searchLocationByName } from "../../../lib/features/locations/locationActions";
 import { searchRoleByName } from "../../../lib/features/roles/roleActions";
+import {
+  resetState,
+  setShowEmployeeSideMenu,
+} from "../../../lib/features/roles/roleSlice";
 const EmployeeSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  // For roles page employee menu
+  const { showEmployeeSideMenu } = useSelector((state) => state.roles);
   const { roleSearchData, toastMsg: roleToast } = useSelector(
     (state) => state.roles
   );
+
   const [roleInputValue, setRoleInputValue] = React.useState("");
   const [formState, setFormState] = React.useState({
     firstName: "",
@@ -36,11 +43,6 @@ const EmployeeSideMenu = () => {
   const formData = new FormData();
 
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (roleToast) {
-      dispatch(setShowToast({ value: true, msg: roleToast }));
-    }
-  }, [roleToast]);
 
   const onInputChange = (e) => {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -94,6 +96,7 @@ const EmployeeSideMenu = () => {
     }
     // close the menu after submitting
     dispatch(setShowSideMenu({ value: false }));
+    dispatch(setShowEmployeeSideMenu(false));
 
     // reset the form values
     setFormState({
@@ -111,7 +114,7 @@ const EmployeeSideMenu = () => {
   return (
     <div
       className={`fixed flex w-full ${
-        showSideMenu.value ? "flex" : "hidden"
+        showSideMenu.value || showEmployeeSideMenu ? "flex" : "hidden"
       }   h-full  z-20 overflow-y-clip `}
     >
       {/* Black part */}
@@ -241,6 +244,7 @@ const EmployeeSideMenu = () => {
           <div
             onClick={() => {
               dispatch(setShowSideMenu({ value: false, mode: "add" }));
+              dispatch(setShowEmployeeSideMenu(false));
             }}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >

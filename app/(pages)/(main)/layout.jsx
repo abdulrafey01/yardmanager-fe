@@ -9,8 +9,10 @@ import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../../helpers/storage";
+import useloadAuthState from "../../helpers/authHook";
 
 const layout = ({ children }) => {
+  useloadAuthState();
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
 

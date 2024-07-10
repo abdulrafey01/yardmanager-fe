@@ -10,6 +10,7 @@ import VehicleSideMenu from "../Vehicle/VehicleSideMenu";
 import EmployeeSideMenu from "../employee/EmployeeSideMenu";
 const SideMenu = () => {
   const { currentPage } = useSelector((state) => state.shared);
+  const { showEmployeeSideMenu } = useSelector((state) => state.roles);
 
   return currentPage === "Parts" ? (
     <PartSideMenu />
@@ -19,7 +20,7 @@ const SideMenu = () => {
     <LocationSideMenu />
   ) : currentPage === "Vehicle" ? (
     <VehicleSideMenu />
-  ) : currentPage === "Employee" ? (
+  ) : currentPage === "Employee" || showEmployeeSideMenu === true ? (
     <EmployeeSideMenu />
   ) : currentPage === "Roles" ? (
     <RoleSideMenu />
