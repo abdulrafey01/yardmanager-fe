@@ -39,9 +39,12 @@ const page = ({}) => {
 
   // If not user then can't access this page
   useEffect(() => {
-    if (user?.userType === "user") {
-      return router.push("/profile");
-    }
+    const routePage = async () => {
+      if (user?.userType === "user") {
+        return router.push("/profile");
+      }
+    };
+    routePage();
   }, []);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that

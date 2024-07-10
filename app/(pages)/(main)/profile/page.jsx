@@ -105,16 +105,20 @@ const page = () => {
 
 	// If not user then can't access this page
 	useEffect(() => {
-		if (user?.userType !== "user") {
-			return router.push("/profile/employee");
-		}
-		setPersonalFormState({
-			firstName: user?.data.name.first,
-			lastName: user?.data.name.last,
-			email: user?.data.email,
-			username: user?.data.username,
-			password: user?.data.password
-		});
+		const routePage = async () => {
+			if (user?.userType !== "user") {
+				return router.push("/profile/employee");
+			}
+			setPersonalFormState({
+				firstName: user?.data.name.first,
+				lastName: user?.data.name.last,
+				email: user?.data.email,
+				username: user?.data.username,
+				password: user?.data.password
+			});
+		};
+
+		routePage();
 	}, []);
 
 	// set company form state
