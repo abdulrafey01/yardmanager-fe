@@ -16,16 +16,18 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 
 import WhiteBtn from "../../../abstracts/WhiteBtn";
-import { fetchRolesByPage } from "../../../../lib/features/roles/roleActions";
+import {
+  fetchRolesByPage,
+  searchRoleByName,
+} from "../../../../lib/features/roles/roleActions";
 import {
   resetState,
   setShowEmployeeSideMenu,
 } from "../../../../lib/features/roles/roleSlice";
 
 const page = () => {
-  const { error, rolesData, toastMsg, totalDataLength } = useSelector(
-    (state) => state.roles
-  );
+  const { error, rolesData, toastMsg, totalDataLength, roleSearchData } =
+    useSelector((state) => state.roles);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -56,7 +58,7 @@ const page = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Roles"));
-    dispatch(fetchRolesByPage(pageNumber));
+    dispatch(fetchRolesByPage({ page: pageNumber }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -68,6 +70,7 @@ const page = () => {
       setDataFromServer(rolesData);
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
+      console.log(rolesData);
     }
     if (toastMsg) {
       if (pagePermission?.read) {
@@ -76,10 +79,14 @@ const page = () => {
     }
   }, [error, rolesData, toastMsg]);
 
+  // Search function
+  const handleSearch = (e) => {
+    dispatch(fetchRolesByPage({ search: e.target.value }));
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
-    pagePermission?.read ? (
+    pagePermission?.read && (
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-end space-x-4  w-full p-2">
           {/* Create Role Button */}
@@ -114,6 +121,7 @@ const page = () => {
                   type="text"
                   placeholder="Search"
                   className="w-full outline-none bg-transparent"
+                  onChange={handleSearch}
                 />
               </div>
               <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
@@ -165,8 +173,6 @@ const page = () => {
           </div>
         </div>
       </div>
-    ) : (
-      <p>You don't have permission to access this page</p>
     )
   );
 };

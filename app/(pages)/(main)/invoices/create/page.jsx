@@ -25,6 +25,7 @@ import {
   updateInvoice,
 } from "../../../../../lib/features/invoice/invoiceActions";
 import { useRouter } from "next/navigation";
+import { setPreviewModal } from "../../../../../lib/features/invoice/invoiceSlice";
 const page = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -111,63 +112,39 @@ const page = () => {
   }, [toastMsg, error, searchToast]);
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
-  // useEffect(() => {
-  //   console.log("showSideMenu:", showSideMenu);
-  //   console.log("selectedItem:", selectedItem);
-  //   if (showSideMenu.mode === "edit") {
-  //     setFormData({
-  //       name: selectedItem.name,
-  //       email: selectedItem.email,
-  //       phone: selectedItem.phone,
-  //       products: selectedItem.products,
-  //       tax: selectedItem.tax,
-  //       paid: selectedItem.paid,
-  //       status: selectedItem.status,
-  //       notes: selectedItem.notes,
-  //       datePaid: selectedItem.datePaid,
-  //     });
-
-  //     setPageMode("edit");
-  //   } else if (showSideMenu.mode === "preview") {
-  //     setFormData({
-  //       name: selectedItem.name,
-  //       email: selectedItem.email,
-  //       phone: selectedItem.phone,
-  //       products: selectedItem.products,
-  //       tax: selectedItem.tax,
-  //       paid: selectedItem.paid,
-  //       status: selectedItem.status,
-  //       notes: selectedItem.notes,
-  //       datePaid: selectedItem.datePaid,
-  //     });
-  //     setPageMode("preview");
-  //   }
-  // }, [selectedItem, showSideMenu]);
-
-  // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     console.log("showSideMenu:", showSideMenu);
     console.log("selectedItem:", selectedItem);
-    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
-      if (selectedItem) {
-        setFormData({
-          name: selectedItem.name,
-          email: selectedItem.email,
-          phone: selectedItem.phone,
-          products: selectedItem.products,
-          tax: selectedItem.tax,
-          paid: selectedItem.paid,
-          status: selectedItem.status,
-          notes: selectedItem.notes,
-          datePaid: selectedItem.datePaid,
-        });
-        setPageMode("edit");
-      }
+    if (showSideMenu.mode === "edit") {
+      setFormData({
+        name: selectedItem.name,
+        email: selectedItem.email,
+        phone: selectedItem.phone,
+        products: selectedItem.products,
+        tax: selectedItem.tax,
+        paid: selectedItem.paid,
+        status: selectedItem.status,
+        notes: selectedItem.notes,
+        datePaid: selectedItem.datePaid,
+      });
 
-      // so that we can go back to invoices page
-      dispatch(setShowSideMenu({ value: false }));
+      setPageMode("edit");
+    } else if (showSideMenu.mode === "preview") {
+      setFormData({
+        name: selectedItem.name,
+        email: selectedItem.email,
+        phone: selectedItem.phone,
+        products: selectedItem.products,
+        tax: selectedItem.tax,
+        paid: selectedItem.paid,
+        status: selectedItem.status,
+        notes: selectedItem.notes,
+        datePaid: selectedItem.datePaid,
+      });
+      setPageMode("preview");
     }
   }, [selectedItem, showSideMenu]);
+
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -574,7 +551,21 @@ const page = () => {
               pageMode === "preview" && "hidden"
             }`}
           >
-            <WhiteBtn title={"Preview"} />
+            <WhiteBtn
+              onClick={() => {
+                dispatch(
+                  setPreviewModal({
+                    value: true,
+                    data: {
+                      ...formData,
+                      grandTotal,
+                      subTotal,
+                    },
+                  })
+                );
+              }}
+              title={"Preview"}
+            />
             <GreenBtn onClick={onFormSubmit} title={"Save Invoice"} />
           </div>
         </div>

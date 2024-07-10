@@ -16,6 +16,7 @@ import {
 import DeleteModal from "../common/DeleteModal";
 import RestoreModal from "../common/RestoreModal";
 import SuccessModal from "../common/SuccessModal";
+import UploadImageModal from "../common/UploadImageModal";
 const Modal = () => {
   const dispatch = useDispatch();
   const { showDeleteModal, showSuccessModal, currentPage } = useSelector(
@@ -43,6 +44,9 @@ const Modal = () => {
         <RestoreModal />
         {/* Success Modal */}
         <SuccessModal />
+
+        {/* Upload Image Modal */}
+        <UploadImageModal />
       </div>
     </div>
   );

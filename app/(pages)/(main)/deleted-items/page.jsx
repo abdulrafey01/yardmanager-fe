@@ -50,7 +50,7 @@ const page = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("DeletedItems"));
-    dispatch(fetchDeletedItemsByPage(pageNumber));
+    dispatch(fetchDeletedItemsByPage({ page: pageNumber }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -70,10 +70,15 @@ const page = () => {
     }
   }, [error, deletedItemsData, toastMsg]);
 
+  // Search function
+  const handleSearch = (e) => {
+    dispatch(fetchDeletedItemsByPage({ search: e.target.value }));
+  };
+
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
-    pagePermission?.read ? (
+    pagePermission?.read && (
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         {/* Table */}
         <div className=" border rounded-xl border-gray-300 flex flex-col">
@@ -93,6 +98,7 @@ const page = () => {
                   type="text"
                   placeholder="Search"
                   className="w-full outline-none bg-transparent"
+                  onChange={handleSearch}
                 />
               </div>
               {/* Filter Button */}
@@ -157,8 +163,6 @@ const page = () => {
           </div>
         </div>
       </div>
-    ) : (
-      <p>You don't have permission to access this page</p>
     )
   );
 };

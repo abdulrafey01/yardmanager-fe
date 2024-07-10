@@ -1,0 +1,2183 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "3c4ab837-0a85-44b1-882b-4d98ea9231a9",
+      "name": "User",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2024-07-10T09:33:42.000Z",
+      "createdAt": "2024-07-05T06:32:15.000Z",
+      "lastUpdatedBy": "23549590",
+      "uid": "23549590-3c4ab837-0a85-44b1-882b-4d98ea9231a9"
+    },
+    "item": [
+      {
+        "name": "Roles",
+        "item": [
+          {
+            "name": "All Roles",
+            "id": "18551b37-dee2-465d-80bf-742aff7ca51d",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/roles/all",
+                "host": ["{{URL}}"],
+                "path": ["roles", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-18551b37-dee2-465d-80bf-742aff7ca51d"
+          },
+          {
+            "name": "New Role",
+            "id": "15c2796f-5816-4e26-9d1e-f084ee3b8c72",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"admin\",\r\n  \"privileges\": [\r\n    {\r\n      \"name\": \"employees\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"invoices\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"inventory\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"parts\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"settings\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"locations\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"recycled\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"roles\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/roles/new",
+                "host": ["{{URL}}"],
+                "path": ["roles", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-15c2796f-5816-4e26-9d1e-f084ee3b8c72"
+          },
+          {
+            "name": "Single Role",
+            "id": "bc7b0ab5-0885-47f8-a573-377885caa1a8",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/roles/s/667ac538cb6dc67a15c23485",
+                "host": ["{{URL}}"],
+                "path": ["roles", "s", "667ac538cb6dc67a15c23485"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-bc7b0ab5-0885-47f8-a573-377885caa1a8"
+          },
+          {
+            "name": "Edit Role",
+            "id": "ea677519-7a35-40c7-97d1-f9e9449135bc",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"Manager\",\r\n  \"privileges\": [\r\n    {\r\n      \"name\": \"employees\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"invoices\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"inventory\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": true,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"parts\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"settings\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": false,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"locations\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"recycled\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": true,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    },\r\n    {\r\n      \"name\": \"roles\",\r\n      \"permissions\": {\r\n        \"read\": true,\r\n        \"write\": false,\r\n        \"delete\": false,\r\n        \"update\": true\r\n      }\r\n    }\r\n  ]\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/roles/s/667ac538cb6dc67a15c23485",
+                "host": ["{{URL}}"],
+                "path": ["roles", "s", "667ac538cb6dc67a15c23485"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-ea677519-7a35-40c7-97d1-f9e9449135bc"
+          },
+          {
+            "name": "Delete Role",
+            "id": "556aad42-9a39-4d6c-9bb5-82155e214c5b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/roles/s/66846a4b9b34c417fa9f335f",
+                "host": ["{{URL}}"],
+                "path": ["roles", "s", "66846a4b9b34c417fa9f335f"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-556aad42-9a39-4d6c-9bb5-82155e214c5b"
+          },
+          {
+            "name": "Paginate Roles",
+            "id": "aa441b3f-09d2-4ca2-9370-fd5c6715d64b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/roles/paginate?search=admin&filter=4",
+                "host": ["{{URL}}"],
+                "path": ["roles", "paginate"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "admin"
+                  },
+                  {
+                    "key": "filter",
+                    "value": "4"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-aa441b3f-09d2-4ca2-9370-fd5c6715d64b"
+          },
+          {
+            "name": "Search by Name",
+            "id": "2041cb6b-a147-47c5-b24e-84052fc9a491",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/roles/search?name=admin",
+                "host": ["{{URL}}"],
+                "path": ["roles", "search"],
+                "query": [
+                  {
+                    "key": "name",
+                    "value": "admin"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-2041cb6b-a147-47c5-b24e-84052fc9a491"
+          }
+        ],
+        "id": "73c804ba-1d3d-456d-aa6c-8e3077402fa2",
+        "uid": "23549590-73c804ba-1d3d-456d-aa6c-8e3077402fa2"
+      },
+      {
+        "name": "Locations",
+        "item": [
+          {
+            "name": "All Locations",
+            "id": "041c2f15-dbf6-4145-8021-8870a12b8a39",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/locations/all",
+                "host": ["{{URL}}"],
+                "path": ["locations", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-041c2f15-dbf6-4145-8021-8870a12b8a39"
+          },
+          {
+            "name": "Add Location",
+            "id": "04fa2e1c-06ea-4fde-8731-6bea56f8c8d4",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"location\": \"Test Location\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/locations/new",
+                "host": ["{{URL}}"],
+                "path": ["locations", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-04fa2e1c-06ea-4fde-8731-6bea56f8c8d4"
+          },
+          {
+            "name": "Single Location",
+            "id": "3e7579b6-54fb-4726-a73b-35c336f45d68",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/locations/s/6685b03db8f9587820e1f64a",
+                "host": ["{{URL}}"],
+                "path": ["locations", "s", "6685b03db8f9587820e1f64a"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-3e7579b6-54fb-4726-a73b-35c336f45d68"
+          },
+          {
+            "name": "Update Location",
+            "id": "b0c643a3-7a92-43b5-b160-acad1b79700b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"location\": \"Updated Location\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/locations/s/6685b03db8f9587820e1f64a",
+                "host": ["{{URL}}"],
+                "path": ["locations", "s", "6685b03db8f9587820e1f64a"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b0c643a3-7a92-43b5-b160-acad1b79700b"
+          },
+          {
+            "name": "Delete Location",
+            "id": "bcf89837-38c6-45c9-a53d-9925305b3361",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/locations/s/66864be5bf5b81d431ae8d72",
+                "host": ["{{URL}}"],
+                "path": ["locations", "s", "66864be5bf5b81d431ae8d72"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-bcf89837-38c6-45c9-a53d-9925305b3361"
+          },
+          {
+            "name": "Paginate Location",
+            "id": "b3fa5841-5aa6-475b-83b0-6135307013c1",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/locations/paginate?search=tes",
+                "host": ["{{URL}}"],
+                "path": ["locations", "paginate"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "tes",
+                    "type": "text"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b3fa5841-5aa6-475b-83b0-6135307013c1"
+          },
+          {
+            "name": "Search by Name",
+            "id": "0e59c01c-d0b6-489a-89d9-b7f7cfb0dcce",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/locations/search?name=fafc",
+                "host": ["{{URL}}"],
+                "path": ["locations", "search"],
+                "query": [
+                  {
+                    "key": "name",
+                    "value": "fafc"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-0e59c01c-d0b6-489a-89d9-b7f7cfb0dcce"
+          }
+        ],
+        "id": "f8e7829d-baab-4474-9013-0d4ea4d05ded",
+        "uid": "23549590-f8e7829d-baab-4474-9013-0d4ea4d05ded"
+      },
+      {
+        "name": "Parts",
+        "item": [
+          {
+            "name": "All Parts",
+            "id": "b14c856d-c634-4c48-a269-d195ac2c56f6",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/parts/all",
+                "host": ["{{URL}}"],
+                "path": ["parts", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b14c856d-c634-4c48-a269-d195ac2c56f6"
+          },
+          {
+            "name": "Add Part",
+            "id": "06f45705-42e5-41bc-b76d-cd2f18780767",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"name\": \"Test Part 1\",\r\n    \"variant\": [\"v1\", \"v2\"],\r\n    \"color\": true\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/parts/new",
+                "host": ["{{URL}}"],
+                "path": ["parts", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-06f45705-42e5-41bc-b76d-cd2f18780767"
+          },
+          {
+            "name": "Single Part",
+            "id": "708cf78b-d654-4d6b-9953-33cb9e1ce6d2",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/parts/s/66866daa6b8dede6977f8ccf",
+                "host": ["{{URL}}"],
+                "path": ["parts", "s", "66866daa6b8dede6977f8ccf"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-708cf78b-d654-4d6b-9953-33cb9e1ce6d2"
+          },
+          {
+            "name": "Update Part",
+            "id": "a2781e51-ee97-4f70-a605-825b6223e57f",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"name\": \"Test Part\",\r\n    \"variant\": [\"variant 1\"]\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/parts/s/66866daa6b8dede6977f8ccf",
+                "host": ["{{URL}}"],
+                "path": ["parts", "s", "66866daa6b8dede6977f8ccf"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-a2781e51-ee97-4f70-a605-825b6223e57f"
+          },
+          {
+            "name": "Delete Part",
+            "id": "1ea3d29a-c890-4fcc-9ae1-b5bf160b073f",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/parts/s/66866e7d6b8dede6977f8cd9",
+                "host": ["{{URL}}"],
+                "path": ["parts", "s", "66866e7d6b8dede6977f8cd9"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-1ea3d29a-c890-4fcc-9ae1-b5bf160b073f"
+          },
+          {
+            "name": "Paginate Parts",
+            "id": "d958c486-68e9-48bb-8cce-23f90082cf82",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/parts/paginate?filter=Alfa,toyota",
+                "host": ["{{URL}}"],
+                "path": ["parts", "paginate"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "v1",
+                    "disabled": true
+                  },
+                  {
+                    "key": "filter",
+                    "value": "Alfa,toyota"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-d958c486-68e9-48bb-8cce-23f90082cf82"
+          },
+          {
+            "name": "Search by Name",
+            "id": "08b20ebc-e203-4a13-9d5f-8e9ab7ed430b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/parts/search?name=new",
+                "host": ["{{URL}}"],
+                "path": ["parts", "search"],
+                "query": [
+                  {
+                    "key": "name",
+                    "value": "new"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-08b20ebc-e203-4a13-9d5f-8e9ab7ed430b"
+          }
+        ],
+        "id": "f4d8ab29-8b49-421b-8834-7b8135d7a986",
+        "uid": "23549590-f4d8ab29-8b49-421b-8834-7b8135d7a986"
+      },
+      {
+        "name": "Inventory",
+        "item": [
+          {
+            "name": "All Inventory",
+            "id": "0d46d72c-df54-4d8c-8b8d-28620425273b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/all",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-0d46d72c-df54-4d8c-8b8d-28620425273b"
+          },
+          {
+            "name": "Paginate Inventory",
+            "id": "5ae47c85-d9e0-4486-a0bd-4ca650f95755",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/paginate?search=",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "paginate"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": ""
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-5ae47c85-d9e0-4486-a0bd-4ca650f95755"
+          },
+          {
+            "name": "Add Inventory",
+            "id": "ec611ee2-8257-4dbf-80d4-521e98ed1340",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name",
+                    "value": "Tesla Model S - test",
+                    "type": "text"
+                  },
+                  {
+                    "key": "location",
+                    "value": "668867f113baa87a13a4ad4f",
+                    "type": "text"
+                  },
+                  {
+                    "key": "part",
+                    "value": "668987d4bfec16e7f5258187",
+                    "type": "text"
+                  },
+                  {
+                    "key": "startYear",
+                    "value": "2020",
+                    "type": "text"
+                  },
+                  {
+                    "key": "lastYear",
+                    "value": "2023",
+                    "type": "text"
+                  },
+                  {
+                    "key": "model",
+                    "value": "Model S, Model X",
+                    "type": "text"
+                  },
+                  {
+                    "key": "make",
+                    "value": "Tesla",
+                    "type": "text"
+                  },
+                  {
+                    "key": "variant",
+                    "value": "Long Range, Plaid",
+                    "type": "text"
+                  },
+                  {
+                    "key": "price",
+                    "value": "79999",
+                    "type": "text"
+                  },
+                  {
+                    "key": "notes",
+                    "value": "Demo inventory data for testing purposes.",
+                    "type": "text"
+                  },
+                  {
+                    "key": "sku",
+                    "value": "123456",
+                    "type": "text"
+                  },
+                  {
+                    "key": "color",
+                    "value": "Red",
+                    "type": "text"
+                  },
+                  {
+                    "key": "images",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/inventory/new",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-ec611ee2-8257-4dbf-80d4-521e98ed1340"
+          },
+          {
+            "name": "Single Inventory",
+            "id": "cda9a318-cb35-469c-b030-417292e73a51",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/s/66882d893aac359e3a343e07",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "s", "66882d893aac359e3a343e07"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-cda9a318-cb35-469c-b030-417292e73a51"
+          },
+          {
+            "name": "Update Inventory",
+            "id": "d6d96b8b-d963-4c20-9e03-669f3f904d2c",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name",
+                    "value": "Tesla Model S1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "location",
+                    "value": "668867f113baa87a13a4ad4f",
+                    "type": "text"
+                  },
+                  {
+                    "key": "startYear",
+                    "value": "2021",
+                    "type": "text"
+                  },
+                  {
+                    "key": "lastYear",
+                    "value": "2023",
+                    "type": "text"
+                  },
+                  {
+                    "key": "model",
+                    "value": "Model S, Model X",
+                    "type": "text"
+                  },
+                  {
+                    "key": "make",
+                    "value": "Tesla",
+                    "type": "text"
+                  },
+                  {
+                    "key": "variant",
+                    "value": "Long Range, Plaid",
+                    "type": "text"
+                  },
+                  {
+                    "key": "price",
+                    "value": "79999",
+                    "type": "text"
+                  },
+                  {
+                    "key": "notes",
+                    "value": "Demo inventory data for testing purposes.",
+                    "type": "text"
+                  },
+                  {
+                    "key": "sku",
+                    "value": "123456",
+                    "type": "text"
+                  },
+                  {
+                    "key": "color",
+                    "value": "Red",
+                    "type": "text"
+                  },
+                  {
+                    "key": "images",
+                    "value": "[\"https://yard-manager.s3.eu-central-003.backblazeb2.com/1720200915609_media.jpg\",\"https://yard-manager.s3.eu-central-003.backblazeb2.com/1720201431705_media.jpg\"]",
+                    "type": "text",
+                    "disabled": true
+                  },
+                  {
+                    "key": "newImage",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68",
+                    "disabled": true
+                  },
+                  {
+                    "key": "part",
+                    "value": "668987d4bfec16e7f5258187",
+                    "type": "text"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/inventory/s/66882d893aac359e3a343e07",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "s", "66882d893aac359e3a343e07"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-d6d96b8b-d963-4c20-9e03-669f3f904d2c"
+          },
+          {
+            "name": "Delete Inventory",
+            "id": "84578153-b150-4b44-a49c-1afc72f9d613",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/s/668832d5114f69f99a8cccd0",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "s", "668832d5114f69f99a8cccd0"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-84578153-b150-4b44-a49c-1afc72f9d613"
+          },
+          {
+            "name": "Search by Name",
+            "id": "8a539106-7099-4707-b660-e25ed2ef4e32",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/name?search=Mod",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "name"],
+                "query": [
+                  {
+                    "key": "search",
+                    "value": "Mod"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-8a539106-7099-4707-b660-e25ed2ef4e32"
+          }
+        ],
+        "id": "75613454-4eb0-41c9-86ba-5e6a426eb9f4",
+        "uid": "23549590-75613454-4eb0-41c9-86ba-5e6a426eb9f4"
+      },
+      {
+        "name": "Deleted Inventory",
+        "item": [
+          {
+            "name": "All Deleted Inventory",
+            "id": "d9a17e2f-9742-4aa6-8aba-ca9bce5e51fb",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/all?deleted=true",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "all"],
+                "query": [
+                  {
+                    "key": "deleted",
+                    "value": "true"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-d9a17e2f-9742-4aa6-8aba-ca9bce5e51fb"
+          },
+          {
+            "name": "Paginate Deleted Inventory",
+            "id": "64113f01-247a-49fe-8ac6-d886e35c72c4",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/paginate?deleted=true",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "paginate"],
+                "query": [
+                  {
+                    "key": "deleted",
+                    "value": "true"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-64113f01-247a-49fe-8ac6-d886e35c72c4"
+          },
+          {
+            "name": "Restore Deleted Inventory",
+            "id": "b4f58a38-5cfb-4895-85c2-497120c4971c",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/restore/66883487680bca02dc28ff83",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "restore", "66883487680bca02dc28ff83"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b4f58a38-5cfb-4895-85c2-497120c4971c"
+          },
+          {
+            "name": "Delete Inventory",
+            "id": "ca2690e6-1c93-407f-90ca-e000ab6ccbb0",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/inventory/delete/66883487680bca02dc28ff83",
+                "host": ["{{URL}}"],
+                "path": ["inventory", "delete", "66883487680bca02dc28ff83"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-ca2690e6-1c93-407f-90ca-e000ab6ccbb0"
+          }
+        ],
+        "id": "075064d2-299a-4820-a623-d3059af6e0f5",
+        "uid": "23549590-075064d2-299a-4820-a623-d3059af6e0f5"
+      },
+      {
+        "name": "Invoices",
+        "item": [
+          {
+            "name": "All Invoices",
+            "id": "79bb9eb2-3f81-445a-a71f-76b42f3fb809",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/invoices/all",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-79bb9eb2-3f81-445a-a71f-76b42f3fb809"
+          },
+          {
+            "name": "Add Invoice",
+            "id": "532c899a-0523-4a24-881f-16a0013fc0af",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"Ali\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"phone\": \"+1234567890\",\r\n  \"products\": [\r\n    {\r\n      \"product\": \"668988bb8f9c4216626676a7\",\r\n      \"quantity\": 2,\r\n      \"price\": 50,\r\n      \"date\": \"2024-06-28T12:34:56.789Z\"\r\n    },\r\n    {\r\n      \"product\": \"668988bb8f9c4216626676a7\",\r\n      \"quantity\": 1,\r\n      \"price\": 100,\r\n      \"date\": \"2024-06-28T12:34:56.789Z\"\r\n    }\r\n  ],\r\n  \"tax\": 10,\r\n  \"paid\": 150,\r\n  \"status\": true,\r\n  \"notes\": \"Thank you for your purchase!\",\r\n  \"datePaid\": \"2024-06-28T12:34:56.789Z\"\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/invoices/new",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-532c899a-0523-4a24-881f-16a0013fc0af"
+          },
+          {
+            "name": "Single Invoice",
+            "id": "764dfc61-4dad-4851-91b0-3beb762b84e1",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/invoices/s/668855edbb0d1fa3de3c6afe",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "s", "668855edbb0d1fa3de3c6afe"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-764dfc61-4dad-4851-91b0-3beb762b84e1"
+          },
+          {
+            "name": "Update Invoice",
+            "id": "82ca9d09-195d-4d44-9c2b-fdf5b997994a",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"email\": \"john.doe@example.com\",\r\n  \"phone\": \"+1234567890\",\r\n  \"products\": [\r\n    {\r\n      \"name\": \"Product 1\",\r\n      \"quantity\": 2,\r\n      \"price\": 50,\r\n      \"date\": \"2024-06-28T12:34:56.789Z\"\r\n    },\r\n    {\r\n      \"name\": \"Product 2\",\r\n      \"quantity\": 1,\r\n      \"price\": 100,\r\n      \"date\": \"2024-06-28T12:34:56.789Z\"\r\n    }\r\n  ],\r\n  \"tax\": 10,\r\n  \"paid\": 220,\r\n  \"notes\": \"Thank you for your purchase!\",\r\n  \"datePaid\": \"2024-06-28T12:34:56.789Z\"\r\n}\r\n",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/invoices/s/668855edbb0d1fa3de3c6afe",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "s", "668855edbb0d1fa3de3c6afe"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-82ca9d09-195d-4d44-9c2b-fdf5b997994a"
+          },
+          {
+            "name": "Delete Invoice",
+            "id": "70ee158c-cb1d-4235-b607-ddb330ffa676",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/invoices/s/66885718bb0d1fa3de3c6b16",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "s", "66885718bb0d1fa3de3c6b16"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-70ee158c-cb1d-4235-b607-ddb330ffa676"
+          },
+          {
+            "name": "Paginate Invoice",
+            "id": "30a9a978-7f9f-47b8-9776-5fd3fce991db",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/invoices/paginate?page=1&limit=12&search=example.com",
+                "host": ["{{URL}}"],
+                "path": ["invoices", "paginate"],
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "12"
+                  },
+                  {
+                    "key": "search",
+                    "value": "example.com",
+                    "type": "text"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-30a9a978-7f9f-47b8-9776-5fd3fce991db"
+          }
+        ],
+        "id": "9369bcc2-511c-458c-ac6f-d583d76909f8",
+        "uid": "23549590-9369bcc2-511c-458c-ac6f-d583d76909f8"
+      },
+      {
+        "name": "Employees",
+        "item": [
+          {
+            "name": "All Employees",
+            "id": "30144a40-5f24-49ae-b64c-b4050ec69375",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/employees/all",
+                "host": ["{{URL}}"],
+                "path": ["employees", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-30144a40-5f24-49ae-b64c-b4050ec69375"
+          },
+          {
+            "name": "Add Employee",
+            "id": "c2fff828-3a3b-4f20-8dfb-c398cfc8c449",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name[first]",
+                    "value": "John",
+                    "type": "text"
+                  },
+                  {
+                    "key": "name[last]",
+                    "value": "Doe",
+                    "type": "text"
+                  },
+                  {
+                    "key": "email",
+                    "value": "john.doe1@example.com",
+                    "type": "text"
+                  },
+                  {
+                    "key": "password",
+                    "value": "test@123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "role",
+                    "value": "6686b38ee4d3df52c050c245",
+                    "type": "text"
+                  },
+                  {
+                    "key": "position",
+                    "value": "Software Engineer",
+                    "type": "text"
+                  },
+                  {
+                    "key": "date",
+                    "value": "2024-06-28T00:00:00.000Z",
+                    "type": "text"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/employees/new",
+                "host": ["{{URL}}"],
+                "path": ["employees", "new"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-c2fff828-3a3b-4f20-8dfb-c398cfc8c449"
+          },
+          {
+            "name": "Single Employee",
+            "id": "75ad3338-0682-4446-b528-adf649bcf81c",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/employees/s/668be4e4263b27d418d3788a",
+                "host": ["{{URL}}"],
+                "path": ["employees", "s", "668be4e4263b27d418d3788a"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-75ad3338-0682-4446-b528-adf649bcf81c"
+          },
+          {
+            "name": "Delete Employee",
+            "id": "bd434b07-a357-4416-ab64-1d31057d4367",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "DELETE",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/employees/s/668be6cc263b27d418d378a4",
+                "host": ["{{URL}}"],
+                "path": ["employees", "s", "668be6cc263b27d418d378a4"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-bd434b07-a357-4416-ab64-1d31057d4367"
+          },
+          {
+            "name": "Paginate Employees",
+            "id": "379bf064-8d64-459c-a864-e2d61c507044",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/employees/paginate?page=1&limit=4&search=ab",
+                "host": ["{{URL}}"],
+                "path": ["employees", "paginate"],
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "4"
+                  },
+                  {
+                    "key": "search",
+                    "value": "ab"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-379bf064-8d64-459c-a864-e2d61c507044"
+          },
+          {
+            "name": "Update Employee",
+            "id": "9168e4d4-fe72-4977-8cf0-0df9ad8ffde5",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name[first]",
+                    "value": "John",
+                    "type": "text"
+                  },
+                  {
+                    "key": "name[last]",
+                    "value": "Doe - test",
+                    "type": "text"
+                  },
+                  {
+                    "key": "email",
+                    "value": "john.doe1@example.com",
+                    "type": "text"
+                  },
+                  {
+                    "key": "password",
+                    "value": "test@123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "role",
+                    "value": "6686b38ee4d3df52c050c245",
+                    "type": "text"
+                  },
+                  {
+                    "key": "position",
+                    "value": "Software Engineer",
+                    "type": "text"
+                  },
+                  {
+                    "key": "date",
+                    "value": "2024-06-28T00:00:00.000Z",
+                    "type": "text"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/employees/s/668be4e4263b27d418d3788a",
+                "host": ["{{URL}}"],
+                "path": ["employees", "s", "668be4e4263b27d418d3788a"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-9168e4d4-fe72-4977-8cf0-0df9ad8ffde5"
+          },
+          {
+            "name": "SignIn",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "9e295e59-d286-4d89-86a3-2ec35f883d66",
+                  "exec": [
+                    "var response = pm.response.json();\r",
+                    "var token = response.token;\r",
+                    "pm.globals.set('userToken', token)"
+                  ],
+                  "type": "text/javascript",
+                  "packages": {}
+                }
+              }
+            ],
+            "id": "a819e121-62ab-49a6-85c8-fe77453c10d0",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"email\": \"john.doe1@example.com\",\r\n    \"password\": \"test@123\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/employees/login",
+                "host": ["{{URL}}"],
+                "path": ["employees", "login"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-a819e121-62ab-49a6-85c8-fe77453c10d0"
+          }
+        ],
+        "id": "e26b38cf-e4a6-4c22-b24b-663fc15bf194",
+        "uid": "23549590-e26b38cf-e4a6-4c22-b24b-663fc15bf194"
+      },
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Get Info",
+            "id": "2e7f985a-9d96-44b9-b58c-fa5884e63069",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/users/info",
+                "host": ["{{URL}}"],
+                "path": ["users", "info"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-2e7f985a-9d96-44b9-b58c-fa5884e63069"
+          },
+          {
+            "name": "SignIn",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "49af604c-e57f-462f-b29e-f74a38f2a79d",
+                  "exec": [
+                    "var response = pm.response.json();\r",
+                    "var token = response.data.token;\r",
+                    "pm.globals.set('userToken', token)"
+                  ],
+                  "type": "text/javascript",
+                  "packages": {}
+                }
+              }
+            ],
+            "id": "8fdee6f1-2b2c-4191-9658-a217d627ca4d",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"email\": \"test1@gmail.com\",\r\n    \"password\": \"test@123\"\r\n}\r\n\r\n// {\r\n//     \"email\": \"john.doe@example.com\",\r\n//     \"password\": \"test@123\"\r\n// }",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/users/login",
+                "host": ["{{URL}}"],
+                "path": ["users", "login"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-8fdee6f1-2b2c-4191-9658-a217d627ca4d"
+          },
+          {
+            "name": "Forgot Password",
+            "id": "4fd7abac-1e83-448f-b913-9110dfa84452",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"email\": \"john.doe1@example.com\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/users/forgot-password",
+                "host": ["{{URL}}"],
+                "path": ["users", "forgot-password"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-4fd7abac-1e83-448f-b913-9110dfa84452"
+          },
+          {
+            "name": "Verify Password",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "fa9bf8fc-9ea9-4253-8979-2ed30a9ee034",
+                  "exec": [
+                    "var response = pm.response.json()\r",
+                    "var token = response.token\r",
+                    "pm.globals.set(\"setForgotToken\", token)"
+                  ],
+                  "type": "text/javascript",
+                  "packages": {}
+                }
+              }
+            ],
+            "id": "1685c513-93bd-4750-9513-f115a54afb35",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"email\": \"john.doe1@example.com\",\r\n    \"otp\": \"294646\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/users/verify-otp",
+                "host": ["{{URL}}"],
+                "path": ["users", "verify-otp"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-1685c513-93bd-4750-9513-f115a54afb35"
+          },
+          {
+            "name": "Change Password",
+            "id": "cd763d94-5d41-4037-8d93-9e42893277ed",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"password\": \"test@123\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/users/change-password",
+                "host": ["{{URL}}"],
+                "path": ["users", "change-password"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-cd763d94-5d41-4037-8d93-9e42893277ed"
+          }
+        ],
+        "id": "f4bd5b0f-0df4-486f-a488-c05aeff0cba6",
+        "uid": "23549590-f4bd5b0f-0df4-486f-a488-c05aeff0cba6"
+      },
+      {
+        "name": "Analytics",
+        "item": [
+          {
+            "name": "Counts",
+            "id": "64f24357-d171-483e-b5b8-4bf424d426ee",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/analytics/count",
+                "host": ["{{URL}}"],
+                "path": ["analytics", "count"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-64f24357-d171-483e-b5b8-4bf424d426ee"
+          },
+          {
+            "name": "Inventory Graph",
+            "id": "e5e12f56-6a09-4796-8c6d-b7ffcaa082a2",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/analytics/inventory?division=month",
+                "host": ["{{URL}}"],
+                "path": ["analytics", "inventory"],
+                "query": [
+                  {
+                    "key": "division",
+                    "value": "month",
+                    "type": "text"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-e5e12f56-6a09-4796-8c6d-b7ffcaa082a2"
+          },
+          {
+            "name": "Parts Graph",
+            "id": "66304b1e-4690-482e-9fa6-b44c7a002ed0",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/analytics/part?division=month",
+                "host": ["{{URL}}"],
+                "path": ["analytics", "part"],
+                "query": [
+                  {
+                    "key": "division",
+                    "value": "month"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-66304b1e-4690-482e-9fa6-b44c7a002ed0"
+          }
+        ],
+        "id": "dede5ea5-ede1-4f13-9086-03b4255be09d",
+        "uid": "23549590-dede5ea5-ede1-4f13-9086-03b4255be09d"
+      },
+      {
+        "name": "Profile",
+        "item": [
+          {
+            "name": "Update profile",
+            "id": "6ba66a94-5f66-494f-9fa1-7a895694c673",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name[first]",
+                    "value": "Admin1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "name[last]",
+                    "value": "Admin",
+                    "type": "text"
+                  },
+                  {
+                    "key": "username",
+                    "value": "testuser1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "email",
+                    "value": "test1@gmail.com",
+                    "type": "text"
+                  },
+                  {
+                    "key": "password",
+                    "value": "test@123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "profile",
+                    "value": "https://yard-manager.s3.eu-central-003.backblazeb2.com/1720017458997_media.jpg",
+                    "type": "text"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/users/update",
+                "host": ["{{URL}}"],
+                "path": ["users", "update"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-6ba66a94-5f66-494f-9fa1-7a895694c673"
+          },
+          {
+            "name": "Update Company",
+            "id": "c74e8b85-5646-4692-856b-1cc1797bf591",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"name\": \"Company\",\r\n    \"address\": \"Address 1\",\r\n    \"phone\": \"123123123\",\r\n    \"price\": true,\r\n    \"images\": {\r\n        \"profile\": \"https://yard-manager.s3.eu-central-003.backblazeb2.com/1720017464212_media.jpg\"\r\n    }\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/users/company",
+                "host": ["{{URL}}"],
+                "path": ["users", "company"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-c74e8b85-5646-4692-856b-1cc1797bf591"
+          },
+          {
+            "name": "Update Company Images",
+            "id": "cf92fbcc-9536-4226-baf4-62b576b6dd2d",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{userToken}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "PUT",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "profile",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68",
+                    "disabled": true
+                  },
+                  {
+                    "key": "cover",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/users/company-image",
+                "host": ["{{URL}}"],
+                "path": ["users", "company-image"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-cf92fbcc-9536-4226-baf4-62b576b6dd2d"
+          }
+        ],
+        "id": "43ab7d5e-5fb2-4530-9190-f9a3b3f884cb",
+        "uid": "23549590-43ab7d5e-5fb2-4530-9190-f9a3b3f884cb"
+      }
+    ]
+  }
+}

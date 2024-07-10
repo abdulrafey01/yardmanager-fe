@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCurrentPage,
+  setShowToast,
+} from "../../../../lib/features/shared/sharedSlice";
 import Image from "next/image";
 import ProfileHeaderImg from "../../../assets/main/48-img.svg";
 import ProfileImg from "../../../assets/main/49-img.svg";
@@ -9,12 +12,34 @@ import EditImg from "../../../assets/main/50-editimg.svg";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import { useRouter } from "next/navigation";
+import {
+  updateCompany,
+  updatePersonal,
+} from "../../../../lib/features/profile/profileActions";
+import { resetToast } from "../../../../lib/features/profile/profileSlice";
 
 const page = () => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
+  const { user } = useSelector((state) => state.auth);
+  const { toastMsg, companyData, personalData } = useSelector(
+    (state) => state.profile
+  );
   const router = useRouter();
+  const [companyFormState, setCompanyFormState] = useState({
+    name: "",
+    address: "",
+    phone: "",
+  });
+  const [personalFormState, setPersonalFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+  });
 
+  // for sending personal data
+  const formData = new FormData();
   // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
     const handleResize = () => {
@@ -35,6 +60,105 @@ const page = () => {
   useEffect(() => {
     dispatch(setCurrentPage("MyProfile"));
   }, [dispatch]);
+
+  useEffect(() => {
+    setCompanyFormState({
+      name: companyData?.name,
+      address: companyData?.address,
+      phone: companyData?.phone,
+    });
+  }, [companyData]);
+
+  useEffect(() => {
+    setPersonalFormState({
+      firstName: personalData?.name.first,
+      lastName: personalData?.name.last,
+      email: personalData?.email,
+      username: personalData?.username,
+      password: personalData?.password,
+    });
+  }, [personalData]);
+
+  // Best solution for toast
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+    dispatch(resetToast());
+  }, [toastMsg]);
+
+  // If not user then can't access this page
+  useEffect(() => {
+    if (user?.userType !== "user") {
+      return router.push("/profile/employee");
+    }
+    setPersonalFormState({
+      firstName: user?.data.name.first,
+      lastName: user?.data.name.last,
+      email: user?.data.email,
+      username: user?.data.username,
+      password: user?.data.password,
+    });
+  }, [user]);
+
+  // set company form state
+  const onCompanyInputChange = (event) => {
+    setCompanyFormState({
+      ...companyFormState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // set personal form state
+  const onPersonalInputChange = (event) => {
+    setPersonalFormState({
+      ...personalFormState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const onCompanyFormSubmit = (event) => {
+    event.preventDefault();
+    // submit company form
+    dispatch(updateCompany(companyFormState));
+
+    // reset form
+    setCompanyFormState({
+      name: "",
+      address: "",
+      phone: "",
+    });
+  };
+
+  const onPersonalFormSubmit = (event) => {
+    event.preventDefault();
+
+    // check password
+    if (personalFormState.password !== personalFormState.confirmPassword) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Password don't match" })
+      );
+    }
+    // submit personal form
+    formData.append("name[first]", personalFormState.firstName);
+    formData.append("name[last]", personalFormState.lastName);
+    formData.append("email", personalFormState.email);
+    formData.append("username", personalFormState.username);
+    formData.append("password", personalFormState.password);
+
+    // submit personal form
+    dispatch(updatePersonal(formData));
+
+    // reset form
+    setPersonalFormState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -72,29 +196,40 @@ const page = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Company Name"
+                value={companyFormState.name}
+                name="name"
+                onChange={onCompanyInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
-                type="text"
+                type="number"
                 placeholder="Phone Number"
+                name="phone"
+                value={companyFormState.phone}
+                onChange={onCompanyInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] col-span-2">
               <input
                 className="w-full outline-none"
                 type="text"
-                placeholder="Phone Number"
+                name="address"
+                placeholder="Address"
+                value={companyFormState.address}
+                onChange={onCompanyInputChange}
               />
             </div>
           </div>
           <div className="flex w-full justify-end items-center space-x-4">
-            <WhiteBtn title={"Discard"} />
-            <GreenBtn
-              onClick={() => router.push("/profile/employee")}
-              title={"Save Changes"}
+            <WhiteBtn
+              onClick={() =>
+                setCompanyFormState({ name: "", address: "", phone: "" })
+              }
+              title={"Discard"}
             />
+            <GreenBtn onClick={onCompanyFormSubmit} title={"Save Changes"} />
           </div>
         </div>
         {/* Block 2 */}
@@ -107,7 +242,10 @@ const page = () => {
               <input
                 className="w-full outline-none"
                 type="text"
+                name="firstName"
                 placeholder="First Name"
+                value={personalFormState.firstName}
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -115,6 +253,9 @@ const page = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Last Name"
+                value={personalFormState.lastName}
+                name="lastName"
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
@@ -122,6 +263,9 @@ const page = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Email Address"
+                name="email"
+                value={personalFormState.email}
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
@@ -129,26 +273,47 @@ const page = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="User Name"
+                value={personalFormState.username}
+                name="username"
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
               <input
                 className="w-full outline-none"
-                type="text"
+                type="password"
                 placeholder="Password"
+                name="password"
+                value={personalFormState.password}
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
               <input
                 className="w-full outline-none"
-                type="text"
+                type="password"
                 placeholder="Confirm Password"
+                name="confirmPassword"
+                value={personalFormState.confirmPassword}
+                onChange={onPersonalInputChange}
               />
             </div>
           </div>
           <div className="flex w-full justify-end items-center space-x-4">
-            <WhiteBtn title={"Discard"} />
-            <GreenBtn title={"Save Changes"} />
+            <WhiteBtn
+              onClick={() => {
+                setPersonalFormState({
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  username: "",
+                  password: "",
+                  confirmPassword: "",
+                });
+              }}
+              title={"Discard"}
+            />
+            <GreenBtn onClick={onPersonalFormSubmit} title={"Save Changes"} />
           </div>
         </div>
         {/* Block 3 */}

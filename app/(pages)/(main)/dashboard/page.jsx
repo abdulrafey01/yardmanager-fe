@@ -23,13 +23,26 @@ import TableRow from "../../../components/common/TableRow";
 import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { fetchInvoicesByPage } from "../../../../lib/features/invoice/invoiceActions";
 import { useRouter } from "next/navigation";
+import {
+  fetchCounts,
+  fetchInventoryCounts,
+  fetchPartCounts,
+} from "../../../../lib/features/dashboard/dashboardActions";
+import { resetState } from "../../../../lib/features/dashboard/dashboardSlice";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
-  const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
+  const { error, invoiceData, totalDataLength } = useSelector(
     (state) => state.invoice
   );
   const { showSideMenu } = useSelector((state) => state.shared);
+  const {
+    toastMsg,
+    error: dsbdError,
+    counts,
+    inventoryGraphData,
+    partGraphData,
+  } = useSelector((state) => state.dashboard);
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -39,8 +52,31 @@ const page = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Dashboard"));
-    dispatch(fetchInvoicesByPage(pageNumber));
+    dispatch(fetchInvoicesByPage({ page: pageNumber }));
   }, [dispatch, pageNumber]);
+
+  useEffect(() => {
+    dispatch(fetchCounts());
+    dispatch(fetchInventoryCounts("month"));
+    dispatch(fetchPartCounts("month"));
+
+    return () => {
+      dispatch(resetState());
+    };
+  }, []);
+
+  useEffect(() => {
+    if (counts) {
+      console.log(counts);
+    }
+  }, [counts, inventoryGraphData, partGraphData]);
+
+  // if is there to prevent render on page load
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+  }, [toastMsg, dsbdError]);
 
   useEffect(() => {
     if (error) {
@@ -52,10 +88,7 @@ const page = () => {
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
     }
-    if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
-    }
-  }, [error, invoiceData, toastMsg]);
+  }, [error, invoiceData]);
 
   // If clicked on edit or preview button  of action menu then redirect to create page
   useEffect(() => {
@@ -64,6 +97,10 @@ const page = () => {
     }
   }, [showSideMenu]);
 
+  // Search function
+  const handleSearch = (e) => {
+    dispatch(fetchInvoicesByPage({ search: e.target.value }));
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -150,6 +187,7 @@ const page = () => {
                 type="text"
                 placeholder="Search"
                 className="w-full outline-none bg-transparent"
+                onChange={handleSearch}
               />
             </div>
           </div>

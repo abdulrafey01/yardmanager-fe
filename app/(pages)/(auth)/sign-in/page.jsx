@@ -11,8 +11,6 @@ import AuthButton from "../../../components/auth/common/AuthButton";
 import { useRouter } from "next/navigation";
 import { login } from "../../../../lib/features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "../../../helpers/storage";
-import { setShowToast } from "../../../../lib/features/shared/sharedSlice";
 
 export default function page() {
   const router = useRouter();

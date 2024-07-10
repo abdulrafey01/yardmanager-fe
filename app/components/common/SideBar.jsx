@@ -43,65 +43,89 @@ const SideBar = () => {
   const [activeMainBtn, setActiveMainBtn] = useState(-1);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const { showSideBar, currentPage } = useSelector((state) => state.shared);
+  const { user } = useSelector((state) => state.auth);
+  const [hideBtns, setHideBtns] = useState({});
+  const [showBtns, setShowBtns] = useState([]);
+  const btnNames = [
+    "inventory",
+    "invoices",
+    "locations",
+    "parts",
+    "recycled",
+    "employees",
+    "roles",
+  ];
+
+  // name 2 is just used to filter them for hiding
   const sideButtonsMain = [
     {
       name: "Dashboard",
       iconW: HomeSvg,
       iconB: HomeSvgB,
       route: "/dashboard",
+      name2: "dashboard",
     },
     {
       name: "Inventory",
       iconW: InvtSvg,
       iconB: InvtSvgB,
       route: "/inventory",
+      name2: "inventory",
     },
     {
       name: "Invoices",
       iconW: InvSvg,
       iconB: InvSvgB,
       route: "/invoices",
+      name2: "invoices",
     },
     {
       name: "Locations",
       iconW: LocSvg,
       iconB: LocSvgB,
       route: "/locations",
+      name2: "locations",
     },
     {
       name: "Parts",
       iconW: PartsSvg,
       iconB: PartSvgB,
       route: "/parts",
+      name2: "parts",
     },
     {
       name: "Deleted Items",
       iconW: DelSvg,
       iconB: DelSvgB,
       route: "/deleted-items",
+      name2: "recycled",
     },
     {
       name: "Employees",
       iconW: EmpSvg,
       iconB: EmpSvgB,
       route: "/employees",
+      name2: "employees",
     },
     {
       name: "Role / Permissions",
       iconW: RoleSvg,
       iconB: RoleSvgB,
       route: "/roles",
+      name2: "roles",
     },
     {
       name: "My Vehicle",
       iconW: CarSvg,
       iconB: CarSvgB,
       route: "/vehicle",
+      name2: "vehicle",
     },
     {
       name: "Subscription",
       iconW: SubcSvg,
       iconB: SubSvgB,
+      name2: "subscription",
     },
   ];
   const sideButtonsBottom = [
@@ -125,6 +149,29 @@ const SideBar = () => {
     },
   ];
 
+  // Hide buttons based on user permissions
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setShowBtns(sideButtonsMain);
+      }
+      const updatedHideBtns = {};
+
+      btnNames.forEach((name) => {
+        const privilege = user.data.role.privileges.find(
+          (privilege) => privilege.name === name
+        );
+        updatedHideBtns[name] = privilege ? !privilege.permissions.read : true;
+      });
+
+      setHideBtns(updatedHideBtns);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log(hideBtns);
+    setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
+  }, [hideBtns]);
   // Disable side buttons on certain pages
   useEffect(() => {
     if (currentPage === "MyProfile") {
@@ -197,7 +244,7 @@ const SideBar = () => {
         </div>
         {/* Middle Part */}
         <div className="w-full ">
-          {sideButtonsMain.map((item, index) => {
+          {showBtns.map((item, index) => {
             return (
               <div
                 onClick={() => {

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
 import Image from "next/image";
 import ProfileHeaderImg from "../../../../assets/main/48-img.svg";
@@ -12,6 +12,7 @@ import ProfileImg from "../../../../assets/main/51-profileimg.svg";
 const page = ({}) => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
+  const { user } = useSelector((state) => state.auth);
 
   // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
@@ -33,6 +34,13 @@ const page = ({}) => {
   useEffect(() => {
     dispatch(setCurrentPage("MyProfile"));
   }, [dispatch]);
+
+  // If not user then can't access this page
+  useEffect(() => {
+    if (user?.userType !== "user") {
+      return router.push("/profile/employee");
+    }
+  }, [user]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
