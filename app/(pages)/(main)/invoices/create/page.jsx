@@ -33,6 +33,35 @@ const page = () => {
   const { error, toastMsg } = useSelector((state) => state.invoice);
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const { user } = useSelector((state) => state.auth);
+  const [pagePermission, setPagePermission] = React.useState(null);
+  // Get page permission
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setPagePermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setPagePermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "invoices"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
+
+  // if can't write or update then redirect to invoices
+  useEffect(() => {
+    if (pagePermission?.write === false && pagePermission?.update === false) {
+      router.push("/invoices");
+    }
+  }, [pagePermission]);
+
   const router = useRouter();
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);

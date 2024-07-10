@@ -318,12 +318,10 @@ const InventorySideMenu = () => {
               onPressEnter={(e) => {
                 if (e.target.value.length < 3) {
                   dispatch(
-                    dispatch(
-                      setShowToast({
-                        value: true,
-                        msg: "Model should be at least 3 characters",
-                      })
-                    )
+                    setShowToast({
+                      value: true,
+                      msg: "Model should be at least 3 characters",
+                    })
                   );
                 } else {
                   setFormState({

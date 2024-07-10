@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import { useEffect, useState } from "react";
 import { addPart, updatePart } from "../../../lib/features/parts/partActions";
@@ -118,11 +119,20 @@ const PartSideMenu = () => {
                 name="variant"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
-                    setFormData({
-                      ...formData,
-                      variant: [...formData.variant, e.target.value],
-                    });
-                    e.target.value = "";
+                    if (e.target.value.length < 3) {
+                      return dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Variant must be at least 3 characters",
+                        })
+                      );
+                    } else {
+                      setFormData({
+                        ...formData,
+                        variant: [...formData.variant, e.target.value],
+                      });
+                      e.target.value = "";
+                    }
                   }
                 }}
               />
