@@ -1,14 +1,30 @@
 "use client";
+import React, { useState } from "react";
 import Input from "../../../components/auth/common/Input";
-import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
-import React from "react";
 import AuthButton from "../../../components/auth/common/AuthButton";
+import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 
-const page = () => {
+const Page = () => {
+  const [email, setEmail] = useState("");
   const router = useRouter();
+
+  const handleForgotPassword = async () => {
+    try {
+      const response = await axios.post(
+        "https://yardmanager-be.vercel.app/api/users/forgot-password",
+        { email }
+      );
+      console.log("Password reset email sent:", response.data);
+      router.push(`/code-verify?email=${email}`);
+    } catch (error) {
+      console.error("Error sending password reset email:", error);
+    }
+  };
+
   return (
-    <div className="flex-1 flex flex-col  justify-center items-center">
+    <div className="flex-1 flex flex-col justify-center items-center">
       <div className="flex flex-col space-y-6 w-72 sm:w-96">
         {/* Text */}
         <div className="flex flex-col space-y-2">
@@ -21,13 +37,14 @@ const page = () => {
           </p>
         </div>
         {/* Input */}
-        <Input placeholder="Email or Mobile Number" icon={MsgIcon} />
+        <Input
+          placeholder="Email or Mobile Number"
+          icon={MsgIcon}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         {/* Button */}
-        <div
-          onClick={() => {
-            router.push("/code-verify");
-          }}
-        >
+        <div onClick={handleForgotPassword}>
           <AuthButton title="Send Code" />
         </div>
       </div>
@@ -35,4 +52,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
