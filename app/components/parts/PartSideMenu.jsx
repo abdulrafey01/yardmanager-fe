@@ -9,6 +9,7 @@ import { addPart, updatePart } from "../../../lib/features/parts/partActions";
 import CrossIcon from "../../assets/main/64-cross.svg";
 import Image from "next/image";
 import GreenToggle from "../common/GreenToggle";
+import { setColorToggle } from "../../../lib/features/settings/settingsSlice";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ const PartSideMenu = () => {
     variant: [],
     color: false,
   });
+  const { colorToggle } = useSelector((state) => state.settings);
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
@@ -148,11 +150,17 @@ const PartSideMenu = () => {
               </div>
               {/* Toggle container */}
               <GreenToggle
+                onChange={(e) => {
+                  dispatch(setColorToggle(e.target.checked));
+                }}
+                checked={colorToggle}
+              />
+              {/* <GreenToggle
                 onChange={(e) =>
                   setFormData({ ...formData, color: e.target.checked })
                 }
                 checked={Boolean(formData.color)}
-              />
+              /> */}
             </div>
           </div>
         </div>
