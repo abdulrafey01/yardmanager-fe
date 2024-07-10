@@ -115,7 +115,7 @@ const page = () => {
 			username: user?.data.username,
 			password: user?.data.password
 		});
-	}, [user]);
+	}, []);
 
 	// set company form state
 	const onCompanyInputChange = (event) => {
@@ -164,9 +164,11 @@ const page = () => {
 			.then((res) => {
 				console.log(res.data);
         setImageToggle(0);
+        setImage(null);
 			})
 			.catch((err) => {
 				console.log(err);
+        setImage(null);
 			});
 	};
 
