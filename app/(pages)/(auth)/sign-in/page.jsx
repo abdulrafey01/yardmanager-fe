@@ -77,14 +77,14 @@ export default function page() {
           <AuthButton onClick={onFormSubmit} title="Sign In" />
         </div>
         {/* "or continuue" line */}
-        <div className="flex justify-center items-center w-full">
+        <div className="hidden  justify-center items-center w-full">
           <div className="h-px flex-1 bg-[#78FFB6]"></div>
           <p className="flex-2 p-4 text-gray-600">Or Continue With?</p>
           <div className="h-px flex-1 bg-[#78FFB6]"></div>
         </div>
 
         {/* Social Account buttons container*/}
-        <div className="flex w-full justify-center items-center space-x-2 sm:space-x-4">
+        <div className="hidden w-full justify-center items-center space-x-2 sm:space-x-4">
           <div className="cursor-pointer  select-none h-11 bg-white flex flex-1 justify-center items-center space-x-2 rounded-lg border-[1px] border-[#D0D5DD]">
             <Image src={GoogleIcon} alt="logo" />
             <p className="text-xs font-semibold">Sign in with Google</p>
@@ -96,7 +96,7 @@ export default function page() {
         </div>
 
         {/* Last Line container */}
-        <div className="flex justify-center items-center w-full space-x-1">
+        <div className="hidden justify-center items-center w-full space-x-1">
           <p className="text-gray-600">Don't have an account? </p>
           <p className="font-semibold text-[#78FFB6] cursor-pointer select-none">
             {" "}

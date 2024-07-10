@@ -5,6 +5,7 @@ import UploadIcon from "../../assets/main/44-upload.svg";
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import XIcon from "../../assets/main/45-xclose.svg";
 
@@ -23,6 +24,7 @@ const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
+  const { colorToggle } = useSelector((state) => state.settings);
 
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
@@ -43,6 +45,7 @@ const InventorySideMenu = () => {
     make: [],
     variant: [],
     notes: "",
+    color: "",
     startYear: "",
     lastYear: "",
     price: "",
@@ -109,6 +112,11 @@ const InventorySideMenu = () => {
     formDataRef.current.set("startYear", formState.startYear);
     formDataRef.current.set("lastYear", formState.lastYear);
     formDataRef.current.set("price", formState.price);
+    if (colorToggle) {
+      formDataRef.current.set("color", formState.color);
+    } else {
+      formDataRef.current.delete("color");
+    }
 
     if (showSideMenu.mode === "edit") {
       dispatch(
@@ -146,6 +154,7 @@ const InventorySideMenu = () => {
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
+        console.log(selectedItem);
         setFormState(selectedItem);
         setLocValue(selectedItem.location.location);
         setPartValue(selectedItem.part.name);
@@ -163,6 +172,7 @@ const InventorySideMenu = () => {
         startYear: "",
         lastYear: "",
         price: "",
+        color: "",
       });
       setImgArray(null);
       setLocValue("");
@@ -171,7 +181,7 @@ const InventorySideMenu = () => {
   }, [selectedItem, showSideMenu]);
   return (
     <div
-      className={`absolute flex w-full ${
+      className={`fixed flex w-full ${
         showSideMenu.value ? "flex" : "hidden"
       }   h-full  z-20 overflow-y-clip `}
     >
@@ -306,10 +316,21 @@ const InventorySideMenu = () => {
               placeholder="Model"
               name="model"
               onPressEnter={(e) => {
-                setFormState({
-                  ...formState,
-                  model: [...formState.model, e.target.value],
-                });
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Model should be at least 3 characters",
+                      })
+                    )
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    model: [...formState.model, e.target.value],
+                  });
+                }
               }}
               removeItemFunction={removeModelFromList}
             />
@@ -319,10 +340,21 @@ const InventorySideMenu = () => {
               placeholder="Make"
               name="make"
               onPressEnter={(e) => {
-                setFormState({
-                  ...formState,
-                  make: [...formState.make, e.target.value],
-                });
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Make should be at least 3 characters",
+                      })
+                    )
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    make: [...formState.make, e.target.value],
+                  });
+                }
               }}
               removeItemFunction={removeMakeFromList}
             />
@@ -332,14 +364,37 @@ const InventorySideMenu = () => {
               placeholder="Variant"
               name="variant"
               onPressEnter={(e) => {
-                setFormState({
-                  ...formState,
-                  variant: [...formState.variant, e.target.value],
-                });
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Variant should be at least 3 characters",
+                      })
+                    )
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    variant: [...formState.variant, e.target.value],
+                  });
+                }
               }}
               removeItemFunction={removeVariantFromList}
             />
-
+            {/* Color input based on toggle */}
+            {colorToggle && (
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="Color"
+                  name="color"
+                  value={formState.color}
+                  onChange={onInputChange}
+                />
+              </div>
+            )}
             <div className="flex gap-4">
               {/* Inventory Price input */}
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">

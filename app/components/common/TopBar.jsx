@@ -76,8 +76,14 @@ const TopBar = () => {
         <div
           className={`${
             showProfileMenu ? "block" : "hidden"
-          } bg-white z-50 overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
+          } bg-white z-50 overflow-auto no-scrollbar absolute top-[135%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
         >
+          <div
+            onClick={() => router.push("/profile")}
+            className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+          >
+            Profile
+          </div>{" "}
           <div
             onClick={() => {
               dispatch(logout());
@@ -85,12 +91,6 @@ const TopBar = () => {
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
             Logout
-          </div>
-          <div
-            onClick={() => router.push("/profile")}
-            className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-          >
-            Profile
           </div>
         </div>
       </div>

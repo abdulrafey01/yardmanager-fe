@@ -110,7 +110,7 @@ const EmployeeSideMenu = () => {
   };
   return (
     <div
-      className={`absolute flex w-full ${
+      className={`fixed flex w-full ${
         showSideMenu.value ? "flex" : "hidden"
       }   h-full  z-20 overflow-y-clip `}
     >

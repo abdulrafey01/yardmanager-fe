@@ -16,43 +16,43 @@ import {
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
+const renderDeletedItemsActionMenu = () => {
+  return (
+    <div
+      className={`bg-white border border-gray-300 ${
+        showActionMenu === index ? "block" : "hidden"
+      } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
+    >
+      <div
+        onClick={() => {
+          dispatch(setSelectedItem(item));
+          dispatch(setShowActionMenu(-1));
+          dispatch(setShowRestoreModal(true));
+        }}
+        className="cursor-pointer flex justify-center items-center space-x-2 "
+      >
+        <Image src={RestoreIcon} alt="edit" height={20} width={20} />
+        <p className="font-semibold hover:font-bold">Restore</p>
+      </div>
+      <div
+        onClick={() => {
+          dispatch(setSelectedItem(item));
+          dispatch(setShowActionMenu(-1));
+          dispatch(setShowDeleteModal(true));
+          console.log("deleted");
+        }}
+        className=" flex cursor-pointer justify-center items-center space-x-2 "
+      >
+        <Image src={DelIcon} alt="delete" height={20} width={20} />
+        <p className="font-semibold hover:font-bold">Delete</p>
+      </div>
+    </div>
+  );
+};
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
 
-  const renderDeletedItemsActionMenu = () => {
-    return (
-      <div
-        className={`bg-white border border-gray-300 ${
-          showActionMenu === index ? "block" : "hidden"
-        } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
-      >
-        <div
-          onClick={() => {
-            dispatch(setSelectedItem(item));
-            dispatch(setShowActionMenu(-1));
-            dispatch(setShowRestoreModal(true));
-          }}
-          className="cursor-pointer flex justify-center items-center space-x-2 "
-        >
-          <Image src={RestoreIcon} alt="edit" height={20} width={20} />
-          <p className="font-semibold hover:font-bold">Restore</p>
-        </div>
-        <div
-          onClick={() => {
-            dispatch(setSelectedItem(item));
-            dispatch(setShowActionMenu(-1));
-            dispatch(setShowDeleteModal(true));
-            console.log("deleted");
-          }}
-          className=" flex cursor-pointer justify-center items-center space-x-2 "
-        >
-          <Image src={DelIcon} alt="delete" height={20} width={20} />
-          <p className="font-semibold hover:font-bold">Delete</p>
-        </div>
-      </div>
-    );
-  };
   return currentPage === "DeletedItems" ? (
     renderDeletedItemsActionMenu()
   ) : (

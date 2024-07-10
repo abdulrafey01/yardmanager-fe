@@ -44,7 +44,7 @@ const LocationSideMenu = () => {
   const dispatch = useDispatch();
   return (
     <div
-      className={`absolute ${
+      className={`fixed ${
         showSideMenu.value ? "flex" : "hidden"
       } w-full  h-full  z-20 overflow-y-clip `}
     >

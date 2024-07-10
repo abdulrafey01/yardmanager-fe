@@ -2,10 +2,12 @@
 import React, { useEffect } from "react";
 import GreenToggle from "../../../components/common/GreenToggle";
 import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setColorToggle } from "../../../../lib/features/settings/settingsSlice";
 
 const page = () => {
   const dispatch = useDispatch();
+  const { colorToggle } = useSelector((state) => state.settings);
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));
   }, [dispatch]);
@@ -15,14 +17,19 @@ const page = () => {
     <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-4 w-screen md:w-full ">
       {/* First container */}
       <div className="w-full bg-white flex items-center justify-start  p-4 rounded-lg">
-        <GreenToggle />
+        <GreenToggle
+          onChange={(e) => {
+            dispatch(setColorToggle(e.target.checked));
+          }}
+          checked={colorToggle}
+        />
         <div className="flex flex-col justify-between">
-          <p className="font-bold">Inventory Price</p>
-          <p className="text-[#6E7793]">Require price when adding inventory</p>
+          <p className="font-bold">Inventory Color</p>
+          <p className="text-[#6E7793]">Require color when adding inventory</p>
         </div>
       </div>
       {/* Second container */}
-      <div className="w-full bg-white flex items-center justify-start  p-4 rounded-lg">
+      <div className="w-full bg-white hidden items-center justify-start  p-4 rounded-lg">
         <GreenToggle />
         <div className="flex flex-col justify-between">
           <p className="font-bold">Part Images</p>

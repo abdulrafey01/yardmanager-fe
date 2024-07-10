@@ -30,7 +30,7 @@ import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
 import BurgerIcon from "../../assets/main/38-burger.svg";
-
+import { usePathname } from "next/navigation";
 import ArrowIcon from "../../assets/main/26-arrow.svg";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +39,8 @@ import {
   setShowSideBar,
 } from "../../../lib/features/shared/sharedSlice";
 const SideBar = () => {
-  const [activeMainBtn, setActiveMainBtn] = useState(0);
+  const pathName = usePathname();
+  const [activeMainBtn, setActiveMainBtn] = useState(-1);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const { showSideBar, currentPage } = useSelector((state) => state.shared);
   const sideButtonsMain = [
@@ -130,7 +131,46 @@ const SideBar = () => {
       setActiveBottomBtn(-1);
       setActiveMainBtn(-1);
     }
-  }, [currentPage]);
+    if (pathName === "/dashboard") {
+      setActiveMainBtn(0);
+    }
+    if (pathName === "/inventory") {
+      setActiveMainBtn(1);
+    }
+    if (pathName === "/invoices") {
+      setActiveMainBtn(2);
+    }
+    if (pathName === "/locations") {
+      setActiveMainBtn(3);
+    }
+    if (pathName === "/parts") {
+      setActiveMainBtn(4);
+    }
+    if (pathName === "/deleted-items") {
+      setActiveMainBtn(5);
+    }
+    if (pathName === "/employees") {
+      setActiveMainBtn(6);
+    }
+    if (pathName === "/roles") {
+      setActiveMainBtn(7);
+    }
+    if (pathName === "/vehicle") {
+      setActiveMainBtn(8);
+    }
+    if (pathName === "/subscription") {
+      setActiveMainBtn(9);
+    }
+    if (pathName === "/settings") {
+      setActiveBottomBtn(0);
+    }
+    if (pathName === "/privacy-policy") {
+      setActiveBottomBtn(1);
+    }
+    if (pathName === "/terms-condition") {
+      setActiveBottomBtn(2);
+    }
+  }, [currentPage, pathName]);
 
   const router = useRouter();
   const dispatch = useDispatch();
