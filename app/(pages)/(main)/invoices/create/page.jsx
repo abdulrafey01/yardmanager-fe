@@ -115,38 +115,34 @@ const page = () => {
     console.log("showSideMenu:", showSideMenu);
     console.log("selectedItem:", selectedItem);
     if (showSideMenu.mode === "edit") {
-      if (selectedItem) {
-        setFormData({
-          name: selectedItem.name,
-          email: selectedItem.email,
-          phone: selectedItem.phone,
-          products: selectedItem.products,
-          tax: selectedItem.tax,
-          paid: selectedItem.paid,
-          status: selectedItem.status,
-          notes: selectedItem.notes,
-          datePaid: selectedItem.datePaid,
-        });
-        setPageMode("edit");
-      }
+      setFormData({
+        name: selectedItem.name,
+        email: selectedItem.email,
+        phone: selectedItem.phone,
+        products: selectedItem.products,
+        tax: selectedItem.tax,
+        paid: selectedItem.paid,
+        status: selectedItem.status,
+        notes: selectedItem.notes,
+        datePaid: selectedItem.datePaid,
+      });
 
+      setPageMode("edit");
       // so that we can go back to invoices page
       dispatch(setShowSideMenu({ value: false }));
     } else if (showSideMenu.mode === "preview") {
-      if (selectedItem) {
-        setFormData({
-          name: selectedItem.name,
-          email: selectedItem.email,
-          phone: selectedItem.phone,
-          products: selectedItem.products,
-          tax: selectedItem.tax,
-          paid: selectedItem.paid,
-          status: selectedItem.status,
-          notes: selectedItem.notes,
-          datePaid: selectedItem.datePaid,
-        });
-        setPageMode("preview");
-      }
+      setFormData({
+        name: selectedItem.name,
+        email: selectedItem.email,
+        phone: selectedItem.phone,
+        products: selectedItem.products,
+        tax: selectedItem.tax,
+        paid: selectedItem.paid,
+        status: selectedItem.status,
+        notes: selectedItem.notes,
+        datePaid: selectedItem.datePaid,
+      });
+      setPageMode("preview");
 
       // so that we can go back to invoices page
       dispatch(setShowSideMenu({ value: false }));
