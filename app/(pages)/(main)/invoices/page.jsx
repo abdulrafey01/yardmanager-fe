@@ -75,11 +75,11 @@ const page = () => {
   }, [error, invoiceData, toastMsg]);
 
   // If clicked on edit or preview button  of action menu then redirect to create page
-  // useEffect(() => {
-  //   if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
-  //     router.push(`/invoices/create`);
-  //   }
-  // }, [showSideMenu]);
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      router.push(`/invoices/create`);
+    }
+  }, [showSideMenu]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width

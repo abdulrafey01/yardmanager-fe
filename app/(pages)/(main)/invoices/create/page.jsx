@@ -111,39 +111,63 @@ const page = () => {
   }, [toastMsg, error, searchToast]);
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
+  // useEffect(() => {
+  //   console.log("showSideMenu:", showSideMenu);
+  //   console.log("selectedItem:", selectedItem);
+  //   if (showSideMenu.mode === "edit") {
+  //     setFormData({
+  //       name: selectedItem.name,
+  //       email: selectedItem.email,
+  //       phone: selectedItem.phone,
+  //       products: selectedItem.products,
+  //       tax: selectedItem.tax,
+  //       paid: selectedItem.paid,
+  //       status: selectedItem.status,
+  //       notes: selectedItem.notes,
+  //       datePaid: selectedItem.datePaid,
+  //     });
+
+  //     setPageMode("edit");
+  //   } else if (showSideMenu.mode === "preview") {
+  //     setFormData({
+  //       name: selectedItem.name,
+  //       email: selectedItem.email,
+  //       phone: selectedItem.phone,
+  //       products: selectedItem.products,
+  //       tax: selectedItem.tax,
+  //       paid: selectedItem.paid,
+  //       status: selectedItem.status,
+  //       notes: selectedItem.notes,
+  //       datePaid: selectedItem.datePaid,
+  //     });
+  //     setPageMode("preview");
+  //   }
+  // }, [selectedItem, showSideMenu]);
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     console.log("showSideMenu:", showSideMenu);
     console.log("selectedItem:", selectedItem);
-    if (showSideMenu.mode === "edit") {
-      setFormData({
-        name: selectedItem.name,
-        email: selectedItem.email,
-        phone: selectedItem.phone,
-        products: selectedItem.products,
-        tax: selectedItem.tax,
-        paid: selectedItem.paid,
-        status: selectedItem.status,
-        notes: selectedItem.notes,
-        datePaid: selectedItem.datePaid,
-      });
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        setFormData({
+          name: selectedItem.name,
+          email: selectedItem.email,
+          phone: selectedItem.phone,
+          products: selectedItem.products,
+          tax: selectedItem.tax,
+          paid: selectedItem.paid,
+          status: selectedItem.status,
+          notes: selectedItem.notes,
+          datePaid: selectedItem.datePaid,
+        });
+        setPageMode("edit");
+      }
 
-      setPageMode("edit");
-    } else if (showSideMenu.mode === "preview") {
-      setFormData({
-        name: selectedItem.name,
-        email: selectedItem.email,
-        phone: selectedItem.phone,
-        products: selectedItem.products,
-        tax: selectedItem.tax,
-        paid: selectedItem.paid,
-        status: selectedItem.status,
-        notes: selectedItem.notes,
-        datePaid: selectedItem.datePaid,
-      });
-      setPageMode("preview");
+      // so that we can go back to invoices page
+      dispatch(setShowSideMenu({ value: false }));
     }
   }, [selectedItem, showSideMenu]);
-
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

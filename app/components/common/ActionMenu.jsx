@@ -78,9 +78,9 @@ const ActionMenu = ({ index, item, permissions }) => {
                 mode: "edit",
               })
             );
-            if (currentPage === "Invoices") {
-              router.push("/invoices/create");
-            }
+            // if (currentPage === "Invoices") {
+            //   router.push("/invoices/create");
+            // }
           }}
           className={`cursor-pointer flex justify-center items-center space-x-2 `}
         >
@@ -99,9 +99,9 @@ const ActionMenu = ({ index, item, permissions }) => {
               mode: "preview",
             })
           );
-          if (currentPage === "Invoices") {
-            router.push("/invoices/create");
-          }
+          //  if (currentPage === "Invoices") {
+          //     router.push("/invoices/create");
+          //   }
         }}
         className="cursor-pointer flex justify-center items-center space-x-2 "
       >
