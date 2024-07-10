@@ -15,11 +15,12 @@ import {
   setShowSideMenu,
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
+import { useRouter } from "next/navigation";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
-
+  const router = useRouter();
   const renderDeletedItemsActionMenu = () => {
     return (
       <div
@@ -77,6 +78,9 @@ const ActionMenu = ({ index, item, permissions }) => {
                 mode: "edit",
               })
             );
+            if (currentPage === "Invoices") {
+              router.push("/invoices/create");
+            }
           }}
           className={`cursor-pointer flex justify-center items-center space-x-2 `}
         >
@@ -95,6 +99,9 @@ const ActionMenu = ({ index, item, permissions }) => {
               mode: "preview",
             })
           );
+          if (currentPage === "Invoices") {
+            router.push("/invoices/create");
+          }
         }}
         className="cursor-pointer flex justify-center items-center space-x-2 "
       >

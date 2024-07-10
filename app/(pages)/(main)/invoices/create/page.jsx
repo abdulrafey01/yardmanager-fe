@@ -128,8 +128,6 @@ const page = () => {
       });
 
       setPageMode("edit");
-      // so that we can go back to invoices page
-      dispatch(setShowSideMenu({ value: false }));
     } else if (showSideMenu.mode === "preview") {
       setFormData({
         name: selectedItem.name,
@@ -143,9 +141,6 @@ const page = () => {
         datePaid: selectedItem.datePaid,
       });
       setPageMode("preview");
-
-      // so that we can go back to invoices page
-      dispatch(setShowSideMenu({ value: false }));
     }
   }, [selectedItem, showSideMenu]);
 
@@ -262,10 +257,15 @@ const page = () => {
     });
     setSubTotal(0);
     setGrandTotal(0);
+
+    dispatch(setShowSideMenu({ value: false }));
   };
 
   const onCancel = () => {
     router.push("/invoices");
+
+    // so that we can go back to invoices page
+    dispatch(setShowSideMenu({ value: false }));
   };
 
   return (
