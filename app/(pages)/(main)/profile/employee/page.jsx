@@ -8,11 +8,13 @@ import EditImg from "../../../../assets/main/50-editimg.svg";
 import WhiteBtn from "../../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../../abstracts/GreenBtn";
 import ProfileImg from "../../../../assets/main/51-profileimg.svg";
+import { useRouter } from "next/navigation";
 
 const page = ({}) => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
   const { user } = useSelector((state) => state.auth);
+  const router = useRouter();
 
   // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
@@ -37,8 +39,8 @@ const page = ({}) => {
 
   // If not user then can't access this page
   useEffect(() => {
-    if (user?.userType !== "user") {
-      return router.push("/profile/employee");
+    if (user?.userType === "user") {
+      return router.push("/profile");
     }
   }, [user]);
   return (

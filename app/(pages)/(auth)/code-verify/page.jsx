@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, { Suspense, useMemo, useState } from "react";
 import AuthButton from "../../../components/auth/common/AuthButton";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -22,10 +22,13 @@ const Page = () => {
   const verifyCode = async () => {
     console.log(otp.join(""));
     try {
-      const response = await axios.post("https://yardmanager-be.vercel.app/api/users/verify-otp", {
-        email: codeEmail,
-        otp: otp.join("")
-      });
+      const response = await axios.post(
+        "https://yardmanager-be.vercel.app/api/users/verify-otp",
+        {
+          email: codeEmail,
+          otp: otp.join(""),
+        }
+      );
       console.log("Verification response:", response.data);
       router.push("/reset-password");
     } catch (error) {
@@ -76,4 +79,10 @@ const Page = () => {
   );
 };
 
-export default Page;
+const SuspensePage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Page />
+  </Suspense>
+);
+
+export default SuspensePage;
