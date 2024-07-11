@@ -30,6 +30,7 @@ import {
 } from "../../../../lib/features/dashboard/dashboardActions";
 import axios from "axios";
 import { getCookie } from "../../../helpers/storage";
+import { resetToast } from "../../../../lib/features/dashboard/dashboardSlice";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
@@ -59,28 +60,24 @@ const page = () => {
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
-    dispatch(fetchCounts());
-    dispatch(fetchInventoryCounts("month"));
-    dispatch(fetchPartCounts("month"));
-
-    // return () => {
-    // 	dispatch(resetState());
-    // };
+    dispatch(fetchInventoryCounts());
+    dispatch(fetchPartCounts());
+    console.log("Runing usfe");
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log("fetching data");
+      // console.log("fetching data");
       let token = await getCookie("token");
-      console.log(state);
-      console.log(token);
+      // console.log(state);
+      // console.log(token);
       axios
         .get("https://yardmanager-be.vercel.app/api/analytics/count", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          console.log("response");
-          console.log(res.data);
+          // console.log("response");
+          // console.log(res.data);
           setData(res.data);
         })
         .catch((err) => {
@@ -91,30 +88,38 @@ const page = () => {
   }, []);
 
   useEffect(() => {
-    if (counts) {
-      console.log(counts);
+    if (inventoryGraphData) {
+      console.log(inventoryGraphData);
     }
-  }, [counts, inventoryGraphData, partGraphData]);
+  }, [inventoryGraphData]);
 
   // if is there to prevent render on page load
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
-  }, [toastMsg, dsbdError]);
+    dispatch(resetToast());
+  }, [toastMsg]);
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
+  }, [error]);
+  useEffect(() => {
+    if (dsbdError) {
+      console.log(dsbdError);
+    }
+  }, [dsbdError]);
+
+  useEffect(() => {
     // When invoice data has come set total pages
     if (invoiceData) {
       setDataFromServer(invoiceData);
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
     }
-  }, [error, invoiceData]);
-
+  }, [invoiceData]);
   // If clicked on edit or preview button  of action menu then redirect to create page
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -180,8 +185,8 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Vehicles"}
-              data={[15, 13, 61, 14, 56, 72, 21, 31, 89, 14, 56, 72]}
+              label={"Inventory"}
+              data={[15, 13, 61, 14, 56, 72, 21]}
               greenColor={true}
             />
           </div>

@@ -73,7 +73,7 @@ const page = () => {
       console.log(employeeData);
     }
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
   }, [error, employeeData, toastMsg]);
 

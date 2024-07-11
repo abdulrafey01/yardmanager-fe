@@ -28,20 +28,7 @@ const BarChart = ({ greenColor, label, data }) => {
       ref={chartRef}
       className="px-4 pb-8 h-80 max-w-full"
       data={{
-        labels: [
-          "Jan",
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dec",
-        ],
+        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [
           {
             // Label for bars

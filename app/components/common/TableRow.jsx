@@ -74,6 +74,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
+          key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -83,6 +84,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         </div>
       ) : index === 3 ? (
         <div
+          key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 p-3 flex-1 flex-wrap gap-2   flex   items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -90,6 +92,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[3].map((model, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
@@ -105,6 +108,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[4].map((make, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
@@ -127,6 +131,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
+          key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "

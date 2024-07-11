@@ -17,11 +17,35 @@ import {
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { addInventory } from "../../../lib/features/inventory/inventoryActions";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const router = useRouter();
+
+  const duplicateInventory = () => {
+    console.log(item);
+
+    let formData = new FormData();
+
+    formData.append("name", item?.name);
+    formData.append("location", item?.location._id);
+    formData.append("part", item?.part._id);
+    formData.append("model", item?.model);
+    formData.append("make", item?.make);
+    formData.append("variant", item?.variant);
+    formData.append("notes", item?.notes);
+    formData.append("sku", item?.sku);
+    formData.append("price", item?.price);
+    formData.append("images", item?.images);
+    formData.append("startYear", item?.startYear);
+    formData.append("lastYear", item?.lastYear);
+    formData.append("color", item?.color);
+
+    dispatch(setShowActionMenu(-1));
+    dispatch(addInventory(formData));
+  };
   const renderDeletedItemsActionMenu = () => {
     return (
       <div
@@ -151,7 +175,9 @@ const ActionMenu = ({ index, item, permissions }) => {
             <p className="font-semibold hover:font-bold">Add to invoice</p>
           </div>
           <div
-            onClick={() => {}}
+            onClick={() => {
+              duplicateInventory(item);
+            }}
             className=" flex cursor-pointer justify-center items-center space-x-2 "
           >
             <Image src={DuplicateIcon} alt="delete" height={20} width={20} />

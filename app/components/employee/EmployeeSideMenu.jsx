@@ -80,6 +80,7 @@ const EmployeeSideMenu = () => {
         setShowToast({
           value: true,
           msg: "Password and confirm password should be same",
+          red: true,
         })
       );
     }
@@ -96,6 +97,7 @@ const EmployeeSideMenu = () => {
         setShowToast({
           value: true,
           msg: "All field required",
+          red: true,
         })
       );
     }

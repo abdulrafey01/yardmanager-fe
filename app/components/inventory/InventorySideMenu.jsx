@@ -102,6 +102,15 @@ const InventorySideMenu = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
+    if (formState.name === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill all the fields",
+          red: true,
+        })
+      );
+    }
     formDataRef.current.set("name", formState.name);
     formDataRef.current.set("sku", formState.sku);
     formDataRef.current.set("year", formState.year);
@@ -322,6 +331,7 @@ const InventorySideMenu = () => {
                     setShowToast({
                       value: true,
                       msg: "Model should be at least 3 characters",
+                      red: true,
                     })
                   );
                 } else {
@@ -345,6 +355,7 @@ const InventorySideMenu = () => {
                       setShowToast({
                         value: true,
                         msg: "Make should be at least 3 characters",
+                        red: true,
                       })
                     )
                   );
@@ -369,6 +380,7 @@ const InventorySideMenu = () => {
                       setShowToast({
                         value: true,
                         msg: "Variant should be at least 3 characters",
+                        red: true,
                       })
                     )
                   );

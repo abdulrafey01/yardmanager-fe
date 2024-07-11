@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../helpers/storage";
 import { useRouter } from "next/navigation";
 import { setShowToast } from "../../../lib/features/shared/sharedSlice";
+import { resetToast } from "../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
@@ -15,11 +16,14 @@ const layout = ({ children }) => {
     if (error) {
       console.log("error", error);
     }
+  }, [error, dispatch]);
 
+  useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
-  }, [error, toastMsg, dispatch]);
+    dispatch(resetToast());
+  }, [toastMsg]);
 
   // For Routing auth
   useEffect(() => {

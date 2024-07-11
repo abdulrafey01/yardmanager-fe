@@ -73,7 +73,7 @@ const page = () => {
 
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
     dispatch(resetToast());
   }, [toastMsg]);
@@ -121,7 +121,7 @@ const page = () => {
       console.log(error);
     }
     if (searchToast) {
-      dispatch(setShowToast({ value: true, msg: searchToast }));
+      dispatch(setShowToast({ value: true, ...searchToast }));
     }
   }, [error, searchToast]);
 
@@ -194,7 +194,11 @@ const page = () => {
       productData.date === ""
     ) {
       return dispatch(
-        setShowToast({ value: true, msg: "Please fill all product fields." })
+        setShowToast({
+          value: true,
+          msg: "Please fill all product fields.",
+          red: true,
+        })
       );
     }
     setFormData({
@@ -253,7 +257,11 @@ const page = () => {
     // console.log(formData);
     if (!paymentVal) {
       return dispatch(
-        setShowToast({ value: true, msg: "Please select a payment method" })
+        setShowToast({
+          value: true,
+          msg: "Please select a payment method",
+          red: true,
+        })
       );
     }
 
@@ -267,7 +275,11 @@ const page = () => {
       formData.paid === 0
     ) {
       return dispatch(
-        setShowToast({ value: true, msg: "Please fill all the fields" })
+        setShowToast({
+          value: true,
+          msg: "Please fill all the fields",
+          red: true,
+        })
       );
     }
     if (pageMode === "edit") {

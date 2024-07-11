@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
+import {
+  setCurrentPage,
+  setShowToast,
+} from "../../../../../lib/features/shared/sharedSlice";
 import Image from "next/image";
 import ProfileHeaderImg from "../../../../assets/main/48-img.svg";
 import EditImg from "../../../../assets/main/50-editimg.svg";
@@ -13,13 +16,24 @@ import PWDIcon from "../../../../assets/auth/2-AdornmentEnd.svg";
 import PwdHideIcon from "../../../../assets/main/66-hideeye.png";
 import ProfileImg from "../../../../assets/main/51-profileimg.svg";
 import { useRouter } from "next/navigation";
+import { updatePersonal } from "../../../../../lib/features/profile/profileActions";
+import { resetToast } from "../../../../../lib/features/profile/profileSlice";
 
 const page = ({}) => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
   const { user } = useSelector((state) => state.auth);
+  const { personalData, toastMsg } = useSelector((state) => state.profile);
   const router = useRouter();
 
+  const formData = new FormData();
+
+  const [personalFormState, setPersonalFormState] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    username: "",
+  });
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
@@ -45,15 +59,80 @@ const page = ({}) => {
     dispatch(setCurrentPage("MyProfile"));
   }, [dispatch]);
 
+  // set personal form state
+  const onPersonalInputChange = (event) => {
+    setPersonalFormState({
+      ...personalFormState,
+      [event.target.name]: event.target.value,
+    });
+  };
+
   // If not user then can't access this page
   useEffect(() => {
     const routePage = async () => {
       if (user?.userType !== "employee") {
         return router.push("/profile");
       }
+      setPersonalFormState({
+        firstName: user?.data.name.first,
+        lastName: user?.data.name.last,
+        email: user?.data.email,
+        username: user?.data.username,
+        password: user?.data.password,
+      });
     };
     routePage();
   }, []);
+
+  useEffect(() => {
+    if (personalData) {
+      setPersonalFormState({
+        firstName: personalData?.name.first,
+        lastName: personalData?.name.last,
+        email: personalData?.email,
+        username: personalData?.username,
+        password: personalData?.password,
+      });
+    }
+  }, [personalData]);
+
+  // Best solution for toast
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+    dispatch(resetToast());
+  }, [toastMsg]);
+
+  const onPersonalFormSubmit = (event) => {
+    event.preventDefault();
+
+    // check password
+    if (personalFormState.password !== personalFormState.confirmPassword) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Password don't match" })
+      );
+    }
+    // submit personal form
+    formData.append("name[first]", personalFormState.firstName);
+    formData.append("name[last]", personalFormState.lastName);
+    formData.append("email", personalFormState.email);
+    formData.append("username", personalFormState.username);
+    formData.append("password", personalFormState.password);
+
+    // submit personal form
+    dispatch(updatePersonal(formData));
+
+    // reset form
+    setPersonalFormState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: "",
+    });
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -74,20 +153,20 @@ const page = ({}) => {
           <Image src={ProfileImg} />
           <Image className="absolute bottom-[-5px] right-[5px]" src={EditImg} />
         </div>
-        {/* Block 1 */}
-        <div
-          className="w-full  bg-white p-4 space-y-4 rounded-lg"
-          style={{ marginTop }}
-        >
+        {/* Block 2 */}
+        <div className="w-full bg-white p-4 space-y-4 rounded-lg">
           <p className="font-bold text-[#344054] text-xl">
             Personal Information
           </p>
-          <div className="grid grid-cols-3 w-full gap-4">
+          <div className="grid grid-cols-2 w-full gap-4">
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
                 type="text"
+                name="firstName"
                 placeholder="First Name"
+                value={personalFormState.firstName}
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -95,6 +174,19 @@ const page = ({}) => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Last Name"
+                value={personalFormState.lastName}
+                name="lastName"
+                onChange={onPersonalInputChange}
+              />
+            </div>
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
+              <input
+                className="w-full outline-none"
+                type="text"
+                placeholder="Email Address"
+                name="email"
+                value={personalFormState.email}
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
@@ -102,30 +194,19 @@ const page = ({}) => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="User Name"
-              />
-            </div>
-          </div>
-          <div className="grid grid-cols-2 w-full gap-4">
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Email Address"
-              />
-            </div>
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Role"
+                value={personalFormState.username}
+                name="username"
+                onChange={onPersonalInputChange}
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] flex justify-between items-center">
               <input
                 className="w-full outline-none"
                 type={togglePWD ? "text" : "password"}
-                placeholder="Confirm Password"
-                name="confirmPassword"
+                placeholder="Password"
+                name="password"
+                value={personalFormState.password}
+                onChange={onPersonalInputChange}
               />
               <Image
                 src={togglePWD ? PWDIcon : PwdHideIcon}
@@ -138,6 +219,9 @@ const page = ({}) => {
                 className="w-full outline-none"
                 type={togglePWDC ? "text" : "password"}
                 placeholder="Confirm Password"
+                name="confirmPassword"
+                value={personalFormState.confirmPassword}
+                onChange={onPersonalInputChange}
               />
               <Image
                 src={togglePWDC ? PWDIcon : PwdHideIcon}
@@ -147,8 +231,20 @@ const page = ({}) => {
             </div>
           </div>
           <div className="flex w-full justify-end items-center space-x-4">
-            <WhiteBtn title={"Discard"} />
-            <GreenBtn title={"Save Changes"} />
+            <WhiteBtn
+              onClick={() => {
+                setPersonalFormState({
+                  firstName: "",
+                  lastName: "",
+                  email: "",
+                  username: "",
+                  password: "",
+                  confirmPassword: "",
+                });
+              }}
+              title={"Discard"}
+            />
+            <GreenBtn onClick={onPersonalFormSubmit} title={"Save Changes"} />
           </div>
         </div>
       </div>

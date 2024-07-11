@@ -74,7 +74,7 @@ const page = () => {
     }
     if (toastMsg) {
       if (pagePermission?.read) {
-        dispatch(setShowToast({ value: true, msg: toastMsg }));
+        dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
   }, [error, rolesData, toastMsg]);

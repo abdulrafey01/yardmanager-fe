@@ -67,12 +67,15 @@ const page = () => {
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
     }
+  }, [error, inventoryData]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
-        dispatch(setShowToast({ value: true, msg: toastMsg }));
+        dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
-  }, [error, inventoryData, toastMsg]);
+  }, [dispatch, toastMsg]);
 
   // Search function
   const handleSearch = (e) => {

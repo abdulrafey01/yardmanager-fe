@@ -126,6 +126,7 @@ const PartSideMenu = () => {
                         setShowToast({
                           value: true,
                           msg: "Variant must be at least 3 characters",
+                          red: true,
                         })
                       );
                     } else {
