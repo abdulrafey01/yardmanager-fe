@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { addInventory } from "../../../lib/features/inventory/inventoryActions";
 import { setLocalStorage } from "../../helpers/storage";
+import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
@@ -134,13 +135,18 @@ const ActionMenu = ({ index, item, permissions }) => {
             <p className="font-semibold hover:font-bold">Edit</p>
           </div>
         ))}
-      <Link
-        href={"/invoices/create"}
+      <div
         onClick={() => {
           dispatch(setShowActionMenu(-1));
           dispatch(setSelectedItem(item));
-
-          setLocalStorage("invoiceItem", item);
+          dispatch(
+            setPreviewModal({
+              value: true,
+              data: {
+                ...item,
+              },
+            })
+          );
           // dispatch(
           //   setShowSideMenu({
           //     value: true,
@@ -152,7 +158,7 @@ const ActionMenu = ({ index, item, permissions }) => {
       >
         <Image src={PrevIcon} alt="preview" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Preview</p>
-      </Link>
+      </div>
       {permissions?.delete && (
         <div
           onClick={() => {

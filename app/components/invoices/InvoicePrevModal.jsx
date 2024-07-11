@@ -10,6 +10,8 @@ import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 const InvoicePrevModal = () => {
   const dispatch = useDispatch();
   const { previewModal } = useSelector((state) => state.invoice);
+  const [subTotal, setSubTotal] = React.useState(0);
+  const [grandTotal, setGrandTotal] = React.useState(0);
 
   const onClose = () => {
     dispatch(setPreviewModal({ value: false }));
@@ -17,7 +19,16 @@ const InvoicePrevModal = () => {
 
   useEffect(() => {
     console.log(previewModal);
+    setSubTotal(
+      previewModal?.data?.products?.reduce((preVal, item) => {
+        return preVal + (item.total ? item.total : item.quantity * item.price);
+      }, 0) // initialize the accumulator to 0
+    );
   }, [previewModal]);
+
+  useEffect(() => {
+    setGrandTotal(subTotal + subTotal * (previewModal?.data?.tax / 100));
+  }, [subTotal]);
   return (
     <div
       className={`${
@@ -25,7 +36,7 @@ const InvoicePrevModal = () => {
       }   z-20 w-full h-full flex items-center `}
     >
       {/* // Outer Black on whole screen till scroll end */}
-      <div className="absolute z-20 bg-black opacity-50 w-full h-full"></div>
+      <div className="absolute z-50 bg-black opacity-50 w-full h-full"></div>
       {/* Container equal to screen to middle the modal */}
       <div className="w-full relative z-[60] h-screen flex justify-center items-center">
         {/* Modal */}
@@ -139,7 +150,7 @@ const InvoicePrevModal = () => {
           </div>
           {/* Sixth box row */}
           <div className="flex w-full justify-end">
-            <div className="flex p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
+            <div className="flex w-1/2 p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
               {/* Row 1  */}
 
               <div className="w-full flex justify-between items-center">
@@ -150,7 +161,7 @@ const InvoicePrevModal = () => {
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Sub Total:</p>
 
-                <p className="font-bold">{previewModal?.data?.subTotal}</p>
+                <p className="font-bold">{subTotal}</p>
               </div>
               {/* Row 3 */}
               <div className="w-full flex justify-between items-center">
@@ -161,7 +172,7 @@ const InvoicePrevModal = () => {
               {/* Row 4 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Grand Total:</p>
-                <p className="font-bold">{previewModal?.data?.grandTotal}</p>
+                <p className="font-bold">{grandTotal}</p>
               </div>
               <div></div>
             </div>

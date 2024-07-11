@@ -245,7 +245,7 @@ const page = () => {
           return (
             preVal + (item.total ? item.total : item.quantity * item.price)
           );
-        }, 0)
+        }, 0) // initialize the accumulator to 0
       );
     }
   }, [formData]);
