@@ -18,6 +18,7 @@ import { setShowRestoreModal } from "../../../lib/features/deleted-items/deleted
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { addInventory } from "../../../lib/features/inventory/inventoryActions";
+import { setLocalStorage } from "../../helpers/storage";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
@@ -99,12 +100,13 @@ const ActionMenu = ({ index, item, permissions }) => {
               // console.log(permissions);
               dispatch(setSelectedItem(item));
               dispatch(setShowActionMenu(-1));
-              dispatch(
-                setShowSideMenu({
-                  value: true,
-                  mode: "edit",
-                })
-              );
+              setLocalStorage("invoiceItem", item);
+              // dispatch(
+              // setShowSideMenu({
+              //   value: true,
+              //   mode: "edit",
+              // })
+              // );
             }}
             className={`cursor-pointer flex justify-center items-center space-x-2 `}
           >

@@ -30,6 +30,7 @@ import {
   setPreviewModal,
 } from "../../../../../lib/features/invoice/invoiceSlice";
 import Link from "next/link";
+import { getLocalStorage } from "../../../../helpers/storage";
 const page = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -70,6 +71,7 @@ const page = () => {
   const router = useRouter();
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [item, setItem] = useState({});
 
   useEffect(() => {
     if (toastMsg) {
@@ -129,35 +131,25 @@ const page = () => {
   useEffect(() => {
     console.log("showSideMenu:", showSideMenu);
     console.log("selectedItem:", selectedItem);
-    if (showSideMenu.mode === "edit") {
-      setFormData({
-        name: selectedItem.name,
-        email: selectedItem.email,
-        phone: selectedItem.phone,
-        products: selectedItem.products,
-        tax: selectedItem.tax,
-        paid: selectedItem.paid,
-        status: selectedItem.status,
-        notes: selectedItem.notes,
-        datePaid: selectedItem.datePaid,
-      });
-
-      setPageMode("edit");
-    } else if (showSideMenu.mode === "preview") {
-      setFormData({
-        name: selectedItem.name,
-        email: selectedItem.email,
-        phone: selectedItem.phone,
-        products: selectedItem.products,
-        tax: selectedItem.tax,
-        paid: selectedItem.paid,
-        status: selectedItem.status,
-        notes: selectedItem.notes,
-        datePaid: selectedItem.datePaid,
-      });
-      setPageMode("preview");
+    if (JSON.parse(getLocalStorage("invoiceItem"))) {
+      setItem(JSON.parse(getLocalStorage("invoiceItem")));
     }
-  }, [selectedItem, showSideMenu]);
+  }, []);
+
+  useEffect(() => {
+    console.log("item:", item);
+    setFormData({
+      name: item.name,
+      email: item.email,
+      phone: item.phone,
+      products: item.products,
+      tax: item.tax,
+      paid: item.paid,
+      status: item.status,
+      notes: item.notes,
+      datePaid: item.datePaid,
+    });
+  }, [item]);
 
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -236,7 +228,7 @@ const page = () => {
     if (formData) {
       // Reduce function is used when calculation is required. It is same as map but calculates instead of render
       setSubTotal(
-        formData.products.reduce((preVal, item) => {
+        formData?.products?.reduce((preVal, item) => {
           return (
             preVal + (item.total ? item.total : item.quantity * item.price)
           );
@@ -498,7 +490,7 @@ const page = () => {
                   </div>
                 </div>
                 {/* Row 2 */}
-                {formData.products.map((product, index) => {
+                {formData?.products?.map((product, index) => {
                   return (
                     <ProductDetailRow
                       name={product.name}
