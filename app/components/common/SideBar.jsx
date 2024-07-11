@@ -289,11 +289,12 @@ const SideBar = () => {
         <div className="w-full flex-1 flex flex-col items-center justify-end ">
           {sideButtonsBottom.map((item, index) => {
             return (
-              <div
+              <Link
+                href={item?.route}
+                key={index}
                 onClick={() => {
                   setActiveBottomBtn(index);
                   setActiveMainBtn(-1);
-                  router.push(item.route);
                   dispatch(setShowSideBar(false));
                 }}
                 className={`w-full flex space-x-2 items-center ${
@@ -317,7 +318,7 @@ const SideBar = () => {
                 >
                   {item.name}
                 </p>
-              </div>
+              </Link>
             );
           })}
         </div>

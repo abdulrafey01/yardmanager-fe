@@ -36,7 +36,7 @@ const InventorySideMenu = () => {
 
   // useref is used to prevent adding new key on every character change
   const formDataRef = useRef(new FormData());
-
+  const [colorSwitch, setColorSwitch] = React.useState(false);
   const [formState, setFormState] = React.useState({
     name: "",
     sku: "",
@@ -179,6 +179,14 @@ const InventorySideMenu = () => {
       setPartValue("");
     }
   }, [selectedItem, showSideMenu]);
+
+  useEffect(() => {
+    if (colorToggle) {
+      setColorSwitch(true);
+    }
+    console.log("colorToggle", colorToggle);
+    console.log("colorSwitch", colorSwitch);
+  }, [colorToggle]);
   return (
     <div
       className={`fixed flex w-full ${
@@ -381,7 +389,7 @@ const InventorySideMenu = () => {
               removeItemFunction={removeVariantFromList}
             />
             {/* Color input based on toggle */}
-            {colorToggle && (
+            {colorSwitch && (
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
