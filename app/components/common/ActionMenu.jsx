@@ -16,6 +16,7 @@ import {
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
@@ -66,28 +67,45 @@ const ActionMenu = ({ index, item, permissions }) => {
         showActionMenu === index ? "block" : "hidden"
       } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
-      {permissions?.update && (
-        <div
-          onClick={() => {
-            // console.log(permissions);
-            dispatch(setSelectedItem(item));
-            dispatch(setShowActionMenu(-1));
-            dispatch(
-              setShowSideMenu({
-                value: true,
-                mode: "edit",
-              })
-            );
-            if (currentPage === "Invoices") {
-              router.push("/invoices/create");
-            }
-          }}
-          className={`cursor-pointer flex justify-center items-center space-x-2 `}
-        >
-          <Image src={EditIcon} alt="edit" height={20} width={20} />
-          <p className="font-semibold hover:font-bold">Edit</p>
-        </div>
-      )}
+      {permissions?.update &&
+        (currentPage === "Invoices" ? (
+          <Link
+            href={"/invoices/create"}
+            onClick={() => {
+              // console.log(permissions);
+              dispatch(setSelectedItem(item));
+              dispatch(setShowActionMenu(-1));
+              dispatch(
+                setShowSideMenu({
+                  value: true,
+                  mode: "edit",
+                })
+              );
+            }}
+            className={`cursor-pointer flex justify-center items-center space-x-2 `}
+          >
+            <Image src={EditIcon} alt="edit" height={20} width={20} />
+            <p className="font-semibold hover:font-bold">Edit</p>
+          </Link>
+        ) : (
+          <div
+            onClick={() => {
+              // console.log(permissions);
+              dispatch(setSelectedItem(item));
+              dispatch(setShowActionMenu(-1));
+              dispatch(
+                setShowSideMenu({
+                  value: true,
+                  mode: "edit",
+                })
+              );
+            }}
+            className={`cursor-pointer flex justify-center items-center space-x-2 `}
+          >
+            <Image src={EditIcon} alt="edit" height={20} width={20} />
+            <p className="font-semibold hover:font-bold">Edit</p>
+          </div>
+        ))}
       <div
         onClick={() => {
           dispatch(setShowActionMenu(-1));

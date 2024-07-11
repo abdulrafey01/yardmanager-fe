@@ -65,6 +65,7 @@ const page = () => {
       setDataFromServer(locationData);
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
+      console.log(locationData);
     }
     if (toastMsg) {
       if (pagePermission?.read) {

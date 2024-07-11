@@ -180,13 +180,6 @@ const InventorySideMenu = () => {
     }
   }, [selectedItem, showSideMenu]);
 
-  useEffect(() => {
-    if (colorToggle) {
-      setColorSwitch(true);
-    }
-    console.log("colorToggle", colorToggle);
-    console.log("colorSwitch", colorSwitch);
-  }, [colorToggle]);
   return (
     <div
       className={`fixed flex w-full ${

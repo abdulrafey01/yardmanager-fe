@@ -7,6 +7,10 @@ import ProfileHeaderImg from "../../../../assets/main/48-img.svg";
 import EditImg from "../../../../assets/main/50-editimg.svg";
 import WhiteBtn from "../../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../../abstracts/GreenBtn";
+
+import PWDIcon from "../../../../assets/auth/2-AdornmentEnd.svg";
+
+import PwdHideIcon from "../../../../assets/main/66-hideeye.png";
 import ProfileImg from "../../../../assets/main/51-profileimg.svg";
 import { useRouter } from "next/navigation";
 
@@ -15,6 +19,10 @@ const page = ({}) => {
   const [marginTop, setMarginTop] = useState("70px");
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
+
+  // Password eye toggle
+  const [togglePWD, setTogglePWD] = React.useState(false);
+  const [togglePWDC, setTogglePWDC] = React.useState(false);
 
   // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
@@ -40,7 +48,7 @@ const page = ({}) => {
   // If not user then can't access this page
   useEffect(() => {
     const routePage = async () => {
-      if (user?.userType === "user") {
+      if (user?.userType !== "employee") {
         return router.push("/profile");
       }
     };
@@ -112,18 +120,29 @@ const page = ({}) => {
                 placeholder="Role"
               />
             </div>
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] flex justify-between items-center">
               <input
                 className="w-full outline-none"
-                type="text"
-                placeholder="Password"
+                type={togglePWD ? "text" : "password"}
+                placeholder="Confirm Password"
+                name="confirmPassword"
+              />
+              <Image
+                src={togglePWD ? PWDIcon : PwdHideIcon}
+                onClick={() => setTogglePWD(!togglePWD)}
+                alt="logo"
               />
             </div>
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] flex justify-between items-center">
               <input
                 className="w-full outline-none"
-                type="text"
+                type={togglePWDC ? "text" : "password"}
                 placeholder="Confirm Password"
+              />
+              <Image
+                src={togglePWDC ? PWDIcon : PwdHideIcon}
+                onClick={() => setTogglePWDC(!togglePWDC)}
+                alt="logo"
               />
             </div>
           </div>

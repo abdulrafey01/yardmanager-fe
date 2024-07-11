@@ -9,6 +9,8 @@ import {
 import React, { useEffect } from "react";
 import MainInput from "../common/MainInput";
 import PWDIcon from "../../assets/auth/2-AdornmentEnd.svg";
+
+import PwdHideIcon from "../../assets/main/66-hideeye.png";
 import DropDownInput from "../common/DropDownInput";
 import {
   addEmployee,
@@ -28,6 +30,9 @@ const EmployeeSideMenu = () => {
   const { roleSearchData, toastMsg: roleToast } = useSelector(
     (state) => state.roles
   );
+
+  const [togglePWD, setTogglePWD] = React.useState(false);
+  const [togglePWDC, setTogglePWDC] = React.useState(false);
 
   const [roleInputValue, setRoleInputValue] = React.useState("");
   const [formState, setFormState] = React.useState({
@@ -75,6 +80,22 @@ const EmployeeSideMenu = () => {
         setShowToast({
           value: true,
           msg: "Password and confirm password should be same",
+        })
+      );
+    }
+
+    if (
+      formState.firstName === "" ||
+      formState.lastName === "" ||
+      formState.email === "" ||
+      formState.role === "" ||
+      formState.position === "" ||
+      formState.date === ""
+    ) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "All field required",
         })
       );
     }
@@ -217,8 +238,9 @@ const EmployeeSideMenu = () => {
             <div className="w-full ">
               <MainInput
                 placeholder="Password"
-                icon={PWDIcon}
-                type={"password"}
+                type={togglePWD ? "text" : "password"}
+                icon={togglePWD ? PWDIcon : PwdHideIcon}
+                onIconClick={() => setTogglePWD(!togglePWD)}
                 value={formState.password}
                 onChange={onInputChange}
                 name={"password"}
@@ -229,8 +251,9 @@ const EmployeeSideMenu = () => {
             <div className="w-full ">
               <MainInput
                 placeholder="Confirm Password"
-                icon={PWDIcon}
-                type={"password"}
+                type={togglePWDC ? "text" : "password"}
+                icon={togglePWDC ? PWDIcon : PwdHideIcon}
+                onIconClick={() => setTogglePWDC(!togglePWDC)}
                 value={formState.confirmPassword}
                 onChange={onInputChange}
                 name={"confirmPassword"}

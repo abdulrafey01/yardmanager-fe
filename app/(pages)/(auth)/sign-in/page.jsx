@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
+import PwdHideIcon from "../../../assets/main/66-hideeye.png";
 
 import MsgIcon from "../../../assets/auth/1-AdornmentEnd.svg";
 import GoogleIcon from "../../../assets/auth/3-Socialicon.svg";
@@ -16,7 +17,7 @@ export default function page() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({ email: "", password: "" });
-
+  const [togglePWD, setTogglePWD] = React.useState(false);
   // Function to handle input change
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -48,8 +49,9 @@ export default function page() {
             name={"password"}
             onChange={onInputChange}
             placeholder="Password"
-            type="password"
-            icon={PwdIcon}
+            type={togglePWD ? "text" : "password"}
+            icon={togglePWD ? PwdIcon : PwdHideIcon}
+            iconClick={() => setTogglePWD(!togglePWD)}
           />
           <div className="flex justify-between items-center">
             <div className="flex justify-center items-center space-x-2">

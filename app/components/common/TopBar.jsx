@@ -17,12 +17,12 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
-	const data = useSelector((state) => state.auth);
-  
-	useEffect(() => {
-		console.log("User Logged in");
-		console.log(data);
-	}, [data, router]);
+  const data = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    console.log("User Logged in");
+    console.log(data);
+  }, [data, router]);
 
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
@@ -47,7 +47,7 @@ const TopBar = () => {
   // Profile routing based on user type
   const handleProfileClick = () => {
     if (user?.userType === "user") {
-      return "/profile/";
+      return "/profile";
     } else if (user?.userType === "employee") {
       return "/profile/employee";
     }
@@ -89,8 +89,12 @@ const TopBar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <p className="hidden sm:block text-xs font-bold">{user?.data?.name?.first + " " + user?.data?.name?.last}</p>
-          <p className="hidden sm:block text-xs">{user?.userType === 'user' ? 'Shop Owner' : 'Employee'}</p>
+          <p className="hidden sm:block text-xs font-bold">
+            {user?.data?.name?.first + " " + user?.data?.name?.last}
+          </p>
+          <p className="hidden sm:block text-xs">
+            {user?.userType === "user" ? "Shop Owner" : "Employee"}
+          </p>
         </div>
         <div className="hidden sm:block p-2">
           <Image src={DownArrowIcon} alt="DownArrowIcon" />

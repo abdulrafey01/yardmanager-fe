@@ -25,7 +25,11 @@ import {
   updateInvoice,
 } from "../../../../../lib/features/invoice/invoiceActions";
 import { useRouter } from "next/navigation";
-import { setPreviewModal } from "../../../../../lib/features/invoice/invoiceSlice";
+import {
+  resetToast,
+  setPreviewModal,
+} from "../../../../../lib/features/invoice/invoiceSlice";
+import Link from "next/link";
 const page = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -67,6 +71,13 @@ const page = () => {
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
 
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, msg: toastMsg }));
+    }
+    dispatch(resetToast());
+  }, [toastMsg]);
+
   // can use other way when do refactor but for now
   const [pageMode, setPageMode] = useState("add");
 
@@ -95,21 +106,24 @@ const page = () => {
     total: 0,
   });
 
+  // for menu show/hide
+  const [showPaymentMenu, setShowPaymentMenu] = useState(false);
+
+  // for payment input value
+  const [paymentVal, setPaymentVal] = useState("");
+
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
   }, [dispatch]);
 
   useEffect(() => {
-    if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
-    }
     if (error) {
       console.log(error);
     }
     if (searchToast) {
       dispatch(setShowToast({ value: true, msg: searchToast }));
     }
-  }, [toastMsg, error, searchToast]);
+  }, [error, searchToast]);
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
@@ -173,6 +187,16 @@ const page = () => {
   };
 
   const onAddProductClick = () => {
+    if (
+      productName === "" ||
+      productData.quantity === "" ||
+      productData.price === "" ||
+      productData.date === ""
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Please fill all product fields." })
+      );
+    }
     setFormData({
       ...formData,
       products: [
@@ -227,6 +251,25 @@ const page = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
+    if (!paymentVal) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Please select a payment method" })
+      );
+    }
+
+    if (
+      formData.name.length === 0 ||
+      formData.email.length === 0 ||
+      formData.phone.length === 0 ||
+      formData.products.length === 0 ||
+      formData.tax === 0 ||
+      formData.datePaid.length === 0 ||
+      formData.paid === 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Please fill all the fields" })
+      );
+    }
     if (pageMode === "edit") {
       dispatch(
         updateInvoice({
@@ -267,6 +310,11 @@ const page = () => {
 
     // so that we can go back to invoices page
     dispatch(setShowSideMenu({ value: false }));
+  };
+
+  const handlePaymentMenuClick = (val) => {
+    setPaymentVal(val);
+    setShowPaymentMenu(!showPaymentMenu);
   };
 
   return (
@@ -315,7 +363,7 @@ const page = () => {
               />
             </div>
           </div>
-          {/* Product Container */}
+          {/* Product Container  */}
           <div className="w-full  flex flex-col space-y-4">
             <p className="font-bold text-[#344054] text-xl">Product Details</p>
             {/* Table */}
@@ -347,7 +395,7 @@ const page = () => {
                         type="text"
                         value={productName}
                         placeholder="Name"
-                        name="location"
+                        name="name"
                         onChange={onProductNameInputChange}
                         autoComplete="off"
                       />
@@ -482,12 +530,42 @@ const page = () => {
               <div className="lg:w-2/3 w-full">
                 <MainInput placeholder={"Payment Amount"} icon={PaymentIcon} />
               </div>
-              <div className="lg:w-2/3 w-full">
+              <div className="relative lg:w-2/3 w-full">
                 <MainInput
                   className="pr-3"
                   placeholder={"Select Payment Method"}
                   icon={SelectIcon}
+                  onChange={() => {
+                    setShowPaymentMenu(true);
+                  }}
+                  onIconClick={() => setShowPaymentMenu(!showPaymentMenu)}
+                  value={paymentVal}
                 />
+                {/* Profile Menu */}
+                <div
+                  className={`${
+                    showPaymentMenu ? "block" : "hidden"
+                  } bg-white z-50 overflow-auto no-scrollbar absolute top-[115%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
+                >
+                  <div
+                    onClick={() => handlePaymentMenuClick("Card")}
+                    className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Card
+                  </div>{" "}
+                  <div
+                    onClick={() => handlePaymentMenuClick("Cash Payment")}
+                    className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Cash Payment
+                  </div>
+                  <div
+                    onClick={() => handlePaymentMenuClick("Bank Transfer")}
+                    className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Bank Transfer
+                  </div>
+                </div>
               </div>
 
               <div className="lg:w-2/3 w-full">

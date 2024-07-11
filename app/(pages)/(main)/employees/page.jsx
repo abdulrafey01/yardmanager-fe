@@ -70,6 +70,7 @@ const page = () => {
       // console.log(employeeData);
       let { totalPage } = calcTotalPage(totalDataLength);
       setTotalPage(totalPage);
+      console.log(employeeData);
     }
     if (toastMsg) {
       dispatch(setShowToast({ value: true, msg: toastMsg }));

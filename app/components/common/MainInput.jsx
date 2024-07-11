@@ -10,6 +10,7 @@ const MainInput = ({
   name,
   onChange,
   value,
+  onIconClick,
   className,
 }) => {
   return (
@@ -28,7 +29,7 @@ const MainInput = ({
         type={type ? type : "text"}
       />
 
-      {icon && <Image src={icon} alt="msgicon" />}
+      {icon && <Image src={icon} alt="msgicon" onClick={onIconClick} />}
     </div>
   );
 };
