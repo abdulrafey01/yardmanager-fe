@@ -143,7 +143,7 @@ const page = () => {
                   data.email,
                   data.role.name,
                   data.position,
-                  data.date,
+                  new Date(data.date).toLocaleDateString(),
                   data.status,
                 ]}
                 key={index}

@@ -135,7 +135,9 @@ const page = () => {
                 titles={[
                   data.sku,
                   data.part?.name,
-                  data.lastYear,
+                  `${new Date(data.startYear).getFullYear()} - ${new Date(
+                    data.lastYear
+                  ).getFullYear()}`,
                   data.model,
                   data.make,
                   data.variant,

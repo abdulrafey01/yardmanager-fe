@@ -509,7 +509,7 @@ const page = () => {
                       name={product.name}
                       quantity={product.quantity}
                       price={product.price}
-                      date={product.date}
+                      date={new Date(product.date).toLocaleDateString()}
                       total={
                         product.total // as product.total is present when we are adding but not presenting when editing product data shows
                           ? product.total

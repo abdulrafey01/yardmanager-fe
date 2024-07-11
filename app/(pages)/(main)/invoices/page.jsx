@@ -153,7 +153,7 @@ const page = () => {
                   data.email,
                   data.phone,
                   data.paid,
-                  data.datePaid,
+                  new Date(data.datePaid).toLocaleDateString(),
                   data.status,
                 ]}
                 key={index}

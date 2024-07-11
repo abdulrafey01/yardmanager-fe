@@ -33,6 +33,9 @@ const InventorySideMenu = () => {
   const [locValue, setLocValue] = React.useState("");
   const [partValue, setPartValue] = React.useState("");
   const dispatch = useDispatch();
+  // for date input change types
+  const [dateType1, setDateType1] = React.useState(false);
+  const [dateType2, setDateType2] = React.useState(false);
 
   // useref is used to prevent adding new key on every character change
   const formDataRef = useRef(new FormData());
@@ -189,6 +192,27 @@ const InventorySideMenu = () => {
     }
   }, [selectedItem, showSideMenu]);
 
+  const onCloseMenu = () => {
+    dispatch(setShowSideMenu({ value: false }));
+    setFormState({
+      name: "",
+      sku: "",
+      year: "",
+      model: [],
+      make: [],
+      variant: [],
+      notes: "",
+      color: "",
+      startYear: "",
+      lastYear: "",
+      price: "",
+    });
+    setImgArray(null);
+    setLocValue("");
+    setPartValue("");
+    setDateType1(false);
+    setDateType2(false);
+  };
   return (
     <div
       className={`fixed flex w-full ${
@@ -197,10 +221,7 @@ const InventorySideMenu = () => {
     >
       {/* Black part */}
       <div
-        onClick={() => {
-          dispatch(setShowSideMenu({ value: false }));
-          console.log("clicked");
-        }}
+        onClick={onCloseMenu}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>
 
@@ -301,8 +322,9 @@ const InventorySideMenu = () => {
             <div className="flex space-x-4">
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
+                  onClick={() => setDateType1(true)}
                   className="w-full outline-none"
-                  type="number"
+                  type={dateType1 ? "date" : "text"}
                   placeholder="Start Date"
                   value={formState.startYear}
                   name="startYear"
@@ -311,8 +333,9 @@ const InventorySideMenu = () => {
               </div>
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
+                  onClick={() => setDateType2(true)}
                   className="w-full outline-none"
-                  type="number"
+                  type={dateType2 ? "date" : "text"}
                   placeholder="End Date"
                   value={formState.lastYear}
                   name="lastYear"
@@ -497,9 +520,7 @@ const InventorySideMenu = () => {
 
         <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
           <div
-            onClick={() => {
-              dispatch(setShowSideMenu({ value: false, mode: "add" }));
-            }}
+            onClick={onCloseMenu}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >
             Cancel

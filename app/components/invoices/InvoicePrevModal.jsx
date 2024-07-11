@@ -74,7 +74,10 @@ const InvoicePrevModal = () => {
                   Payment Amount:{previewModal?.data?.paid}
                 </p>
                 <p className="text-sm">Payment Method:Cash Payment</p>
-                <p className="text-sm">Date: {previewModal?.data?.datePaid}</p>
+                <p className="text-sm">
+                  Date:{" "}
+                  {new Date(previewModal?.data?.datePaid).toLocaleDateString()}
+                </p>
               </div>
             </div>
           </div>
@@ -126,7 +129,7 @@ const InvoicePrevModal = () => {
                       </div>
                       <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
                         <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.date}
+                          {new Date(product.date).toLocaleDateString()}
                         </p>
                       </div>
                       <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
