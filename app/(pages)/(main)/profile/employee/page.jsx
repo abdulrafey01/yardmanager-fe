@@ -18,6 +18,7 @@ import ProfileImg from "../../../../assets/main/51-profileimg.svg";
 import { useRouter } from "next/navigation";
 import { updatePersonal } from "../../../../../lib/features/profile/profileActions";
 import { resetToast } from "../../../../../lib/features/profile/profileSlice";
+import { getLocalStorage } from "../../../../helpers/storage";
 
 const page = ({}) => {
   const dispatch = useDispatch();
@@ -67,10 +68,28 @@ const page = ({}) => {
     });
   };
 
-  // If not user then can't access this page
+  // // If not user then can't access this page
+  // useEffect(() => {
+  //   const routePage = async () => {
+  //     if (user?.userType !== "employee") {
+  //       return router.push("/profile");
+  //     }
+  //     setPersonalFormState({
+  //       firstName: user?.data.name.first,
+  //       lastName: user?.data.name.last,
+  //       email: user?.data.email,
+  //       username: user?.data.username,
+  //       password: user?.data.password,
+  //     });
+  //   };
+  //   routePage();
+  // }, []);
+
   useEffect(() => {
     const routePage = async () => {
-      if (user?.userType !== "employee") {
+      if (
+        (await JSON.parse(getLocalStorage("user"))?.userType) !== "employee"
+      ) {
         return router.push("/profile");
       }
       setPersonalFormState({

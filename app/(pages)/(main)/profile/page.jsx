@@ -22,7 +22,7 @@ import {
 } from "../../../../lib/features/profile/profileActions";
 import { resetToast } from "../../../../lib/features/profile/profileSlice";
 import axios from "axios";
-import { getCookie } from "../../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -119,9 +119,25 @@ const page = () => {
   }, [toastMsg]);
 
   // If not user then can't access this page
+  // useEffect(() => {
+  //   const routePage = async () => {
+  //     if (user?.userType !== "user") {
+  //       return router.push("/profile/employee");
+  //     }
+  //     setPersonalFormState({
+  //       firstName: user?.data.name.first,
+  //       lastName: user?.data.name.last,
+  //       email: user?.data.email,
+  //       username: user?.data.username,
+  //       password: user?.data.password,
+  //     });
+  //   };
+
+  //   routePage();
+  // }, []);
   useEffect(() => {
     const routePage = async () => {
-      if (user?.userType !== "user") {
+      if ((await JSON.parse(getLocalStorage("user"))?.userType) !== "user") {
         return router.push("/profile/employee");
       }
       setPersonalFormState({
@@ -132,7 +148,6 @@ const page = () => {
         password: user?.data.password,
       });
     };
-
     routePage();
   }, []);
 
