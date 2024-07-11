@@ -101,6 +101,8 @@ const ActionMenu = ({ index, item, permissions }) => {
               dispatch(setSelectedItem(item));
               dispatch(setShowActionMenu(-1));
               setLocalStorage("invoiceItem", item);
+              // because on navigating this state refreshes on live server, so used local storage
+
               // dispatch(
               // setShowSideMenu({
               //   value: true,
@@ -132,26 +134,25 @@ const ActionMenu = ({ index, item, permissions }) => {
             <p className="font-semibold hover:font-bold">Edit</p>
           </div>
         ))}
-      <div
+      <Link
+        href={"/invoices/create"}
         onClick={() => {
           dispatch(setShowActionMenu(-1));
           dispatch(setSelectedItem(item));
 
-          dispatch(
-            setShowSideMenu({
-              value: true,
-              mode: "preview",
-            })
-          );
-          if (currentPage === "Invoices") {
-            router.push("/invoices/create");
-          }
+          setLocalStorage("invoiceItem", item);
+          // dispatch(
+          //   setShowSideMenu({
+          //     value: true,
+          //     mode: "preview",
+          //   })
+          // );
         }}
         className="cursor-pointer flex justify-center items-center space-x-2 "
       >
         <Image src={PrevIcon} alt="preview" height={20} width={20} />
         <p className="font-semibold hover:font-bold">Preview</p>
-      </div>
+      </Link>
       {permissions?.delete && (
         <div
           onClick={() => {

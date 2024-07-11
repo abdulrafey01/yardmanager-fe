@@ -16,6 +16,7 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 import { useRouter } from "next/navigation";
 import { fetchInvoicesByPage } from "../../../../lib/features/invoice/invoiceActions";
+import { getLocalStorage, removeLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
@@ -78,6 +79,12 @@ const page = () => {
     dispatch(fetchInvoicesByPage({ search: e.target.value }));
   };
 
+  useEffect(() => {
+    //  for cleaning old data
+    if (getLocalStorage("invoiceItem")) {
+      removeLocalStorage("invoiceItem");
+    }
+  }, []);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
