@@ -71,7 +71,7 @@ const page = () => {
   const router = useRouter();
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
-  const [item, setItem] = useState({});
+  const [item, setItem] = useState(null);
 
   useEffect(() => {
     if (toastMsg) {
@@ -129,26 +129,39 @@ const page = () => {
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
-    console.log("showSideMenu:", showSideMenu);
-    console.log("selectedItem:", selectedItem);
     if (JSON.parse(getLocalStorage("invoiceItem"))) {
       setItem(JSON.parse(getLocalStorage("invoiceItem")));
     }
+    console.log(formData);
   }, []);
 
   useEffect(() => {
     console.log("item:", item);
-    setFormData({
-      name: item.name,
-      email: item.email,
-      phone: item.phone,
-      products: item.products,
-      tax: item.tax,
-      paid: item.paid,
-      status: item.status,
-      notes: item.notes,
-      datePaid: item.datePaid,
-    });
+    if (item) {
+      setFormData({
+        name: item.name,
+        email: item.email,
+        phone: item.phone,
+        products: item.products,
+        tax: item.tax,
+        paid: item.paid,
+        status: item.status,
+        notes: item.notes,
+        datePaid: item.datePaid,
+      });
+    } else {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        products: [],
+        tax: 0,
+        paid: 0,
+        status: false,
+        notes: "",
+        datePaid: "",
+      });
+    }
   }, [item]);
 
   const onInputChange = (e) => {

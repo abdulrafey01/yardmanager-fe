@@ -24,7 +24,6 @@ const page = () => {
   );
   const { user } = useSelector((state) => state.auth);
 
-  const { showSideMenu } = useSelector((state) => state.shared);
   const router = useRouter();
 
   const dispatch = useDispatch();
