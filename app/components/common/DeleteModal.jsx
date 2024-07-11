@@ -6,7 +6,7 @@ import { deleteLocation } from "../../../lib/features/locations/locationActions"
 import { deleteInvoice } from "../../../lib/features/invoice/invoiceActions";
 import { deleteRole } from "../../../lib/features/roles/roleActions";
 
-import { deleteVehicle } from "../../../lib/features/vehicle/vehicleSlice";
+import { deleteVehicle } from "../../../lib/features/vehicle/vehicleActions";
 import { deleteEmployee } from "../../../lib/features/employee/employeeActions";
 
 import DelIcon from "../../assets/main/35-trash.svg";
@@ -40,7 +40,7 @@ const DeleteModal = () => {
         dispatch(deleteInventoryPermanently(selectedItem._id));
         break;
       case "Vehicle":
-        dispatch(deleteVehicle(selectedItem));
+        dispatch(deleteVehicle(selectedItem._id));
         break;
       case "Employee":
         dispatch(deleteEmployee(selectedItem._id));

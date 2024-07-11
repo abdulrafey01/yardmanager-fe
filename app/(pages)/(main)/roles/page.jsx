@@ -133,11 +133,11 @@ const page = () => {
           {/* Table Container */}
           <div className=" overflow-y-visible ">
             {/* Head */}
-            <TableHead titles={["Sr #", "Role Name"]} />
+            <TableHead titles={["Sr #", "Role Name", "Employees"]} />
             {/* Body */}
             {dataFromServer.map((data, index) => (
               <TableRow
-                titles={[index + 1, data.name]}
+                titles={[index + 1, data.name, data.employeesCount]}
                 key={index}
                 rowIndex={index}
                 item={data}

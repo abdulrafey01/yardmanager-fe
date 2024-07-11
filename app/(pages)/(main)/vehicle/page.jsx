@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { displayData } from "../../../helpers/pagination";
+import { calcTotalPage, displayData } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -12,33 +12,118 @@ import "../../../styles.css";
 import {
   setCurrentPage,
   setShowSideMenu,
+  setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
 import UploadIcon from "../../../assets/main/44-upload.svg";
 
 import XIcon from "../../../assets/main/45-xclose.svg";
 
 import EnlargeIcon from "../../../assets/main/46-enlarge.svg";
+import {
+  addVehicle,
+  fetchVehiclesByPage,
+  vinDecode,
+} from "../../../../lib/features/vehicle/vehicleActions";
+import WhiteBtn from "../../../abstracts/WhiteBtn";
 
 const page = () => {
-  const dataFromServer = useSelector((state) => state.vehicle.vehicleData);
+  const { error, vehicleData, toastMsg, totalDataLength, vinDecodedData } =
+    useSelector((state) => state.vehicle);
+  const [showDecodeMenu, setShowDecodeMenu] = React.useState(false);
+  const [imgArray, setImgArray] = React.useState([]);
 
-  const [imgArray, setImgArray] = React.useState(null);
+  const { user } = useSelector((state) => state.auth);
+
+  const [pagePermission, setPagePermission] = React.useState(null);
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-  const [showDecodeMenu, setShowDecodeMenu] = React.useState(false);
+  const [dataFromServer, setDataFromServer] = React.useState([]);
 
-  const [dataToShow, setDataToShow] = React.useState([]);
+  // Vin input state
+  const [vinVal, setVinVal] = React.useState(null);
 
-  const [showActionMenu, setShowActionMenu] = React.useState(-1);
-
+  // For add vehicle
+  const formData = new FormData();
+  // Get page permission
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setPagePermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setPagePermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "parts"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
-    let { dataToShow, totalPage } = displayData(dataFromServer, pageNumber);
-    setDataToShow(dataToShow);
-    setTotalPage(totalPage);
-  }, [dispatch, dataFromServer, pageNumber]);
+    dispatch(fetchVehiclesByPage({ page: pageNumber }));
+  }, [dispatch, pageNumber]);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+
+    if (toastMsg) {
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+      }
+    }
+  }, [error, toastMsg]);
+
+  useEffect(() => {
+    // When part data has come, set total pages
+    if (vehicleData) {
+      setDataFromServer(vehicleData);
+      let { totalPage } = calcTotalPage(totalDataLength);
+      setTotalPage(totalPage);
+    }
+  }, [vehicleData]);
+  // Search function
+  const handleSearch = (e) => {
+    dispatch(fetchVehiclesByPage({ search: e.target.value }));
+  };
+
+  // Decode Btn CLick
+  const handleDecodeBtnClick = () => {
+    if (vinVal.length < 17) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Minimum 17 digits required for VIN",
+          red: true,
+        })
+      );
+    }
+    dispatch(vinDecode(vinVal));
+    setShowDecodeMenu(true);
+  };
+
+  useEffect(() => {
+    if (vinDecodedData) {
+      console.log(vinDecodedData);
+    }
+  }, [vinDecodedData]);
+
+  // Create vehicle from VIN
+  const handleCreateBtnClick = () => {
+    formData.append("vin", vinVal);
+    formData.append("start_year", vinDecodedData?.year);
+    formData.append("make[0]", vinDecodedData?.make);
+    formData.append("model[0]", vinDecodedData?.model);
+    formData.append("image", imgArray);
+    dispatch(addVehicle(formData));
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -54,12 +139,11 @@ const page = () => {
               type="text"
               placeholder="Enter VIN Number"
               className="w-full outline-none bg-transparent"
+              value={vinVal}
+              onChange={(e) => setVinVal(e.target.value)}
             />
           </div>
-          <GreenBtn
-            onClick={() => setShowDecodeMenu(!showDecodeMenu)}
-            title={"Decode"}
-          />
+          <GreenBtn onClick={handleDecodeBtnClick} title={"Decode"} />
         </div>
         <div
           className={`${
@@ -73,6 +157,7 @@ const page = () => {
                 type="text"
                 placeholder="Year"
                 className="w-full outline-none bg-transparent"
+                value={vinDecodedData?.year}
               />
             </div>
             <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
@@ -80,20 +165,15 @@ const page = () => {
                 type="text"
                 placeholder="Make"
                 className="w-full outline-none bg-transparent"
+                value={vinDecodedData?.make}
               />
             </div>
             <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
               <input
                 type="text"
-                placeholder="Mode"
+                placeholder="Model"
                 className="w-full outline-none bg-transparent"
-              />
-            </div>
-            <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-              <input
-                type="text"
-                placeholder="Color"
-                className="w-full outline-none bg-transparent"
+                value={vinDecodedData?.model}
               />
             </div>
           </div>
@@ -102,7 +182,7 @@ const page = () => {
             {imgArray?.length > 0 ? (
               <div className="w-full flex justify-start items-center min-h-20 space-x-2">
                 {imgArray.map((img, index) => (
-                  <div className="relative ">
+                  <div key={index} className="relative ">
                     <Image
                       src={URL.createObjectURL(img)}
                       width={80}
@@ -146,6 +226,16 @@ const page = () => {
               </label>
             )}
           </div>
+          <div className="flex justify-center items-center gap-2">
+            <WhiteBtn
+              onClick={() => {
+                setVinVal(null);
+                setShowDecodeMenu(false);
+              }}
+              title={"Discard"}
+            />
+            <GreenBtn onClick={handleCreateBtnClick} title={"Create"} />
+          </div>
         </div>
       </div>
       {/* Table */}
@@ -166,16 +256,13 @@ const page = () => {
                 type="text"
                 placeholder="Search"
                 className="w-full outline-none bg-transparent"
+                onChange={handleSearch}
               />
-            </div>
-            <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
-              <p>Filter</p>
-              <Image src={MenuIcon} alt="MenuIcon" />
             </div>
           </div>
         </div>
         {/* Table Container */}
-        <div className=" overflow-auto overflow-y-visible">
+        <div className="overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={[
@@ -190,22 +277,22 @@ const page = () => {
             ]}
           />
           {/* Body */}
-          {dataToShow.map((data, index) => (
+          {dataFromServer.map((data, index) => (
             <TableRow
               titles={[
                 data.sku,
-                data.part,
-                data.year,
+                data.part?.name,
+                new Date(data.start_year).getFullYear(),
                 data.model,
                 data.make,
                 data.variant,
                 data.notes,
-                data.location,
+                data.location?.location,
               ]}
               key={index}
-              showMenu={showActionMenu}
-              setShowMenu={setShowActionMenu}
               rowIndex={index}
+              item={data}
+              permissions={pagePermission}
             />
           ))}
         </div>

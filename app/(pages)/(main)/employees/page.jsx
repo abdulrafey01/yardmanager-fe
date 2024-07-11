@@ -30,6 +30,7 @@ const page = () => {
   const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
+  const [showFilterMenu, setShowFilterMenu] = React.useState(false);
 
   // Get page permission
   useEffect(() => {
@@ -81,6 +82,17 @@ const page = () => {
   const handleSearch = (e) => {
     dispatch(fetchEmployeesByPage({ search: e.target.value }));
   };
+
+  const handleFilterClick = (e) => {
+    if (e.target.value === "Active") {
+      dispatch(fetchEmployeesByPage({ filter: true }));
+    } else if (e.target.value === "InActive") {
+      dispatch(fetchEmployeesByPage({ filter: false }));
+    } else {
+      // normal fetch for null
+      dispatch(fetchEmployeesByPage({ page: pageNumber }));
+    }
+  };
   return (
     pagePermission?.read && (
       // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -104,7 +116,7 @@ const page = () => {
             </p>
             <p className="sm:hidden font-bold text-lg md:text-2xl">Employees</p>
             {/* Search and Filter container */}
-            <div className="flex space-x-2 sm:space-x-4">
+            <div className="flex relative space-x-2 sm:space-x-4">
               <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <Image src={SearchIcon} alt="SearchIcon" />
                 <input
@@ -113,10 +125,62 @@ const page = () => {
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
                 />
+                {/* DRopdown */}
               </div>
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+              <div
+                onClick={() => setShowFilterMenu(!showFilterMenu)}
+                className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
+              >
                 <p>Filter</p>
                 <Image src={MenuIcon} alt="MenuIcon" />
+              </div>
+              {/* Dropdown */}
+              <div
+                className={`${
+                  showFilterMenu ? "block" : "hidden"
+                } bg-white z-50 overflow-auto no-scrollbar absolute top- w-36 right-0 top-11  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
+              >
+                <label
+                  htmlFor="active"
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg flex "
+                >
+                  <input
+                    id="active"
+                    name="radio"
+                    type="radio"
+                    value={"Active"}
+                    onChange={handleFilterClick}
+                  />{" "}
+                  Active
+                </label>{" "}
+                <label
+                  htmlFor="inactive"
+                  onClick={() => {}}
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                >
+                  <input
+                    id="inactive"
+                    name="radio"
+                    type="radio"
+                    value={"InActive"}
+                    onChange={handleFilterClick}
+                  />{" "}
+                  InActive
+                </label>
+                <label
+                  htmlFor="null"
+                  onClick={() => {}}
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                >
+                  <input
+                    id="null"
+                    name="radio"
+                    type="radio"
+                    value={"Null"}
+                    onChange={handleFilterClick}
+                  />{" "}
+                  Null
+                </label>
               </div>
             </div>
           </div>

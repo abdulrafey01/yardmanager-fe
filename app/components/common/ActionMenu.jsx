@@ -20,6 +20,10 @@ import Link from "next/link";
 import { addInventory } from "../../../lib/features/inventory/inventoryActions";
 import { setLocalStorage } from "../../helpers/storage";
 import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
+import {
+  addToInventory,
+  fetchVehiclesByPage,
+} from "../../../lib/features/vehicle/vehicleActions";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
@@ -139,20 +143,23 @@ const ActionMenu = ({ index, item, permissions }) => {
         onClick={() => {
           dispatch(setShowActionMenu(-1));
           dispatch(setSelectedItem(item));
+
+          if (currentPage === "Invoices") {
+            dispatch(
+              setPreviewModal({
+                value: true,
+                data: {
+                  ...item,
+                },
+              })
+            );
+          }
           dispatch(
-            setPreviewModal({
+            setShowSideMenu({
               value: true,
-              data: {
-                ...item,
-              },
+              mode: "preview",
             })
           );
-          // dispatch(
-          //   setShowSideMenu({
-          //     value: true,
-          //     mode: "preview",
-          //   })
-          // );
         }}
         className="cursor-pointer flex justify-center items-center space-x-2 "
       >
@@ -173,7 +180,23 @@ const ActionMenu = ({ index, item, permissions }) => {
           <p className="font-semibold hover:font-bold">Delete</p>
         </div>
       )}
-
+      {currentPage === "Vehicle" && (
+        <div
+          onClick={() => {
+            dispatch(setSelectedItem(item));
+            dispatch(setShowActionMenu(-1));
+            dispatch(addToInventory(item._id));
+            dispatch(fetchVehiclesByPage({ page: 1 }));
+            console.log(item);
+          }}
+          className=" flex cursor-pointer justify-start items-center space-x-2 "
+        >
+          <Image src={CartIcon} alt="delete" height={20} width={20} />
+          <p className="font-semibold hover:font-bold text-start">
+            Add To Inventory
+          </p>
+        </div>
+      )}
       {currentPage === "Inventory" && (
         <>
           <div

@@ -10,6 +10,8 @@ import {
 } from "../../../lib/features/locations/locationActions";
 
 const LocationSideMenu = () => {
+  const dispatch = useDispatch();
+
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [formData, setFormData] = useState({
     location: "",
@@ -41,7 +43,6 @@ const LocationSideMenu = () => {
     }
     dispatch(setShowSideMenu({ value: false }));
   };
-  const dispatch = useDispatch();
   return (
     <div
       className={`fixed ${

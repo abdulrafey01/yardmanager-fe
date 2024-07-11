@@ -155,7 +155,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             </div>
           ))}
         </div>
-      ) : index === 4 ? (
+      ) : index === 4 || index === 5 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
@@ -180,7 +180,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
             <input
               type="text"
-              placeholder="Year"
+              placeholder="Notes"
               className="w-full outline-none bg-transparent"
               value={titles[6]}
             />
@@ -196,9 +196,10 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
             <input
               type="text"
-              placeholder="Year"
+              placeholder="Location"
               className="w-full outline-none bg-transparent"
               value={titles[7]}
+              readOnly
             />
           </div>
         </div>

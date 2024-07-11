@@ -2,20 +2,263 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
 import UploadIcon from "../../assets/main/44-upload.svg";
-
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import XIcon from "../../assets/main/45-xclose.svg";
 
 import EnlargeIcon from "../../assets/main/46-enlarge.svg";
-import React from "react";
-const VehicleSideMenu = () => {
-  const { showSideMenu, currentPage } = useSelector((state) => state.shared);
+import DownArrow from "../../assets/main/28-downarrow.svg";
+import React, { useEffect, useRef } from "react";
+import {
+  addInventory,
+  updateInventory,
+} from "../../../lib/features/inventory/inventoryActions";
+import { searchLocationByName } from "../../../lib/features/locations/locationActions";
+import "../../styles.css";
+import { searchPartByName } from "../../../lib/features/parts/partActions";
+import MultiInput from "../common/MultiInput";
+import { updateVehicle } from "../../../lib/features/vehicle/vehicleActions";
+const InventorySideMenu = () => {
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { locationSearchData } = useSelector((state) => state.locations);
+  const { partSearchData } = useSelector((state) => state.parts);
+  const { colorToggle } = useSelector((state) => state.settings);
 
   const [imgArray, setImgArray] = React.useState(null);
+  const [showLocDropDown, setShowLocDropDown] = React.useState(false);
+  const [showPartDropDown, setShowPartDropDown] = React.useState(false);
+  // Values for inputs
+  const [locValue, setLocValue] = React.useState("");
+  const [partValue, setPartValue] = React.useState("");
   const dispatch = useDispatch();
+  // for date input change types
+  const [dateType1, setDateType1] = React.useState(false);
+  const [dateType2, setDateType2] = React.useState(false);
+
+  // useref is used to prevent adding new key on every character change
+  const formDataRef = useRef(new FormData());
+  const [colorSwitch, setColorSwitch] = React.useState(false);
+  const [formState, setFormState] = React.useState({
+    name: "",
+    sku: "",
+    model: [],
+    make: [],
+    variant: [],
+    notes: "",
+    color: "",
+    start_year: "",
+    lastYear: "",
+  });
+
+  // Function to handle input change
+  const onInputChange = (e) => {
+    // formDataRef.current.set(e.target.name, e.target.value);
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const onLocInputChange = (e) => {
+    setLocValue(e.target.value);
+    if (e.target.value.length >= 3) {
+      setShowLocDropDown(true);
+      dispatch(searchLocationByName(e.target.value));
+    } else {
+      setShowLocDropDown(false);
+    }
+  };
+
+  const onLocNameClick = (loc) => {
+    formDataRef.current.set("location", loc._id);
+    setLocValue(loc.location);
+    setShowLocDropDown(false);
+  };
+
+  const onPartNameClick = (part) => {
+    formDataRef.current.set("part", part._id);
+    setPartValue(part.name);
+    setShowPartDropDown(false);
+  };
+
+  const onPartInputChange = (e) => {
+    setPartValue(e.target.value);
+    if (e.target.value.length >= 3) {
+      setShowPartDropDown(true);
+      dispatch(searchPartByName(e.target.value));
+    } else {
+      setShowPartDropDown(false);
+    }
+  };
+  // Function to handle image change
+  const onImageChange = (e) => {
+    // formData not set directly becauese files after selecting appearing in box are coming from imgArray
+    const files = Array.from(e.target.files);
+    setImgArray(files);
+    for (let i = 0; i < files.length; i++) {
+      formDataRef.current.append("images", files[i]);
+    }
+  };
+
+  // Function to handle form submit
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    console.log(formState);
+
+    if (formState.name === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill all the fields",
+          red: true,
+        })
+      );
+    } else if (formState.sku <= 0 || formState.sku === "" || !formState.sku) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill all the fields",
+          red: true,
+        })
+      );
+    }
+    formDataRef.current.set("name", formState.name);
+    formDataRef.current.set("sku", formState.sku);
+
+    if (formState.model.length === 1) {
+      formDataRef.current.append("model[0]", formState.model[0]);
+    } else {
+      formState.model.forEach((model, index) => {
+        formDataRef.current.append(`model`, model);
+      });
+    }
+
+    if (formState.make.length === 1) {
+      formDataRef.current.append("make[0]", formState.make[0]);
+    } else {
+      formState.make.forEach((make, index) => {
+        formDataRef.current.append(`make`, make);
+      });
+    }
+
+    if (formState.variant.length === 1) {
+      formDataRef.current.append("variant[0]", formState.variant[0]);
+    } else {
+      formState.make.forEach((variant, index) => {
+        formDataRef.current.append(`variant`, variant);
+      });
+    }
+
+    formDataRef.current.set("notes", formState.notes);
+    formDataRef.current.set("start_year", formState.start_year);
+    formDataRef.current.set("lastYear", formState.lastYear);
+    if (colorToggle) {
+      formDataRef.current.set("color", formState.color);
+    } else {
+      formDataRef.current.delete("color");
+    }
+
+    if (showSideMenu.mode === "edit") {
+      dispatch(
+        updateVehicle({ formData: formDataRef.current, id: selectedItem._id })
+      );
+      setFormState({
+        name: "",
+        sku: "",
+        model: [],
+        make: [],
+        variant: [],
+        notes: "",
+        color: "",
+        start_year: "",
+        lastYear: "",
+      });
+
+      dispatch(setShowSideMenu({ value: false }));
+
+      formDataRef.current.forEach((value, key) => {
+        formDataRef.current.delete(key);
+      });
+    }
+  };
+
+  const removeModelFromList = (index) => {
+    setFormState({
+      ...formState,
+      model: formState.model.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+  const removeMakeFromList = (index) => {
+    setFormState({
+      ...formState,
+      make: formState.make.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+  const removeVariantFromList = (index) => {
+    setFormState({
+      ...formState,
+      variant: formState.variant.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+
+  // When in edit mode  Update formData when selectedItem selected otherwise empty
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        console.log(selectedItem);
+        setFormState({
+          name: selectedItem.name,
+          model: selectedItem.model,
+          make: selectedItem.make,
+          variant: selectedItem.variant,
+          notes: selectedItem.notes,
+          start_year: new Date(selectedItem.start_year).getFullYear(),
+          sku: selectedItem.sku,
+        });
+        setLocValue(selectedItem.location?.location);
+        setPartValue(selectedItem.part?.name);
+        setImgArray(selectedItem?.images);
+      }
+    } else {
+      setFormState({
+        name: "",
+        sku: "",
+        model: [],
+        make: [],
+        variant: [],
+        notes: "",
+        start_year: "",
+        lastYear: "",
+        color: "",
+      });
+      setImgArray(null);
+      setLocValue("");
+      setPartValue("");
+    }
+  }, [selectedItem, showSideMenu]);
+
+  const onCloseMenu = () => {
+    dispatch(setShowSideMenu({ value: false }));
+    setFormState({
+      name: "",
+      sku: "",
+      model: [],
+      make: [],
+      variant: [],
+      notes: "",
+      color: "",
+      start_year: "",
+      lastYear: "",
+    });
+    setImgArray(null);
+    setLocValue("");
+    setPartValue("");
+    setDateType1(false);
+    setDateType2(false);
+  };
   return (
     <div
       className={`fixed flex w-full ${
@@ -24,21 +267,15 @@ const VehicleSideMenu = () => {
     >
       {/* Black part */}
       <div
-        onClick={() => {
-          dispatch(setShowSideMenu({ value: false }));
-          console.log("clicked");
-        }}
+        onClick={onCloseMenu}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>
 
       {/* Main container */}
-      <div
-        // ref={menuRef}
-        className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start "
-      >
+      <div className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start ">
         <div className="p-6 flex w-full flex-col space-y-4">
           <p className="font-semibold">
-            {showSideMenu.mode === "edit" ? "Edit Vehicle " : "Add New Vehicle"}
+            {showSideMenu.mode === "edit" ? "Edit Vehicle" : ""}
           </p>
           {/* This additional container to make them opaque in preview mode */}
           <div
@@ -53,83 +290,224 @@ const VehicleSideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 placeholder="Vehicle Name"
+                name="name"
+                value={formState.name}
+                onChange={onInputChange}
               />
             </div>
-            {/* Vehicle Location input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Location"
-              />
+            <div className="flex gap-4">
+              {/* Vehicle Location input */}
+              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  value={locValue}
+                  placeholder="Location"
+                  name="location"
+                  onChange={onLocInputChange}
+                  autoComplete="off"
+                />
+                <Image src={DownArrow} alt="downarrow" />
+                {/* Dropdown */}
+                <div
+                  className={`${
+                    locationSearchData.length > 0 && showLocDropDown
+                      ? "block"
+                      : "hidden"
+                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                >
+                  {locationSearchData.map((loc) => {
+                    return (
+                      <p
+                        onClick={() => onLocNameClick(loc)}
+                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                      >
+                        {loc.location}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+              {/* Inventory Part input */}
+              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  value={partValue}
+                  placeholder="Part"
+                  name="location"
+                  onChange={onPartInputChange}
+                  autoComplete="off"
+                />
+                <Image src={DownArrow} alt="downarrow" />
+                {/* Dropdown */}
+                <div
+                  className={`${
+                    partSearchData.length > 0 && showPartDropDown
+                      ? "block"
+                      : "hidden"
+                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                >
+                  {partSearchData.map((part) => {
+                    return (
+                      <p
+                        onClick={() => onPartNameClick(part)}
+                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                      >
+                        {part.name}
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
 
-            {/* Vehicle Dates input */}
+            {/* Inventory Dates input */}
             <div className="flex space-x-4">
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
+                  onClick={() => setDateType1(true)}
                   className="w-full outline-none"
-                  type="text"
+                  type={dateType1 ? "date" : "text"}
                   placeholder="Start Date"
+                  value={formState.start_year}
+                  name="start_year"
+                  onChange={onInputChange}
                 />
               </div>
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
+                  onClick={() => setDateType2(true)}
                   className="w-full outline-none"
-                  type="text"
+                  type={dateType2 ? "date" : "text"}
                   placeholder="End Date"
+                  value={formState.lastYear}
+                  name="lastYear"
+                  onChange={onInputChange}
                 />
               </div>
             </div>
-            {/* Vehicle Model input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Model"
-              />
-            </div>
-            {/* Vehicle Make input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Make"
-              />
-            </div>
+            {/* Inventory Model input */}
+            <MultiInput
+              dataToMap={formState.model}
+              placeholder="Model"
+              name="model"
+              onPressEnter={(e) => {
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model should be at least 3 characters",
+                      red: true,
+                    })
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    model: [...formState.model, e.target.value],
+                  });
+                }
+              }}
+              removeItemFunction={removeModelFromList}
+            />
+            {/* Inventory Make input */}
+            <MultiInput
+              dataToMap={formState.make}
+              placeholder="Make"
+              name="make"
+              onPressEnter={(e) => {
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Make should be at least 3 characters",
+                        red: true,
+                      })
+                    )
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    make: [...formState.make, e.target.value],
+                  });
+                }
+              }}
+              removeItemFunction={removeMakeFromList}
+            />
+            {/* Inventory Variant input */}
+            <MultiInput
+              dataToMap={formState.variant}
+              placeholder="Variant"
+              name="variant"
+              onPressEnter={(e) => {
+                if (e.target.value.length < 3) {
+                  dispatch(
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Variant should be at least 3 characters",
+                        red: true,
+                      })
+                    )
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    variant: [...formState.variant, e.target.value],
+                  });
+                }
+              }}
+              removeItemFunction={removeVariantFromList}
+            />
+            {/* Color input based on toggle */}
+            {colorSwitch && (
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="Color"
+                  name="color"
+                  value={formState.color}
+                  onChange={onInputChange}
+                />
+              </div>
+            )}
 
-            {/* Vehicle Variant input */}
+            {/* Inventory SKU input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
-                type="text"
-                placeholder="Variant"
+                type="number"
+                placeholder="SKU"
+                name="sku"
+                value={formState.sku}
+                onChange={onInputChange}
               />
             </div>
-            {/* Vehicle Price input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Price"
-              />
-            </div>
-            {/* Vehicle Notes input */}
+            {/* Inventory Notes input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <textarea
                 className="w-full outline-none min-h-20 max-h-32"
                 type="text"
                 placeholder="Notes"
+                name="notes"
+                value={formState.notes}
+                onChange={onInputChange}
               />
             </div>
-            {/* Vehicle Image input */}
+            {/* Inventory Image input */}
             <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
               {imgArray?.length > 0 ? (
                 <div className="w-full flex justify-start items-center min-h-20 space-x-2">
                   {imgArray.map((img, index) => (
                     <div className="relative ">
                       <Image
-                        src={URL.createObjectURL(img)}
+                        src={
+                          typeof img === "string"
+                            ? img
+                            : URL.createObjectURL(img)
+                        }
                         width={80}
                         height={80}
                         alt="img"
@@ -159,12 +537,7 @@ const VehicleSideMenu = () => {
                   <Image src={UploadIcon} alt="UploadIcon" />
                   <p className="text-[#01E268]">Upload Part Image</p>{" "}
                   <input
-                    onChange={(e) => {
-                      // console.log(e.target.files[0]);
-
-                      setImgArray(Array.from(e.target.files));
-                      console.log(imgArray);
-                    }}
+                    onChange={onImageChange}
                     id="dropzone"
                     className="hidden"
                     type="file"
@@ -179,20 +552,18 @@ const VehicleSideMenu = () => {
 
         <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
           <div
-            onClick={() => {
-              dispatch(setShowSideMenu({ value: false, mode: "add" }));
-            }}
+            onClick={onCloseMenu}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >
             Cancel
           </div>
           <div
-            onClick={() => {
-              dispatch(setShowSuccessModal(true));
-            }}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
+            onClick={onFormSubmit}
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
+              showSideMenu.mode === "preview" && "hidden"
+            }`}
           >
-            Add Vehicle
+            {showSideMenu.mode === "edit" ? "Edit Inventory" : "Add Inventory"}
           </div>
         </div>
       </div>
@@ -200,4 +571,4 @@ const VehicleSideMenu = () => {
   );
 };
 
-export default VehicleSideMenu;
+export default InventorySideMenu;

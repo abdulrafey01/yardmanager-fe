@@ -13,7 +13,7 @@ const MultiInput = ({
 }) => {
   return (
     <div className="w-full flex flex-wrap gap-2 gap-y-4 p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-      {dataToMap.map((item, index) => (
+      {dataToMap?.map((item, index) => (
         <div
           key={index}
           className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center gap-2 text-sm `}
