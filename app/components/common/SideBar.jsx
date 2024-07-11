@@ -38,6 +38,7 @@ import {
   setCurrentPage,
   setShowSideBar,
 } from "../../../lib/features/shared/sharedSlice";
+import Link from "next/link";
 const SideBar = () => {
   const pathName = usePathname();
   const [activeMainBtn, setActiveMainBtn] = useState(-1);
@@ -126,6 +127,7 @@ const SideBar = () => {
       iconW: SubcSvg,
       iconB: SubSvgB,
       name2: "subscription",
+      route: "/subscription",
     },
   ];
   const sideButtonsBottom = [
@@ -169,9 +171,12 @@ const SideBar = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log(hideBtns);
     setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
   }, [hideBtns]);
+
+  useEffect(() => {
+    console.log(showBtns);
+  }, [showBtns]);
   // Disable side buttons on certain pages
   useEffect(() => {
     if (currentPage === "MyProfile") {
@@ -246,35 +251,36 @@ const SideBar = () => {
         <div className="w-full ">
           {showBtns.map((item, index) => {
             return (
-              <div
-                onClick={() => {
-                  setActiveMainBtn(index);
-                  setActiveBottomBtn(-1);
-                  router.push(item.route);
-                  dispatch(setShowSideBar(false));
-                }}
-                className={`w-full flex space-x-2 items-center ${
-                  activeMainBtn === index
-                    ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
-                    : "hover:bg-[#ecf2ef49]"
-                } rounded-lg p-3 cursor-pointer `}
-              >
-                <Image
-                  src={activeMainBtn === index ? item.iconB : item.iconW}
-                  alt="icon"
-                  width={20}
-                  height={20}
-                />
-                <p
-                  className={`${
+              <Link href={item?.route} key={index}>
+                <div
+                  onClick={() => {
+                    setActiveMainBtn(index);
+                    setActiveBottomBtn(-1);
+                    dispatch(setShowSideBar(false));
+                  }}
+                  className={`w-full flex space-x-2 items-center ${
                     activeMainBtn === index
-                      ? "text-black font-medium"
-                      : "text-white"
-                  } text-xs sm:text-base`}
+                      ? "bg-[#78FFB6] hover:bg-[#78FFB6]"
+                      : "hover:bg-[#ecf2ef49]"
+                  } rounded-lg p-3 cursor-pointer `}
                 >
-                  {item.name}
-                </p>
-              </div>
+                  <Image
+                    src={activeMainBtn === index ? item.iconB : item.iconW}
+                    alt="icon"
+                    width={20}
+                    height={20}
+                  />
+                  <p
+                    className={`${
+                      activeMainBtn === index
+                        ? "text-black font-medium"
+                        : "text-white"
+                    } text-xs sm:text-base`}
+                  >
+                    {item.name}
+                  </p>
+                </div>
+              </Link>
             );
           })}
         </div>

@@ -9,6 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Header from "./Header";
 import { logout } from "../../../lib/features/auth/authSlice";
+import Link from "next/link";
 
 const TopBar = () => {
   const { currentPage, showSideBar } = useSelector((state) => state.shared);
@@ -40,10 +41,11 @@ const TopBar = () => {
   // Profile routing based on user type
   const handleProfileClick = () => {
     if (user?.userType === "user") {
-      return router.push("/profile/");
+      return "/profile/";
     } else if (user?.userType === "employee") {
-      return router.push("/profile/employee");
+      return "/profile/employee";
     }
+    return "/"; // Default route in case userType is undefined or does not match
   };
   return (
     <div className="w-full bg-white p-3 flex justify-between items-center">
@@ -88,12 +90,12 @@ const TopBar = () => {
             showProfileMenu ? "block" : "hidden"
           } bg-white z-50 overflow-auto no-scrollbar absolute top-[135%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
         >
-          <div
-            onClick={handleProfileClick}
+          <Link
+            href={handleProfileClick()}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
             Profile
-          </div>{" "}
+          </Link>{" "}
           <div
             onClick={() => {
               dispatch(logout());
