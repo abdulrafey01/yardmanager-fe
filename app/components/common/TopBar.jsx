@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ArrowIcon from "../../assets/main/26-arrow.svg";
 import Avatar from "../../assets/main/27-avatar.svg";
 import DownArrowIcon from "../../assets/main/28-downarrow.svg";
@@ -17,6 +17,12 @@ const TopBar = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const pathname = usePathname();
+	const data = useSelector((state) => state.auth);
+  
+	useEffect(() => {
+		console.log("User Logged in");
+		console.log(data);
+	}, [data, router]);
 
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
@@ -74,11 +80,17 @@ const TopBar = () => {
         className="flex relative space-x-2 justify-center items-center cursor-pointer select-none"
       >
         <div>
-          <Image src={Avatar} alt="avatar" />
+          <Image
+            // src={user?.data?.profile}
+            src={Avatar}
+            width={40}
+            height={40}
+            alt="avatar"
+          />
         </div>
         <div className="flex flex-col">
-          <p className="hidden sm:block text-xs font-bold">Noraiz Shahid</p>
-          <p className="hidden sm:block text-xs">Shop Owner</p>
+          <p className="hidden sm:block text-xs font-bold">{user?.data?.name?.first + " " + user?.data?.name?.last}</p>
+          <p className="hidden sm:block text-xs">{user?.userType === 'user' ? 'Shop Owner' : 'Employee'}</p>
         </div>
         <div className="hidden sm:block p-2">
           <Image src={DownArrowIcon} alt="DownArrowIcon" />
