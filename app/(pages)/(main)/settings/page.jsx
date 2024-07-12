@@ -12,9 +12,13 @@ const page = () => {
 
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
-  const [priceToggle, setPriceToggle] = React.useState(
-    JSON.parse(getLocalStorage("priceToggle")) || false
-  );
+  const [priceToggle, setPriceToggle] = React.useState(false);
+
+  useEffect(() => {
+    if (JSON.parse(getLocalStorage("priceToggle"))) {
+      setPriceToggle(JSON.parse(getLocalStorage("priceToggle")));
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));
