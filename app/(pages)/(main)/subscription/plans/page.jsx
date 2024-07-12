@@ -4,7 +4,7 @@ const page = () => {
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* Main container */}
-      <div className="h-full border rounded-xl border-gray-300 p-4 gap-4 flex flex-col justify-center items-center text-center">
+      <div className="h-full bg-white border rounded-xl border-gray-300 p-4 gap-4 flex flex-col justify-center items-center text-center">
         {/* Text container */}
         <div className="flex flex-col gap-3">
           <p className="font-semibold text-lg">
