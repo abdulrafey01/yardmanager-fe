@@ -25,12 +25,14 @@ import {
   vinDecode,
 } from "../../../../lib/features/vehicle/vehicleActions";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
+import { setVinDecodedData } from "../../../../lib/features/vehicle/vehicleSlice";
 
 const page = () => {
   const { error, vehicleData, toastMsg, totalDataLength, vinDecodedData } =
     useSelector((state) => state.vehicle);
   const [showDecodeMenu, setShowDecodeMenu] = React.useState(false);
-  const [imgArray, setImgArray] = React.useState([]);
+
+  const [imgArray2, setImgArray2] = React.useState(null);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -121,9 +123,24 @@ const page = () => {
     formData.append("start_year", vinDecodedData?.year);
     formData.append("make[0]", vinDecodedData?.make);
     formData.append("model[0]", vinDecodedData?.model);
-    formData.append("image", imgArray);
+    formData.append("image", imgArray2);
     dispatch(addVehicle(formData));
+
+    // reset data fields
+    dispatch(setVinDecodedData(null));
+    setVinVal(null);
+    setImgArray2(null);
   };
+
+  const onImageChange = (e) => {
+    // console.log(e.target.files[0]);
+
+    setImgArray2(Array.from(e.target.files));
+  };
+
+  useEffect(() => {
+    console.log(imgArray2);
+  }, [imgArray2]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -179,12 +196,14 @@ const page = () => {
           </div>
           {/* Vehicle Image input */}
           <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
-            {imgArray?.length > 0 ? (
+            {imgArray2?.length > 0 ? (
               <div className="w-full flex justify-start items-center min-h-20 space-x-2">
-                {imgArray.map((img, index) => (
+                {imgArray2.map((img, index) => (
                   <div key={index} className="relative ">
                     <Image
-                      src={URL.createObjectURL(img)}
+                      src={
+                        typeof img === "string" ? img : URL.createObjectURL(img)
+                      }
                       width={80}
                       height={80}
                       alt="img"
@@ -192,7 +211,9 @@ const page = () => {
                     <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
                       <Image
                         onClick={() => {
-                          setImgArray(imgArray.filter((item) => item !== img));
+                          setImgArray2(
+                            imgArray2.filter((item) => item !== img)
+                          );
                         }}
                         src={XIcon}
                         alt="XIcon"
@@ -207,18 +228,13 @@ const page = () => {
             ) : (
               <label
                 className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
-                htmlFor="dropzone"
+                htmlFor="dropzone2"
               >
                 <Image src={UploadIcon} alt="UploadIcon" />
                 <p className="text-[#01E268]">Upload Part Image</p>{" "}
                 <input
-                  onChange={(e) => {
-                    // console.log(e.target.files[0]);
-
-                    setImgArray(Array.from(e.target.files));
-                    console.log(imgArray);
-                  }}
-                  id="dropzone"
+                  onChange={onImageChange}
+                  id="dropzone2"
                   className="hidden"
                   type="file"
                   multiple
@@ -230,6 +246,7 @@ const page = () => {
             <WhiteBtn
               onClick={() => {
                 setVinVal(null);
+                dispatch(setVinDecodedData(null));
                 setShowDecodeMenu(false);
               }}
               title={"Discard"}

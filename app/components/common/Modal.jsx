@@ -46,7 +46,7 @@ const Modal = () => {
         <SuccessModal />
 
         {/* Upload Image Modal */}
-        <UploadImageModal />
+        {/* <UploadImageModal /> */}
       </div>
     </div>
   );

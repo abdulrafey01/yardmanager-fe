@@ -17,7 +17,7 @@ const DropDownInput = ({
 
   const onInputChange = (e) => {
     setInputValue(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowDropDown(true);
       dispatch(onSearch(e.target.value));
     } else {

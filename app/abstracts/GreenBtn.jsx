@@ -1,8 +1,17 @@
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
-const GreenBtn = ({ icon, title, onClick }) => {
-  return (
+const GreenBtn = ({ icon, title, onClick, route }) => {
+  return route ? (
+    <Link
+      href={route}
+      className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] hover:bg-[#37fd93]  text-left rounded-lg flex space-x-2"
+    >
+      <p className="font-bold text-sm">{title}</p>
+      {icon && <Image src={icon} alt="arrowIcon" />}
+    </Link>
+  ) : (
     <div
       onClick={onClick}
       className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] hover:bg-[#37fd93]  text-left rounded-lg flex space-x-2"

@@ -170,7 +170,7 @@ const page = () => {
 
   const onProductNameInputChange = (e) => {
     setProductName(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowDropdown(true);
       dispatch(searchInventoryByName(e.target.value));
     } else {
@@ -307,6 +307,7 @@ const page = () => {
       status: false,
       notes: "",
       datePaid: "",
+      paymentMethod: "",
     });
     setProductData({
       product: "",
@@ -332,6 +333,7 @@ const page = () => {
   const handlePaymentMenuClick = (val) => {
     setPaymentVal(val);
     setShowPaymentMenu(!showPaymentMenu);
+    setFormData({ ...formData, paymentMethod: val });
   };
 
   return (
@@ -558,7 +560,7 @@ const page = () => {
                   onIconClick={() => setShowPaymentMenu(!showPaymentMenu)}
                   value={paymentVal}
                 />
-                {/* Profile Menu */}
+                {/* Payment Menu */}
                 <div
                   className={`${
                     showPaymentMenu ? "block" : "hidden"
@@ -590,7 +592,7 @@ const page = () => {
                   type="date"
                   name={"datePaid"}
                   onChange={onInputChange}
-                  placeholder={"Select Payment Method"}
+                  placeholder={"Select Date Paid"}
                 />
               </div>
             </div>

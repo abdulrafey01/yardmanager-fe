@@ -32,7 +32,7 @@ const InvoicePrevModal = () => {
   return (
     <div
       className={`${
-        previewModal.value ? "absolute" : "hidden"
+        previewModal?.value ? "absolute" : "hidden"
       }   z-20 w-full h-full flex items-center `}
     >
       {/* // Outer Black on whole screen till scroll end */}

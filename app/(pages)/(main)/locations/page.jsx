@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import SearchIcon from "../../../assets/main/30-search.svg";
 import MenuIcon from "../../../assets/main/37-menu.svg";
-import { calcTotalPage, displayData } from "../../../helpers/pagination";
+import { calcTotalPage } from "../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";

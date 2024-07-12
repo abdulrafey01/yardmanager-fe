@@ -69,7 +69,7 @@ const InventorySideMenu = () => {
 
   const onLocInputChange = (e) => {
     setLocValue(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowLocDropDown(true);
       dispatch(searchLocationByName(e.target.value));
     } else {
@@ -91,7 +91,7 @@ const InventorySideMenu = () => {
 
   const onPartInputChange = (e) => {
     setPartValue(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowPartDropDown(true);
       dispatch(searchPartByName(e.target.value));
     } else {
@@ -124,8 +124,29 @@ const InventorySideMenu = () => {
     formDataRef.current.set("name", formState.name);
     formDataRef.current.set("sku", formState.sku);
     formDataRef.current.set("year", formState.year);
-    formDataRef.current.set("model", formState.model);
-    formDataRef.current.set("make", formState.make);
+    if (formState.model.length === 1) {
+      formDataRef.current.append("model[0]", formState.model[0]);
+    } else {
+      formState.model.forEach((model, index) => {
+        formDataRef.current.append(`model`, model);
+      });
+    }
+
+    if (formState.make.length === 1) {
+      formDataRef.current.append("make[0]", formState.make[0]);
+    } else {
+      formState.make.forEach((make, index) => {
+        formDataRef.current.append(`make`, make);
+      });
+    }
+
+    if (formState.variant.length === 1) {
+      formDataRef.current.append("variant[0]", formState.variant[0]);
+    } else {
+      formState.make.forEach((variant, index) => {
+        formDataRef.current.append(`variant`, variant);
+      });
+    }
     formDataRef.current.set("variant", formState.variant);
     formDataRef.current.set("notes", formState.notes);
     formDataRef.current.set("startYear", formState.startYear);
@@ -480,7 +501,7 @@ const InventorySideMenu = () => {
               {imgArray?.length > 0 ? (
                 <div className="w-full flex justify-start items-center min-h-20 space-x-2">
                   {imgArray.map((img, index) => (
-                    <div className="relative ">
+                    <div key={index} className="relative ">
                       <Image
                         src={
                           typeof img === "string"

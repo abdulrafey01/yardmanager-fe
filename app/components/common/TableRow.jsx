@@ -215,6 +215,94 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       )
     );
   };
+  const renderInventoryRow = (titles) => {
+    return titles.map((title, index) =>
+      index === 0 ? (
+        <div
+          key={index}
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16 break-all text-center  p-3  flex items-center`}
+        >
+          {title}
+        </div>
+      ) : // if index is 3 show it like this and if index is 4 show it like that
+      index === 3 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
+          }`}
+        >
+          {titles[3].map((model, index) => (
+            <div
+              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+            >
+              {model}
+            </div>
+          ))}
+        </div>
+      ) : index === 4 || index === 5 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
+          }`}
+        >
+          {titles[index].map((make, index) => (
+            <div
+              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+            >
+              {make}
+            </div>
+          ))}
+        </div>
+      ) : index === 6 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          }`}
+        >
+          <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
+            <input
+              type="text"
+              placeholder="Notes"
+              className="w-full outline-none bg-transparent"
+              value={titles[6]}
+            />
+          </div>
+        </div>
+      ) : index === 7 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-16 break-all text-center p-3 flex items-center flex-1 ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          }`}
+        >
+          <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
+            <input
+              type="text"
+              placeholder="Location"
+              className="w-full outline-none bg-transparent"
+              value={titles[7]}
+              readOnly
+            />
+          </div>
+        </div>
+      ) : (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          }`}
+        >
+          {title}
+        </div>
+      )
+    );
+  };
 
   const renderEmployeeRow = (titles) => {
     return titles.map((title, index) =>
@@ -284,6 +372,8 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           ? renderEmployeeRow(titles)
           : currentPage === "Locations"
           ? renderLocationRow(titles)
+          : currentPage === "Inventory"
+          ? renderInventoryRow(titles)
           : titles.map((title, index) =>
               index === 0 ? (
                 <div
