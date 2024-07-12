@@ -14,7 +14,7 @@ const PlanBox = ({
   btnGreen = false,
 }) => {
   return (
-    <div className="border rounded-xl border-gray-300 flex flex-col  p-4 w-[38%] items-start gap-4">
+    <div className="border rounded-xl border-gray-300 flex flex-col  p-4 w-full md:w-[38%] items-start gap-4">
       {/* Diamond icon */}
       <div className="p-3 rounded-lg bg-[#78FFB6]">
         <Image src={DiamondIcon} alt="SubscribeIcon" />

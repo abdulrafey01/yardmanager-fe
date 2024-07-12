@@ -17,7 +17,7 @@ const page = () => {
           </p>
         </div>
         {/* Plans container */}
-        <div className="w-full flex justify-center items-center gap-4">
+        <div className="w-full flex-col md:flex-row flex justify-center items-center gap-4">
           <PlanBox
             title={"Monthly Plan"}
             description={

@@ -20,13 +20,15 @@ const page = () => {
         <GreenBtn route={"/subscription/plans"} title={"Subscribe"} />
       </div>
       {/* Main container */}
-      <div className="h-full border rounded-xl border-gray-300 flex flex-col justify-center items-center text-center tracking-wider">
+      <div className="h-full border rounded-xl border-gray-300 flex flex-col justify-center  gap-4 items-center text-center tracking-wider">
         <Image src={NoSubscribeIcon} alt="NoSubscribeIcon" />
-        <p className="font-bold">No Subscription Yet</p>
-        <p className="text-gray-600">
-          Enhance your experience with a subscription. Purchase now to <br />
-          unlock features!
-        </p>
+        <div className="flex flex-col gap-2">
+          <p className="font-bold">No Subscription Yet</p>
+          <p className="text-gray-600">
+            Enhance your experience with a subscription. Purchase now to <br />
+            unlock features!
+          </p>
+        </div>
       </div>
     </div>
   );
