@@ -20,12 +20,11 @@ import { searchLocationByName } from "../../../lib/features/locations/locationAc
 import "../../styles.css";
 import { searchPartByName } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
+import { getLocalStorage } from "../../helpers/storage";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
-  const { colorToggle } = useSelector((state) => state.settings);
-
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
@@ -39,7 +38,6 @@ const InventorySideMenu = () => {
 
   // useref is used to prevent adding new key on every character change
   const formDataRef = useRef(new FormData());
-  const [colorSwitch, setColorSwitch] = React.useState(false);
   const [formState, setFormState] = React.useState({
     name: "",
     sku: "",
@@ -54,6 +52,15 @@ const InventorySideMenu = () => {
     price: "",
   });
 
+  // Price Toggle for inventory
+  const [priceToggle, setPriceToggle] = React.useState(
+    JSON.parse(getLocalStorage("priceToggle")) || false
+  );
+
+  // Color toggle for inventory
+  const [colorToggle, setColorToggle] = React.useState(
+    JSON.parse(getLocalStorage("colorToggle")) || false
+  );
   // Function to handle input change
   const onInputChange = (e) => {
     // formDataRef.current.set(e.target.name, e.target.value);
@@ -123,7 +130,9 @@ const InventorySideMenu = () => {
     formDataRef.current.set("notes", formState.notes);
     formDataRef.current.set("startYear", formState.startYear);
     formDataRef.current.set("lastYear", formState.lastYear);
-    formDataRef.current.set("price", formState.price);
+    if (priceToggle) {
+      formDataRef.current.set("price", formState.price);
+    }
     if (colorToggle) {
       formDataRef.current.set("color", formState.color);
     } else {
@@ -251,7 +260,7 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div>
-            <div className="flex gap-4">
+            <div className="flex w-full gap-4">
               {/* Inventory Location input */}
               <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
@@ -319,7 +328,7 @@ const InventorySideMenu = () => {
             </div>
 
             {/* Inventory Dates input */}
-            <div className="flex space-x-4">
+            <div className="flex w-full space-x-4">
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   onClick={() => setDateType1(true)}
@@ -417,7 +426,7 @@ const InventorySideMenu = () => {
               removeItemFunction={removeVariantFromList}
             />
             {/* Color input based on toggle */}
-            {colorSwitch && (
+            {colorToggle && (
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
@@ -429,18 +438,20 @@ const InventorySideMenu = () => {
                 />
               </div>
             )}
-            <div className="flex gap-4">
+            <div className="flex w-full gap-4">
               {/* Inventory Price input */}
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="number"
-                  placeholder="Price"
-                  name="price"
-                  value={formState.price}
-                  onChange={onInputChange}
-                />
-              </div>
+              {priceToggle && (
+                <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                  <input
+                    className="w-full outline-none"
+                    type="number"
+                    placeholder="Price"
+                    name="price"
+                    value={formState.price}
+                    onChange={onInputChange}
+                  />
+                </div>
+              )}
               {/* Inventory SKU input */}
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input

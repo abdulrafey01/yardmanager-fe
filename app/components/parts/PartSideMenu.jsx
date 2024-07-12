@@ -9,7 +9,7 @@ import { addPart, updatePart } from "../../../lib/features/parts/partActions";
 import CrossIcon from "../../assets/main/64-cross.svg";
 import Image from "next/image";
 import GreenToggle from "../common/GreenToggle";
-import { setColorToggle } from "../../../lib/features/settings/settingsSlice";
+import { getLocalStorage, setLocalStorage } from "../../helpers/storage";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [formData, setFormData] = useState({
@@ -17,8 +17,11 @@ const PartSideMenu = () => {
     variant: [],
     color: false,
   });
-  const { colorToggle } = useSelector((state) => state.settings);
 
+  // Color toggle for inventory
+  const [colorToggle, setColorToggle] = useState(
+    JSON.parse(getLocalStorage("colorToggle")) || false
+  );
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -152,7 +155,8 @@ const PartSideMenu = () => {
               {/* Toggle container */}
               <GreenToggle
                 onChange={(e) => {
-                  dispatch(setColorToggle(e.target.checked));
+                  setColorToggle(e.target.checked);
+                  setLocalStorage("colorToggle", e.target.checked);
                 }}
                 checked={colorToggle}
               />

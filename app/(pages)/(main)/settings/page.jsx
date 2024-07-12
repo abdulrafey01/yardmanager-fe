@@ -4,6 +4,7 @@ import GreenToggle from "../../../components/common/GreenToggle";
 import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setColorToggle } from "../../../../lib/features/settings/settingsSlice";
+import { getLocalStorage, setLocalStorage } from "../../../helpers/storage";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,9 @@ const page = () => {
 
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
+  const [priceToggle, setPriceToggle] = React.useState(
+    JSON.parse(getLocalStorage("priceToggle")) || false
+  );
 
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));
@@ -45,14 +49,15 @@ const page = () => {
           <div className="w-full bg-white flex items-center justify-start  p-4 rounded-lg">
             <GreenToggle
               onChange={(e) => {
-                dispatch(setColorToggle(e.target.checked));
+                setPriceToggle(e.target.checked);
+                setLocalStorage("priceToggle", e.target.checked);
               }}
-              checked={colorToggle}
+              checked={priceToggle}
             />
             <div className="flex flex-col justify-between">
-              <p className="font-bold">Inventory Color</p>
+              <p className="font-bold">Inventory Price</p>
               <p className="text-[#6E7793]">
-                Require color when adding inventory
+                Require Price when adding inventory
               </p>
             </div>
           </div>
