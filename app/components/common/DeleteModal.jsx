@@ -28,6 +28,9 @@ const DeleteModal = () => {
       case "Invoices":
         dispatch(deleteInvoice(selectedItem._id));
         break;
+      case "Dashboard":
+        dispatch(deleteInvoice(selectedItem._id));
+        break;
       case "Locations":
         dispatch(deleteLocation(selectedItem._id));
         break;
@@ -56,6 +59,8 @@ const DeleteModal = () => {
         return "Delete Inventory";
       case "Invoices":
         return "Delete Invoice";
+      case "Dashboard":
+        return "Delete Invoice";
       case "Locations":
         return "Delete Location";
 
@@ -81,7 +86,10 @@ const DeleteModal = () => {
         break;
       case "Invoices":
         return "Your Invoice will be Permanently Deleted. Are you sure you want to delete it? ";
-        break;
+
+      case "Dashboard":
+        return "Your Invoice will be Permanently Deleted. Are you sure you want to delete it? ";
+
       case "Locations":
         return "Are you sure you want to delete this location? Deleting it will completely remove it from the system.";
         break;

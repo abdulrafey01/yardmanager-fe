@@ -34,10 +34,14 @@ import { resetToast } from "../../../../lib/features/dashboard/dashboardSlice";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
-  const { error, invoiceData, totalDataLength } = useSelector(
-    (state) => state.invoice
-  );
-  const state = useSelector((state) => state);
+  const {
+    error,
+    invoiceData,
+    totalDataLength,
+    toastMsg: invoiceToast,
+  } = useSelector((state) => state.invoice);
+
+  const { user } = useSelector((state) => state.auth);
   const { showSideMenu } = useSelector((state) => state.shared);
   const {
     toastMsg,
@@ -53,7 +57,7 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [data, setData] = React.useState({});
-
+  const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
     dispatch(setCurrentPage("Dashboard"));
     dispatch(fetchInvoicesByPage({ page: pageNumber }));
@@ -62,8 +66,32 @@ const page = () => {
   useEffect(() => {
     dispatch(fetchInventoryCounts());
     dispatch(fetchPartCounts());
-    console.log("Runing usfe");
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setPagePermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setPagePermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "invoices"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
+
+  useEffect(() => {
+    if (invoiceToast) {
+      dispatch(setShowToast({ value: true, ...invoiceToast }));
+    }
+  }, [invoiceToast]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -235,7 +263,7 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className=" overflow-auto overflow-y-visible">
+        <div className=" overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={[
@@ -263,6 +291,7 @@ const page = () => {
               key={index}
               rowIndex={index}
               item={data}
+              permissions={pagePermission}
             />
           ))}
         </div>

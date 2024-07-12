@@ -98,7 +98,7 @@ const ActionMenu = ({ index, item, permissions }) => {
       } shadow-lg absolute top-10 left-[-100px] p-3 flex flex-col justify-center items-start z-10 space-y-4 w-40 rounded-lg`}
     >
       {permissions?.update &&
-        (currentPage === "Invoices" ? (
+        (currentPage === "Invoices" || currentPage === "Dashboard" ? (
           <Link
             href={"/invoices/create"}
             onClick={() => {
