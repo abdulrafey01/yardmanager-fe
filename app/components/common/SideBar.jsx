@@ -210,7 +210,11 @@ const SideBar = () => {
     if (pathName === "/vehicle") {
       setActiveMainBtn(8);
     }
-    if (pathName === "/subscription") {
+    if (
+      pathName === "/subscription" ||
+      pathName === "/subscription/plans" ||
+      pathName === "/subscription/my-plans"
+    ) {
       setActiveMainBtn(9);
     }
     if (pathName === "/settings") {

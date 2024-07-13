@@ -1,23 +1,28 @@
 import Image from "next/image";
 import React from "react";
 import DiamondIcon from "../../assets/main/68-diamond.svg";
+import DiamondGreen from "../../assets/main/70-diamond.svg";
 import TickIcon from "../../assets/main/69-tick.svg";
-import WhiteBtn from "../../abstracts/WhiteBtn";
-import GreenBtn from "../../abstracts/GreenBtn";
+import Link from "next/link";
 
 const PlanBox = ({
   features,
   title,
   description,
   price,
-  iconBlack,
+  premium,
   btnGreen = false,
+  myPlanBox = false,
 }) => {
   return (
-    <div className="border rounded-xl border-gray-300 flex flex-col  p-4 w-full md:w-[38%] items-start gap-4">
+    <div
+      className={` relative border rounded-xl border-gray-300 flex flex-col  p-4 w-[18rem] sm:w-[25rem] items-start gap-4 ${
+        premium && "border-[#6DE8A6] border-2"
+      }`}
+    >
       {/* Diamond icon */}
-      <div className="p-3 rounded-lg bg-[#78FFB6]">
-        <Image src={DiamondIcon} alt="SubscribeIcon" />
+      <div className={`p-3 rounded-lg bg-[#78FFB6] ${premium && "bg-black"}`}>
+        <Image src={premium ? DiamondGreen : DiamondIcon} alt="SubscribeIcon" />
       </div>
       {/* Texts */}
       <p className="font-bold text-2xl">{title}</p>
@@ -39,17 +44,41 @@ const PlanBox = ({
         );
       })}
       {/* Subscribe Button */}
-      <div className="w-full">
-        {!btnGreen ? (
-          <div className="cursor-pointer bg-white border border-gray-300 hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center">
+      {myPlanBox ? (
+        <div className="w-full flex justify-between gap-4">
+          <div className="cursor-pointer flex-1  bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center">
+            <p className="font-medium text-base">Cancel</p>
+          </div>
+          <Link
+            href="/subscription/my-plans"
+            className="select-none cursor-pointer flex-1  py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
+          >
+            <p className="font-bold text-sm">Change Plan</p>
+          </Link>
+        </div>
+      ) : !btnGreen ? (
+        <div className="w-full">
+          <div className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center">
             <p className="font-medium text-base">Subscribe</p>
           </div>
-        ) : (
-          <div className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] hover:bg-[#37fd93]  text-left rounded-lg flex justify-center ">
+        </div>
+      ) : (
+        <div className="w-full">
+          <Link
+            href="/subscription/my-plans"
+            className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
+          >
             <p className="font-bold text-sm">Subscribe</p>
-          </div>
-        )}
-      </div>
+          </Link>
+        </div>
+      )}
+      {/* Best value container */}
+      {/* If premium is true and myPlanBox is false */}
+      {premium && !myPlanBox && (
+        <div className="bg-[#6DE8A6] font-semibold sm:py-3 px-6 py-2 sm:px-9 rounded-lg absolute -top-6 left-[27%] sm:left-[32%] ">
+          Best Value
+        </div>
+      )}
     </div>
   );
 };

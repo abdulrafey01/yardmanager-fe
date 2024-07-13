@@ -17,12 +17,12 @@ const Input = ({
       <input
         onChange={onChange}
         name={name}
-        className="w-full h-12 p-3 rounded-md outline-none "
+        className="w-full h-12 p-3 rounded-md  outline-none "
         placeholder={placeholder}
         type={type ? type : "text"}
         value={value}
       />
-      <Image src={icon} alt="msgicon " onClick={iconClick} />
+      {icon && <Image src={icon} alt="msgicon " onClick={iconClick} />}
     </div>
   );
 };

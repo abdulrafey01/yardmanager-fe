@@ -17,7 +17,7 @@ const page = () => {
           </p>
         </div>
         {/* Plans container */}
-        <div className="w-full flex-col md:flex-row flex justify-center items-center gap-4">
+        <div className="w-full flex-col lg:flex-row flex justify-center items-center gap-6">
           <PlanBox
             title={"Monthly Plan"}
             description={
@@ -46,6 +46,7 @@ const page = () => {
               "24/7 Priority Support",
             ]}
             btnGreen={true}
+            premium={true} // used
           />
         </div>
       </div>
