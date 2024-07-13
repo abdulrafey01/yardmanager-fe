@@ -22,13 +22,14 @@ const Modal = () => {
   const { showDeleteModal, showSuccessModal, currentPage } = useSelector(
     (state) => state.shared
   );
+  const { confirmModal } = useSelector((state) => state.subscribe);
   const { showRestoreModal } = useSelector((state) => state.deletedItems);
 
   return (
     <div
       className={`fixed z-20 w-full h-full  ${
         // Show the modal if either of them are true
-        showDeleteModal || showSuccessModal || showRestoreModal
+        showDeleteModal || showSuccessModal || showRestoreModal || confirmModal
           ? "block"
           : "hidden"
       }`}

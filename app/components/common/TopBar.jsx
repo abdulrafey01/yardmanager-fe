@@ -30,15 +30,21 @@ const TopBar = () => {
   const renderPathText = () => {
     if (pathname === "/invoices/create") {
       return <p className="text-[#4A5578] ">Create Invoice</p>;
+    } else if (pathname === "/subscription/my-plans") {
+      return <p className="text-[#4A5578] ">My Plans</p>;
     } else {
       return null;
     }
   };
 
+  // Only for these two bcz only they are further inner pages
   const handleClick = () => {
     switch (currentPage) {
       case "Invoices": {
         return router.push("/invoices");
+      }
+      case "Subscription": {
+        return router.push("/subscription");
       }
       default:
         break;

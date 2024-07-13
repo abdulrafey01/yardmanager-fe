@@ -8,6 +8,7 @@ import LocationSideMenu from "../locations/LocationSideMenu";
 import RoleSideMenu from "../roles/RoleSideMenu";
 import VehicleSideMenu from "../Vehicle/VehicleSideMenu";
 import EmployeeSideMenu from "../employee/EmployeeSideMenu";
+import SubscriptionSideMenu from "../subscription/SubscriptionSideMenu";
 const SideMenu = () => {
   const { currentPage } = useSelector((state) => state.shared);
   const { showEmployeeSideMenu } = useSelector((state) => state.roles);
@@ -24,7 +25,9 @@ const SideMenu = () => {
     <EmployeeSideMenu />
   ) : currentPage === "Roles" ? (
     <RoleSideMenu />
-  ) : null;
+  ) : (
+    <SubscriptionSideMenu />
+  );
 };
 
 export default SideMenu;

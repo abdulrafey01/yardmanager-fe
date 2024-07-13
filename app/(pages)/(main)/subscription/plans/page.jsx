@@ -1,6 +1,13 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import PlanBox from "../../../../components/subscription/PlanBox";
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
 const page = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentPage("Subscription"));
+  }, [dispatch]);
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* Main container */}
