@@ -20,7 +20,7 @@ const page = () => {
       </div>
 
       {/* Main container */}
-      <div className="h-full bg-white border rounded-xl border-gray-300 p-6 gap-4 flex flex-row justify-start items-start text-center">
+      <div className="h-full bg-white border rounded-xl border-gray-300 p-6 gap-4 flex flex-col lg:flex-row justify-center items-center lg:justify-start lg:items-start text-center">
         <PlanBox
           title={"Annual Plan"}
           description={

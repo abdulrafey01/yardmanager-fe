@@ -39,7 +39,7 @@ const PaymentCard = () => {
           name="cardnumber"
           autoComplete="off"
         />
-        <Image src={CardsIcon} alt="CardsIcon" />
+        <Image className="hidden sm:block" src={CardsIcon} alt="CardsIcon" />
       </div>
       {/* Data and code container */}
       <div className="flex w-full gap-4">
