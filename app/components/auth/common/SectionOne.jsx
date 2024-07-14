@@ -8,7 +8,7 @@ import BoxImg3 from "../../../assets/auth/Illustrations-5.svg";
 import Header from "../../common/Header";
 const SectionOne = () => {
   return (
-    <div className="flex-1 hidden lg:flex flex-col rounded-xl bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
+    <div className="flex-1 hidden lg:flex flex-col  bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
       <div className="flex flex-col space-y-4 w-full items-center overflow-visible">
         <div className="w-full">
           <Header />
@@ -41,14 +41,9 @@ const SectionOne = () => {
       {/* Text containers */}
       <div className=" w-full flex flex-col space-y-6 text-white">
         <p className="text-sm font-bold sm:text-xl">
-          The simplest wat to mange your Automobiles <br />
-          Spare Parts!
+          The simplest way to mange your Auto Parts Inventory
         </p>
-        <p className="text-sm pr-5">
-          The simplest wat to mange your Automobiles Spare Parts!The simplest
-          wat to mange your Automobiles Spare Parts! The simplest wat to mange
-          your Automobiles Spare Parts!
-        </p>
+        <p className="text-sm pr-5"></p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">
           <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>
           <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>

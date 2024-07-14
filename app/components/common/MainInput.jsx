@@ -1,7 +1,6 @@
 import React from "react";
 
 import Image from "next/image";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const MainInput = ({
   placeholder,
@@ -25,6 +24,7 @@ const MainInput = ({
         onChange={(e) => {
           onChange(e);
         }}
+        autoComplete="off"
         // If there exist a type then use that otherwise use text
         type={type ? type : "text"}
       />

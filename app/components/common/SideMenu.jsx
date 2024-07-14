@@ -9,6 +9,13 @@ import RoleSideMenu from "../roles/RoleSideMenu";
 import VehicleSideMenu from "../Vehicle/VehicleSideMenu";
 import EmployeeSideMenu from "../employee/EmployeeSideMenu";
 import SubscriptionSideMenu from "../subscription/SubscriptionSideMenu";
+
+// Admin panel
+import YardSideMenu from "../admin/yards/YardSideMenu";
+import UserSideMenu from "../admin/users/UserSideMenu";
+import InventoryAdminSideMenu from "../admin/inventory/InventorySideMenu";
+import SubscriptionAdminSideMenu from "../admin/subscription/SubscriptionAdminSideMenu";
+
 const SideMenu = () => {
   const { currentPage } = useSelector((state) => state.shared);
   const { showEmployeeSideMenu } = useSelector((state) => state.roles);
@@ -21,13 +28,22 @@ const SideMenu = () => {
     <LocationSideMenu />
   ) : currentPage === "Vehicle" ? (
     <VehicleSideMenu />
-  ) : currentPage === "Employee" || showEmployeeSideMenu === true ? (
+  ) : currentPage === "Employee" || showEmployeeSideMenu === true ? ( // this extra var bcz this menu used in other page also
     <EmployeeSideMenu />
   ) : currentPage === "Roles" ? (
     <RoleSideMenu />
-  ) : (
+  ) : currentPage === "Subscription" ? (
     <SubscriptionSideMenu />
-  );
+  ) : // Admin panel
+  currentPage === "Yards" ? (
+    <YardSideMenu />
+  ) : currentPage === "Users" ? (
+    <UserSideMenu />
+  ) : currentPage === "InventoryAdmin" ? (
+    <InventoryAdminSideMenu />
+  ) : currentPage === "SubscriptionAdmin" ? (
+    <SubscriptionAdminSideMenu />
+  ) : null;
 };
 
 export default SideMenu;

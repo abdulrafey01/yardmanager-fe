@@ -324,7 +324,7 @@ const page = () => {
   };
 
   const onCancel = () => {
-    router.push("/invoices");
+    router.back();
 
     // so that we can go back to invoices page
     dispatch(setShowSideMenu({ value: false }));

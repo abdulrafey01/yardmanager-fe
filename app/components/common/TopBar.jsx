@@ -27,6 +27,21 @@ const TopBar = () => {
 
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);
 
+  // Mainly for admin
+  const renderPageName = () => {
+    switch (currentPage) {
+      case "Yards":
+        return "Yards Management";
+      case "InventoryAdmin":
+        return "Inventory Management";
+      case "InventoryAdmin":
+        return "Inventory Management";
+      case "SubscriptionAdmin":
+        return "Subscription Management";
+      default:
+        return currentPage;
+    }
+  };
   const renderPathText = () => {
     if (pathname === "/invoices/create") {
       return <p className="text-[#4A5578] ">Create Invoice</p>;
@@ -65,7 +80,7 @@ const TopBar = () => {
       {/* Breadcrumbs container */}
       <div className="hidden xl:flex space-x-2 ">
         <p onClick={handleClick} className="text-[#4A5578] cursor-pointer">
-          {currentPage}
+          {renderPageName()}
         </p>
         <Image src={ArrowIcon} alt="arrowIcon" />
         {renderPathText()}

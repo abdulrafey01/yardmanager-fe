@@ -29,15 +29,14 @@ import SubSvgB from "../../assets/main/13-subsblack.svg";
 import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
+import YardSvg from "../../assets/main/78-yardHomeW.svg";
+import YardSvgB from "../../assets/main/79-yardHomeB.svg";
 import BurgerIcon from "../../assets/main/38-burger.svg";
 import { usePathname } from "next/navigation";
 import ArrowIcon from "../../assets/main/26-arrow.svg";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setCurrentPage,
-  setShowSideBar,
-} from "../../../lib/features/shared/sharedSlice";
+import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Link from "next/link";
 const SideBar = () => {
   const pathName = usePathname();
@@ -156,7 +155,11 @@ const SideBar = () => {
     if (user) {
       if (user.userType === "user") {
         return setShowBtns(sideButtonsMain);
+        // return setShowBtns(adminSideButtonsMain);
       }
+      // else if (user.userType === "admin") {
+      //   return setShowBtns(adminSideButtonsMain);
+      // }
       const updatedHideBtns = {};
 
       btnNames.forEach((name) => {
@@ -177,7 +180,7 @@ const SideBar = () => {
   useEffect(() => {
     console.log(showBtns);
   }, [showBtns]);
-  // Disable side buttons on certain pages
+  // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
     if (currentPage === "MyProfile") {
       setActiveBottomBtn(-1);
@@ -226,10 +229,74 @@ const SideBar = () => {
     if (pathName === "/terms-condition") {
       setActiveBottomBtn(2);
     }
+    // For admin
+    if (pathName === "/admin/yards") {
+      setActiveMainBtn(1);
+    }
+    if (pathName === "/admin/users") {
+      setActiveMainBtn(2);
+    }
+    if (pathName === "/admin/inventory") {
+      setActiveMainBtn(3);
+    }
+    if (pathName === "/admin/roles") {
+      setActiveMainBtn(5);
+    }
+    if (pathName === "/admin/Subscription") {
+      setActiveMainBtn(6);
+    }
   }, [currentPage, pathName]);
 
   const router = useRouter();
   const dispatch = useDispatch();
+
+  // Admin panel
+  // admin panel side buttons
+  const adminSideButtonsMain = [
+    {
+      name: "Dashboard",
+      iconW: HomeSvg,
+      iconB: HomeSvgB,
+      route: "/admin/dashboard",
+    },
+    {
+      name: "Yard Management",
+      iconW: YardSvg,
+      iconB: YardSvgB,
+      route: "/admin/yards",
+    },
+    {
+      name: "User Management",
+      iconW: EmpSvg,
+      iconB: EmpSvgB,
+      route: "/admin/users",
+    },
+    {
+      name: "Inventory Overview",
+      iconW: InvtSvg,
+      iconB: InvtSvgB,
+      route: "/admin/inventory",
+    },
+    {
+      name: "Invoices Overview",
+      iconW: InvtSvg,
+      iconB: InvtSvgB,
+      route: "/admin/invoices",
+    },
+    {
+      name: "Role / Permissions",
+      iconW: RoleSvg,
+      iconB: RoleSvgB,
+      route: "/admin/roles",
+    },
+    {
+      name: "Subscription",
+      iconW: SubcSvg,
+      iconB: SubSvgB,
+      route: "/admin/subscription",
+    },
+  ];
+
   return (
     <>
       <div
