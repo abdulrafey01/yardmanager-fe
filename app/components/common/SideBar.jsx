@@ -30,7 +30,7 @@ import SetSvgB from "../../assets/main/23-setblack.svg";
 import PvcSvgB from "../../assets/main/22-pvcblack.svg";
 import TermSvgB from "../../assets/main/21-termblack.svg";
 import YardSvg from "../../assets/main/78-yardHomeW.svg";
-import YardSvgB from "../../assets/main/79-yardHomeB.svg";
+import YardSvgB from "../../assets/main/79-YardHomeB.svg";
 import BurgerIcon from "../../assets/main/38-burger.svg";
 import { usePathname } from "next/navigation";
 import ArrowIcon from "../../assets/main/26-arrow.svg";
