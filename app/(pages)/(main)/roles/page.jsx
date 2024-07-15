@@ -24,6 +24,7 @@ import {
   resetState,
   setShowEmployeeSideMenu,
 } from "../../../../lib/features/roles/roleSlice";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, rolesData, toastMsg, totalDataLength, roleSearchData } =
@@ -37,6 +38,8 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState([]);
+
+  const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -58,7 +61,7 @@ const page = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Roles"));
-    dispatch(fetchRolesByPage({ page: pageNumber }));
+    dispatch(fetchRolesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -68,7 +71,7 @@ const page = () => {
     // When role data has come, set total pages
     if (rolesData) {
       setDataFromServer(rolesData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
       console.log(rolesData);
     }
@@ -77,11 +80,24 @@ const page = () => {
         dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
-  }, [error, rolesData, toastMsg]);
+  }, [error, rolesData, toastMsg, dataLimit]);
 
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchRolesByPage({ search: e.target.value }));
+  };
+
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchRolesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchRolesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchRolesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -124,10 +140,10 @@ const page = () => {
                   onChange={handleSearch}
                 />
               </div>
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+              {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
                 <p>Filter</p>
                 <Image src={MenuIcon} alt="MenuIcon" />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Table Container */}
@@ -146,31 +162,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

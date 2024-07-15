@@ -15,6 +15,7 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchInventoryByPage } from "../../../../lib/features/inventory/inventoryActions";
 import { calcTotalPage } from "../../../helpers/pagination";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
@@ -26,11 +27,13 @@ const page = () => {
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
+
+  const [dataLimit, setDataLimit] = React.useState(10);
   const [dataFromServer, setDataFromServer] = React.useState([]);
 
   useEffect(() => {
     dispatch(setCurrentPage("Inventory"));
-    dispatch(fetchInventoryByPage({ page: pageNumber }));
+    dispatch(fetchInventoryByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   // Get page permission
@@ -64,10 +67,10 @@ const page = () => {
     // When role data has come, set total pages
     if (inventoryData) {
       setDataFromServer(inventoryData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
-  }, [error, inventoryData]);
+  }, [error, inventoryData, dataLimit]);
 
   useEffect(() => {
     if (toastMsg) {
@@ -82,6 +85,18 @@ const page = () => {
     dispatch(fetchInventoryByPage({ search: e.target.value }));
   };
 
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchInventoryByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchInventoryByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchInventoryByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -94,7 +109,7 @@ const page = () => {
               onClick={() =>
                 dispatch(setShowSideMenu({ value: true, mode: "add" }))
               }
-              title={"Add New Inventory"}
+              title={"Add Inventory"}
             />
           )}
         </div>
@@ -103,7 +118,7 @@ const page = () => {
           {/* Table Title container */}
           <div className="p-4 w-full rounded-t-lg flex gap-2 justify-between items-center">
             <p className="hidden sm:block font-bold text-lg md:text-2xl">
-              List of Inventories
+              Inventory
             </p>
             <p className="sm:hidden font-bold text-lg md:text-2xl">Inventory</p>
             {/* Search input */}
@@ -150,31 +165,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

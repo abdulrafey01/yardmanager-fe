@@ -31,6 +31,7 @@ import {
 import axios from "axios";
 import { getCookie } from "../../../helpers/storage";
 import { resetToast } from "../../../../lib/features/dashboard/dashboardSlice";
+import Footer from "../../../components/common/Footer";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
@@ -57,15 +58,37 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [data, setData] = React.useState({});
+
+  const [dataLimit, setDataLimit] = React.useState(10);
+
   const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
     dispatch(setCurrentPage("Dashboard"));
-    dispatch(fetchInvoicesByPage({ page: pageNumber }));
+    dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
     dispatch(fetchInventoryCounts());
     dispatch(fetchPartCounts());
+  }, []);
+  useEffect(() => {
+    const data = [
+      { year: 2024, month: 7, day: 6, count: 1 },
+      { year: 2024, month: 7, day: 6, count: 1 },
+      { year: 2024, month: 7, day: 7, count: 1 },
+      { year: 2024, month: 7, day: 10, count: 1 },
+    ];
+
+    // Initialize an array to store counts for each day of the month (assuming 31 days in July)
+    const countsByDay = new Array(31).fill(0);
+
+    // Aggregate the counts
+    data.forEach((entry) => {
+      const dayIndex = entry.day - 1; // Convert day to 0-based index
+      countsByDay[dayIndex] += entry.count;
+    });
+
+    // console.log("counts by day", countsByDay);
   }, []);
 
   useEffect(() => {
@@ -84,9 +107,21 @@ const page = () => {
         )?.permissions
       );
     }
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   useEffect(() => {
     if (invoiceToast) {
       dispatch(setShowToast({ value: true, ...invoiceToast }));
@@ -105,11 +140,11 @@ const page = () => {
         })
         .then((res) => {
           // console.log("response");
-          // console.log(res.data);
+          console.log("counts", res.data);
           setData(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     };
     fetchData();
@@ -117,7 +152,7 @@ const page = () => {
 
   useEffect(() => {
     if (inventoryGraphData) {
-      console.log(inventoryGraphData);
+      console.log("inventory graph data", inventoryGraphData);
     }
   }, [inventoryGraphData]);
 
@@ -136,7 +171,7 @@ const page = () => {
   }, [error]);
   useEffect(() => {
     if (dsbdError) {
-      console.log(dsbdError);
+      // console.log(dsbdError);
     }
   }, [dsbdError]);
 
@@ -144,10 +179,10 @@ const page = () => {
     // When invoice data has come set total pages
     if (invoiceData) {
       setDataFromServer(invoiceData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
-  }, [invoiceData]);
+  }, [invoiceData, dataLimit]);
   // If clicked on edit or preview button  of action menu then redirect to create page
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -213,7 +248,7 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Inventory"}
+              label={"Vehicles"}
               data={[15, 13, 61, 14, 56, 72, 21]}
               greenColor={true}
             />
@@ -296,31 +331,12 @@ const page = () => {
           ))}
         </div>
         {/* Footer */}
-        <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-          <p className="font-semibold text-sm">
-            Page {pageNumber} of {totalPage}
-          </p>
-          <div className="flex space-x-2">
-            <div
-              onClick={() =>
-                setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Previous
-            </div>
-            <div
-              onClick={() =>
-                setPageNumber(
-                  pageNumber === totalPage ? pageNumber : pageNumber + 1
-                )
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Next
-            </div>
-          </div>
-        </div>
+        <Footer
+          totalPage={totalPage}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          handleRadioClick={handleRadioClick}
+        />
       </div>
     </div>
   );

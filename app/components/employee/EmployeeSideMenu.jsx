@@ -27,6 +27,7 @@ const EmployeeSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   // For roles page employee menu
   const { showEmployeeSideMenu } = useSelector((state) => state.roles);
+  const [dateInputType, setDateInputType] = React.useState("text");
   const { roleSearchData, toastMsg: roleToast } = useSelector(
     (state) => state.roles
   );
@@ -62,9 +63,9 @@ const EmployeeSideMenu = () => {
           firstName: selectedItem.name.first,
           lastName: selectedItem.name.last,
           email: selectedItem.email,
-          role: selectedItem.role.name,
+          role: selectedItem.role._id,
           position: selectedItem.position,
-          date: selectedItem.date,
+          date: new Date(selectedItem.date).toLocaleDateString(),
         });
         setRoleInputValue(selectedItem.role.name);
       }
@@ -133,6 +134,7 @@ const EmployeeSideMenu = () => {
       date: "",
     });
     setRoleInputValue("");
+    setDateInputType("text");
   };
   return (
     <div
@@ -144,6 +146,17 @@ const EmployeeSideMenu = () => {
       <div
         onClick={() => {
           dispatch(setShowSideMenu({ value: false }));
+          setFormState({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            role: "",
+            position: "",
+            date: "",
+          });
+          setDateInputType("text");
           console.log("clicked");
         }}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
@@ -227,8 +240,9 @@ const EmployeeSideMenu = () => {
             {/* Employee date hired input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
+                onClick={() => setDateInputType("date")}
                 className="w-full outline-none"
-                type="date"
+                type={dateInputType}
                 placeholder="Date Hired"
                 value={formState.date}
                 name="date"
@@ -277,9 +291,11 @@ const EmployeeSideMenu = () => {
           </div>
           <div
             onClick={onFormSubmit}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none"
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
+              showSideMenu.mode === "preview" && "hidden"
+            }`}
           >
-            Send Invite
+            {showSideMenu.mode === "edit" ? "Edit Employee" : "Add Employee"}
           </div>
         </div>
       </div>

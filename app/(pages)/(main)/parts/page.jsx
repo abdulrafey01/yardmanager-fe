@@ -18,6 +18,7 @@ import {
   fetchPartsByPage,
   searchPartByName,
 } from "../../../../lib/features/parts/partActions";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, partData, toastMsg, totalDataLength, partSearchData } =
@@ -30,6 +31,8 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState([]);
+
+  const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -51,7 +54,7 @@ const page = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Parts"));
-    dispatch(fetchPartsByPage({ page: pageNumber }));
+    dispatch(fetchPartsByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -61,7 +64,7 @@ const page = () => {
     // When part data has come, set total pages
     if (partData) {
       setDataFromServer(partData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
     if (toastMsg) {
@@ -69,11 +72,24 @@ const page = () => {
         dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
-  }, [error, partData, toastMsg]);
+  }, [error, partData, toastMsg, dataLimit]);
 
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchPartsByPage({ search: e.target.value }));
+  };
+
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchPartsByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchPartsByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchPartsByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -130,31 +146,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

@@ -112,7 +112,13 @@ const InventorySideMenu = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    if (formState.name === "") {
+    if (
+      formState.startYear === "" ||
+      formState.lastYear === "" ||
+      formState.model.length === 0 ||
+      formState.make.length === 0 ||
+      formState.variant.length === 0
+    ) {
       return dispatch(
         setShowToast({
           value: true,
@@ -147,7 +153,6 @@ const InventorySideMenu = () => {
         formDataRef.current.append(`variant`, variant);
       });
     }
-    formDataRef.current.set("variant", formState.variant);
     formDataRef.current.set("notes", formState.notes);
     formDataRef.current.set("startYear", formState.startYear);
     formDataRef.current.set("lastYear", formState.lastYear);
@@ -197,10 +202,14 @@ const InventorySideMenu = () => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
         console.log(selectedItem);
-        setFormState(selectedItem);
-        setLocValue(selectedItem.location.location);
-        setPartValue(selectedItem.part.name);
-        setImgArray(selectedItem.images);
+        setFormState({
+          ...selectedItem,
+          startYear: new Date(selectedItem.startYear).toLocaleDateString(),
+          lastYear: new Date(selectedItem.lastYear).toLocaleDateString(),
+        });
+        setLocValue(selectedItem.location?.location);
+        setPartValue(selectedItem?.part?.name);
+        setImgArray(selectedItem?.images);
       }
     } else {
       setFormState({
@@ -292,16 +301,21 @@ const InventorySideMenu = () => {
                   name="location"
                   onChange={onLocInputChange}
                   autoComplete="off"
+                  onFocus={() => setShowLocDropDown(true)}
+                  onBlur={() => setShowLocDropDown(false)}
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
                 <div
                   className={`${
-                    locationSearchData.length > 0 && showLocDropDown
-                      ? "block"
-                      : "hidden"
+                    showLocDropDown ? "block" : "hidden"
                   } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
                 >
+                  {locationSearchData.length === 0 && (
+                    <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+                      Enter character to search
+                    </p>
+                  )}
                   {locationSearchData.map((loc) => {
                     return (
                       <p
@@ -324,16 +338,21 @@ const InventorySideMenu = () => {
                   name="location"
                   onChange={onPartInputChange}
                   autoComplete="off"
+                  onFocus={() => setShowPartDropDown(true)}
+                  onBlur={() => setShowPartDropDown(false)}
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
                 <div
                   className={`${
-                    partSearchData.length > 0 && showPartDropDown
-                      ? "block"
-                      : "hidden"
+                    showPartDropDown ? "block" : "hidden"
                   } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
                 >
+                  {partSearchData.length === 0 && (
+                    <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+                      Enter character to search
+                    </p>
+                  )}
                   {partSearchData.map((part) => {
                     return (
                       <p
@@ -355,7 +374,7 @@ const InventorySideMenu = () => {
                   onClick={() => setDateType1(true)}
                   className="w-full outline-none"
                   type={dateType1 ? "date" : "text"}
-                  placeholder="Start Date"
+                  placeholder="Start Year"
                   value={formState.startYear}
                   name="startYear"
                   onChange={onInputChange}
@@ -366,7 +385,7 @@ const InventorySideMenu = () => {
                   onClick={() => setDateType2(true)}
                   className="w-full outline-none"
                   type={dateType2 ? "date" : "text"}
-                  placeholder="End Date"
+                  placeholder="End Year"
                   value={formState.lastYear}
                   name="lastYear"
                   onChange={onInputChange}
@@ -473,7 +492,7 @@ const InventorySideMenu = () => {
                   />
                 </div>
               )}
-              {/* Inventory SKU input */}
+              {/* Inventory SKU input
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
@@ -483,7 +502,7 @@ const InventorySideMenu = () => {
                   value={formState.sku}
                   onChange={onInputChange}
                 />
-              </div>
+              </div> */}
             </div>
             {/* Inventory Notes input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">

@@ -6,6 +6,7 @@ import MenuIcon from "../../../assets/main/37-menu.svg";
 import { calcTotalPage, displayData } from "../../../helpers/pagination";
 
 import PlusIcon from "../../../assets/main/29-plus.svg";
+import DownArrow from "../../../assets/main/28-downarrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../components/common/TableHead";
 import TableRow from "../../../components/common/TableRow";
@@ -17,6 +18,7 @@ import {
 import { useRouter } from "next/navigation";
 import { fetchInvoicesByPage } from "../../../../lib/features/invoice/invoiceActions";
 import { getLocalStorage, removeLocalStorage } from "../../../helpers/storage";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
@@ -30,12 +32,13 @@ const page = () => {
   const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
+  const [dataLimit, setDataLimit] = React.useState(10);
 
   const [pagePermission, setPagePermission] = React.useState(null);
 
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
-    dispatch(fetchInvoicesByPage({ page: pageNumber }));
+    dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
   // Get page permission
   useEffect(() => {
@@ -64,7 +67,7 @@ const page = () => {
     // When invoice data has come set total pages
     if (invoiceData) {
       setDataFromServer(invoiceData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
     if (toastMsg) {
@@ -72,7 +75,7 @@ const page = () => {
         dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
-  }, [error, invoiceData, toastMsg]);
+  }, [error, invoiceData, toastMsg, dataLimit]);
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchInvoicesByPage({ search: e.target.value }));
@@ -84,6 +87,19 @@ const page = () => {
       removeLocalStorage("invoiceItem");
     }
   }, []);
+
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -160,31 +176,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

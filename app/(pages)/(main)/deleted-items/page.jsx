@@ -15,6 +15,7 @@ import {
   setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchDeletedItemsByPage } from "../../../../lib/features/deleted-items/deletedItemsActions";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, deletedItemsData, toastMsg, totalDataLength } = useSelector(
@@ -48,9 +49,11 @@ const page = () => {
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState([]);
 
+  const [dataLimit, setDataLimit] = React.useState(10);
+
   useEffect(() => {
     dispatch(setCurrentPage("DeletedItems"));
-    dispatch(fetchDeletedItemsByPage({ page: pageNumber }));
+    dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -60,7 +63,7 @@ const page = () => {
     // When deleted data has come, set total pages
     if (deletedItemsData) {
       setDataFromServer(deletedItemsData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
     if (toastMsg) {
@@ -68,13 +71,25 @@ const page = () => {
         dispatch(setShowToast({ value: true, msg: toastMsg }));
       }
     }
-  }, [error, deletedItemsData, toastMsg]);
+  }, [error, deletedItemsData, toastMsg, dataLimit]);
 
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchDeletedItemsByPage({ search: e.target.value }));
   };
 
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -138,31 +153,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

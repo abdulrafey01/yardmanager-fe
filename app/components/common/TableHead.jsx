@@ -31,6 +31,12 @@ const TableHead = ({ titles }) => {
       {titles.map((title, index) =>
         index === 0 ? (
           renderFirstCell(title)
+        ) : index === 1 ? ( // for parts page
+          currentPage === "Parts" ? (
+            <p className=" min-w-16 p-3 bg-[#f2fff8] flex-[2]">{title}</p>
+          ) : (
+            <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>
+          )
         ) : index === 3 ? (
           renderBadgeCells(title)
         ) : index === 4 ? (

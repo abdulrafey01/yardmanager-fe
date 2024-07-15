@@ -26,6 +26,7 @@ import {
 } from "../../../../lib/features/vehicle/vehicleActions";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import { setVinDecodedData } from "../../../../lib/features/vehicle/vehicleSlice";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, vehicleData, toastMsg, totalDataLength, vinDecodedData } =
@@ -41,6 +42,8 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState([]);
+
+  const [dataLimit, setDataLimit] = React.useState(10);
 
   // Vin input state
   const [vinVal, setVinVal] = React.useState(null);
@@ -68,7 +71,7 @@ const page = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
-    dispatch(fetchVehiclesByPage({ page: pageNumber }));
+    dispatch(fetchVehiclesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -87,10 +90,10 @@ const page = () => {
     // When part data has come, set total pages
     if (vehicleData) {
       setDataFromServer(vehicleData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
-  }, [vehicleData]);
+  }, [vehicleData, dataLimit]);
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchVehiclesByPage({ search: e.target.value }));
@@ -138,9 +141,22 @@ const page = () => {
     setImgArray2(Array.from(e.target.files));
   };
 
-  useEffect(() => {
-    console.log(imgArray2);
-  }, [imgArray2]);
+  // useEffect(() => {
+  //   console.log(imgArray2);
+  // }, [imgArray2]);
+
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -314,31 +330,12 @@ const page = () => {
           ))}
         </div>
         {/* Footer */}
-        <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-          <p className="font-semibold text-sm">
-            Page {pageNumber} of {totalPage}
-          </p>
-          <div className="flex space-x-2">
-            <div
-              onClick={() =>
-                setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Previous
-            </div>
-            <div
-              onClick={() =>
-                setPageNumber(
-                  pageNumber === totalPage ? pageNumber : pageNumber + 1
-                )
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Next
-            </div>
-          </div>
-        </div>
+        <Footer
+          totalPage={totalPage}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          handleRadioClick={handleRadioClick}
+        />
       </div>
     </div>
   );

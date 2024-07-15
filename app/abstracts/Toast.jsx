@@ -20,7 +20,7 @@ const AuthToast = ({}) => {
     <div
       className={` ${
         showToast.value ? "animate-slideInOut" : "hidden"
-      } fixed z-50 top-4 right-4 h-14 w-96  ${
+      } fixed z-50 top-4 right-4 h-14 w-80 sm:w-96  ${
         showToast.red ? "bg-red-300" : "bg-[#c2e8d0]"
       } rounded-lg flex justify-start items-center p-4 space-x-2 `}
     >

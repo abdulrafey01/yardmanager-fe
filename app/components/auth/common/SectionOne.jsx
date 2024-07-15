@@ -43,7 +43,10 @@ const SectionOne = () => {
         <p className="text-sm font-bold sm:text-xl">
           The simplest way to mange your Auto Parts Inventory
         </p>
-        <p className="text-sm pr-5"></p>
+        <p className="text-sm pr-5">
+          {" "}
+          The simplest way to mange your Auto Parts Inventory
+        </p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">
           <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>
           <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>

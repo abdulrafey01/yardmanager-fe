@@ -18,7 +18,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         <div
           key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 flex-wrap gap-2 p-3 flex-1  items-center flex ${
+          className={` min-w-16 flex-wrap gap-2 p-3 flex-[2]  items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >

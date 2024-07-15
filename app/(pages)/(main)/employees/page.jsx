@@ -18,6 +18,8 @@ import {
   fetchEmployeesByPage,
   searchEmployeeByName,
 } from "../../../../lib/features/employee/employeeActions";
+import { resetEmpToast } from "../../../../lib/features/employee/employeeSlice";
+import Footer from "../../../components/common/Footer";
 
 const page = () => {
   const { error, employeeData, toastMsg, totalDataLength, employeeSearchData } =
@@ -31,6 +33,8 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [showFilterMenu, setShowFilterMenu] = React.useState(false);
+
+  const [dataLimit, setDataLimit] = React.useState(10);
 
   // Get page permission
   useEffect(() => {
@@ -58,7 +62,7 @@ const page = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Employee"));
-    dispatch(fetchEmployeesByPage({ page: pageNumber }));
+    dispatch(fetchEmployeesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -69,20 +73,36 @@ const page = () => {
     if (employeeData) {
       setDataFromServer(employeeData);
       // console.log(employeeData);
-      let { totalPage } = calcTotalPage(totalDataLength);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
       console.log(employeeData);
     }
+  }, [error, employeeData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, ...toastMsg }));
+      dispatch(resetEmpToast());
     }
-  }, [error, employeeData, toastMsg]);
+  }, [toastMsg]);
 
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchEmployeesByPage({ search: e.target.value }));
   };
 
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+    } else if (e.target.value == 30) {
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+    } else {
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+    }
+  };
   const handleFilterClick = (e) => {
     if (e.target.value === "Active") {
       dispatch(fetchEmployeesByPage({ filter: true }));
@@ -93,6 +113,7 @@ const page = () => {
       dispatch(fetchEmployeesByPage({ page: pageNumber }));
     }
   };
+
   return (
     pagePermission?.read && (
       // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -142,7 +163,7 @@ const page = () => {
               >
                 <label
                   htmlFor="active"
-                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg flex "
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg "
                 >
                   <input
                     id="active"
@@ -168,18 +189,19 @@ const page = () => {
                   InActive
                 </label>
                 <label
-                  htmlFor="null"
+                  htmlFor="all"
                   onClick={() => {}}
                   className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
                 >
                   <input
-                    id="null"
+                    id="all"
                     name="radio"
                     type="radio"
-                    value={"Null"}
+                    value={"All"}
+                    defaultChecked
                     onChange={handleFilterClick}
                   />{" "}
-                  Null
+                  All
                 </label>
               </div>
             </div>
@@ -218,31 +240,12 @@ const page = () => {
             ))}
           </div>
           {/* Footer */}
-          <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-            <p className="font-semibold text-sm">
-              Page {pageNumber} of {totalPage}
-            </p>
-            <div className="flex space-x-2">
-              <div
-                onClick={() =>
-                  setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Previous
-              </div>
-              <div
-                onClick={() =>
-                  setPageNumber(
-                    pageNumber === totalPage ? pageNumber : pageNumber + 1
-                  )
-                }
-                className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-              >
-                Next
-              </div>
-            </div>
-          </div>
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
       </div>
     )

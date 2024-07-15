@@ -126,7 +126,7 @@ const TopBar = () => {
         <div
           className={`${
             showProfileMenu ? "block" : "hidden"
-          } bg-white z-50 overflow-auto no-scrollbar absolute top-[135%] w-full left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
+          } bg-white z-50 overflow-auto no-scrollbar absolute top-[135%] w-[100px] sm:w-full  -left-20 sm:left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
         >
           <Link
             href={handleProfileClick()}

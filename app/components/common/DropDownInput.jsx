@@ -39,14 +39,21 @@ const DropDownInput = ({
         placeholder={placeholder}
         onChange={onInputChange}
         autoComplete="off"
+        onFocus={() => setShowDropDown(true)}
+        onBlur={() => setShowDropDown(false)}
       />
       <Image src={DownArrow} alt="downarrow" />
       {/* Dropdown */}
       <div
         className={`${
-          searchData.length > 0 && showDropDown ? "block" : "hidden"
+          showDropDown ? "block" : "hidden"
         } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
       >
+        {searchData.length === 0 && (
+          <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+            Enter character to search
+          </p>
+        )}
         {searchData.map((item) => {
           return (
             <p

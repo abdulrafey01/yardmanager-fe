@@ -145,7 +145,7 @@ const ActionMenu = ({ index, item, permissions }) => {
           dispatch(setSelectedItem(item));
 
           if (currentPage === "Invoices" || currentPage === "Dashboard") {
-            dispatch(
+            return dispatch(
               setPreviewModal({
                 value: true,
                 data: {

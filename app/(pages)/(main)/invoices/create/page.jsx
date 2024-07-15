@@ -417,16 +417,21 @@ const page = () => {
                         name="name"
                         onChange={onProductNameInputChange}
                         autoComplete="off"
+                        onFocus={() => setShowDropdown(true)}
+                        onBlur={() => setShowDropdown(false)}
                       />
                       <Image src={DownArrow} alt="downarrow" />
                       {/* Dropdown */}
                       <div
                         className={`${
-                          inventorySearchData.length > 0 && showDropdown
-                            ? "block"
-                            : "hidden"
+                          showDropdown ? "block" : "hidden"
                         } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
                       >
+                        {inventorySearchData.length === 0 && (
+                          <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+                            Enter character to search
+                          </p>
+                        )}
                         {inventorySearchData.map((item) => {
                           return (
                             <p
