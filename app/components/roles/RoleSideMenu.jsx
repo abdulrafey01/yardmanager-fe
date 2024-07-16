@@ -78,14 +78,32 @@ const AddRoleMenu = () => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
         setRoleName(selectedItem.name);
-        setEmpPerm(selectedItem.privileges[0].permissions);
-        setInvoicePerm(selectedItem.privileges[1].permissions);
-        setInvtPerm(selectedItem.privileges[2].permissions);
-        setPartsPerm(selectedItem.privileges[3].permissions);
-        setSettingsPerm(selectedItem.privileges[4].permissions);
-        setLocPerm(selectedItem.privileges[5].permissions);
-        setRecyclePerm(selectedItem.privileges[6].permissions);
-        setRolePerm(selectedItem.privileges[7].permissions);
+        selectedItem.privileges.forEach((privilege) => {
+          if (privilege.name === "employees") {
+            setEmpPerm(privilege.permissions);
+          }
+          if (privilege.name === "invoices") {
+            setInvoicePerm(privilege.permissions);
+          }
+          if (privilege.name === "inventory") {
+            setInvtPerm(privilege.permissions);
+          }
+          if (privilege.name === "parts") {
+            setPartsPerm(privilege.permissions);
+          }
+          if (privilege.name === "settings") {
+            setSettingsPerm(privilege.permissions);
+          }
+          if (privilege.name === "locations") {
+            setLocPerm(privilege.permissions);
+          }
+          if (privilege.name === "recycle") {
+            setRecyclePerm(privilege.permissions);
+          }
+          if (privilege.name === "roles") {
+            setRolePerm(privilege.permissions);
+          }
+        });
       }
     } else {
       setRoleName("");

@@ -61,6 +61,11 @@ const InventorySideMenu = () => {
   const [colorToggle, setColorToggle] = React.useState(
     JSON.parse(getLocalStorage("colorToggle")) || false
   );
+
+  // Image toggle for inventory
+  const [imageToggle, setImageToggle] = React.useState(
+    JSON.parse(getLocalStorage("partImageToggle")) || false
+  );
   // Function to handle input change
   const onInputChange = (e) => {
     // formDataRef.current.set(e.target.name, e.target.value);
@@ -338,7 +343,6 @@ const InventorySideMenu = () => {
                   onChange={onPartInputChange}
                   autoComplete="off"
                   onFocus={() => setShowPartDropDown(true)}
-                  onBlur={() => setShowPartDropDown(false)}
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
@@ -515,55 +519,57 @@ const InventorySideMenu = () => {
               />
             </div>
             {/* Inventory Image input */}
-            <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
-              {imgArray?.length > 0 ? (
-                <div className="w-full flex justify-start items-center min-h-20 space-x-2">
-                  {imgArray.map((img, index) => (
-                    <div key={index} className="relative ">
-                      <Image
-                        src={
-                          typeof img === "string"
-                            ? img
-                            : URL.createObjectURL(img)
-                        }
-                        width={80}
-                        height={80}
-                        alt="img"
-                      />
-                      <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
+            {imageToggle && (
+              <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
+                {imgArray?.length > 0 ? (
+                  <div className="w-full flex justify-start items-center min-h-20 space-x-2">
+                    {imgArray.map((img, index) => (
+                      <div key={index} className="relative ">
                         <Image
-                          onClick={() => {
-                            setImgArray(
-                              imgArray.filter((item) => item !== img)
-                            );
-                          }}
-                          src={XIcon}
-                          alt="XIcon"
+                          src={
+                            typeof img === "string"
+                              ? img
+                              : URL.createObjectURL(img)
+                          }
+                          width={80}
+                          height={80}
+                          alt="img"
                         />
+                        <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
+                          <Image
+                            onClick={() => {
+                              setImgArray(
+                                imgArray.filter((item) => item !== img)
+                              );
+                            }}
+                            src={XIcon}
+                            alt="XIcon"
+                          />
+                        </div>
+                        <div className="absolute top-0 left-0 cursor-pointer">
+                          <Image src={EnlargeIcon} alt="EnlargeIcon" />
+                        </div>
                       </div>
-                      <div className="absolute top-0 left-0 cursor-pointer">
-                        <Image src={EnlargeIcon} alt="EnlargeIcon" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <label
-                  className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
-                  htmlFor="dropzone"
-                >
-                  <Image src={UploadIcon} alt="UploadIcon" />
-                  <p className="text-[#01E268]">Upload Part Image</p>{" "}
-                  <input
-                    onChange={onImageChange}
-                    id="dropzone"
-                    className="hidden"
-                    type="file"
-                    multiple
-                  />
-                </label>
-              )}
-            </div>
+                    ))}
+                  </div>
+                ) : (
+                  <label
+                    className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
+                    htmlFor="dropzone"
+                  >
+                    <Image src={UploadIcon} alt="UploadIcon" />
+                    <p className="text-[#01E268]">Upload Part Image</p>{" "}
+                    <input
+                      onChange={onImageChange}
+                      id="dropzone"
+                      className="hidden"
+                      type="file"
+                      multiple
+                    />
+                  </label>
+                )}
+              </div>
+            )}
           </div>
         </div>
         {/* Buttons */}

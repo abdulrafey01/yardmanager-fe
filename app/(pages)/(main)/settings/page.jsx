@@ -13,10 +13,17 @@ const page = () => {
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
   const [priceToggle, setPriceToggle] = React.useState(false);
+  const [partImageToggle, setPartImageToggle] = React.useState(false);
 
   useEffect(() => {
     if (JSON.parse(getLocalStorage("priceToggle"))) {
       setPriceToggle(JSON.parse(getLocalStorage("priceToggle")));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (JSON.parse(getLocalStorage("partImageToggle"))) {
+      setPartImageToggle(JSON.parse(getLocalStorage("partImageToggle")));
     }
   }, []);
 
@@ -46,7 +53,7 @@ const page = () => {
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
-    pagePermission?.read ? (
+    pagePermission?.read && (
       <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-4 w-screen md:w-full ">
         {/* First container */}
         {pagePermission?.update && (
@@ -68,8 +75,14 @@ const page = () => {
         )}
 
         {/* Second container */}
-        <div className="w-full bg-white hidden items-center justify-start  p-4 rounded-lg">
-          <GreenToggle />
+        <div className="w-full bg-white  items-center justify-start  p-4 rounded-lg">
+          <GreenToggle
+            onChange={(e) => {
+              setPartImageToggle(e.target.checked);
+              setLocalStorage("partImageToggle", e.target.checked);
+            }}
+            checked={partImageToggle}
+          />
           <div className="flex flex-col justify-between">
             <p className="font-bold">Part Images</p>
             <p className="text-[#6E7793]">
@@ -78,8 +91,6 @@ const page = () => {
           </div>
         </div>
       </div>
-    ) : (
-      <p>You don't have permission to access this page</p>
     )
   );
 };

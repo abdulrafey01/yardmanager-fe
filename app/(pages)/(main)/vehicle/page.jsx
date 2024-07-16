@@ -46,7 +46,7 @@ const page = () => {
   const [dataLimit, setDataLimit] = React.useState(10);
 
   // Vin input state
-  const [vinVal, setVinVal] = React.useState(null);
+  const [vinVal, setVinVal] = React.useState("");
 
   // For add vehicle
   const formData = new FormData();

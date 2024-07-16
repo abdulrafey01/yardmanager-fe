@@ -25,6 +25,9 @@ const page = ({}) => {
   const [marginTop, setMarginTop] = useState("70px");
   const { user } = useSelector((state) => state.auth);
   const { personalData, toastMsg } = useSelector((state) => state.profile);
+
+  const [imageToggle, setImageToggle] = useState(0);
+  const [image, setImage] = useState(null);
   const router = useRouter();
 
   const formData = new FormData();
@@ -165,6 +168,7 @@ const page = ({}) => {
       confirmPassword: "",
     });
   };
+  const uploadImage = () => {};
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -183,7 +187,11 @@ const page = ({}) => {
         {/* ProfileImg container */}
         <div className="absolute w-20 h-14 sm:w-28 sm:h-28 p-1 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-full  object-cover">
           <Image src={ProfileImg} />
-          <Image className="absolute bottom-[-5px] right-[5px]" src={EditImg} />
+          <Image
+            onClick={() => setImageToggle(1)}
+            className="absolute bottom-[-5px] right-[5px] cursor-pointer"
+            src={EditImg}
+          />
         </div>
         {/* Block 2 */}
         <div className="w-full bg-white p-4 space-y-4 rounded-lg">
@@ -277,6 +285,83 @@ const page = ({}) => {
               title={"Discard"}
             />
             <GreenBtn onClick={onPersonalFormSubmit} title={"Save Changes"} />
+          </div>
+        </div>
+      </div>
+      {/* Image upload modal */}
+      <div
+        className={`${
+          imageToggle > 0 ? "fixed" : "hidden"
+        } top-0 left-0 w-full h-full z-50 bg-black/60 flex justify-center items-center`}
+      >
+        <div className="bg-white p-4 rounded-lg w-[500px]">
+          <div className="flex justify-between items-center">
+            <h3 className="text-xl font-bold">Upload Image</h3>
+            <div className="cursor-pointer" onClick={() => setImageToggle(0)}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+          </div>
+          <div className="mt-4 space-y-4">
+            <div className="flex justify-center items-center">
+              <label
+                htmlFor="image"
+                className="bg-gray-200 px-4 py-2 rounded-lg flex justify-center items-center hover:bg-gray-300"
+              >
+                {image ? (
+                  <Image
+                    src={URL.createObjectURL(image)}
+                    width={100}
+                    height={100}
+                    alt="profile"
+                    className="w-40 h-40"
+                  />
+                ) : (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-10 w-10"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2.828-2.828l4.586-4.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                )}
+                <input
+                  type="file"
+                  id="image"
+                  className="hidden"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+              </label>
+            </div>
+            <div className="flex justify-end">
+              <div className="flex justify-center items-center">
+                <button
+                  className="bg-[#78FFB6] text-black font-medium px-4 py-2 rounded-lg hover:bg-[#3FFB97]"
+                  onClick={uploadImage}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

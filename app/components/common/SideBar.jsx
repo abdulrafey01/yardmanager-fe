@@ -187,38 +187,40 @@ const SideBar = () => {
       setActiveMainBtn(-1);
     }
     if (pathName === "/dashboard") {
-      setActiveMainBtn(0);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "dashboard"));
     }
     if (pathName === "/inventory") {
-      setActiveMainBtn(1);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "inventory"));
     }
     if (pathName === "/invoices") {
-      setActiveMainBtn(2);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "invoices"));
     }
     if (pathName === "/locations") {
-      setActiveMainBtn(3);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "locations"));
     }
     if (pathName === "/parts") {
-      setActiveMainBtn(4);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "parts"));
     }
     if (pathName === "/deleted-items") {
-      setActiveMainBtn(5);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "recycled"));
     }
     if (pathName === "/employees") {
-      setActiveMainBtn(6);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "employees"));
     }
     if (pathName === "/roles") {
-      setActiveMainBtn(7);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "roles"));
     }
     if (pathName === "/vehicle") {
-      setActiveMainBtn(8);
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "vehicle"));
     }
     if (
       pathName === "/subscription" ||
       pathName === "/subscription/plans" ||
       pathName === "/subscription/my-plans"
     ) {
-      setActiveMainBtn(9);
+      setActiveMainBtn(
+        showBtns.findIndex((btn) => btn.name2 === "subscription")
+      );
     }
     if (pathName === "/settings") {
       setActiveBottomBtn(0);

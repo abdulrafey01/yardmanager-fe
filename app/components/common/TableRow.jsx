@@ -115,6 +115,22 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             </div>
           ))}
         </div>
+      ) : index === 5 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-22  flex-wrap gap-2  p-3 flex-1  flex  items-center ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          }`}
+        >
+          {titles[5].map((variant, index) => (
+            <div
+              key={index}
+              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+            >
+              {variant}
+            </div>
+          ))}
+        </div>
       ) : (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}

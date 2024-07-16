@@ -46,6 +46,8 @@ const page = () => {
     username: "",
   });
 
+  const [localData, setLocalData] = useState(null);
+
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
@@ -140,17 +142,28 @@ const page = () => {
       if ((await JSON.parse(getLocalStorage("user"))?.userType) !== "user") {
         return router.push("/profile/employee");
       }
-      setPersonalFormState({
-        firstName: user?.data.name.first,
-        lastName: user?.data.name.last,
-        email: user?.data.email,
-        username: user?.data.username,
-        password: user?.data.password,
-      });
     };
     routePage();
   }, []);
 
+  useEffect(() => {
+    if (JSON.parse(getLocalStorage("user"))) {
+      setLocalData(JSON.parse(getLocalStorage("user")));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localData) {
+      console.log("localData", localData);
+      setPersonalFormState({
+        firstName: localData?.data.name.first,
+        lastName: localData?.data.name.last,
+        email: localData?.data.email,
+        username: localData?.data.username,
+        password: localData?.data.password,
+      });
+    }
+  }, [localData]);
   // set company form state
   const onCompanyInputChange = (event) => {
     setCompanyFormState({
