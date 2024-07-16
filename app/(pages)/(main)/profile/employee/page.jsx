@@ -35,6 +35,7 @@ const page = ({}) => {
     email: "",
     username: "",
   });
+  const [localData, setLocalData] = useState(null);
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
@@ -98,16 +99,22 @@ const page = ({}) => {
 
   useEffect(() => {
     if (JSON.parse(getLocalStorage("user"))?.userType === "employee") {
-      setPersonalFormState({
-        firstName: user?.data.name.first,
-        lastName: user?.data.name.last,
-        email: user?.data.email,
-        username: user?.data.username,
-        password: user?.data.password,
-      });
-      console.log(JSON.parse(getLocalStorage("user")));
+      setLocalData(JSON.parse(getLocalStorage("user")));
     }
   }, []);
+
+  useEffect(() => {
+    if (localData) {
+      console.log("localData", localData);
+      setPersonalFormState({
+        firstName: localData?.data.name.first,
+        lastName: localData?.data.name.last,
+        email: localData?.data.email,
+        username: localData?.data.username,
+        password: localData?.data.password,
+      });
+    }
+  }, [localData]);
 
   useEffect(() => {
     if (personalData) {
