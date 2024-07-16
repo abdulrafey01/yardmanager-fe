@@ -28,6 +28,8 @@ const InventorySideMenu = () => {
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
+  const [locId, setLocId] = React.useState(null);
+  const [partId, setPartId] = React.useState(null);
   // Values for inputs
   const [locValue, setLocValue] = React.useState("");
   const [partValue, setPartValue] = React.useState("");
@@ -84,15 +86,15 @@ const InventorySideMenu = () => {
   };
 
   const onLocNameClick = (loc) => {
-    // formDataRef.current.set("location", loc._id);
-    formData.append("location", loc._id);
+    setLocId(loc._id);
     setLocValue(loc.location);
     setShowLocDropDown(false);
   };
 
   const onPartNameClick = (part) => {
     // formDataRef.current.set("part", part._id);
-    formData.append("part", part._id);
+    // formData.set("part", part._id);
+    setPartId(part._id);
     setPartValue(part.name);
     setShowPartDropDown(false);
   };
@@ -165,6 +167,8 @@ const InventorySideMenu = () => {
     formData.append("notes", formState.notes);
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
+    formData.append("part", `${partId}`); // partId);
+    formData.append("location", `${locId}`);
     if (priceToggle) {
       formData.append("price", formState.price);
     }
