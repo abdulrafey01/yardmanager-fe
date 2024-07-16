@@ -105,6 +105,7 @@ const page = () => {
       );
       console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
+      setDataFromServer([]);
     } catch (error) {
       console.log(error);
       dispatch(
