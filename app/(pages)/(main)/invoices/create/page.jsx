@@ -26,7 +26,7 @@ import {
 } from "../../../../../lib/features/invoice/invoiceActions";
 import { useRouter } from "next/navigation";
 import {
-  resetToast,
+  resetInvoiceToast,
   setPreviewModal,
 } from "../../../../../lib/features/invoice/invoiceSlice";
 import Link from "next/link";
@@ -77,7 +77,7 @@ const page = () => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, ...toastMsg }));
     }
-    dispatch(resetToast());
+    dispatch(resetInvoiceToast());
   }, [toastMsg]);
 
   // can use other way when do refactor but for now

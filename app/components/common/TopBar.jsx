@@ -139,6 +139,7 @@ const TopBar = () => {
               dispatch(logout());
               removeLocalStorage("colorToggle");
               removeLocalStorage("priceToggle");
+              removeLocalStorage("partImageToggle");
             }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >

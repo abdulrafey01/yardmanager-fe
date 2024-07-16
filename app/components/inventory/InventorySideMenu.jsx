@@ -37,7 +37,8 @@ const InventorySideMenu = () => {
   const [dateType2, setDateType2] = React.useState(false);
 
   // useref is used to prevent adding new key on every character change
-  const formDataRef = useRef(new FormData());
+  // const formDataRef = useRef(new FormData());
+  const formData = new FormData();
   const [formState, setFormState] = React.useState({
     name: "",
     sku: "",
@@ -83,13 +84,15 @@ const InventorySideMenu = () => {
   };
 
   const onLocNameClick = (loc) => {
-    formDataRef.current.set("location", loc._id);
+    // formDataRef.current.set("location", loc._id);
+    formData.append("location", loc._id);
     setLocValue(loc.location);
     setShowLocDropDown(false);
   };
 
   const onPartNameClick = (part) => {
-    formDataRef.current.set("part", part._id);
+    // formDataRef.current.set("part", part._id);
+    formData.append("part", part._id);
     setPartValue(part.name);
     setShowPartDropDown(false);
   };
@@ -109,7 +112,8 @@ const InventorySideMenu = () => {
     const files = Array.from(e.target.files);
     setImgArray(files);
     for (let i = 0; i < files.length; i++) {
-      formDataRef.current.append("images", files[i]);
+      // formDataRef.current.set("images", files[i]);
+      formData.append(`images`, files[i]);
     }
   };
 
@@ -132,50 +136,48 @@ const InventorySideMenu = () => {
         })
       );
     }
-    formDataRef.current.set("name", formState.name);
-    formDataRef.current.set("sku", formState.sku);
-    formDataRef.current.set("year", formState.year);
+
+    formData.append("name", formState.name);
+    formData.append("year", formState.year);
     if (formState.model.length === 1) {
-      formDataRef.current.append("model[0]", formState.model[0]);
+      formData.append("model", formState.model[0]);
     } else {
       formState.model.forEach((model, index) => {
-        formDataRef.current.append(`model`, model);
+        formData.append(`model`, model);
       });
     }
 
     if (formState.make.length === 1) {
-      formDataRef.current.append("make[0]", formState.make[0]);
+      formData.append("make", formState.make[0]);
     } else {
       formState.make.forEach((make, index) => {
-        formDataRef.current.append(`make`, make);
+        formData.append(`make`, make);
       });
     }
 
     if (formState.variant.length === 1) {
-      formDataRef.current.append("variant[0]", formState.variant[0]);
+      formData.append("variant", formState.variant[0]);
     } else {
       formState.make.forEach((variant, index) => {
-        formDataRef.current.append(`variant`, variant);
+        formData.append(`variant`, variant);
       });
     }
-    formDataRef.current.set("notes", formState.notes);
-    formDataRef.current.set("startYear", formState.startYear);
-    formDataRef.current.set("lastYear", formState.lastYear);
+    formData.append("notes", formState.notes);
+    formData.append("startYear", formState.startYear);
+    formData.append("lastYear", formState.lastYear);
     if (priceToggle) {
-      formDataRef.current.set("price", formState.price);
+      formData.append("price", formState.price);
     }
     if (colorToggle) {
-      formDataRef.current.set("color", formState.color);
+      formData.append("color", formState.color);
     } else {
-      formDataRef.current.delete("color");
+      formData.delete("color");
     }
 
     if (showSideMenu.mode === "edit") {
-      dispatch(
-        updateInventory({ formData: formDataRef.current, id: selectedItem._id })
-      );
+      dispatch(updateInventory({ formData: formData, id: selectedItem._id }));
     } else {
-      dispatch(addInventory(formDataRef.current));
+      dispatch(addInventory(formData));
     }
     dispatch(setShowSideMenu({ value: false }));
   };

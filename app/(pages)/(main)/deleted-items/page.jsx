@@ -16,6 +16,8 @@ import {
 } from "../../../../lib/features/shared/sharedSlice";
 import { fetchDeletedItemsByPage } from "../../../../lib/features/deleted-items/deletedItemsActions";
 import Footer from "../../../components/common/Footer";
+import axios from "axios";
+import { getCookie } from "../../../helpers/storage";
 
 const page = () => {
   const { error, deletedItemsData, toastMsg, totalDataLength } = useSelector(
@@ -90,6 +92,30 @@ const page = () => {
       setDataLimit(10);
     }
   };
+
+  const deleteAll = async () => {
+    try {
+      const response = await axios.delete(
+        "https://yardmanager-be.vercel.app/api/inventory/all",
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        }
+      );
+      console.log(response.data);
+      dispatch(setShowToast({ value: true, msg: response.data.message }));
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: error.response.data.message,
+          red: true,
+        })
+      );
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -117,11 +143,14 @@ const page = () => {
                 />
               </div>
               {/* Filter Button */}
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center  sm:space-x-3">
+              {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center  sm:space-x-3">
                 <p>Filter</p>
                 <Image src={MenuIcon} alt="MenuIcon" />
-              </div>
-              <div className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center">
+              </div> */}
+              <div
+                onClick={deleteAll}
+                className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
+              >
                 <p>Clear All</p>
               </div>
             </div>

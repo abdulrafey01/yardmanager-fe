@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import { Bar } from "react-chartjs-2";
 import Chart, { plugins } from "chart.js/auto";
-const BarChart = ({ greenColor, label, data }) => {
+const BarChart = ({ greenColor, label, data, xLabels }) => {
   const chartRef = useRef(null);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const BarChart = ({ greenColor, label, data }) => {
       ref={chartRef}
       className="px-4 pb-8 h-80 max-w-full"
       data={{
-        labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+        labels: xLabels,
         datasets: [
           {
             // Label for bars

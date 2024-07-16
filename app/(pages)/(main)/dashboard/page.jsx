@@ -50,7 +50,7 @@ const page = () => {
     error: dsbdError,
     counts,
     inventoryGraphData,
-    partGraphData,
+    partsGraphData,
   } = useSelector((state) => state.dashboard);
   const router = useRouter();
 
@@ -59,9 +59,15 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [data, setData] = React.useState({});
-
+  const [inventoryMapData, setInventoryMapData] = React.useState({});
+  const [inventoryGraphDates, setInventoryGraphDates] = React.useState([]);
+  const [partMapData, setPartMapData] = React.useState({});
+  const [partGraphdates, setPartGraphdates] = React.useState([]);
   const [dataLimit, setDataLimit] = React.useState(10);
-
+  const [showGraphFilter1, setShowGraphFilter1] = React.useState(false);
+  const [showGraphFilter2, setShowGraphFilter2] = React.useState(false);
+  const [filterValue1, setFilterValue1] = React.useState("Yearly");
+  const [filterValue2, setFilterValue2] = React.useState("Yearly");
   const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
     dispatch(setCurrentPage("Dashboard"));
@@ -71,25 +77,6 @@ const page = () => {
   useEffect(() => {
     dispatch(fetchInventoryCounts());
     dispatch(fetchPartCounts());
-  }, []);
-  useEffect(() => {
-    const data = [
-      { year: 2024, month: 7, day: 6, count: 1 },
-      { year: 2024, month: 7, day: 6, count: 1 },
-      { year: 2024, month: 7, day: 7, count: 1 },
-      { year: 2024, month: 7, day: 10, count: 1 },
-    ];
-
-    // Initialize an array to store counts for each day of the month (assuming 31 days in July)
-    const countsByDay = new Array(31).fill(0);
-
-    // Aggregate the counts
-    data.forEach((entry) => {
-      const dayIndex = entry.day - 1; // Convert day to 0-based index
-      countsByDay[dayIndex] += entry.count;
-    });
-
-    // console.log("counts by day", countsByDay);
   }, []);
 
   useEffect(() => {
@@ -155,8 +142,71 @@ const page = () => {
   useEffect(() => {
     if (inventoryGraphData) {
       console.log("inventory graph data", inventoryGraphData);
+
+      let dateCountMap = new Map();
+
+      for (let item of inventoryGraphData) {
+        const dateKey =
+          filterValue1 === "Daily"
+            ? `${item.year}-${item.month}-${item.day}`
+            : filterValue1 === "Monthly"
+            ? `${item.year}-${item.month}`
+            : filterValue1 === "Weekly"
+            ? `${item.week}`
+            : `${item.year}`;
+        dateCountMap.set(
+          dateKey,
+          (dateCountMap.get(dateKey) || 0) + item.count
+        );
+      }
+
+      let totalDaysData = Array.from(dateCountMap.values());
+      let dates = Array.from(dateCountMap.keys());
+      // console.log("dates", dates);
+      setInventoryGraphDates(dates);
+
+      // console.log(totalDaysData); // Output: [2, 1, 1]
+      // console.log("totalDaysData", totalDaysData);
+      // console.log("dateCountMap", dateCountMap);
+      setInventoryMapData(totalDaysData);
     }
-  }, [inventoryGraphData]);
+  }, [inventoryGraphData, filterValue1]);
+
+  useEffect(() => {
+    console.log("partsGraphData", partsGraphData);
+  }, [partsGraphData]);
+  useEffect(() => {
+    if (partsGraphData) {
+      console.log("partsgraphdata", partsGraphData);
+
+      let dateCountMap = new Map();
+
+      for (const item of partsGraphData) {
+        const dateKey =
+          filterValue2 === "Daily"
+            ? `${item.year}-${item.month}-${item.day}`
+            : filterValue2 === "Monthly"
+            ? `${item.year}-${item.month}`
+            : filterValue2 === "Weekly"
+            ? `${item.week}`
+            : `${item.year}`;
+        dateCountMap.set(
+          dateKey,
+          (dateCountMap.get(dateKey) || 0) + item.count
+        );
+      }
+
+      let totalDaysData = Array.from(dateCountMap.values());
+      let dates = Array.from(dateCountMap.keys());
+      console.log("dates", dates);
+      setPartGraphdates(dates);
+
+      console.log(totalDaysData); // Output: [2, 1, 1]
+      console.log("totalDaysData", totalDaysData);
+      console.log("dateCountMap", dateCountMap);
+      setPartMapData(totalDaysData);
+    }
+  }, [partsGraphData, filterValue2]);
 
   // if is there to prevent render on page load
   useEffect(() => {
@@ -209,10 +259,10 @@ const page = () => {
           >
             AI Auto Parts
           </p>
-          <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+          {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
             <p>Filter</p>
             <Image src={MenuIcon} alt="MenuIcon" />
-          </div>
+          </div> */}
         </div>
         {/* 4 BLocks container */}
         <div className="flex w-full justify-between items-center gap-5 flex-wrap">
@@ -243,15 +293,59 @@ const page = () => {
             <div className="w-full flex items-center justify-between">
               <p className="font-bold text-lg">Vehicles Added</p>
               {/* Time select input */}
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
-                <p>Weekly</p>
+              <div
+                onClick={() => {
+                  setShowGraphFilter1(!showGraphFilter1);
+                }}
+                className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
+              >
+                <p>{filterValue1}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
+                <div
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                    showGraphFilter1 ? "block" : "hidden"
+                  }`}
+                >
+                  <p
+                    onClick={() => {
+                      setFilterValue1("Daily");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Daily
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue1("Yearly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Yearly
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue1("Monthly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Monthly
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue1("Weekly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Weekly
+                  </p>
+                </div>
               </div>
             </div>
             {/* Chart */}
             <BarChart
-              label={"Vehicles"}
-              data={[15, 13, 61, 14, 56, 72, 21]}
+              label={"Inventory"}
+              xLabels={inventoryGraphDates}
+              data={inventoryMapData}
               greenColor={true}
             />
           </div>
@@ -264,15 +358,57 @@ const page = () => {
             <div className="w-full flex items-center justify-between">
               <p className="font-bold text-lg">Parts Inventoried</p>
               {/* Time select input */}
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
-                <p>Weekly</p>
+              <div
+                onClick={() => setShowGraphFilter2(!showGraphFilter2)}
+                className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
+              >
+                <p>{filterValue2}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
+                <div
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                    showGraphFilter2 ? "block" : "hidden"
+                  }`}
+                >
+                  <p
+                    onClick={() => {
+                      setFilterValue2("Daily");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Daily
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue2("Yearly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Yearly
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue2("Monthly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Monthly
+                  </p>
+                  <p
+                    onClick={() => {
+                      setFilterValue2("Weekly");
+                    }}
+                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  >
+                    Weekly
+                  </p>
+                </div>
               </div>
             </div>
             {/* Chart */}
             <BarChart
               label={"Parts"}
-              data={[15, 13, 61, 14, 56, 72, 21, 31, 89, 14, 56, 72]}
+              xLabels={partGraphdates}
+              data={partMapData}
               greenColor={false}
             />
           </div>

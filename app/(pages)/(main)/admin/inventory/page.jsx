@@ -115,7 +115,7 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className="overflow-visible">
+        <div className=" overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={["Sr.No", "Item name", "Category", "Quantity", "Location"]}

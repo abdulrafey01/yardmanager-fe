@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { getCookie } from "../../helpers/storage";
 import useloadAuthState from "../../helpers/authHook";
+import NavRow from "../../components/admin/common/NavRow";
 
 const layout = ({ children }) => {
   useloadAuthState();
@@ -23,12 +24,13 @@ const layout = ({ children }) => {
   }, [getCookie("token")]);
 
   return (
-    <div className="flex relative  min-h-screen">
+    <div className="flex relative w-full  min-h-screen">
       <Toast />
       <AbsoluteMenusAndModals />
       <SideBar />
-      <div className="flex-[5] flex flex-col">
+      <div className="flex-[5] flex w-full  flex-col">
         <TopBar />
+        {/* <NavRow /> */}
         {children}
       </div>
     </div>

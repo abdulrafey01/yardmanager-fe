@@ -124,10 +124,10 @@ const page = () => {
                   onChange={handleSearch}
                 />
               </div>
-              <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+              {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
                 <p>Filter</p>
                 <Image src={MenuIcon} alt="MenuIcon" />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Table Container */}

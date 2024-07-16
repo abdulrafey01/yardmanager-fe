@@ -40,7 +40,7 @@ import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Link from "next/link";
 const SideBar = () => {
   const pathName = usePathname();
-  const [activeMainBtn, setActiveMainBtn] = useState(-1);
+  const [activeMainBtn, setActiveMainBtn] = useState(0);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const { showSideBar, currentPage } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
@@ -178,7 +178,7 @@ const SideBar = () => {
   }, [hideBtns]);
 
   useEffect(() => {
-    console.log(showBtns);
+    console.log("showBtns", showBtns);
   }, [showBtns]);
   // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
@@ -235,19 +235,13 @@ const SideBar = () => {
     if (pathName === "/admin/yards") {
       setActiveMainBtn(1);
     }
-    if (pathName === "/admin/users") {
+    if (pathName === "/admin/inventory") {
       setActiveMainBtn(2);
     }
-    if (pathName === "/admin/inventory") {
+    if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
     }
-    if (pathName === "/admin/roles") {
-      setActiveMainBtn(5);
-    }
-    if (pathName === "/admin/Subscription") {
-      setActiveMainBtn(6);
-    }
-  }, [currentPage, pathName]);
+  }, [currentPage, pathName, showBtns]);
 
   const router = useRouter();
   const dispatch = useDispatch();
@@ -267,29 +261,12 @@ const SideBar = () => {
       iconB: YardSvgB,
       route: "/admin/yards",
     },
-    {
-      name: "User Management",
-      iconW: EmpSvg,
-      iconB: EmpSvgB,
-      route: "/admin/users",
-    },
+
     {
       name: "Inventory Overview",
       iconW: InvtSvg,
       iconB: InvtSvgB,
       route: "/admin/inventory",
-    },
-    {
-      name: "Invoices Overview",
-      iconW: InvtSvg,
-      iconB: InvtSvgB,
-      route: "/admin/invoices",
-    },
-    {
-      name: "Role / Permissions",
-      iconW: RoleSvg,
-      iconB: RoleSvgB,
-      route: "/admin/roles",
     },
     {
       name: "Subscription",
@@ -304,7 +281,7 @@ const SideBar = () => {
       <div
         className={`${
           showSideBar ? "flex" : "hidden"
-        } flex-1 bg-black  xl:flex absolute z-10 md:relative h-full md:h-auto flex-col justify-start items-center p-6 space-y-6 overflow-y-auto `}
+        } flex-1  bg-black  xl:flex absolute z-10 md:relative h-full md:h-auto flex-col justify-start items-center p-6 space-y-6 overflow-y-auto `}
       >
         {/* Top part */}
         <div className="flex flex-col space-y-6 ">
