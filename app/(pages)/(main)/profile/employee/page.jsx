@@ -92,6 +92,12 @@ const page = ({}) => {
       ) {
         return router.push("/profile");
       }
+    };
+    routePage();
+  }, []);
+
+  useEffect(() => {
+    if (JSON.parse(getLocalStorage("user"))?.userType === "employee") {
       setPersonalFormState({
         firstName: user?.data.name.first,
         lastName: user?.data.name.last,
@@ -99,8 +105,8 @@ const page = ({}) => {
         username: user?.data.username,
         password: user?.data.password,
       });
-    };
-    routePage();
+      console.log(JSON.parse(getLocalStorage("user")));
+    }
   }, []);
 
   useEffect(() => {
