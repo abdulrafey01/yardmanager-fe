@@ -18,6 +18,7 @@ import { fetchDeletedItemsByPage } from "../../../../lib/features/deleted-items/
 import Footer from "../../../components/common/Footer";
 import axios from "axios";
 import { getCookie } from "../../../helpers/storage";
+import { resetDelToast } from "../../../../lib/features/deleted-items/deletedItemsSlice";
 
 const page = () => {
   const { error, deletedItemsData, toastMsg, totalDataLength } = useSelector(
@@ -68,12 +69,16 @@ const page = () => {
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
+  }, [error, deletedItemsData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
-        dispatch(setShowToast({ value: true, msg: toastMsg }));
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetDelToast());
       }
     }
-  }, [error, deletedItemsData, toastMsg, dataLimit]);
+  }, [toastMsg]);
 
   // Search function
   const handleSearch = (e) => {
