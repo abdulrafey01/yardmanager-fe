@@ -32,6 +32,7 @@ import axios from "axios";
 import { getCookie } from "../../../helpers/storage";
 import { resetToast } from "../../../../lib/features/dashboard/dashboardSlice";
 import Footer from "../../../components/common/Footer";
+import { resetInvoiceToast } from "../../../../lib/features/invoice/invoiceSlice";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
@@ -126,6 +127,7 @@ const page = () => {
     if (invoiceToast) {
       dispatch(setShowToast({ value: true, ...invoiceToast }));
     }
+    dispatch(resetInvoiceToast());
   }, [invoiceToast]);
 
   useEffect(() => {

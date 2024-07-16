@@ -33,7 +33,7 @@ const layout = ({ children }) => {
     }
   }, [getCookie("token")]);
   return (
-    <div className="min-h-screen flex justify-center items-center px-4">
+    <div className="min-h-screen flex justify-center items-center ">
       <Toast />
       <SectionOne />
       {children}

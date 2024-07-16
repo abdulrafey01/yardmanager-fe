@@ -20,6 +20,7 @@ const config = {
           "100%": { transform: "translateX(100%)" }, // go out
         },
       },
+
       animation: {
         slideInOut: "slideInOut 3s ease-out",
       },

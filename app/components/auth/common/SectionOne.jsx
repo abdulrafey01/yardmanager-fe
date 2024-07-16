@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import YardIcon from "../../../assets/auth/yardicon-1.svg";
 import ManImg from "../../../assets/auth/man_img-2.svg";
@@ -7,6 +7,25 @@ import BoxImg2 from "../../../assets/auth/Illustrations-4.svg";
 import BoxImg3 from "../../../assets/auth/Illustrations-5.svg";
 import Header from "../../common/Header";
 const SectionOne = () => {
+  const descArray = [
+    "Simplify tracking and organizing your parts with our intuitive system. Save time and reduce errors with efficient inventory control.",
+    "Our user-friendly platform ensures you can find what you need quickly. Keep your inventory up-to-date and accurate with minimal effort.",
+    " Gain better control over your stock levels and reduce downtime. Experience a hassle-free approach to keeping your parts inventory in check.",
+  ];
+  const [activeLineIndex, setActiveLineIndex] = React.useState(0);
+
+  useEffect(() => {
+    if (activeLineIndex > 2) {
+      setActiveLineIndex(0);
+    }
+  }, [activeLineIndex]);
+
+  useEffect(() => {
+    setInterval(() => {
+      setActiveLineIndex((prev) => prev + 1);
+    }, 3000);
+  }, []);
+
   return (
     <div className="flex-1 hidden lg:flex flex-col  bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
       <div className="flex flex-col space-y-4 w-full items-center overflow-visible">
@@ -43,14 +62,23 @@ const SectionOne = () => {
         <p className="text-sm font-bold sm:text-xl">
           The simplest way to mange your Auto Parts Inventory
         </p>
-        <p className="text-sm pr-5">
-          {" "}
-          The simplest way to mange your Auto Parts Inventory
-        </p>
+        <p className="text-sm pr-5">{descArray[activeLineIndex]}</p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">
-          <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>
-          <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>
-          <div className="h-2 w-20 rounded bg-[#78FFB6]"></div>
+          <div
+            className={`h-2  w-20 rounded ${
+              activeLineIndex === 0 ? " bg-[#78FFB6]" : "bg-[#5ae1993c]"
+            }`}
+          ></div>
+          <div
+            className={`h-2  w-20 rounded ${
+              activeLineIndex === 1 ? " bg-[#78FFB6]" : "bg-[#5ae1993c]"
+            }`}
+          ></div>
+          <div
+            className={`h-2  w-20 rounded ${
+              activeLineIndex === 2 ? " bg-[#78FFB6]" : "bg-[#5ae1993c]"
+            }`}
+          ></div>
         </div>
       </div>
     </div>

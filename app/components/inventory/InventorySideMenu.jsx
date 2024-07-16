@@ -302,7 +302,6 @@ const InventorySideMenu = () => {
                   onChange={onLocInputChange}
                   autoComplete="off"
                   onFocus={() => setShowLocDropDown(true)}
-                  onBlur={() => setShowLocDropDown(false)}
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
