@@ -136,10 +136,8 @@ const TopBar = () => {
           </Link>{" "}
           <div
             onClick={() => {
-              cleanStorage();
-              setTimeout(() => {
-                dispatch(logout());
-              }, 2000);
+              dispatch(logout());
+              localStorage.clear();
             }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >

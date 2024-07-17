@@ -18,14 +18,10 @@ const layout = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const isToken = getCookie("token");
-    console.log("istoken", isToken);
-    console.log("token", token);
-    if (!token || token === "undefined" || token === "null") {
+    if (!getCookie("token")) {
       router.push("/sign-in");
     }
   }, [token]);
-
   return (
     <div className="flex relative w-full  min-h-screen">
       <Toast />
