@@ -10,6 +10,7 @@ import { resetToast } from "../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
+  const [isLogin, setIsLogin] = React.useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -28,11 +29,23 @@ const layout = ({ children }) => {
   // For Routing auth
   // For Routing auth
   useEffect(() => {
-    if (getCookie("token")) {
-      // console.log("token", token);
-      router.push("/dashboard");
+    // if (getCookie("token")) {
+    //   // console.log("token", token);
+    //   router.push("/dashboard");
+    // }
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
   }, [token]);
+
+  useEffect(() => {
+    if (isLogin) {
+      console.log("isLogin", isLogin);
+      router.push("/dashboard");
+    }
+  }, [isLogin]);
   return (
     <div className="min-h-screen flex justify-center items-center ">
       <Toast />
