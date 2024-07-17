@@ -21,7 +21,7 @@ const layout = ({ children }) => {
     const isToken = getCookie("token");
     console.log("istoken", isToken);
     console.log("token", token);
-    if (!isToken || isToken === "undefined" || isToken === "null") {
+    if (!token || token === "undefined" || token === "null") {
       router.push("/sign-in");
     }
   }, [token]);
