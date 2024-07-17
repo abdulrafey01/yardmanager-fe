@@ -418,7 +418,6 @@ const page = () => {
                         onChange={onProductNameInputChange}
                         autoComplete="off"
                         onFocus={() => setShowDropdown(true)}
-                        onBlur={() => setShowDropdown(false)}
                       />
                       <Image src={DownArrow} alt="downarrow" />
                       {/* Dropdown */}
@@ -482,7 +481,7 @@ const page = () => {
                     </div>
                   </div>
                   {/* Total input hidden in lg devices */}
-                  <div className="lg:hidden min-w-16 p-4 flex-1 flex items-center">
+                  <div className="hidden min-w-16 p-4 flex-1  items-center">
                     <div className=" w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                       <input
                         className="w-full outline-none text-sm"
@@ -492,7 +491,10 @@ const page = () => {
                     </div>
                   </div>
                   <div className="lg:hidden min-w-16 p-4 flex-1 flex items-center">
-                    <div className=" w-full p-3 bg-black text-white flex hover:bg-gray-700 justify-center items-center rounded-lg cursor-pointer border border-[#D0D5DD]">
+                    <div
+                      onClick={onAddProductClick}
+                      className=" w-full p-3 bg-black text-white flex hover:bg-gray-700 justify-center items-center rounded-lg cursor-pointer border border-[#D0D5DD]"
+                    >
                       Add
                     </div>
                   </div>
@@ -562,8 +564,8 @@ const page = () => {
                   onChange={() => {
                     setShowPaymentMenu(true);
                   }}
+                  value={paymentVal ? paymentVal : ""}
                   onIconClick={() => setShowPaymentMenu(!showPaymentMenu)}
-                  value={paymentVal}
                 />
                 {/* Payment Menu */}
                 <div
