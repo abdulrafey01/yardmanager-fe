@@ -10,7 +10,7 @@ import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Header from "./Header";
 import { logout } from "../../../lib/features/auth/authSlice";
 import Link from "next/link";
-import { removeLocalStorage } from "../../helpers/storage";
+import { cleanStorage } from "../../helpers/cleanStorage";
 
 const TopBar = () => {
   const { currentPage, showSideBar } = useSelector((state) => state.shared);
@@ -136,10 +136,8 @@ const TopBar = () => {
           </Link>{" "}
           <div
             onClick={() => {
+              cleanStorage();
               dispatch(logout());
-              removeLocalStorage("colorToggle");
-              removeLocalStorage("priceToggle");
-              removeLocalStorage("partImageToggle");
             }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
