@@ -135,7 +135,8 @@ const TopBar = () => {
             Profile
           </Link>{" "}
           <div
-            onClick={() => {
+            onClick={async () => {
+              await cleanStorage();
               dispatch(logout());
             }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
