@@ -29,8 +29,13 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
 
   // On checkbox change
   const onCheckboxChange = (e) => {
-    if (e.target.name === "write" && e.target.checked) {
-      setPerm({ ...perm, write: true, update: true, delete: true });
+    if (e.target.name === "write") {
+      setPerm({
+        ...perm,
+        write: e.target.checked,
+        update: e.target.checked,
+        delete: e.target.checked,
+      });
     } else {
       setPerm({ ...perm, [e.target.name]: e.target.checked });
     }
