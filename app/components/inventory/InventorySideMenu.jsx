@@ -61,9 +61,7 @@ const InventorySideMenu = () => {
   );
 
   // Color toggle for inventory
-  const [colorToggle, setColorToggle] = React.useState(
-    JSON.parse(getLocalStorage("colorToggle")) || false
-  );
+  const [colorToggle, setColorToggle] = React.useState(false);
 
   // Image toggle for inventory
   const [imageToggle, setImageToggle] = React.useState(
@@ -96,6 +94,7 @@ const InventorySideMenu = () => {
     // formData.set("part", part._id);
     setPartId(part._id);
     setPartValue(part.name);
+    setColorToggle(part.color);
     setShowPartDropDown(false);
   };
 
@@ -123,17 +122,67 @@ const InventorySideMenu = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      formState.startYear === "" ||
-      formState.lastYear === "" ||
-      formState.model.length === 0 ||
-      formState.make.length === 0 ||
-      formState.variant.length === 0
-    ) {
+    if (formState.name === "") {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill all the fields",
+          msg: "Please fill the name field",
+          red: true,
+        })
+      );
+    } else if (locValue === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the location field",
+          red: true,
+        })
+      );
+    } else if (partValue === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the part field",
+          red: true,
+        })
+      );
+    } else if (formState.startYear === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the start year field",
+          red: true,
+        })
+      );
+    } else if (formState.lastYear === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the end year field",
+          red: true,
+        })
+      );
+    } else if (formState.model.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the model field",
+          red: true,
+        })
+      );
+    } else if (formState.make.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the make field",
+          red: true,
+        })
+      );
+    } else if (formState.variant.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the variant field",
           red: true,
         })
       );
@@ -174,16 +223,16 @@ const InventorySideMenu = () => {
     }
     if (colorToggle) {
       formData.append("color", formState.color);
-    } else {
-      formData.delete("color");
     }
-
     if (showSideMenu.mode === "edit") {
       dispatch(updateInventory({ formData: formData, id: selectedItem._id }));
     } else {
       dispatch(addInventory(formData));
     }
     dispatch(setShowSideMenu({ value: false }));
+
+    setDateType1(false);
+    setDateType2(false);
   };
 
   const removeModelFromList = (index) => {
@@ -221,6 +270,13 @@ const InventorySideMenu = () => {
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem?.part?.name);
         setImgArray(selectedItem?.images);
+        setLocId(selectedItem.location?._id);
+        setPartId(selectedItem?.part?._id);
+        if (selectedItem?.color) {
+          setColorToggle(true);
+        } else {
+          setColorToggle(false);
+        }
       }
     } else {
       setFormState({
@@ -238,6 +294,9 @@ const InventorySideMenu = () => {
       });
       setImgArray(null);
       setLocValue("");
+      setColorToggle(false);
+      setDateType1(false);
+      setDateType2(false);
       setPartValue("");
     }
   }, [selectedItem, showSideMenu]);

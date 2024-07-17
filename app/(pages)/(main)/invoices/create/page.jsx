@@ -131,6 +131,7 @@ const page = () => {
   useEffect(() => {
     if (JSON.parse(getLocalStorage("invoiceItem"))) {
       setItem(JSON.parse(getLocalStorage("invoiceItem")));
+      setPageMode("edit");
     }
     console.log(formData);
   }, []);
@@ -297,6 +298,8 @@ const page = () => {
     } else {
       dispatch(addInvoice(formData));
     }
+
+    console.log("pageMode:", pageMode);
     setFormData({
       name: "",
       email: "",
@@ -319,6 +322,7 @@ const page = () => {
     });
     setSubTotal(0);
     setGrandTotal(0);
+    router.push("/invoices");
 
     dispatch(setShowSideMenu({ value: false }));
   };
@@ -515,7 +519,7 @@ const page = () => {
                 {formData?.products?.map((product, index) => {
                   return (
                     <ProductDetailRow
-                      name={product.name}
+                      name={product.product?.name}
                       quantity={product.quantity}
                       price={product.price}
                       date={new Date(product.date).toLocaleDateString()}
@@ -542,8 +546,8 @@ const page = () => {
             <textarea
               className="w-full border border-gray-300 rounded-lg p-4 max-h-80 min-h-40 outline-none hover:border-gray-500"
               placeholder="Add a personal note to the invoice"
-              name="note"
-              value={formData.note}
+              name="notes"
+              value={formData.notes}
               onChange={onInputChange}
             />
           </div>

@@ -33,7 +33,7 @@ const page = () => {
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
   const [showFilterMenu, setShowFilterMenu] = React.useState(false);
-
+  const [filterActive, setFilterActive] = React.useState(undefined);
   const [dataLimit, setDataLimit] = React.useState(10);
 
   // Get page permission
@@ -93,24 +93,50 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchEmployeesByPage({ page: 1, limit: 20 }));
+      dispatch(
+        fetchEmployeesByPage({ page: 1, limit: 20, filter: filterActive })
+      );
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchEmployeesByPage({ page: 1, limit: 30 }));
+      dispatch(
+        fetchEmployeesByPage({ page: 1, limit: 30, filter: filterActive })
+      );
       setDataLimit(30);
     } else {
-      dispatch(fetchEmployeesByPage({ page: 1, limit: 10 }));
+      dispatch(
+        fetchEmployeesByPage({ page: 1, limit: 10, filter: filterActive })
+      );
       setDataLimit(10);
     }
   };
   const handleFilterClick = (e) => {
     if (e.target.value === "Active") {
-      dispatch(fetchEmployeesByPage({ filter: true }));
+      dispatch(
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: dataLimit,
+          filter: true,
+        })
+      );
+      setFilterActive(true);
     } else if (e.target.value === "InActive") {
-      dispatch(fetchEmployeesByPage({ filter: false }));
+      dispatch(
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: dataLimit,
+          filter: false,
+        })
+      );
+      setFilterActive(false);
     } else {
       // normal fetch for null
-      dispatch(fetchEmployeesByPage({ page: pageNumber }));
+      dispatch(
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: dataLimit,
+        })
+      );
+      setFilterActive(undefined);
     }
   };
 
@@ -167,7 +193,7 @@ const page = () => {
                 >
                   <input
                     id="active"
-                    name="radio"
+                    name="radio2"
                     type="radio"
                     value={"Active"}
                     onChange={handleFilterClick}
@@ -181,7 +207,7 @@ const page = () => {
                 >
                   <input
                     id="inactive"
-                    name="radio"
+                    name="radio2"
                     type="radio"
                     value={"InActive"}
                     onChange={handleFilterClick}
@@ -195,7 +221,7 @@ const page = () => {
                 >
                   <input
                     id="all"
-                    name="radio"
+                    name="radio2"
                     type="radio"
                     value={"All"}
                     defaultChecked

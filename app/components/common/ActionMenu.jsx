@@ -31,16 +31,26 @@ const ActionMenu = ({ index, item, permissions }) => {
   const router = useRouter();
 
   const duplicateInventory = () => {
-    console.log(item);
+    console.log("item", item);
 
     let formData = new FormData();
 
     formData.append("name", item?.name);
     formData.append("location", item?.location._id);
     formData.append("part", item?.part._id);
-    formData.append("model", item?.model);
-    formData.append("make", item?.make);
-    formData.append("variant", item?.variant);
+
+    item?.model.forEach((model, index) => {
+      formData.append(`model`, model);
+    });
+
+    item?.make.forEach((make, index) => {
+      formData.append(`make`, make);
+    });
+
+    item?.variant.forEach((variant, index) => {
+      formData.append(`variant`, variant);
+    });
+
     formData.append("notes", item?.notes);
     formData.append("sku", item?.sku);
     formData.append("price", item?.price);
@@ -199,13 +209,13 @@ const ActionMenu = ({ index, item, permissions }) => {
       )}
       {currentPage === "Inventory" && (
         <>
-          <div
+          {/* <div
             onClick={() => {}}
             className=" flex cursor-pointer justify-center items-center space-x-2 "
           >
             <Image src={CartIcon} alt="delete" height={20} width={20} />
             <p className="font-semibold hover:font-bold">Add to invoice</p>
-          </div>
+          </div> */}
           <div
             onClick={() => {
               duplicateInventory(item);

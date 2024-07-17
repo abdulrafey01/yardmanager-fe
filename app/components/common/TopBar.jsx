@@ -137,7 +137,6 @@ const TopBar = () => {
           <div
             onClick={() => {
               dispatch(logout());
-              removeLocalStorage("colorToggle");
               removeLocalStorage("priceToggle");
               removeLocalStorage("partImageToggle");
             }}

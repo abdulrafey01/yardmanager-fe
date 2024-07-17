@@ -130,9 +130,10 @@ const page = () => {
     dispatch(addVehicle(formData));
 
     // reset data fields
-    dispatch(setVinDecodedData(null));
-    setVinVal(null);
     setImgArray2(null);
+    setVinVal("");
+    dispatch(setVinDecodedData(null));
+    setShowDecodeMenu(false);
   };
 
   const onImageChange = (e) => {
@@ -190,7 +191,7 @@ const page = () => {
                 type="text"
                 placeholder="Year"
                 className="w-full outline-none bg-transparent"
-                value={vinDecodedData?.year}
+                value={vinDecodedData?.year ? vinDecodedData.year : ""}
               />
             </div>
             <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
@@ -198,7 +199,7 @@ const page = () => {
                 type="text"
                 placeholder="Make"
                 className="w-full outline-none bg-transparent"
-                value={vinDecodedData?.make}
+                value={vinDecodedData?.make ? vinDecodedData.make : ""}
               />
             </div>
             <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
@@ -206,7 +207,7 @@ const page = () => {
                 type="text"
                 placeholder="Model"
                 className="w-full outline-none bg-transparent"
-                value={vinDecodedData?.model}
+                value={vinDecodedData?.model ? vinDecodedData.model : ""}
               />
             </div>
           </div>
@@ -261,7 +262,7 @@ const page = () => {
           <div className="flex justify-center items-center gap-2">
             <WhiteBtn
               onClick={() => {
-                setVinVal(null);
+                setVinVal("");
                 dispatch(setVinDecodedData(null));
                 setShowDecodeMenu(false);
               }}

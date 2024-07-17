@@ -165,9 +165,9 @@ const PartSideMenu = () => {
               <GreenToggle
                 onChange={(e) => {
                   setColorToggle(e.target.checked);
-                  setLocalStorage("colorToggle", e.target.checked);
+                  setFormData({ ...formData, color: e.target.checked });
                 }}
-                checked={colorToggle}
+                checked={formData.color}
               />
               {/* <GreenToggle
                 onChange={(e) =>

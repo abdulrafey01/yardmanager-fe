@@ -25,7 +25,7 @@ export default function page() {
 
   // Function to handle form submit
   const onFormSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     dispatch(login(formData));
   };
 
@@ -38,44 +38,48 @@ export default function page() {
           <p className="text-sm">Sign in to your account</p>
         </div>
         {/* Input container */}
-        <div className="flex flex-col space-y-4">
-          <Input
-            name={"email"}
-            onChange={onInputChange}
-            placeholder="Email Address"
-            icon={MsgIcon}
-          />
-          <Input
-            name={"password"}
-            onChange={onInputChange}
-            placeholder="Password"
-            type={togglePWD ? "text" : "password"}
-            icon={togglePWD ? PwdIcon : PwdHideIcon}
-            iconClick={() => setTogglePWD(!togglePWD)}
-          />
-          <div className="flex justify-between items-center">
-            <div className="flex justify-center items-center space-x-2">
-              <div className="bg-white flex justify-center items-center rounded-sm border-white">
-                <input type="checkbox" className="h-3.5 w-3.5 outline-none" />
+        <form action={onFormSubmit} className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-4">
+            <Input
+              name={"email"}
+              onChange={onInputChange}
+              placeholder="Email Address"
+              type={"email"}
+              icon={MsgIcon}
+            />
+            <Input
+              name={"password"}
+              onChange={onInputChange}
+              placeholder="Password"
+              type={togglePWD ? "text" : "password"}
+              icon={togglePWD ? PwdIcon : PwdHideIcon}
+              iconClick={() => setTogglePWD(!togglePWD)}
+            />
+            <div className="flex justify-between items-center">
+              <div className="flex justify-center items-center space-x-2">
+                <div className="bg-white flex justify-center items-center rounded-sm border-white">
+                  <input type="checkbox" className="h-3.5 w-3.5 outline-none" />
+                </div>
+                <p className="text-sm sm:text-base">Remember Me</p>
               </div>
-              <p className="text-sm sm:text-base">Remember Me</p>
-            </div>
-            <div
-              onClick={() => {
-                router.push("/forgot-password");
-              }}
-              className="cursor-pointer"
-            >
-              <p className="text-sm sm:text-base font-semibold">
-                Forgot Password?
-              </p>
+              <div
+                onClick={() => {
+                  router.push("/forgot-password");
+                }}
+                className="cursor-pointer"
+              >
+                <p className="text-sm sm:text-base font-semibold">
+                  Forgot Password?
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        {/* Button */}
-        <div>
-          <AuthButton onClick={onFormSubmit} title="Sign In" />
-        </div>
+          {/* Button */}
+          <div>
+            <AuthButton title="Sign In" />
+          </div>
+        </form>
+
         {/* "or continuue" line */}
         <div className="hidden  justify-center items-center w-full">
           <div className="h-px flex-1 bg-[#78FFB6]"></div>

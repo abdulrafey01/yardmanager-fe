@@ -75,7 +75,7 @@ const page = () => {
         )}
 
         {/* Second container */}
-        <div className="w-full bg-white  items-center justify-start  p-4 rounded-lg">
+        <div className="w-full bg-white flex  items-center justify-start  p-4 rounded-lg">
           <GreenToggle
             onChange={(e) => {
               setPartImageToggle(e.target.checked);

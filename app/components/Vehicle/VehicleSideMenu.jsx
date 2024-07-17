@@ -39,7 +39,7 @@ const InventorySideMenu = () => {
   const [dateType2, setDateType2] = React.useState(false);
 
   // useref is used to prevent adding new key on every character change
-  const formDataRef = useRef(new FormData());
+  const formData = new FormData();
   const [colorSwitch, setColorSwitch] = React.useState(false);
   const [formState, setFormState] = React.useState({
     name: "",
@@ -52,6 +52,9 @@ const InventorySideMenu = () => {
     start_year: "",
     lastYear: "",
   });
+  const [locId, setLocId] = React.useState(null);
+
+  const [partId, setPartId] = React.useState(null);
 
   // Function to handle input change
   const onInputChange = (e) => {
@@ -61,7 +64,7 @@ const InventorySideMenu = () => {
 
   const onLocInputChange = (e) => {
     setLocValue(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowLocDropDown(true);
       dispatch(searchLocationByName(e.target.value));
     } else {
@@ -70,20 +73,20 @@ const InventorySideMenu = () => {
   };
 
   const onLocNameClick = (loc) => {
-    formDataRef.current.set("location", loc._id);
+    setLocId(loc._id);
     setLocValue(loc.location);
     setShowLocDropDown(false);
   };
 
   const onPartNameClick = (part) => {
-    formDataRef.current.set("part", part._id);
+    setPartId(part._id);
     setPartValue(part.name);
     setShowPartDropDown(false);
   };
 
   const onPartInputChange = (e) => {
     setPartValue(e.target.value);
-    if (e.target.value.length >= 3) {
+    if (e.target.value.length >= 1) {
       setShowPartDropDown(true);
       dispatch(searchPartByName(e.target.value));
     } else {
@@ -109,7 +112,7 @@ const InventorySideMenu = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill all the fields",
+          msg: "Please fill the Name field",
           red: true,
         })
       );
@@ -117,51 +120,74 @@ const InventorySideMenu = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill all the fields",
+          msg: "Please fill  the SKU field",
+          red: true,
+        })
+      );
+    } else if (formState.model.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Model field",
+          red: true,
+        })
+      );
+    } else if (formState.make.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Make field",
+          red: true,
+        })
+      );
+    } else if (formState.variant.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Variant field",
           red: true,
         })
       );
     }
-    formDataRef.current.set("name", formState.name);
-    formDataRef.current.set("sku", formState.sku);
-
+    formData.append("name", formState.name);
+    formData.append("sku", formState.sku);
+    formData.append("location", locId);
+    formData.append("part", partId);
     if (formState.model.length === 1) {
-      formDataRef.current.append("model[0]", formState.model[0]);
+      formData.append("model[0]", formState.model[0]);
     } else {
       formState.model.forEach((model, index) => {
-        formDataRef.current.append(`model`, model);
+        formData.append(`model`, model);
       });
     }
 
     if (formState.make.length === 1) {
-      formDataRef.current.append("make[0]", formState.make[0]);
+      formData.append("make[0]", formState.make[0]);
     } else {
       formState.make.forEach((make, index) => {
-        formDataRef.current.append(`make`, make);
+        formData.append(`make`, make);
       });
     }
 
     if (formState.variant.length === 1) {
-      formDataRef.current.append("variant[0]", formState.variant[0]);
+      formData.append("variant[0]", formState.variant[0]);
     } else {
-      formState.make.forEach((variant, index) => {
-        formDataRef.current.append(`variant`, variant);
+      formState.variant.forEach((variant, index) => {
+        formData.append(`variant`, variant);
       });
     }
 
-    formDataRef.current.set("notes", formState.notes);
-    formDataRef.current.set("start_year", formState.start_year);
-    formDataRef.current.set("lastYear", formState.lastYear);
-    if (colorToggle) {
-      formDataRef.current.set("color", formState.color);
-    } else {
-      formDataRef.current.delete("color");
-    }
+    formData.append("notes", formState.notes);
+    formData.append("start_year", formState.start_year);
+    formData.append("lastYear", formState.lastYear);
+    // if (colorToggle) {
+    //   formDataRef.current.set("color", formState.color);
+    // } else {
+    //   formDataRef.current.delete("color");
+    // }
 
     if (showSideMenu.mode === "edit") {
-      dispatch(
-        updateVehicle({ formData: formDataRef.current, id: selectedItem._id })
-      );
+      dispatch(updateVehicle({ formData: formData, id: selectedItem._id }));
       setFormState({
         name: "",
         sku: "",
@@ -173,11 +199,15 @@ const InventorySideMenu = () => {
         start_year: "",
         lastYear: "",
       });
+      setLocId("");
+      setPartId("");
+      setLocValue(null);
+      setPartValue(null);
 
       dispatch(setShowSideMenu({ value: false }));
 
-      formDataRef.current.forEach((value, key) => {
-        formDataRef.current.delete(key);
+      formData.forEach((value, key) => {
+        formData.delete(key);
       });
     }
   };
@@ -221,6 +251,8 @@ const InventorySideMenu = () => {
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem.part?.name);
         setImgArray(selectedItem?.images);
+        setLocId(selectedItem.location?._id);
+        setPartId(selectedItem.part?._id);
       }
     } else {
       setFormState({
@@ -237,6 +269,8 @@ const InventorySideMenu = () => {
       setImgArray(null);
       setLocValue("");
       setPartValue("");
+      setLocId(null);
+      setPartId(null);
     }
   }, [selectedItem, showSideMenu]);
 

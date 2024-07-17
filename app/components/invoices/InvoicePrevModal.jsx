@@ -114,7 +114,7 @@ const InvoicePrevModal = () => {
                       </div>
                       <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
                         <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.name}
+                          {product.product?.name}
                         </p>
                       </div>
                       <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">

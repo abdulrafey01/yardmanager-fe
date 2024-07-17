@@ -55,7 +55,9 @@ const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
       <div className="flex gap-2 flex-col sm:flex-row">
         <div
           onClick={() => setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)}
-          className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+          className={`cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg ${
+            pageNumber === 1 && "pointer-events-none opacity-50"
+          }`}
         >
           Previous
         </div>
@@ -65,7 +67,9 @@ const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
               pageNumber === totalPage ? pageNumber : pageNumber + 1
             )
           }
-          className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+          className={`cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg ${
+            pageNumber === totalPage && "pointer-events-none opacity-50"
+          }`}
         >
           Next
         </div>

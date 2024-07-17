@@ -38,7 +38,7 @@ const Page = () => {
         </div>
         {/* Input */}
         <Input
-          placeholder="Email or Mobile Number"
+          placeholder="Email "
           icon={MsgIcon}
           value={email}
           onChange={(e) => setEmail(e.target.value)}

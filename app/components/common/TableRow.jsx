@@ -171,7 +171,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             </div>
           ))}
         </div>
-      ) : index === 4 || index === 5 ? (
+      ) : index === 4 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
@@ -183,6 +183,21 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
               className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
+            </div>
+          ))}
+        </div>
+      ) : index === 5 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
+          }`}
+        >
+          {titles[5].map((variant, index) => (
+            <div
+              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+            >
+              {variant}
             </div>
           ))}
         </div>

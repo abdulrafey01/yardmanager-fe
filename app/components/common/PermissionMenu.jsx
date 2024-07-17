@@ -29,7 +29,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
 
   // On checkbox change
   const onCheckboxChange = (e) => {
-    setPerm({ ...perm, [e.target.name]: e.target.checked });
+    if (e.target.name === "write" && e.target.checked) {
+      setPerm({ ...perm, write: true, update: true, delete: true });
+    } else {
+      setPerm({ ...perm, [e.target.name]: e.target.checked });
+    }
   };
   return (
     <div className="border-b-2 p-6 border-gray-100 flex flex-col  space-y-8  w-full ">

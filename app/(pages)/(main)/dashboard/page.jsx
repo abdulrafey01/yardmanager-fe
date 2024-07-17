@@ -343,7 +343,7 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Inventory"}
+              label={"Vehicles"}
               xLabels={inventoryGraphDates}
               data={inventoryMapData}
               greenColor={true}
@@ -441,7 +441,7 @@ const page = () => {
           <TableHead
             titles={[
               "Name",
-              "ID",
+              "Invoice #",
               "Email",
               "Phone",
               "Amount",

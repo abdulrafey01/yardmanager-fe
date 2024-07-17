@@ -22,7 +22,14 @@ const Input = ({
         type={type ? type : "text"}
         value={value}
       />
-      {icon && <Image src={icon} alt="msgicon " onClick={iconClick} />}
+      {icon && (
+        <Image
+          className="cursor-pointer"
+          src={icon}
+          alt="msgicon "
+          onClick={iconClick}
+        />
+      )}
     </div>
   );
 };
