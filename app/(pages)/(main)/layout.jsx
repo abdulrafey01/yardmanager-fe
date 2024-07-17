@@ -19,19 +19,7 @@ const layout = ({ children }) => {
   const [isLogin, setIsLogin] = React.useState(false);
 
   useEffect(() => {
-    // if (!getCookie("token")) {
-    //   router.push("/sign-in");
-    // }
-    if (token) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [token]);
-
-  useEffect(() => {
     if (!token) {
-      console.log("isLogin", isLogin);
       router.push("/sign-in");
     }
   }, [token]);

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCookie } from "../../helpers/storage";
 import { useRouter } from "next/navigation";
 import { setShowToast } from "../../../lib/features/shared/sharedSlice";
-import { resetToast } from "../../../lib/features/auth/authSlice";
+import { resetToast, setToken } from "../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
@@ -29,23 +29,12 @@ const layout = ({ children }) => {
   // For Routing auth
   // For Routing auth
   useEffect(() => {
-    // if (getCookie("token")) {
-    //   // console.log("token", token);
-    //   router.push("/dashboard");
-    // }
     if (token) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
-  }, [token]);
-
-  useEffect(() => {
-    if (isLogin) {
-      console.log("isLogin", isLogin);
+      // console.log("token", token);
+      setToken(getCookie("token"));
       router.push("/dashboard");
     }
-  }, [isLogin]);
+  }, [token]);
   return (
     <div className="min-h-screen flex justify-center items-center ">
       <Toast />
