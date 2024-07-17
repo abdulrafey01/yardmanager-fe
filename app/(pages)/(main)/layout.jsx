@@ -18,7 +18,10 @@ const layout = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!getCookie("token")) {
+    const isToken = getCookie("token");
+    console.log("istoken", isToken);
+    console.log("token", token);
+    if (!isToken || isToken === "undefined" || isToken === "null") {
       router.push("/sign-in");
     }
   }, [token]);
