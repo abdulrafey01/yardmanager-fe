@@ -148,7 +148,7 @@ const page = () => {
             <TableHead
               titles={[
                 "Name",
-                "ID",
+                "Invoice ID",
                 "Email",
                 "Phone",
                 "Amount",

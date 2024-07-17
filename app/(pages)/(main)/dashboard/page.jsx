@@ -266,12 +266,12 @@ const page = () => {
         </div>
         {/* 4 BLocks container */}
         <div className="flex w-full justify-between items-center gap-5 flex-wrap">
+          <CountBlock title={"Parts"} icon={InvIcon} count={data?.parts ?? 0} />
           <CountBlock
-            title={"Inventory Added"}
-            icon={InvIcon}
-            count={data?.inventories ?? 0}
+            title={"Vehicles"}
+            icon={VhcIcon}
+            count={data?.vehicles ?? 0}
           />
-          <CountBlock title={"Parts"} icon={VhcIcon} count={data?.parts ?? 0} />
           <CountBlock
             title={"Locations"}
             icon={InvoiceIcon}

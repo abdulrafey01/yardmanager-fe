@@ -40,7 +40,7 @@ const InvoicePrevModal = () => {
       {/* Container equal to screen to middle the modal */}
       <div className="w-full relative z-[60] h-screen flex justify-center items-center">
         {/* Modal */}
-        <div className="relative bg-white p-8 sm:w-1/2 flex flex-col gap-4  ">
+        <div className="relative bg-white p-8 md:w-1/2 flex flex-col gap-4  ">
           {/* First row */}
           <div className="flex justify-between items-center">
             <Header darkType={true} />
@@ -153,7 +153,7 @@ const InvoicePrevModal = () => {
           </div>
           {/* Sixth box row */}
           <div className="flex w-full justify-end">
-            <div className="flex  sm:w-1/2 p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
+            <div className="flex  md:w-1/2 p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
               {/* Row 1  */}
 
               <div className="w-full flex justify-between items-center">
