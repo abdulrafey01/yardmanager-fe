@@ -90,7 +90,7 @@ const page = () => {
     phone: "",
     products: [],
     tax: 0,
-    paid: 0,
+    paid: "",
     status: false,
     notes: "",
     datePaid: "",
@@ -111,8 +111,8 @@ const page = () => {
   // for menu show/hide
   const [showPaymentMenu, setShowPaymentMenu] = useState(false);
 
-  // for payment input value
-  const [paymentVal, setPaymentVal] = useState("");
+  // for payment method input value
+  const [paymentMethod, setPaymentMethod] = useState("");
 
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
@@ -143,13 +143,23 @@ const page = () => {
         name: item.name,
         email: item.email,
         phone: item.phone,
-        products: item.products,
+        products: item.products.map((item) => {
+          return {
+            product: item.product._id,
+            name: item.product.name,
+            quantity: item.quantity,
+            price: item.price,
+            date: item.date,
+            total: item.total,
+          };
+        }),
         tax: item.tax,
         paid: item.paid,
         status: item.status,
         notes: item.notes,
         datePaid: item.datePaid,
       });
+      setPaymentMethod(item.paymentMethod);
     } else {
       setFormData({
         name: "",
@@ -157,7 +167,7 @@ const page = () => {
         phone: "",
         products: [],
         tax: 0,
-        paid: 0,
+        paid: "",
         status: false,
         notes: "",
         datePaid: "",
@@ -203,6 +213,15 @@ const page = () => {
         setShowToast({
           value: true,
           msg: "Please fill all product fields.",
+          red: true,
+        })
+      );
+    }
+    if (productData.product === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select a Product from List.",
           red: true,
         })
       );
@@ -253,7 +272,6 @@ const page = () => {
   // on changing grand total
   useEffect(() => {
     if (grandTotal) {
-      setFormData({ ...formData, paid: grandTotal });
     }
   }, [grandTotal]);
 
@@ -261,7 +279,7 @@ const page = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!paymentVal) {
+    if (!paymentMethod) {
       return dispatch(
         setShowToast({
           value: true,
@@ -306,7 +324,7 @@ const page = () => {
       phone: "",
       products: [],
       tax: 0,
-      paid: 0,
+      paid: "",
       status: false,
       notes: "",
       datePaid: "",
@@ -335,7 +353,7 @@ const page = () => {
   };
 
   const handlePaymentMenuClick = (val) => {
-    setPaymentVal(val);
+    setPaymentMethod(val);
     setShowPaymentMenu(!showPaymentMenu);
     setFormData({ ...formData, paymentMethod: val });
   };
@@ -519,7 +537,7 @@ const page = () => {
                 {formData?.products?.map((product, index) => {
                   return (
                     <ProductDetailRow
-                      name={product.product?.name}
+                      name={product.name}
                       quantity={product.quantity}
                       price={product.price}
                       date={new Date(product.date).toLocaleDateString()}
@@ -558,17 +576,25 @@ const page = () => {
                 Billing and Payment Details
               </p>
               <div className="lg:w-2/3 w-full">
-                <MainInput placeholder={"Payment Amount"} icon={PaymentIcon} />
+                <MainInput
+                  name={"paid"}
+                  onChange={onInputChange}
+                  placeholder={"Payment Amount"}
+                  icon={PaymentIcon}
+                  type={"number"}
+                  value={formData.paid}
+                />
               </div>
               <div className="relative lg:w-2/3 w-full">
                 <MainInput
+                  typeAble={false}
                   className="pr-3"
                   placeholder={"Select Payment Method"}
                   icon={SelectIcon}
                   onChange={() => {
                     setShowPaymentMenu(true);
                   }}
-                  value={paymentVal ? paymentVal : ""}
+                  value={paymentMethod ? paymentMethod : ""}
                   onIconClick={() => setShowPaymentMenu(!showPaymentMenu)}
                 />
                 {/* Payment Menu */}

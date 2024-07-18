@@ -123,7 +123,7 @@ const page = () => {
   // Create vehicle from VIN
   const handleCreateBtnClick = () => {
     formData.append("vin", vinVal);
-    formData.append("start_year", vinDecodedData?.year);
+    formData.append("startYear", vinDecodedData?.year);
     formData.append("make[0]", vinDecodedData?.make);
     formData.append("model[0]", vinDecodedData?.model);
     formData.append("image", imgArray2);
@@ -316,12 +316,12 @@ const page = () => {
               titles={[
                 data.sku,
                 data.part?.name,
-                new Date(data.start_year).getFullYear(),
+                new Date(data.startYear).getFullYear(),
                 data.model,
                 data.make,
                 data.variant,
-                data.notes,
-                data.location?.location,
+                data.notes ? data.notes : "",
+                data.location?.location ? data.location.location : "",
               ]}
               key={index}
               rowIndex={index}

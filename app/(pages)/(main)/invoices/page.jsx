@@ -147,12 +147,12 @@ const page = () => {
             {/* Head */}
             <TableHead
               titles={[
-                "Name",
-                "Invoice ID",
-                "Email",
-                "Phone",
-                "Amount",
-                "Date",
+                "User Name",
+                "Invoice #",
+                "Customer Name",
+                "Email Address",
+                "Grand Total",
+                "Order Date",
                 "Status",
               ]}
             />
@@ -162,9 +162,15 @@ const page = () => {
                 titles={[
                   data.name,
                   data._id,
+                  data.name,
                   data.email,
-                  data.phone,
-                  data.paid,
+                  (() => {
+                    let subTotal = data.products.reduce((acc, product) => {
+                      return acc + product.quantity * product.price;
+                    }, 0);
+                    return subTotal + (data.tax * subTotal) / 100;
+                  })(),
+
                   new Date(data.datePaid).toLocaleDateString(),
                   data.status,
                 ]}

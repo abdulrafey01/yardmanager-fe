@@ -49,7 +49,7 @@ const InventorySideMenu = () => {
     variant: [],
     notes: "",
     color: "",
-    start_year: "",
+    startYear: "",
     lastYear: "",
   });
   const [locId, setLocId] = React.useState(null);
@@ -178,7 +178,7 @@ const InventorySideMenu = () => {
     }
 
     formData.append("notes", formState.notes);
-    formData.append("start_year", formState.start_year);
+    formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
     // if (colorToggle) {
     //   formDataRef.current.set("color", formState.color);
@@ -196,7 +196,7 @@ const InventorySideMenu = () => {
         variant: [],
         notes: "",
         color: "",
-        start_year: "",
+        startYear: "",
         lastYear: "",
       });
       setLocId("");
@@ -245,7 +245,7 @@ const InventorySideMenu = () => {
           make: selectedItem.make,
           variant: selectedItem.variant,
           notes: selectedItem.notes,
-          start_year: new Date(selectedItem.start_year).getFullYear(),
+          startYear: new Date(selectedItem.startYear).getFullYear(),
           sku: selectedItem.sku,
         });
         setLocValue(selectedItem.location?.location);
@@ -262,7 +262,7 @@ const InventorySideMenu = () => {
         make: [],
         variant: [],
         notes: "",
-        start_year: "",
+        startYear: "",
         lastYear: "",
         color: "",
       });
@@ -284,7 +284,7 @@ const InventorySideMenu = () => {
       variant: [],
       notes: "",
       color: "",
-      start_year: "",
+      startYear: "",
       lastYear: "",
     });
     setImgArray(null);
@@ -404,8 +404,8 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type={dateType1 ? "date" : "text"}
                   placeholder="Start Date"
-                  value={formState.start_year}
-                  name="start_year"
+                  value={formState.startYear}
+                  name="startYear"
                   onChange={onInputChange}
                 />
               </div>
