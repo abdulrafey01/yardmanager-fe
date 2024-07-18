@@ -320,7 +320,7 @@ const page = () => {
                 data.model,
                 data.make,
                 data.variant,
-                data.notes ? data.notes : "",
+                data.notes !== undefined ? data.notes : "",
                 data.location?.location ? data.location.location : "",
               ]}
               key={index}

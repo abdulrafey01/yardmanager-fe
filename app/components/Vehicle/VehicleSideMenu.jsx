@@ -21,6 +21,7 @@ import "../../styles.css";
 import { searchPartByName } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { updateVehicle } from "../../../lib/features/vehicle/vehicleActions";
+import DropDownInput from "../common/DropDownInput";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -177,7 +178,9 @@ const InventorySideMenu = () => {
       });
     }
 
-    formData.append("notes", formState.notes);
+    if (formState.notes.length > 0) {
+      formData.append("notes", formState.notes);
+    }
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
     // if (colorToggle) {
@@ -244,7 +247,7 @@ const InventorySideMenu = () => {
           model: selectedItem.model,
           make: selectedItem.make,
           variant: selectedItem.variant,
-          notes: selectedItem.notes,
+          notes: selectedItem.notes ? selectedItem.notes : "",
           startYear: new Date(selectedItem.startYear).getFullYear(),
           sku: selectedItem.sku,
         });
@@ -331,69 +334,33 @@ const InventorySideMenu = () => {
             </div>
             <div className="flex gap-4">
               {/* Vehicle Location input */}
-              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="text"
-                  value={locValue}
-                  placeholder="Location"
-                  name="location"
-                  onChange={onLocInputChange}
-                  autoComplete="off"
-                />
-                <Image src={DownArrow} alt="downarrow" />
-                {/* Dropdown */}
-                <div
-                  className={`${
-                    locationSearchData.length > 0 && showLocDropDown
-                      ? "block"
-                      : "hidden"
-                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
-                >
-                  {locationSearchData.map((loc) => {
-                    return (
-                      <p
-                        onClick={() => onLocNameClick(loc)}
-                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-                      >
-                        {loc.location}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
+
+              <DropDownInput
+                inputValue={locValue}
+                keyToShow={"location"}
+                onSearch={searchLocationByName}
+                placeholder={"Location"}
+                searchData={locationSearchData}
+                setIdFunc={(val) => {
+                  setLocId(val);
+                }}
+                setInputValue={setLocValue}
+                key={"location"}
+              />
               {/* Inventory Part input */}
-              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="text"
-                  value={partValue}
-                  placeholder="Part"
-                  name="location"
-                  onChange={onPartInputChange}
-                  autoComplete="off"
-                />
-                <Image src={DownArrow} alt="downarrow" />
-                {/* Dropdown */}
-                <div
-                  className={`${
-                    partSearchData.length > 0 && showPartDropDown
-                      ? "block"
-                      : "hidden"
-                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
-                >
-                  {partSearchData.map((part) => {
-                    return (
-                      <p
-                        onClick={() => onPartNameClick(part)}
-                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-                      >
-                        {part.name}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
+
+              <DropDownInput
+                inputValue={partValue}
+                keyToShow={"name"}
+                onSearch={searchPartByName}
+                placeholder={"Part"}
+                searchData={partSearchData}
+                setIdFunc={(val) => {
+                  setPartId(val);
+                }}
+                setInputValue={setPartValue}
+                key={"part"}
+              />
             </div>
 
             {/* Inventory Dates input */}
