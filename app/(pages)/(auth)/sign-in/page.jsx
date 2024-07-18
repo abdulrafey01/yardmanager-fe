@@ -26,7 +26,11 @@ export default function page() {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     // e.preventDefault();
-    dispatch(login(formData));
+    const updatedFormData = {
+      ...formData,
+      email: formData.email.toLowerCase(),
+    };
+    dispatch(login(updatedFormData));
   };
 
   return (

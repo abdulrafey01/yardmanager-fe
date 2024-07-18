@@ -158,7 +158,7 @@ const page = () => {
         paid: item.paid,
         status: item.status,
         notes: item.notes,
-        datePaid: new Date(item.datePaid).toLocaleDateString(),
+        datePaid: new Date(item.datePaid),
       });
       setPaymentMethod(item.paymentMethod);
       setDatePaidInputType("text");
@@ -643,7 +643,7 @@ const page = () => {
                   }}
                   type={datePaidInputType}
                   name={"datePaid"}
-                  value={formData.datePaid}
+                  value={new Date(formData.datePaid).toLocaleDateString()}
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />

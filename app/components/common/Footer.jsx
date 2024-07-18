@@ -68,7 +68,7 @@ const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
             )
           }
           className={`cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg ${
-            pageNumber === totalPage && "pointer-events-none opacity-50"
+            pageNumber >= totalPage && "pointer-events-none opacity-50" //page 1 of 0
           }`}
         >
           Next
