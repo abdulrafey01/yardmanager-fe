@@ -372,6 +372,12 @@ const InventorySideMenu = () => {
                   onChange={onLocInputChange}
                   autoComplete="off"
                   onFocus={() => setShowLocDropDown(true)}
+                  onBlur={
+                    () =>
+                      setTimeout(() => {
+                        setShowLocDropDown(false);
+                      }, 500) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
+                  }
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
@@ -408,10 +414,16 @@ const InventorySideMenu = () => {
                   onChange={onPartInputChange}
                   autoComplete="off"
                   onFocus={() => setShowPartDropDown(true)}
+                  onBlur={() =>
+                    setTimeout(() => {
+                      setShowPartDropDown(false);
+                    }, 200)
+                  }
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
                 <div
+                  onMouseLeave={() => setShowLocDropDown(false)}
                   className={`${
                     showPartDropDown ? "block" : "hidden"
                   } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
