@@ -440,6 +440,11 @@ const page = () => {
                         onChange={onProductNameInputChange}
                         autoComplete="off"
                         onFocus={() => setShowDropdown(true)}
+                        onBlur={() =>
+                          setTimeout(() => {
+                            setShowDropdown(false);
+                          }, 200)
+                        }
                       />
                       <Image src={DownArrow} alt="downarrow" />
                       {/* Dropdown */}
@@ -591,11 +596,16 @@ const page = () => {
                   className="pr-3"
                   placeholder={"Select Payment Method"}
                   icon={SelectIcon}
-                  onChange={() => {
+                  onClick={() => {
                     setShowPaymentMenu(true);
                   }}
                   value={paymentMethod ? paymentMethod : ""}
                   onIconClick={() => setShowPaymentMenu(!showPaymentMenu)}
+                  onBlur={() =>
+                    setTimeout(() => {
+                      setShowPaymentMenu(false);
+                    }, 200)
+                  }
                 />
                 {/* Payment Menu */}
                 <div

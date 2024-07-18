@@ -376,7 +376,7 @@ const InventorySideMenu = () => {
                     () =>
                       setTimeout(() => {
                         setShowLocDropDown(false);
-                      }, 500) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
+                      }, 200) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
                   }
                 />
                 <Image src={DownArrow} alt="downarrow" />

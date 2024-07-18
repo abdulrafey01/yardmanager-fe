@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { fetchInvoicesByPage } from "../../../../lib/features/invoice/invoiceActions";
 import { getLocalStorage, removeLocalStorage } from "../../../helpers/storage";
 import Footer from "../../../components/common/Footer";
+import { resetInvoiceToast } from "../../../../lib/features/invoice/invoiceSlice";
 
 const page = () => {
   const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
@@ -70,12 +71,16 @@ const page = () => {
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
+  }, [error, invoiceData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
       }
     }
-  }, [error, invoiceData, toastMsg, dataLimit]);
+    dispatch(resetInvoiceToast());
+  }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchInvoicesByPage({ search: e.target.value }));

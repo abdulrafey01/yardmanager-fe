@@ -40,6 +40,11 @@ const DropDownInput = ({
         placeholder={placeholder}
         onChange={onInputChange}
         autoComplete="off"
+        onBlur={() =>
+          setTimeout(() => {
+            setShowDropDown(false);
+          }, 200)
+        }
       />
       <Image src={DownArrow} alt="downarrow" />
       {/* Dropdown */}
