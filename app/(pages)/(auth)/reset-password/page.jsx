@@ -1,6 +1,6 @@
 "use client";
 import Input from "../../../components/auth/common/Input";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 
 import PwdIcon from "../../../assets/auth/2-AdornmentEnd.svg";
 import AuthButton from "../../../components/auth/common/AuthButton";
@@ -10,7 +10,7 @@ import { setShowToast } from "../../../../lib/features/shared/sharedSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-const page = () => {
+const Page = () => {
   const [pwdVal, setPwdVal] = useState("");
   const [pwdCVal, setPwdCVal] = useState("");
   const [loaderState, setLoaderState] = useState(false);
@@ -112,4 +112,10 @@ const page = () => {
   );
 };
 
-export default page;
+const SuspensePage = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <Page />
+  </Suspense>
+);
+
+export default SuspensePage;
