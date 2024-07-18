@@ -99,6 +99,12 @@ const TopBar = () => {
       {/* Avatar and text container */}
       <div
         onClick={() => setShowProfileMenu(!showProfileMenu)}
+        onBlur={() =>
+          setTimeout(() => {
+            setShowProfileMenu(false);
+          }, 200)
+        }
+        tabIndex={0}
         className="flex relative space-x-2 justify-center items-center cursor-pointer select-none"
       >
         <div>

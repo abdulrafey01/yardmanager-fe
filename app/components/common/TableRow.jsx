@@ -441,6 +441,12 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
                 dispatch(setShowActionMenu(rowIndex));
               }
             }}
+            tabIndex={0}
+            onBlur={() => {
+              setTimeout(() => {
+                dispatch(setShowActionMenu(-1));
+              }, 200);
+            }}
             src={DotsIcon}
             alt="MenuIcon"
             className="cursor-pointer "

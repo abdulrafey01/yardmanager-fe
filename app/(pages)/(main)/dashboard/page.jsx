@@ -297,6 +297,12 @@ const page = () => {
                 onClick={() => {
                   setShowGraphFilter1(!showGraphFilter1);
                 }}
+                tabIndex={0}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setShowGraphFilter1(false);
+                  }, 200);
+                }}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
               >
                 <p>{filterValue1}</p>
@@ -360,6 +366,12 @@ const page = () => {
               {/* Time select input */}
               <div
                 onClick={() => setShowGraphFilter2(!showGraphFilter2)}
+                tabIndex={0}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setShowGraphFilter2(false);
+                  }, 200);
+                }}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
               >
                 <p>{filterValue2}</p>

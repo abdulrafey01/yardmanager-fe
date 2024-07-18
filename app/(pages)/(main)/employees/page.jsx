@@ -172,10 +172,15 @@ const page = () => {
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
                 />
-                {/* DRopdown */}
               </div>
               <div
                 onClick={() => setShowFilterMenu(!showFilterMenu)}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setShowFilterMenu(false);
+                  }, 200)
+                }
+                tabIndex={0}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
               >
                 <p>Filter</p>
