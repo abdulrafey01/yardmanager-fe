@@ -41,6 +41,7 @@ const page = () => {
 
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
+  const [datePaidInputType, setDatePaidInputType] = useState("date");
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -157,9 +158,10 @@ const page = () => {
         paid: item.paid,
         status: item.status,
         notes: item.notes,
-        datePaid: item.datePaid,
+        datePaid: new Date(item.datePaid).toLocaleDateString(),
       });
       setPaymentMethod(item.paymentMethod);
+      setDatePaidInputType("text");
     } else {
       setFormData({
         name: "",
@@ -636,8 +638,12 @@ const page = () => {
 
               <div className="lg:w-2/3 w-full">
                 <MainInput
-                  type="date"
+                  onClick={() => {
+                    setDatePaidInputType("date");
+                  }}
+                  type={datePaidInputType}
                   name={"datePaid"}
+                  value={formData.datePaid}
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />

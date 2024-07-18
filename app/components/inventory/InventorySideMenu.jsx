@@ -109,7 +109,6 @@ const InventorySideMenu = () => {
   };
   // Function to handle image change
   const onImageChange = (e) => {
-    // formData not set directly becauese files after selecting appearing in box are coming from imgArray
     const files = Array.from(e.target.files);
     setImgArray(files);
     for (let i = 0; i < files.length; i++) {

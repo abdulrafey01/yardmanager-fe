@@ -13,6 +13,7 @@ import {
   setShowActionMenu,
   setShowDeleteModal,
   setShowSideMenu,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 import { useRouter } from "next/navigation";
@@ -35,6 +36,15 @@ const ActionMenu = ({ index, item, permissions }) => {
 
     let formData = new FormData();
 
+    if (!item.lastYear) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Last year is required",
+          red: true,
+        })
+      );
+    }
     formData.append("name", item?.name);
     formData.append("location", item?.location._id);
     formData.append("part", item?.part._id);

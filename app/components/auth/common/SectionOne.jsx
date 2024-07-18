@@ -11,18 +11,13 @@ const SectionOne = () => {
     "Simplify tracking and organizing your parts with our intuitive system. Save time and reduce errors with efficient inventory control.",
     "Our user-friendly platform ensures you can find what you need quickly. Keep your inventory up-to-date and accurate with minimal effort.",
     " Gain better control over your stock levels and reduce downtime. Experience a hassle-free approach to keeping your parts inventory in check.",
+    "",
   ];
   const [activeLineIndex, setActiveLineIndex] = React.useState(0);
 
   useEffect(() => {
-    if (activeLineIndex > 2) {
-      setActiveLineIndex(0);
-    }
-  }, [activeLineIndex]);
-
-  useEffect(() => {
     setInterval(() => {
-      setActiveLineIndex((prev) => prev + 1);
+      setActiveLineIndex((prev) => (prev === 2 ? 0 : prev + 1));
     }, 3000);
   }, []);
 
