@@ -250,7 +250,11 @@ const AddRoleMenu = () => {
       >
         <div className="p-6 flex flex-col space-y-4">
           <p className="font-semibold">
-            {showSideMenu.mode === "edit" ? "Edit Role" : "Add New Role"}
+            {showSideMenu.mode === "edit"
+              ? "Edit Role"
+              : showSideMenu.mode === "preview"
+              ? "Preview Role"
+              : "Add New Role"}
           </p>
           {/* Role name input */}
           <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">

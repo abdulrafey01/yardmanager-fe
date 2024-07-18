@@ -20,8 +20,6 @@ const Page = () => {
   const dispatch = useDispatch();
   // Function to handle reset password
   const changePwd = async () => {
-    setLoaderState(true);
-
     if (pwdVal.length < 8) {
       setLoaderState(false);
       return dispatch(
@@ -57,6 +55,9 @@ const Page = () => {
       );
       setLoaderState(false);
       console.log("Verification response:", response.data);
+      setTimeout(() => {
+        router.push(`/sign-in`);
+      }, 1000);
       dispatch(
         setShowToast({
           value: true,
@@ -89,7 +90,13 @@ const Page = () => {
           </p>
         </div>
         {/* Input Container */}
-        <form action={changePwd} className="flex flex-col space-y-4">
+        <form
+          action={() => {
+            setLoaderState(true);
+            changePwd();
+          }}
+          className="flex flex-col space-y-4"
+        >
           <Input
             value={pwdVal}
             onChange={(e) => setPwdVal(e.target.value)}
@@ -104,7 +111,7 @@ const Page = () => {
           />
           {/* Button */}
           <div>
-            <AuthButton title="Reset Password" />
+            <AuthButton loaderState={loaderState} title="Reset Password" />
           </div>
         </form>
       </div>

@@ -15,8 +15,6 @@ const Page = () => {
   const dispatch = useDispatch();
 
   const handleForgotPassword = async () => {
-    setLoaderState(true);
-
     if (!email) {
       setLoaderState(false);
 
@@ -33,7 +31,6 @@ const Page = () => {
         "https://yardmanager-be.vercel.app/api/users/forgot-password",
         { email }
       );
-      setLoaderState(false);
       console.log("Password reset email sent:", response.data);
       router.push(`/code-verify?email=${email}`);
       dispatch(
@@ -42,6 +39,7 @@ const Page = () => {
           msg: response.data.message,
         })
       );
+      setLoaderState(false);
     } catch (error) {
       console.error("Error sending password reset email:", error);
       setLoaderState(false);
@@ -59,7 +57,10 @@ const Page = () => {
     <div className="flex-1 flex flex-col justify-center items-center">
       <form
         noValidate={false}
-        action={handleForgotPassword}
+        action={() => {
+          setLoaderState(true);
+          handleForgotPassword();
+        }}
         className="flex flex-col space-y-6 w-72 sm:w-96"
       >
         {/* Text */}

@@ -25,7 +25,6 @@ const Page = () => {
 
   // Function to handle OTP verification
   const verifyCode = async () => {
-    setLoaderState(true);
     console.log(otp.join(""));
     try {
       const response = await axios.post(
@@ -103,7 +102,13 @@ const Page = () => {
   return (
     <div className="flex-1 flex justify-center items-center">
       {/* Main container */}
-      <form action={verifyCode} className="w-72 sm:w-96 space-y-8">
+      <form
+        action={() => {
+          setLoaderState(true);
+          verifyCode();
+        }}
+        className="w-72 sm:w-96 space-y-8"
+      >
         {/* Text Container */}
         <div className="flex flex-col space-y-2">
           <p className="font-bold text-xl sm:text-3xl">Enter Code Received</p>

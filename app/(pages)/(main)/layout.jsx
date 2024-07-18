@@ -24,7 +24,7 @@ const layout = ({ children }) => {
   }, [getCookie("token")]);
 
   return (
-    <div className="flex relative w-full  min-h-screen">
+    <div className="flex relative w-full select-none  min-h-screen">
       <Toast />
       <AbsoluteMenusAndModals />
       <SideBar />

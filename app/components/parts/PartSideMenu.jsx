@@ -90,7 +90,11 @@ const PartSideMenu = () => {
       >
         <div className="p-6 flex w-full flex-col space-y-4">
           <p className="font-semibold">
-            {showSideMenu.mode === "edit" ? "Edit Part" : "Add New Part"}
+            {showSideMenu.mode === "edit"
+              ? "Edit Part"
+              : showSideMenu.mode === "preview"
+              ? "Preview Part"
+              : "Add New Part"}
           </p>
           {/* This additional container to make them opaque in preview mode */}
           <div

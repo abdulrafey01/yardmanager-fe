@@ -339,6 +339,8 @@ const InventorySideMenu = () => {
           <p className="font-semibold">
             {showSideMenu.mode === "edit"
               ? "Edit Inventory"
+              : showSideMenu.mode === "preview"
+              ? "Preview Inventory"
               : "Add New Inventory"}
           </p>
           {/* This additional container to make them opaque in preview mode */}

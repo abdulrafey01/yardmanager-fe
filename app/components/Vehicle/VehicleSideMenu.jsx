@@ -312,7 +312,11 @@ const InventorySideMenu = () => {
       <div className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start ">
         <div className="p-6 flex w-full flex-col space-y-4">
           <p className="font-semibold">
-            {showSideMenu.mode === "edit" ? "Edit Vehicle" : ""}
+            {showSideMenu.mode === "edit"
+              ? "Edit Vehicle"
+              : showSideMenu.mode === "preview"
+              ? "Preview Vehicle"
+              : "Add Vehicle"}
           </p>
           {/* This additional container to make them opaque in preview mode */}
           <div

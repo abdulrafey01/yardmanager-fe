@@ -169,7 +169,11 @@ const EmployeeSideMenu = () => {
       >
         <div className="p-6 flex w-full flex-col space-y-4">
           <p className="font-semibold">
-            {showSideMenu.mode === "edit" ? "Edit Employee" : "Add  Employee"}
+            {showSideMenu.mode === "edit"
+              ? "Edit Employee"
+              : showSideMenu.mode === "preview"
+              ? "Preview Employee"
+              : "Add  Employee"}
           </p>
           {/* This additional container to make them opaque in preview mode */}
           <div
