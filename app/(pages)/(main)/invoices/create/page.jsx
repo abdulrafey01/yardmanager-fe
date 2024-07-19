@@ -30,7 +30,8 @@ import {
   setPreviewModal,
 } from "../../../../../lib/features/invoice/invoiceSlice";
 import Link from "next/link";
-import { getLocalStorage } from "../../../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../../../helpers/storage";
+import axios from "axios";
 const page = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -72,6 +73,7 @@ const page = () => {
   const router = useRouter();
   const [subTotal, setSubTotal] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
+  const [invoiceId, setInvoiceId] = useState(null);
   const [item, setItem] = useState(null);
 
   useEffect(() => {
@@ -130,12 +132,40 @@ const page = () => {
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
-    if (JSON.parse(getLocalStorage("invoiceItem"))) {
-      setItem(JSON.parse(getLocalStorage("invoiceItem")));
+    if (JSON.parse(getLocalStorage("invoiceId"))) {
+      setInvoiceId(JSON.parse(getLocalStorage("invoiceId")));
       setPageMode("edit");
     }
     console.log(formData);
   }, []);
+
+  useEffect(() => {
+    if (invoiceId) {
+      const fetchInvoice = async () => {
+        try {
+          const response = await axios.get(
+            "https://yardmanager-be.vercel.app/api/invoices/s/" + invoiceId,
+            {
+              headers: {
+                Authorization: `Bearer ${getCookie("token")}`,
+              },
+            }
+          );
+          setItem(response.data.data);
+        } catch (error) {
+          dispatch(
+            setShowToast({
+              value: true,
+              msg: error.response.data.message,
+              red: true,
+            })
+          );
+          setItem(null);
+        }
+      };
+      fetchInvoice();
+    }
+  }, [invoiceId]);
 
   useEffect(() => {
     console.log("item:", item);
@@ -144,16 +174,7 @@ const page = () => {
         name: item.name,
         email: item.email,
         phone: item.phone,
-        products: item.products.map((item) => {
-          return {
-            product: item.product._id,
-            name: item.product.name,
-            quantity: item.quantity,
-            price: item.price,
-            date: item.date,
-            total: item.total,
-          };
-        }),
+        products: item.products,
         tax: item.tax,
         paid: item.paid,
         status: item.status,
@@ -324,7 +345,7 @@ const page = () => {
             ...formData,
             datePaid: new Date(formData.datePaid),
           },
-          id: selectedItem._id,
+          id: item._id,
         })
       );
     } else {

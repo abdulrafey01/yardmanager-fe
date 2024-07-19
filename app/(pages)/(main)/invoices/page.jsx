@@ -88,8 +88,8 @@ const page = () => {
 
   useEffect(() => {
     //  for cleaning old data
-    if (getLocalStorage("invoiceItem")) {
-      removeLocalStorage("invoiceItem");
+    if (getLocalStorage("invoiceId")) {
+      removeLocalStorage("invoiceId");
     }
   }, []);
 

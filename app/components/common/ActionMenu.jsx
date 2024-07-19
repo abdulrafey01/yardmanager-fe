@@ -125,7 +125,7 @@ const ActionMenu = ({ index, item, permissions }) => {
               // console.log(permissions);
               dispatch(setSelectedItem(item));
               dispatch(setShowActionMenu(-1));
-              setLocalStorage("invoiceItem", item);
+              setLocalStorage("invoiceId", item._id);
               // because on navigating this state refreshes on live server, so used local storage
 
               // dispatch(
