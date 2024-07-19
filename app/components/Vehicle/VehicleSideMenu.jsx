@@ -183,10 +183,11 @@ const InventorySideMenu = () => {
     }
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
-    // if (colorToggle) {
-    //   formDataRef.current.set("color", formState.color);
-    // } else {
-    //   formDataRef.current.delete("color");
+    // if (imgArray.length > 0) {
+    //   for (let i = 0; i < imgArray.length; i++) {
+    //     // formDataRef.current.set("images", files[i]);
+    //     formData.append(`images`, imgArray[i]);
+    //   }
     // }
 
     if (showSideMenu.mode === "edit") {

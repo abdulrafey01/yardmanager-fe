@@ -18,7 +18,8 @@ import ProfileImg from "../../../../assets/main/51-profileimg.svg";
 import { useRouter } from "next/navigation";
 import { updatePersonal } from "../../../../../lib/features/profile/profileActions";
 import { resetToast } from "../../../../../lib/features/profile/profileSlice";
-import { getLocalStorage } from "../../../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../../../helpers/storage";
+import axios from "axios";
 
 const page = ({}) => {
   const dispatch = useDispatch();
@@ -100,24 +101,37 @@ const page = ({}) => {
     routePage();
   }, []);
 
-  useEffect(() => {
-    if (JSON.parse(getLocalStorage("user"))?.userType === "employee") {
-      setLocalData(JSON.parse(getLocalStorage("user")));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (JSON.parse(getLocalStorage("user"))?.userType === "employee") {
+  //     setLocalData(JSON.parse(getLocalStorage("user")));
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (localData) {
-      console.log("localData", localData);
-      setPersonalFormState({
-        firstName: localData?.data.name.first,
-        lastName: localData?.data.name.last,
-        email: localData?.data.email,
-        username: localData?.data.username,
-        password: localData?.data.password,
-      });
-    }
-  }, [localData]);
+    const data = async () => {
+      console.log("fetching data");
+      let token = await getCookie("token");
+      console.log(token);
+      axios
+        .get(`https://yardmanager-be.vercel.app/api/users/info`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setPersonalFormState({
+            firstName: res.data.data.user.name.first,
+            lastName: res.data.data.user.name.last,
+            email: res.data.data.user.email,
+            username: res.data.data.user.username,
+            password: res.data.data.user.password,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    data();
+  }, []);
 
   useEffect(() => {
     if (personalData) {
@@ -154,6 +168,7 @@ const page = ({}) => {
     formData.append("email", personalFormState.email);
     formData.append("username", personalFormState.username);
     formData.append("password", personalFormState.password);
+    // formData.append;
 
     // submit personal form
     dispatch(updatePersonal(formData));
@@ -168,7 +183,33 @@ const page = ({}) => {
       confirmPassword: "",
     });
   };
-  const uploadImage = () => {};
+  const uploadImage = async (n) => {
+    if (!image) {
+      return;
+    }
+    const imageForm = new FormData();
+    imageForm.append("profile", image);
+
+    let token = await getCookie("token");
+    axios
+      .put("https://yardmanager-be.vercel.app/api/users/update", imageForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setImageToggle(0);
+        setImage(null);
+      })
+      .catch((err) => {
+        console.log(err);
+        setImage(null);
+        dispatch(
+          setShowToast({ value: true, msg: "Something went wrong", red: true })
+        );
+      });
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width

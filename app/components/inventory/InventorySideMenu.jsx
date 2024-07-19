@@ -111,10 +111,6 @@ const InventorySideMenu = () => {
   const onImageChange = (e) => {
     const files = Array.from(e.target.files);
     setImgArray(files);
-    for (let i = 0; i < files.length; i++) {
-      // formDataRef.current.set("images", files[i]);
-      formData.append(`images`, files[i]);
-    }
   };
 
   // Function to handle form submit
@@ -212,6 +208,29 @@ const InventorySideMenu = () => {
         formData.append(`variant`, variant);
       });
     }
+
+    // In edit mode:
+    // if (showSideMenu.mode === "edit") {
+    //   if (imgArray.length > 0) {
+    //     for (let i = 0; i < imgArray.length; i++) {
+    //       if (typeof imgArray[i] !== "string") {
+    //         formData.append(`newImage`, imgArray[i]);
+    //       } else {
+    //         formData.append(`images`, imgArray[i]);
+    //       }
+    //     }
+    //   } else {
+    //     formData.append("images", "");
+    //   }
+    // } else {
+    //   // in add mode
+    //   if (imgArray.length > 0) {
+    //     for (let i = 0; i < imgArray.length; i++) {
+    //       // formDataRef.current.set("images", files[i]);
+    //       formData.append(`images`, imgArray[i]);
+    //     }
+    //   }
+    // }
     formData.append("notes", formState.notes);
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
@@ -234,6 +253,14 @@ const InventorySideMenu = () => {
     setDateType2(false);
   };
 
+  // const onFormSubmit = (e) => {
+  //   console.log(imgArray);
+  //   for (let i = 0; i < imgArray.length; i++) {
+  //     // formDataRef.current.set("images", files[i]);
+  //     formData.append(`images`, imgArray[i]);
+  //   }
+  //   dispatch(addInventory(formData));
+  // };
   const removeModelFromList = (index) => {
     setFormState({
       ...formState,

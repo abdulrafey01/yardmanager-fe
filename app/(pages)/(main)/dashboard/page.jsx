@@ -322,12 +322,13 @@ const page = () => {
                   </p>
                   <p
                     onClick={() => {
-                      setFilterValue1("Yearly");
+                      setFilterValue1("Weekly");
                     }}
                     className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
                   >
-                    Yearly
+                    Weekly
                   </p>
+
                   <p
                     onClick={() => {
                       setFilterValue1("Monthly");
@@ -338,11 +339,11 @@ const page = () => {
                   </p>
                   <p
                     onClick={() => {
-                      setFilterValue1("Weekly");
+                      setFilterValue1("Yearly");
                     }}
                     className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
                   >
-                    Weekly
+                    Yearly
                   </p>
                 </div>
               </div>
@@ -391,11 +392,11 @@ const page = () => {
                   </p>
                   <p
                     onClick={() => {
-                      setFilterValue2("Yearly");
+                      setFilterValue2("Weekly");
                     }}
                     className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
                   >
-                    Yearly
+                    Weekly
                   </p>
                   <p
                     onClick={() => {
@@ -407,11 +408,11 @@ const page = () => {
                   </p>
                   <p
                     onClick={() => {
-                      setFilterValue2("Weekly");
+                      setFilterValue2("Yearly");
                     }}
                     className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
                   >
-                    Weekly
+                    Yearly
                   </p>
                 </div>
               </div>

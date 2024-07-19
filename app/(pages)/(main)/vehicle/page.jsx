@@ -126,7 +126,13 @@ const page = () => {
     formData.append("startYear", vinDecodedData?.year);
     formData.append("make[0]", vinDecodedData?.make);
     formData.append("model[0]", vinDecodedData?.model);
-    formData.append("image", imgArray2);
+    // in add mode
+    if (imgArray2.length > 0) {
+      for (let i = 0; i < imgArray2.length; i++) {
+        // formDataRef.current.set("images", files[i]);
+        formData.append(`images`, imgArray2[i]);
+      }
+    }
     dispatch(addVehicle(formData));
 
     // reset data fields
@@ -137,8 +143,6 @@ const page = () => {
   };
 
   const onImageChange = (e) => {
-    // console.log(e.target.files[0]);
-
     setImgArray2(Array.from(e.target.files));
   };
 

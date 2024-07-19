@@ -158,7 +158,7 @@ const page = () => {
         paid: item.paid,
         status: item.status,
         notes: item.notes,
-        datePaid: new Date(item.datePaid),
+        datePaid: new Date(item.datePaid).toLocaleDateString(),
       });
       setPaymentMethod(item.paymentMethod);
       setDatePaidInputType("text");
@@ -178,7 +178,16 @@ const page = () => {
   }, [item]);
 
   const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      //if value being set is for input named paid then first check that it should not exceed grantotal otherwise set it to grantotal
+      [e.target.name]:
+        e.target.name === "paid"
+          ? e.target.value > grandTotal
+            ? grandTotal
+            : e.target.value
+          : e.target.value,
+    });
   };
 
   const onProductNameInputChange = (e) => {
@@ -311,7 +320,10 @@ const page = () => {
     if (pageMode === "edit") {
       dispatch(
         updateInvoice({
-          formData,
+          formData: {
+            ...formData,
+            datePaid: new Date(formData.datePaid),
+          },
           id: selectedItem._id,
         })
       );
@@ -643,7 +655,7 @@ const page = () => {
                   }}
                   type={datePaidInputType}
                   name={"datePaid"}
-                  value={new Date(formData.datePaid).toLocaleDateString()}
+                  value={formData.datePaid}
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />

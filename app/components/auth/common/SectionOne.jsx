@@ -8,9 +8,9 @@ import BoxImg3 from "../../../assets/auth/Illustrations-5.svg";
 import Header from "../../common/Header";
 const SectionOne = () => {
   const descArray = [
-    "Simplify tracking and organizing your parts with our intuitive system. Save time and reduce errors with efficient inventory control.",
-    "Our user-friendly platform ensures you can find what you need quickly. Keep your inventory up-to-date and accurate with minimal effort.",
-    " Gain better control over your stock levels and reduce downtime. Experience a hassle-free approach to keeping your parts inventory in check.",
+    "Simplify tracking and organizing your parts with our intuitive system. Save time and reduce errors with efficient inventory control!",
+    "Our user-friendly platform ensures you can find what you need quickly. Keep your inventory up-to-date and accurate with minimal effort!",
+    " Gain better control over your stock levels and reduce downtime. Experience a hassle-free approach to keeping your parts inventory in check!",
     "",
   ];
   const [activeLineIndex, setActiveLineIndex] = React.useState(0);
@@ -55,7 +55,7 @@ const SectionOne = () => {
       {/* Text containers */}
       <div className=" w-full flex flex-col space-y-6 text-white">
         <p className="text-sm font-bold sm:text-xl">
-          The simplest way to mange your Auto Parts Inventory
+          The Simplest way to manage your Auto Parts Inventory
         </p>
         <p className="text-sm pr-5">{descArray[activeLineIndex]}</p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">

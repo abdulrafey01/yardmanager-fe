@@ -31,7 +31,7 @@ const AuthToast = ({}) => {
     // };
   }, [showToast, dispatch]);
   return (
-    <div className="fixed z-50 top-4 right-4 space-y-2">
+    <div className="fixed z-[90] top-4 right-4 space-y-2">
       {showToast.map((toast) => (
         <div
           key={toast.id}

@@ -63,13 +63,20 @@ const page = () => {
         .then((res) => {
           console.log(res.data);
           setCompanyFormState(res.data.data.company);
+          setPersonalFormState({
+            firstName: res.data.data.user.name.first,
+            lastName: res.data.data.user.name.last,
+            email: res.data.data.user.email,
+            username: res.data.data.user.username,
+            password: res.data.data.user.password,
+          });
         })
         .catch((err) => {
           console.log(err);
         });
     };
     data();
-  }, [companyFormState]);
+  }, []);
 
   // for sending personal data
   const formData = new FormData();
@@ -94,6 +101,7 @@ const page = () => {
     dispatch(setCurrentPage("MyProfile"));
   }, [dispatch]);
 
+  // For update api changes updates
   useEffect(() => {
     setCompanyFormState({
       name: companyData?.name,
@@ -146,24 +154,24 @@ const page = () => {
     routePage();
   }, []);
 
-  useEffect(() => {
-    if (JSON.parse(getLocalStorage("user"))) {
-      setLocalData(JSON.parse(getLocalStorage("user")));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (JSON.parse(getLocalStorage("user"))) {
+  //     setLocalData(JSON.parse(getLocalStorage("user")));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    if (localData) {
-      console.log("localData", localData);
-      setPersonalFormState({
-        firstName: localData?.data.name.first,
-        lastName: localData?.data.name.last,
-        email: localData?.data.email,
-        username: localData?.data.username,
-        password: localData?.data.password,
-      });
-    }
-  }, [localData]);
+  // useEffect(() => {
+  //   if (localData) {
+  //     console.log("localData", localData);
+  //     setPersonalFormState({
+  //       firstName: localData?.data.name.first,
+  //       lastName: localData?.data.name.last,
+  //       email: localData?.data.email,
+  //       username: localData?.data.username,
+  //       password: localData?.data.password,
+  //     });
+  //   }
+  // }, [localData]);
   // set company form state
   const onCompanyInputChange = (event) => {
     setCompanyFormState({
@@ -229,7 +237,7 @@ const page = () => {
     // check password
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
-        setShowToast({ value: true, msg: "Password don't match" })
+        setShowToast({ value: true, msg: "Password don't match", red: true })
       );
     }
     // submit personal form
@@ -260,12 +268,15 @@ const page = () => {
       <div className="flex relative w-full p-2">
         <Image src={ProfileHeaderImg} className="rounded-lg w-full" />
         <div
-          className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold  cursor-pointer"
+          className="hidden sm:block absolute  top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold  cursor-pointer"
           onClick={() => setImageToggle(1)}
         >
           Edit display Image
         </div>
-        <div className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold">
+        <div
+          onClick={() => setImageToggle(1)}
+          className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] cursor-pointer rounded-lg text-xs text-black font-semibold"
+        >
           Edit
         </div>
       </div>
@@ -274,7 +285,7 @@ const page = () => {
         <div className="absolute w-20 h-14 sm:w-40 sm:h-28 p-1 sm:p-2 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-lg">
           <Image src={ProfileImg} alt="profile" />
           <Image
-            className="absolute bottom-[-10px] right-[-10px]"
+            className="absolute bottom-[-10px] right-[-10px] cursor-pointer"
             src={EditImg}
             alt="logo"
             onClick={() => setImageToggle(2)}
