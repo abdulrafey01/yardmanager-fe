@@ -113,7 +113,7 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
           />
           <p>Delete</p>
         </div>
-        {title === "Employees" && (
+        {/* {title === "Employees" && (
           <div className="bg-white w-36 flex justify-start items-center rounded-sm  border-white space-x-3">
             <input
               type="checkbox"
@@ -121,8 +121,8 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
             />
             <p>Change Role</p>
           </div>
-        )}
-        {title === "Invoices" && (
+        )} */}
+        {/* {title === "Invoices" && (
           <div className="bg-white w-36 flex justify-start items-center rounded-sm  border-white space-x-3">
             <input
               type="checkbox"
@@ -130,7 +130,7 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
             />
             <p>Change Status</p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

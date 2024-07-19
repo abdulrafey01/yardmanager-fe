@@ -22,6 +22,7 @@ import { searchPartByName } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { updateVehicle } from "../../../lib/features/vehicle/vehicleActions";
 import DropDownInput from "../common/DropDownInput";
+import ImageDropzone from "../common/ImageDropzone";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -503,55 +504,11 @@ const InventorySideMenu = () => {
               />
             </div>
             {/* Inventory Image input */}
-            <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
-              {imgArray?.length > 0 ? (
-                <div className="w-full flex justify-start items-center min-h-20 space-x-2">
-                  {imgArray.map((img, index) => (
-                    <div className="relative ">
-                      <Image
-                        src={
-                          typeof img === "string"
-                            ? img
-                            : URL.createObjectURL(img)
-                        }
-                        width={80}
-                        height={80}
-                        alt="img"
-                      />
-                      <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
-                        <Image
-                          onClick={() => {
-                            setImgArray(
-                              imgArray.filter((item) => item !== img)
-                            );
-                          }}
-                          src={XIcon}
-                          alt="XIcon"
-                        />
-                      </div>
-                      <div className="absolute top-0 left-0 cursor-pointer">
-                        <Image src={EnlargeIcon} alt="EnlargeIcon" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <label
-                  className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
-                  htmlFor="dropzone"
-                >
-                  <Image src={UploadIcon} alt="UploadIcon" />
-                  <p className="text-[#01E268]">Upload Part Image</p>{" "}
-                  <input
-                    onChange={onImageChange}
-                    id="dropzone"
-                    className="hidden"
-                    type="file"
-                    multiple
-                  />
-                </label>
-              )}
-            </div>
+            <ImageDropzone
+              imgArray={imgArray}
+              setImgArray={setImgArray}
+              onImageChange={onImageChange}
+            />
           </div>
         </div>
         {/* Buttons */}

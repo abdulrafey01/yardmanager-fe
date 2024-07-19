@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
 import SideMenu from "./SideMenu";
 import InvoicePrevModal from "../invoices/InvoicePrevModal";
+import ImagePrevModal from "./ImagePrevModal";
 const AbsoluteMenusAndModals = () => {
   const dispatch = useDispatch();
   const { deleteInvoiceIndex, showDeleteModal } = useSelector(
@@ -14,6 +15,8 @@ const AbsoluteMenusAndModals = () => {
       <Modal />
       {/* Invoice preview Modal */}
       <InvoicePrevModal />
+      {/* Image Preview Modal */}
+      <ImagePrevModal />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import UploadIcon from "../../assets/main/44-upload.svg";
 import {
+  setPrevImage,
   setShowSideMenu,
   setShowSuccessModal,
   setShowToast,
@@ -21,11 +22,13 @@ import "../../styles.css";
 import { searchPartByName } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { getLocalStorage } from "../../helpers/storage";
+import PlusIcon from "../../assets/main/82-plus.svg";
+import ImageDropzone from "../common/ImageDropzone";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
-  const [imgArray, setImgArray] = React.useState(null);
+  const [imgArray, setImgArray] = React.useState([]);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
   const [locId, setLocId] = React.useState(null);
@@ -110,7 +113,7 @@ const InventorySideMenu = () => {
   // Function to handle image change
   const onImageChange = (e) => {
     const files = Array.from(e.target.files);
-    setImgArray(files);
+    setImgArray([...imgArray, ...files]);
   };
 
   // Function to handle form submit
@@ -141,7 +144,10 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.startYear === "") {
+    } else if (
+      formState.startYear === "" ||
+      formState.startYear === "Invalid Date"
+    ) {
       return dispatch(
         setShowToast({
           value: true,
@@ -149,11 +155,14 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.lastYear === "") {
+    } else if (
+      formState.lastYear === "" ||
+      formState.lastYear === "Invalid Date"
+    ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the end year field",
+          msg: "Please fill the Last Year field",
           red: true,
         })
       );
@@ -210,27 +219,26 @@ const InventorySideMenu = () => {
     }
 
     // In edit mode:
-    // if (showSideMenu.mode === "edit") {
-    //   if (imgArray.length > 0) {
-    //     for (let i = 0; i < imgArray.length; i++) {
-    //       if (typeof imgArray[i] !== "string") {
-    //         formData.append(`newImage`, imgArray[i]);
-    //       } else {
-    //         formData.append(`images`, imgArray[i]);
-    //       }
-    //     }
-    //   } else {
-    //     formData.append("images", "");
-    //   }
-    // } else {
-    //   // in add mode
-    //   if (imgArray.length > 0) {
-    //     for (let i = 0; i < imgArray.length; i++) {
-    //       // formDataRef.current.set("images", files[i]);
-    //       formData.append(`images`, imgArray[i]);
-    //     }
-    //   }
-    // }
+    if (showSideMenu.mode === "edit") {
+      if (imgArray.length > 0) {
+        for (let i = 0; i < imgArray.length; i++) {
+          if (typeof imgArray[i] !== "string") {
+            formData.append(`newImage`, imgArray[i]);
+          } else {
+          }
+        }
+      } else {
+        formData.append("images", "");
+      }
+    } else {
+      // in add mode
+      if (imgArray.length > 0) {
+        for (let i = 0; i < imgArray.length; i++) {
+          // formDataRef.current.set("images", files[i]);
+          formData.append(`images`, imgArray[i]);
+        }
+      }
+    }
     formData.append("notes", formState.notes);
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
@@ -318,7 +326,7 @@ const InventorySideMenu = () => {
         price: "",
         color: "",
       });
-      setImgArray(null);
+      setImgArray([]);
       setLocValue("");
       setColorToggle(false);
       setDateType1(false);
@@ -342,7 +350,7 @@ const InventorySideMenu = () => {
       lastYear: "",
       price: "",
     });
-    setImgArray(null);
+    setImgArray([]);
     setLocValue("");
     setPartValue("");
     setDateType1(false);
@@ -625,55 +633,78 @@ const InventorySideMenu = () => {
             </div>
             {/* Inventory Image input */}
             {imageToggle && (
-              <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
-                {imgArray?.length > 0 ? (
-                  <div className="w-full flex justify-start items-center min-h-20 space-x-2">
-                    {imgArray.map((img, index) => (
-                      <div key={index} className="relative ">
-                        <Image
-                          src={
-                            typeof img === "string"
-                              ? img
-                              : URL.createObjectURL(img)
-                          }
-                          width={80}
-                          height={80}
-                          alt="img"
-                        />
-                        <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
-                          <Image
-                            onClick={() => {
-                              setImgArray(
-                                imgArray.filter((item) => item !== img)
-                              );
-                            }}
-                            src={XIcon}
-                            alt="XIcon"
-                          />
-                        </div>
-                        <div className="absolute top-0 left-0 cursor-pointer">
-                          <Image src={EnlargeIcon} alt="EnlargeIcon" />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <label
-                    className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
-                    htmlFor="dropzone"
-                  >
-                    <Image src={UploadIcon} alt="UploadIcon" />
-                    <p className="text-[#01E268]">Upload Part Image</p>{" "}
-                    <input
-                      onChange={onImageChange}
-                      id="dropzone"
-                      className="hidden"
-                      type="file"
-                      multiple
-                    />
-                  </label>
-                )}
-              </div>
+              // <div className="w-full relative p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
+              //   {imgArray?.length > 0 ? (
+              //     <div className="w-full flex justify-start items-center min-h-20 space-x-2">
+              //       {imgArray.map((img, index) => (
+              //         <div key={index} className="relative ">
+              //           <Image
+              //             src={
+              //               typeof img === "string"
+              //                 ? img
+              //                 : URL.createObjectURL(img)
+              //             }
+              //             width={80}
+              //             height={80}
+              //             alt="img"
+              //           />
+              //           <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
+              //             <Image
+              //               onClick={() => {
+              //                 setImgArray(
+              //                   imgArray.filter((item) => item !== img)
+              //                 );
+              //               }}
+              //               src={XIcon}
+              //               alt="XIcon"
+              //             />
+              //           </div>
+              //           <div
+              //             onClick={() => {
+              //               dispatch(setPrevImage({ modal: true, img }));
+              //             }}
+              //             className="absolute top-0 left-0 cursor-pointer"
+              //           >
+              //             <Image src={EnlargeIcon} alt="EnlargeIcon" />
+              //           </div>
+              //         </div>
+              //       ))}
+              //     </div>
+              //   ) : (
+              //     <label
+              //       className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
+              //       htmlFor="dropzone"
+              //     >
+              //       <Image src={UploadIcon} alt="UploadIcon" />
+              //       <p className="text-[#01E268]">Upload Part Image</p>{" "}
+              //       <input
+              //         onChange={onImageChange}
+              //         id="dropzone"
+              //         className="hidden"
+              //         type="file"
+              //         multiple
+              //       />
+              //     </label>
+              //   )}
+              //   <label
+              //     className={`absolute bg-white cursor-pointer top-2 right-2 ${
+              //       imgArray?.length > 0 ? "block" : "hidden"
+              //     }`}
+              //   >
+              //     <input
+              //       className="hidden"
+              //       type="file"
+              //       onChange={onImageChange}
+              //       multiple
+              //     />
+              //     <Image width={20} height={20} src={PlusIcon} alt="PlusIcon" />
+              //   </label>
+              // </div>
+              <ImageDropzone
+                imgArray={imgArray}
+                setImgArray={setImgArray}
+                onImageChange={onImageChange}
+              />
             )}
           </div>
         </div>

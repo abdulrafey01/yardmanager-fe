@@ -27,6 +27,7 @@ import {
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import { setVinDecodedData } from "../../../../lib/features/vehicle/vehicleSlice";
 import Footer from "../../../components/common/Footer";
+import ImageDropzone from "../../../components/common/ImageDropzone";
 
 const page = () => {
   const { error, vehicleData, toastMsg, totalDataLength, vinDecodedData } =
@@ -142,7 +143,7 @@ const page = () => {
     setShowDecodeMenu(false);
   };
 
-  const onImageChange = (e) => {
+  const onImageChange2 = (e) => {
     setImgArray2(Array.from(e.target.files));
   };
 
@@ -216,59 +217,19 @@ const page = () => {
             </div>
           </div>
           {/* Vehicle Image input */}
-          <div className="w-full p-4 hover:border-gray-400 rounded-lg border   flex justify-center items-center border-[#D0D5DD]">
-            {imgArray2?.length > 0 ? (
-              <div className="w-full flex justify-start items-center min-h-20 space-x-2">
-                {imgArray2.map((img, index) => (
-                  <div key={index} className="relative ">
-                    <Image
-                      src={
-                        typeof img === "string" ? img : URL.createObjectURL(img)
-                      }
-                      width={80}
-                      height={80}
-                      alt="img"
-                    />
-                    <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
-                      <Image
-                        onClick={() => {
-                          setImgArray2(
-                            imgArray2.filter((item) => item !== img)
-                          );
-                        }}
-                        src={XIcon}
-                        alt="XIcon"
-                      />
-                    </div>
-                    <div className="absolute top-0 left-0 cursor-pointer">
-                      <Image src={EnlargeIcon} alt="EnlargeIcon" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <label
-                className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "
-                htmlFor="dropzone2"
-              >
-                <Image src={UploadIcon} alt="UploadIcon" />
-                <p className="text-[#01E268]">Upload Part Image</p>{" "}
-                <input
-                  onChange={onImageChange}
-                  id="dropzone2"
-                  className="hidden"
-                  type="file"
-                  multiple
-                />
-              </label>
-            )}
-          </div>
+          <ImageDropzone
+            htmlName="image2"
+            imgArray={imgArray2}
+            setImgArray={setImgArray2}
+            onImageChange={onImageChange2}
+          />
           <div className="flex justify-center items-center gap-2">
             <WhiteBtn
               onClick={() => {
                 setVinVal("");
                 dispatch(setVinDecodedData(null));
                 setShowDecodeMenu(false);
+                setImgArray2(null);
               }}
               title={"Discard"}
             />
