@@ -40,7 +40,7 @@ import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Link from "next/link";
 const SideBar = () => {
   const pathName = usePathname();
-  const [activeMainBtn, setActiveMainBtn] = useState(0);
+  const [activeMainBtn, setActiveMainBtn] = useState(-1);
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const { showSideBar, currentPage } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);

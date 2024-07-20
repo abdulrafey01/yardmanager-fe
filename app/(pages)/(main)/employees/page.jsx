@@ -262,11 +262,11 @@ const page = () => {
                 titles={[
                   index + 1,
                   `${data.name.first} ${data.name.last}`,
-                  data.email,
-                  data.role.name,
-                  data.position,
+                  data?.email,
+                  data?.role?.name,
+                  data?.position,
                   new Date(data.date).toLocaleDateString(),
-                  data.status,
+                  data?.status,
                 ]}
                 key={index}
                 rowIndex={index}

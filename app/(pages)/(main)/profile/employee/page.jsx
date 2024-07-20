@@ -102,11 +102,11 @@ const page = ({}) => {
 
   useEffect(() => {
     setPersonalFormState({
-      firstName: user.data.name.first,
-      lastName: user.data.name.last,
-      email: user.data.email,
-      username: user.data.username,
-      password: user.data.password,
+      firstName: user?.data.name.first,
+      lastName: user?.data.name.last,
+      email: user?.data.email,
+      username: user?.data.username,
+      password: user?.data.password,
     });
   }, [user]);
 
