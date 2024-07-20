@@ -27,11 +27,11 @@ const layout = ({ children }) => {
 
   // For Routing auth
   useEffect(() => {
-    if (getCookie("token")) {
+    if (token) {
       // console.log("token", token);
       router.push("/dashboard");
     }
-  }, [getCookie("token")]);
+  }, [token]);
 
   // For Routing auth
   // useEffect(() => {
