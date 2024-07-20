@@ -242,7 +242,9 @@ const AddRoleMenu = () => {
     }
     if (showSideMenu.mode === "edit") {
       dispatch(updateRole({ formData, id: selectedItem._id }));
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
     } else {
       dispatch(addRole(formData));
     }
