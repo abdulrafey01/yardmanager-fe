@@ -213,7 +213,7 @@ const InventorySideMenu = () => {
     if (formState.variant.length === 1) {
       formData.append("variant", formState.variant[0]);
     } else {
-      formState.make.forEach((variant, index) => {
+      formState.variant.forEach((variant, index) => {
         formData.append(`variant`, variant);
       });
     }

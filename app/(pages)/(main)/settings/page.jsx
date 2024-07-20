@@ -61,7 +61,7 @@ const page = () => {
         <>
           <div
             className={`w-full bg-white  items-center justify-start  p-4 rounded-lg ${
-              permission?.update
+              pagePermission?.update
                 ? "flex"
                 : "flex opacity-50 pointer-events-none"
             } `}
@@ -84,7 +84,7 @@ const page = () => {
           {/* Second container */}
           <div
             className={`w-full bg-white  items-center justify-start  p-4 rounded-lg ${
-              permission?.update
+              pagePermission?.update
                 ? "flex"
                 : "flex opacity-50 pointer-events-none"
             } `}

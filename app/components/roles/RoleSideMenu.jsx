@@ -212,10 +212,10 @@ const AddRoleMenu = () => {
           name: "roles",
           permissions: rolePerm,
         },
-        // {
-        //   name: "vehicles",
-        //   permissions: vehiclePerm,
-        // },
+        {
+          name: "vehicles",
+          permissions: vehiclePerm,
+        },
       ],
     });
   }, [

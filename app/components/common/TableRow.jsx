@@ -25,7 +25,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           {titles[1].map((variant, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A] rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A] rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {variant}
             </div>
@@ -93,7 +93,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           {titles[3].map((model, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
             </div>
@@ -109,7 +109,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           {titles[4].map((make, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
             </div>
@@ -125,7 +125,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           {titles[5].map((variant, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {variant}
             </div>
@@ -165,7 +165,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[3].map((model, index) => (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
             </div>
@@ -180,7 +180,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[4].map((make, index) => (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
             </div>
@@ -195,7 +195,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[5].map((variant, index) => (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {variant}
             </div>
@@ -214,6 +214,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
               placeholder="Notes"
               className="w-full outline-none bg-transparent"
               value={titles[6]}
+              readOnly
             />
           </div>
         </div>
@@ -268,7 +269,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[3].map((model, index) => (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
             </div>
@@ -283,7 +284,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[index].map((make, index) => (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
             </div>

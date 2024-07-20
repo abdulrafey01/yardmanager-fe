@@ -49,6 +49,7 @@ const PartSideMenu = () => {
         setShowToast({
           value: true,
           msg: "Please fill in all the fields",
+          red: true,
         })
       );
     }

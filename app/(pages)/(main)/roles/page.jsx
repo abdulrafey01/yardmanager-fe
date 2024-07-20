@@ -158,11 +158,7 @@ const page = () => {
             )}
             {dataFromServer.map((data, index) => (
               <TableRow
-                titles={[
-                  index + 1,
-                  data.name,
-                  data.employeesCount ? data.employeesCount : 0,
-                ]}
+                titles={[index + 1, data.name, data.employeesCount]}
                 key={index}
                 rowIndex={index}
                 item={data}

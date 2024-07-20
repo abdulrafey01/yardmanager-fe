@@ -294,12 +294,20 @@ const EmployeeSideMenu = () => {
             Cancel
           </div>
           <div
-            onClick={onFormSubmit}
-            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
-              showSideMenu.mode === "preview" && "hidden"
-            }`}
+            onClick={(e) => {
+              if (showSideMenu.mode === "preview") {
+                dispatch(setShowSideMenu({ value: true, mode: "edit" }));
+              } else {
+                onFormSubmit(e);
+              }
+            }}
+            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none `}
           >
-            {showSideMenu.mode === "edit" ? "Edit Employee" : "Add Employee"}
+            {showSideMenu.mode === "edit"
+              ? "Update Employee"
+              : showSideMenu.mode === "preview"
+              ? "Edit Employee"
+              : "Add Employee"}
           </div>
         </div>
       </div>

@@ -146,6 +146,14 @@ const TopBar = () => {
               removeLocalStorage("priceToggle");
               removeLocalStorage("partImageToggle");
             }}
+            // onClick={() => {
+            //   dispatch(logout());
+            //   removeLocalStorage("priceToggle");
+            //   removeLocalStorage("partImageToggle");
+            //   // setTimeout(() => {
+
+            //   // }, timeout);
+            // }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
             Logout

@@ -34,7 +34,7 @@ const page = () => {
     useSelector((state) => state.vehicle);
   const [showDecodeMenu, setShowDecodeMenu] = React.useState(false);
 
-  const [imgArray2, setImgArray2] = React.useState(null);
+  const [imgArray2, setImgArray2] = React.useState([]);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -102,11 +102,11 @@ const page = () => {
 
   // Decode Btn CLick
   const handleDecodeBtnClick = () => {
-    if (vinVal.length < 17) {
+    if (vinVal.length !== 17) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Minimum 17 digits required for VIN",
+          msg: "Exact 17 digits required for VIN",
           red: true,
         })
       );
@@ -128,7 +128,7 @@ const page = () => {
     formData.append("make[0]", vinDecodedData?.make);
     formData.append("model[0]", vinDecodedData?.model);
     // in add mode
-    if (imgArray2.length > 0) {
+    if (imgArray2?.length > 0) {
       for (let i = 0; i < imgArray2.length; i++) {
         // formDataRef.current.set("images", files[i]);
         formData.append(`images`, imgArray2[i]);
@@ -144,7 +144,8 @@ const page = () => {
   };
 
   const onImageChange2 = (e) => {
-    setImgArray2(Array.from(e.target.files));
+    const files2 = Array.from(e.target.files);
+    setImgArray2([...imgArray2, ...files2]);
   };
 
   // useEffect(() => {
