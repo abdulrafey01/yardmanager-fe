@@ -56,6 +56,7 @@ const SideBar = () => {
     "employees",
     "roles",
     "settings",
+    "vehicles",
   ];
 
   // name 2 is just used to filter them for hiding
@@ -121,7 +122,7 @@ const SideBar = () => {
       iconW: CarSvg,
       iconB: CarSvgB,
       route: "/vehicle",
-      name2: "vehicle",
+      name2: "vehicles",
     },
     {
       name: "Subscription",
@@ -217,7 +218,7 @@ const SideBar = () => {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "roles"));
     }
     if (pathName === "/vehicle") {
-      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "vehicle"));
+      setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "vehicles"));
     }
     if (
       pathName === "/subscription" ||
