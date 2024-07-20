@@ -39,7 +39,7 @@ const layout = ({ children }) => {
       // console.log("token", token);
       router.push("/dashboard");
     }
-  }, [window?.sessionStorage.getItem("token")]);
+  }, [token]);
   return (
     <div className="min-h-screen select-none flex justify-center items-center ">
       <Toast />
