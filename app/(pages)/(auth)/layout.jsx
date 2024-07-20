@@ -26,15 +26,12 @@ const layout = ({ children }) => {
 
   // For Routing auth
   useEffect(() => {
-    // Set up the timeout
-    const timeoutId = setTimeout(() => {
-      if (!token) {
+    setTimeout(() => {
+      if (token) {
+        // console.log("token", token);
         router.push("/dashboard");
       }
     }, 2000);
-
-    // Clean up the timeout if `token` changes or component unmounts
-    return () => clearTimeout(timeoutId);
   }, [token]);
 
   // For Routing auth
