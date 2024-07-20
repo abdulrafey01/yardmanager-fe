@@ -30,7 +30,7 @@ const layout = ({ children }) => {
       // console.log("token", token);
       router.push("/dashboard");
     }
-  }, [token]);
+  }, [token, dispatch]);
 
   // For Routing auth
   // useEffect(() => {
