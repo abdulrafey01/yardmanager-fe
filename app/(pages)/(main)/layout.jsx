@@ -6,7 +6,7 @@ import AbsoluteMenusAndModals from "../../components/common/AbsoluteMenusAndModa
 import TopBar from "../../components/common/TopBar";
 import "../../styles.css";
 import Toast from "../../abstracts/Toast";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import useloadAuthState from "../../helpers/authHook";
 import NavRow from "../../components/admin/common/NavRow";
