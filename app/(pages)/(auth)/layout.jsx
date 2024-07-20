@@ -26,12 +26,10 @@ const layout = ({ children }) => {
 
   // For Routing auth
   useEffect(() => {
-    setTimeout(() => {
-      if (token) {
-        // console.log("token", token);
-        router.push("/dashboard");
-      }
-    }, 2000);
+    if (token) {
+      // console.log("token", token);
+      router.push("/dashboard");
+    }
   }, [token]);
 
   // For Routing auth
