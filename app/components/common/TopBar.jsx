@@ -143,9 +143,6 @@ const TopBar = () => {
           <div
             onClick={() => {
               dispatch(logout());
-              removeLocalStorage("priceToggle");
-              removeLocalStorage("partImageToggle");
-              window.location.href = "/sign-in";
             }}
             // onClick={() => {
             //   dispatch(logout());
