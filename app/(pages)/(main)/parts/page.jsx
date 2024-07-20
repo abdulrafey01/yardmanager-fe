@@ -30,7 +30,7 @@ const page = () => {
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-  const [dataFromServer, setDataFromServer] = React.useState([]);
+  const [dataFromServer, setDataFromServer] = React.useState(null);
 
   const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
@@ -135,6 +135,11 @@ const page = () => {
             {/* Head */}
             <TableHead titles={["Name", "Variants"]} />
             {/* Body */}
+            {dataFromServer.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[data.name, data.variant]}

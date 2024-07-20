@@ -151,9 +151,18 @@ const page = () => {
             {/* Head */}
             <TableHead titles={["Sr #", "Role Name", "Employees"]} />
             {/* Body */}
+            {dataFromServer.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
             {dataFromServer.map((data, index) => (
               <TableRow
-                titles={[index + 1, data.name, data.employeesCount]}
+                titles={[
+                  index + 1,
+                  data.name,
+                  data.employeesCount ? data.employeesCount : 0,
+                ]}
                 key={index}
                 rowIndex={index}
                 item={data}

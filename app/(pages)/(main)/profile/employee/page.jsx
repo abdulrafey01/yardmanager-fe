@@ -39,7 +39,6 @@ const page = ({}) => {
     email: "",
     username: "",
   });
-  const [localData, setLocalData] = useState(null);
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
@@ -101,37 +100,15 @@ const page = ({}) => {
     routePage();
   }, []);
 
-  // useEffect(() => {
-  //   if (JSON.parse(getLocalStorage("user"))?.userType === "employee") {
-  //     setLocalData(JSON.parse(getLocalStorage("user")));
-  //   }
-  // }, []);
-
   useEffect(() => {
-    const data = async () => {
-      console.log("fetching data");
-      let token = await getCookie("token");
-      console.log(token);
-      axios
-        .get(`https://yardmanager-be.vercel.app/api/users/info`, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          console.log(res.data);
-          setPersonalFormState({
-            firstName: res.data.data.user.name.first,
-            lastName: res.data.data.user.name.last,
-            email: res.data.data.user.email,
-            username: res.data.data.user.username,
-            password: res.data.data.user.password,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    data();
-  }, []);
+    setPersonalFormState({
+      firstName: user.data.name.first,
+      lastName: user.data.name.last,
+      email: user.data.email,
+      username: user.data.username,
+      password: user.data.password,
+    });
+  }, [user]);
 
   useEffect(() => {
     if (personalData) {

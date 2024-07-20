@@ -134,6 +134,11 @@ const page = () => {
             {/* Head */}
             <TableHead titles={["Location"]} />
             {/* Body */}
+            {dataFromServer.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[data.location]}

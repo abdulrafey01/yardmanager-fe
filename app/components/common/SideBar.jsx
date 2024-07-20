@@ -46,6 +46,7 @@ const SideBar = () => {
   const { user } = useSelector((state) => state.auth);
   const [hideBtns, setHideBtns] = useState({});
   const [showBtns, setShowBtns] = useState([]);
+  const [showBtnsBottom, setShowBtnsBottom] = useState([]);
   const btnNames = [
     "inventory",
     "invoices",
@@ -54,6 +55,7 @@ const SideBar = () => {
     "recycled",
     "employees",
     "roles",
+    "settings",
   ];
 
   // name 2 is just used to filter them for hiding
@@ -135,18 +137,21 @@ const SideBar = () => {
       iconW: SettSvg,
       iconB: SetSvgB,
       route: "/settings",
+      name2: "settings",
     },
     {
       name: "Privacy Policy",
       iconW: PvcSvg,
       iconB: PvcSvgB,
       route: "/privacy-policy",
+      name2: "privacy-policy",
     },
     {
       name: "Terms & Conditions",
       iconW: TermSvg,
       iconB: TermSvgB,
       route: "/terms-condition",
+      name2: "terms-condition",
     },
   ];
 
@@ -175,10 +180,11 @@ const SideBar = () => {
 
   useEffect(() => {
     setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
+    setShowBtnsBottom(sideButtonsBottom.filter((btn) => !hideBtns[btn.name2]));
   }, [hideBtns]);
 
   useEffect(() => {
-    console.log("showBtns", showBtns);
+    console.log("showBtns", showBtnsBottom);
   }, [showBtns]);
   // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
@@ -223,13 +229,19 @@ const SideBar = () => {
       );
     }
     if (pathName === "/settings") {
-      setActiveBottomBtn(0);
+      setActiveBottomBtn(
+        showBtnsBottom.findIndex((btn) => btn.name2 === "settings")
+      );
     }
     if (pathName === "/privacy-policy") {
-      setActiveBottomBtn(1);
+      setActiveBottomBtn(
+        showBtnsBottom.findIndex((btn) => btn.name2 === "privacy-policy")
+      );
     }
     if (pathName === "/terms-condition") {
-      setActiveBottomBtn(2);
+      setActiveBottomBtn(
+        showBtnsBottom.findIndex((btn) => btn.name2 === "terms-condition")
+      );
     }
     // For admin
     if (pathName === "/admin/yards") {
@@ -337,7 +349,7 @@ const SideBar = () => {
 
         {/* Bottom Part */}
         <div className="w-full flex-1 flex flex-col items-center justify-end ">
-          {sideButtonsBottom.map((item, index) => {
+          {showBtnsBottom.map((item, index) => {
             return (
               <Link
                 href={item?.route}

@@ -73,6 +73,13 @@ const AddRoleMenu = () => {
     delete: false,
   });
 
+  const [vehiclePerm, setVehiclePerm] = useState({
+    read: false,
+    write: false,
+    update: false,
+    delete: false,
+  });
+
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -97,11 +104,14 @@ const AddRoleMenu = () => {
           if (privilege.name === "locations") {
             setLocPerm(privilege.permissions);
           }
-          if (privilege.name === "recycle") {
+          if (privilege.name === "recycled") {
             setRecyclePerm(privilege.permissions);
           }
           if (privilege.name === "roles") {
             setRolePerm(privilege.permissions);
+          }
+          if (privilege.name === "vehicles") {
+            setVehiclePerm(privilege.permissions);
           }
         });
       }
@@ -155,6 +165,12 @@ const AddRoleMenu = () => {
         update: false,
         delete: false,
       });
+      setVehiclePerm({
+        read: false,
+        write: false,
+        update: false,
+        delete: false,
+      });
     }
   }, [selectedItem, showSideMenu]);
 
@@ -195,6 +211,10 @@ const AddRoleMenu = () => {
           name: "roles",
           permissions: rolePerm,
         },
+        // {
+        //   name: "vehicles",
+        //   permissions: vehiclePerm,
+        // },
       ],
     });
   }, [
@@ -207,6 +227,7 @@ const AddRoleMenu = () => {
     recyclePerm,
     settingsPerm,
     partsPerm,
+    vehiclePerm,
   ]);
   const onInputChange = (e) => {
     setRoleName(e.target.value);
@@ -321,6 +342,11 @@ const AddRoleMenu = () => {
             perm={partsPerm}
             setPerm={setPartsPerm}
             title={"Parts"}
+          />
+          <PermissionMenu
+            perm={vehiclePerm}
+            setPerm={setVehiclePerm}
+            title={"Vehicles"}
           />
           <PermissionMenu
             perm={recyclePerm}

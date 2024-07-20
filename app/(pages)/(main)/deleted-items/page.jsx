@@ -111,6 +111,8 @@ const page = () => {
       console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
+
+      dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit }));
     } catch (error) {
       console.log(error);
       dispatch(
@@ -168,6 +170,11 @@ const page = () => {
               titles={["SKU", "Part", "Year", "Model", "Make", "Variant"]}
             />
             {/* Body */}
+            {dataFromServer.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[

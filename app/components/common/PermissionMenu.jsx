@@ -69,50 +69,87 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
           openPermissionDetail ? "grid" : "hidden"
         }  grid-cols-4 gap-y-4 `}
       >
-        {/* Checkbox */}
-        <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
-          <input
-            type="checkbox"
-            className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
-            onChange={onCheckboxChange}
-            name="read"
-            checked={perm.read}
-          />
-          <p>View</p>
-        </div>
-        {/* Checkbox */}
-        <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
-          <input
-            type="checkbox"
-            className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
-            onChange={onCheckboxChange}
-            checked={perm.write}
-            name="write"
-          />
-          <p>Add</p>
-        </div>
-        {/* Checkbox */}
-        <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
-          <input
-            type="checkbox"
-            className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
-            name="update"
-            checked={perm.update}
-            onChange={onCheckboxChange}
-          />
-          <p>Edit</p>
-        </div>
-        {/* Checkbox */}
-        <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
-          <input
-            type="checkbox"
-            className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
-            name="delete"
-            checked={perm.delete}
-            onChange={onCheckboxChange}
-          />
-          <p>Delete</p>
-        </div>
+        {title === "Recycled Items" ? (
+          <>
+            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
+                onChange={onCheckboxChange}
+                name="read"
+                checked={perm.read}
+              />
+              <p>View</p>
+            </div>
+            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
+                onChange={onCheckboxChange}
+                name="write"
+                checked={perm.write}
+              />
+              <p>Restore</p>
+            </div>
+            <div className="bg-white ml-8 flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
+                onChange={onCheckboxChange}
+                name="delete"
+                checked={perm.delete}
+              />
+              <p>Delete</p>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Checkbox */}
+            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
+                onChange={onCheckboxChange}
+                name="read"
+                checked={perm.read}
+              />
+              <p>View</p>
+            </div>
+            {/* Checkbox */}
+            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
+                onChange={onCheckboxChange}
+                checked={perm.write}
+                name="write"
+              />
+              <p>Add</p>
+            </div>
+            {/* Checkbox */}
+            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
+                name="update"
+                checked={perm.update}
+                onChange={onCheckboxChange}
+              />
+              <p>Edit</p>
+            </div>
+            {/* Checkbox */}
+            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+              <input
+                type="checkbox"
+                className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
+                name="delete"
+                checked={perm.delete}
+                onChange={onCheckboxChange}
+              />
+              <p>Delete</p>
+            </div>
+          </>
+        )}
         {/* {title === "Employees" && (
           <div className="bg-white w-36 flex justify-start items-center rounded-sm  border-white space-x-3">
             <input

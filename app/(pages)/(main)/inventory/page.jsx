@@ -97,6 +97,7 @@ const page = () => {
       setDataLimit(10);
     }
   };
+
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -145,6 +146,12 @@ const page = () => {
               titles={["SKU", "Part", "Year", "Model", "Make", "Variant"]}
             />
             {/* Body */}
+
+            {dataFromServer?.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[
