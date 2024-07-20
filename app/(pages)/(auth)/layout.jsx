@@ -29,7 +29,9 @@ const layout = ({ children }) => {
   useEffect(() => {
     if (token) {
       // console.log("token", token);
-      router.push("/dashboard");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     }
   }, [token]);
 
