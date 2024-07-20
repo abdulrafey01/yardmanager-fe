@@ -7,6 +7,7 @@ import "../../../app/styles.css";
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import { permission } from "process";
 import { addRole, updateRole } from "../../../lib/features/roles/roleActions";
@@ -234,6 +235,11 @@ const AddRoleMenu = () => {
   };
   const onFormSubmit = (e) => {
     e.preventDefault();
+    if (roleName === "") {
+      return dispatch(
+        setShowToast({ value: true, msg: "Role Name is required", red: true })
+      );
+    }
     if (showSideMenu.mode === "edit") {
       dispatch(updateRole({ formData, id: selectedItem._id }));
     } else {

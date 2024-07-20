@@ -62,9 +62,18 @@ export default function page() {
             <div className="flex justify-between items-center">
               <div className="flex justify-center items-center space-x-2">
                 <div className="bg-white flex justify-center items-center rounded-sm border-white">
-                  <input type="checkbox" className="h-3.5 w-3.5 outline-none" />
+                  <input
+                    id="rememberme"
+                    type="checkbox"
+                    className="h-3.5 w-3.5 cursor-pointer outline-none"
+                  />
                 </div>
-                <p className="text-sm sm:text-base">Remember Me</p>
+                <label
+                  htmlFor="rememberme"
+                  className="text-sm sm:text-base cursor-pointer"
+                >
+                  Remember Me
+                </label>
               </div>
               <div
                 onClick={() => {
