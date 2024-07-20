@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import SectionOne from "../../components/auth/common/SectionOne";
 import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
-import { getCookie } from "../../helpers/storage";
 import { useRouter } from "next/navigation";
 import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 import { resetToast } from "../../../lib/features/auth/authSlice";
