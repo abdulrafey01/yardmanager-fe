@@ -26,7 +26,7 @@ const layout = ({ children }) => {
 
     // Clean up the timeout if `token` changes or component unmounts
     return () => clearTimeout(timeoutId);
-  }, [token]);
+  }, []);
   // useloadAuthState();
   // const router = useRouter();
   // const { token } = useSelector((state) => state.auth);
