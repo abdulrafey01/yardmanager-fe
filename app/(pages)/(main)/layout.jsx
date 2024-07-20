@@ -17,11 +17,15 @@ const layout = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    setTimeout(() => {
+    // Set up the timeout
+    const timeoutId = setTimeout(() => {
       if (!token) {
         router.push("/sign-in");
       }
-    }, 5000);
+    }, 2000);
+
+    // Clean up the timeout if `token` changes or component unmounts
+    return () => clearTimeout(timeoutId);
   }, [token]);
   // useloadAuthState();
   // const router = useRouter();
