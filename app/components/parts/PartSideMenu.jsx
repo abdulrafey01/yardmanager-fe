@@ -43,16 +43,26 @@ const PartSideMenu = () => {
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // check for empty variants
-    if (formData.variant.length === 0 || formData.name === "") {
+    // check for empty variants and name
+    if (formData.name === "") {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill in all the fields",
+          msg: "Please fill in Name field",
           red: true,
         })
       );
     }
+    if (formData.variant.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill in Variant field",
+          red: true,
+        })
+      );
+    }
+
     if (showSideMenu.mode === "edit") {
       dispatch(updatePart({ formData, id: selectedItem._id }));
     } else {

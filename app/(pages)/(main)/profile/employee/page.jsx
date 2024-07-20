@@ -125,7 +125,7 @@ const page = ({}) => {
   // Best solution for toast
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
     dispatch(resetToast());
   }, [toastMsg]);
@@ -136,7 +136,7 @@ const page = ({}) => {
     // check password
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
-        setShowToast({ value: true, msg: "Password don't match" })
+        setShowToast({ value: true, msg: "Password don't match", red: true })
       );
     }
     // submit personal form

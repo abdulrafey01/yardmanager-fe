@@ -123,7 +123,7 @@ const page = () => {
   // Best solution for toast
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, msg: toastMsg }));
+      dispatch(setShowToast({ value: true, ...toastMsg }));
     }
     dispatch(resetToast());
   }, [toastMsg]);
