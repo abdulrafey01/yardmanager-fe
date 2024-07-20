@@ -18,7 +18,9 @@ const layout = ({ children }) => {
 
   useEffect(() => {
     if (!token) {
-      router.push("/sign-in");
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 1000);
     }
   }, [token]);
   // useloadAuthState();
