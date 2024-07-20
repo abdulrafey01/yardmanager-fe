@@ -30,7 +30,7 @@ const layout = ({ children }) => {
       // console.log("token", token);
       setTimeout(() => {
         router.push("/dashboard");
-      }, 1000);
+      }, 2000);
     }
   }, [token]);
 
