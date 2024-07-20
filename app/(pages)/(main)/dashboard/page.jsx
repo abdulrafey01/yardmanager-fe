@@ -120,7 +120,8 @@ const page = () => {
   useEffect(() => {
     const fetchData = async () => {
       // console.log("fetching data");
-      let token = await getCookie("token");
+      let token =
+        (await getCookie("token")) || window?.sessionStorage.getItem("token");
       // console.log(state);
       // console.log(token);
       axios

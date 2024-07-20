@@ -32,6 +32,14 @@ const layout = ({ children }) => {
       router.push("/dashboard");
     }
   }, [getCookie("token")]);
+
+  // For Routing auth
+  useEffect(() => {
+    if (window?.sessionStorage.getItem("token")) {
+      // console.log("token", token);
+      router.push("/dashboard");
+    }
+  }, [window?.sessionStorage.getItem("token")]);
   return (
     <div className="min-h-screen select-none flex justify-center items-center ">
       <Toast />

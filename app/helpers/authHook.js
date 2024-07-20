@@ -19,7 +19,9 @@ const useLoadAuthState = () => {
           "https://yardmanager-be.vercel.app/api/users/info",
           {
             headers: {
-              Authorization: `Bearer ${getCookie("token")}`,
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
             },
           }
         );

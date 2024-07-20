@@ -18,11 +18,15 @@ export default function page() {
   const dispatch = useDispatch();
   const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [togglePWD, setTogglePWD] = React.useState(false);
+  const [rememberme, setRememberme] = React.useState(false);
   // Function to handle input change
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const onRememberMeChange = (e) => {
+    setRememberme(e.target.checked);
+  };
   // Function to handle form submit
   const onFormSubmit = (e) => {
     // e.preventDefault();
@@ -30,7 +34,7 @@ export default function page() {
       ...formData,
       email: formData.email.toLowerCase(),
     };
-    dispatch(login(updatedFormData));
+    dispatch(login({ data: updatedFormData, rememberme: rememberme }));
   };
 
   return (
@@ -66,6 +70,7 @@ export default function page() {
                     id="rememberme"
                     type="checkbox"
                     className="h-3.5 w-3.5 cursor-pointer outline-none"
+                    onChange={onRememberMeChange}
                   />
                 </div>
                 <label
