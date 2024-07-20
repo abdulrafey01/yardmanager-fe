@@ -17,11 +17,11 @@ const layout = ({ children }) => {
   const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (!token) {
-      setTimeout(() => {
+    setTimeout(() => {
+      if (!token) {
         router.push("/sign-in");
-      }, 1000);
-    }
+      }
+    }, 1000);
   }, [token]);
   // useloadAuthState();
   // const router = useRouter();
