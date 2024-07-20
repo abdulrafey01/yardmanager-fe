@@ -21,7 +21,7 @@ const layout = ({ children }) => {
       if (!token) {
         router.push("/sign-in");
       }
-    }, 2000);
+    }, 5000);
   }, [token]);
   // useloadAuthState();
   // const router = useRouter();
