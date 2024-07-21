@@ -186,6 +186,7 @@ const page = () => {
           .filter((obj) => obj.product)
           .map((obj) => ({
             name: obj.product.name,
+            product: obj.product._id,
             quantity: obj.quantity,
             price: obj.price,
             date: obj.date,
