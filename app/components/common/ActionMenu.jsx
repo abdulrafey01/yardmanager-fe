@@ -25,6 +25,7 @@ import {
   addToInventory,
   fetchVehiclesByPage,
 } from "../../../lib/features/vehicle/vehicleActions";
+import { setShowEmployeeSideMenu } from "../../../lib/features/roles/roleSlice";
 
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
@@ -144,14 +145,21 @@ const ActionMenu = ({ index, item, permissions }) => {
           <div
             onClick={() => {
               // console.log(permissions);
-              dispatch(setSelectedItem(item));
-              dispatch(setShowActionMenu(-1));
-              dispatch(
-                setShowSideMenu({
-                  value: true,
-                  mode: "edit",
-                })
-              );
+              if (currentPage === "Employee") {
+                dispatch(setSelectedItem(item));
+                dispatch(setShowActionMenu(-1));
+                dispatch(setShowEmployeeSideMenu(true));
+                dispatch(setShowSideMenu({ value: true, mode: "edit" }));
+              } else {
+                dispatch(setSelectedItem(item));
+                dispatch(setShowActionMenu(-1));
+                dispatch(
+                  setShowSideMenu({
+                    value: true,
+                    mode: "edit",
+                  })
+                );
+              }
             }}
             className={`cursor-pointer flex justify-center items-center space-x-2 `}
           >
@@ -189,12 +197,17 @@ const ActionMenu = ({ index, item, permissions }) => {
               })
             );
           }
-          dispatch(
-            setShowSideMenu({
-              value: true,
-              mode: "preview",
-            })
-          );
+          if (currentPage === "Employee") {
+            dispatch(setShowEmployeeSideMenu(true));
+            dispatch(setShowSideMenu({ value: true, mode: "preview" }));
+          } else {
+            dispatch(
+              setShowSideMenu({
+                value: true,
+                mode: "preview",
+              })
+            );
+          }
         }}
         className="cursor-pointer flex justify-center items-center space-x-2 "
       >
