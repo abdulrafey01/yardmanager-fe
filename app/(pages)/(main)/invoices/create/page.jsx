@@ -145,11 +145,13 @@ const page = () => {
     if (invoiceId) {
       const fetchInvoice = async () => {
         try {
+          const token =
+            getCookie("token") || window?.sessionStorage.getItem("token");
           const response = await axios.get(
             "https://yardmanager-be.vercel.app/api/invoices/s/" + invoiceId,
             {
               headers: {
-                Authorization: `Bearer ${getCookie("token")}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
