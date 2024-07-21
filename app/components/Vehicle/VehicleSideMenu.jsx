@@ -63,46 +63,11 @@ const InventorySideMenu = () => {
     // formDataRef.current.set(e.target.name, e.target.value);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
-
-  const onLocInputChange = (e) => {
-    setLocValue(e.target.value);
-    if (e.target.value.length >= 1) {
-      setShowLocDropDown(true);
-      dispatch(searchLocationByName(e.target.value));
-    } else {
-      setShowLocDropDown(false);
-    }
-  };
-
-  const onLocNameClick = (loc) => {
-    setLocId(loc._id);
-    setLocValue(loc.location);
-    setShowLocDropDown(false);
-  };
-
-  const onPartNameClick = (part) => {
-    setPartId(part._id);
-    setPartValue(part.name);
-    setShowPartDropDown(false);
-  };
-
-  const onPartInputChange = (e) => {
-    setPartValue(e.target.value);
-    if (e.target.value.length >= 1) {
-      setShowPartDropDown(true);
-      dispatch(searchPartByName(e.target.value));
-    } else {
-      setShowPartDropDown(false);
-    }
-  };
   // Function to handle image change
   const onImageChange = (e) => {
     // formData not set directly becauese files after selecting appearing in box are coming from imgArray
     const files = Array.from(e.target.files);
-    setImgArray(files);
-    for (let i = 0; i < files.length; i++) {
-      formDataRef.current.append("images", files[i]);
-    }
+    setImgArray([...imgArray, ...files]);
   };
 
   // Function to handle form submit
@@ -110,11 +75,31 @@ const InventorySideMenu = () => {
     e.preventDefault();
     console.log(formState);
 
-    if (formState.name === "") {
+    if (
+      formState.name === "" ||
+      !formState.name ||
+      formState.name.length <= 0
+    ) {
       return dispatch(
         setShowToast({
           value: true,
           msg: "Please fill the Name field",
+          red: true,
+        })
+      );
+    } else if (locId === null || locId === "" || !locId) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Location field",
+          red: true,
+        })
+      );
+    } else if (partId === null || partId === "" || !partId) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Part field",
           red: true,
         })
       );
@@ -184,12 +169,18 @@ const InventorySideMenu = () => {
     }
     formData.append("startYear", formState.startYear);
     formData.append("lastYear", formState.lastYear);
-    // if (imgArray.length > 0) {
-    //   for (let i = 0; i < imgArray.length; i++) {
-    //     // formDataRef.current.set("images", files[i]);
-    //     formData.append(`images`, imgArray[i]);
-    //   }
-    // }
+    if (showSideMenu.mode === "edit") {
+      if (imgArray.length > 0) {
+        for (let i = 0; i < imgArray.length; i++) {
+          if (typeof imgArray[i] !== "string") {
+            formData.append(`images`, imgArray[i]);
+          } else {
+          }
+        }
+      } else {
+        formData.append("images", "");
+      }
+    }
 
     if (showSideMenu.mode === "edit") {
       dispatch(updateVehicle({ formData: formData, id: selectedItem._id }));
@@ -338,7 +329,7 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div>
-            <div className="flex gap-4">
+            <div className="flex w-full gap-4">
               {/* Vehicle Location input */}
 
               <DropDownInput
@@ -370,7 +361,7 @@ const InventorySideMenu = () => {
             </div>
 
             {/* Inventory Dates input */}
-            <div className="flex space-x-4">
+            <div className="flex w-full space-x-4">
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   onClick={() => setDateType1(true)}

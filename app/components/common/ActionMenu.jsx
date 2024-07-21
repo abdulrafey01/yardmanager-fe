@@ -169,7 +169,22 @@ const ActionMenu = ({ index, item, permissions }) => {
               setPreviewModal({
                 value: true,
                 data: {
-                  ...item,
+                  name: item.name,
+                  email: item.email,
+                  phone: item.phone,
+                  products: item.products
+                    .filter((obj) => obj.product)
+                    .map((obj) => ({
+                      name: obj.product.name,
+                      quantity: obj.quantity,
+                      price: obj.price,
+                      date: obj.date,
+                    })),
+                  tax: item.tax,
+                  paid: item.paid,
+                  status: item.status,
+                  notes: item.notes,
+                  datePaid: new Date(item.datePaid).toLocaleDateString(),
                 },
               })
             );

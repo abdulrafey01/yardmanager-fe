@@ -19,6 +19,7 @@ import {
   searchPartByName,
 } from "../../../../lib/features/parts/partActions";
 import Footer from "../../../components/common/Footer";
+import { resetPartToast } from "../../../../lib/features/parts/partSlice";
 
 const page = () => {
   const { error, partData, toastMsg, totalDataLength, partSearchData } =
@@ -67,13 +68,16 @@ const page = () => {
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
+  }, [error, partData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetPartToast());
       }
     }
-  }, [error, partData, toastMsg, dataLimit]);
-
+  }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchPartsByPage({ search: e.target.value }));
@@ -81,13 +85,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchPartsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchPartsByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchPartsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchPartsByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchPartsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchPartsByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

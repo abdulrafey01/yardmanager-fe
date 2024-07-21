@@ -20,6 +20,7 @@ import {
   searchLocationByName,
 } from "../../../../lib/features/locations/locationActions";
 import Footer from "../../../components/common/Footer";
+import { resetLocToast } from "../../../../lib/features/locations/locationSlice";
 
 const page = () => {
   const { error, locationData, toastMsg, totalDataLength, locationSearchData } =
@@ -70,13 +71,16 @@ const page = () => {
       setTotalPage(totalPage);
       console.log(locationData);
     }
+  }, [error, locationData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetLocToast());
       }
     }
-  }, [error, locationData, toastMsg, dataLimit]);
-
+  }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchLocationsByPage({ search: e.target.value }));
@@ -84,13 +88,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchLocationsByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchLocationsByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchLocationsByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

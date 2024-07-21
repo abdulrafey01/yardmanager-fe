@@ -32,6 +32,8 @@ import {
 import Link from "next/link";
 import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import axios from "axios";
+import { cleanStorage } from "../../../../helpers/cleanStorage";
+import { logout } from "../../../../../lib/features/auth/authSlice";
 const page = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -161,6 +163,12 @@ const page = () => {
             })
           );
           setItem(null);
+          if (error.response.status === 403) {
+            cleanStorage();
+            setTimeout(() => {
+              dispatch(logout());
+            }, 3000);
+          }
         }
       };
       fetchInvoice();

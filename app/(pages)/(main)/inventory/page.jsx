@@ -16,6 +16,7 @@ import {
 import { fetchInventoryByPage } from "../../../../lib/features/inventory/inventoryActions";
 import { calcTotalPage } from "../../../helpers/pagination";
 import Footer from "../../../components/common/Footer";
+import { resetInventoryToast } from "../../../../lib/features/inventory/inventorySlice";
 
 const page = () => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
@@ -76,6 +77,7 @@ const page = () => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetInventoryToast());
       }
     }
   }, [dispatch, toastMsg]);
@@ -87,13 +89,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 20 }));
+      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 30 }));
+      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 10 }));
+      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

@@ -25,7 +25,10 @@ import {
   vinDecode,
 } from "../../../../lib/features/vehicle/vehicleActions";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
-import { setVinDecodedData } from "../../../../lib/features/vehicle/vehicleSlice";
+import {
+  resetVehicleToast,
+  setVinDecodedData,
+} from "../../../../lib/features/vehicle/vehicleSlice";
 import Footer from "../../../components/common/Footer";
 import ImageDropzone from "../../../components/common/ImageDropzone";
 
@@ -79,13 +82,16 @@ const page = () => {
     if (error) {
       console.log(error);
     }
+  }, [error]);
 
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetVehicleToast());
       }
     }
-  }, [error, toastMsg]);
+  }, [toastMsg]);
 
   useEffect(() => {
     // When part data has come, set total pages
@@ -137,7 +143,7 @@ const page = () => {
     dispatch(addVehicle(formData));
 
     // reset data fields
-    setImgArray2(null);
+    setImgArray2([]);
     setVinVal("");
     dispatch(setVinDecodedData(null));
     setShowDecodeMenu(false);
@@ -154,13 +160,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 20 }));
+      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 30 }));
+      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 10 }));
+      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

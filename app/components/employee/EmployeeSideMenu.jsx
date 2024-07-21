@@ -183,7 +183,7 @@ const EmployeeSideMenu = () => {
             }  flex flex-col space-y-4  items-center w-full `}
           >
             {/* Employee Name input */}
-            <div className="flex space-x-4">
+            <div className="flex w-full space-x-4">
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
@@ -218,7 +218,7 @@ const EmployeeSideMenu = () => {
             </div>
 
             {/* Double input */}
-            <div className="flex space-x-4">
+            <div className="flex w-full space-x-4">
               <DropDownInput
                 onSearch={searchRoleByName}
                 searchData={roleSearchData}

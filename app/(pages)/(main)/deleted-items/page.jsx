@@ -87,13 +87,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

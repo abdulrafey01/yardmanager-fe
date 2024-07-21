@@ -21,6 +21,7 @@ import {
   searchRoleByName,
 } from "../../../../lib/features/roles/roleActions";
 import {
+  resetRoleToast,
   resetState,
   setShowEmployeeSideMenu,
 } from "../../../../lib/features/roles/roleSlice";
@@ -75,12 +76,16 @@ const page = () => {
       setTotalPage(totalPage);
       console.log(rolesData);
     }
+  }, [error, rolesData, dataLimit]);
+
+  useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetRoleToast());
       }
     }
-  }, [error, rolesData, toastMsg, dataLimit]);
+  }, [toastMsg]);
 
   // Search function
   const handleSearch = (e) => {
@@ -89,13 +94,13 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchRolesByPage({ page: 1, limit: 20 }));
+      dispatch(fetchRolesByPage({ page: pageNumber, limit: 20 }));
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchRolesByPage({ page: 1, limit: 30 }));
+      dispatch(fetchRolesByPage({ page: pageNumber, limit: 30 }));
       setDataLimit(30);
     } else {
-      dispatch(fetchRolesByPage({ page: 1, limit: 10 }));
+      dispatch(fetchRolesByPage({ page: pageNumber, limit: 10 }));
       setDataLimit(10);
     }
   };

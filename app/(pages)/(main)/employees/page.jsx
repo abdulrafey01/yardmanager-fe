@@ -81,8 +81,10 @@ const page = () => {
 
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, ...toastMsg }));
-      dispatch(resetEmpToast());
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetEmpToast());
+      }
     }
   }, [toastMsg]);
 
@@ -94,17 +96,29 @@ const page = () => {
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
       dispatch(
-        fetchEmployeesByPage({ page: 1, limit: 20, filter: filterActive })
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: 20,
+          filter: filterActive,
+        })
       );
       setDataLimit(20);
     } else if (e.target.value == 30) {
       dispatch(
-        fetchEmployeesByPage({ page: 1, limit: 30, filter: filterActive })
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: 30,
+          filter: filterActive,
+        })
       );
       setDataLimit(30);
     } else {
       dispatch(
-        fetchEmployeesByPage({ page: 1, limit: 10, filter: filterActive })
+        fetchEmployeesByPage({
+          page: pageNumber,
+          limit: 10,
+          filter: filterActive,
+        })
       );
       setDataLimit(10);
     }
