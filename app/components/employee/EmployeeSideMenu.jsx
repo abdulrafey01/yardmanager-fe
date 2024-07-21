@@ -66,14 +66,14 @@ const EmployeeSideMenu = () => {
       if (selectedItem) {
         setFormState({
           ...formState,
-          firstName: selectedItem.name.first,
-          lastName: selectedItem.name.last,
-          email: selectedItem.email,
-          role: selectedItem.role._id,
-          position: selectedItem.position,
-          date: new Date(selectedItem.date).toLocaleDateString(),
+          firstName: selectedItem?.name?.first,
+          lastName: selectedItem?.name?.last,
+          email: selectedItem?.email,
+          role: selectedItem?.role?._id,
+          position: selectedItem?.position,
+          date: new Date(selectedItem?.date).toLocaleDateString(),
         });
-        setRoleInputValue(selectedItem.role.name);
+        setRoleInputValue(selectedItem?.role?.name);
       }
     }
   }, [selectedItem, showSideMenu]);
