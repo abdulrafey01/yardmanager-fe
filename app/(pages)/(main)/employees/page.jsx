@@ -20,6 +20,7 @@ import {
 } from "../../../../lib/features/employee/employeeActions";
 import { resetEmpToast } from "../../../../lib/features/employee/employeeSlice";
 import Footer from "../../../components/common/Footer";
+import { setShowEmployeeSideMenu } from "../../../../lib/features/roles/roleSlice";
 
 const page = () => {
   const { error, employeeData, toastMsg, totalDataLength, employeeSearchData } =
@@ -162,9 +163,10 @@ const page = () => {
         <div className="flex items-center justify-end space-x-4  w-full p-2">
           {/* Add Employee Button */}
           <GreenBtn
-            onClick={() =>
-              dispatch(setShowSideMenu({ value: true, mode: "add" }))
-            }
+            onClick={() => {
+              dispatch(setShowEmployeeSideMenu(true));
+              dispatch(setShowSideMenu({ value: true, mode: "add" }));
+            }}
             title={"Add Employee"}
           />
         </div>

@@ -227,6 +227,11 @@ const page = () => {
     });
   };
 
+  useEffect(() => {
+    if (formData.paid > grandTotal) {
+      setFormData({ ...formData, paid: grandTotal });
+    }
+  }, [grandTotal]);
   const onProductNameInputChange = (e) => {
     setProductName(e.target.value);
     if (e.target.value.length >= 1) {

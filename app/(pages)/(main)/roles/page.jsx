@@ -26,10 +26,13 @@ import {
   setShowEmployeeSideMenu,
 } from "../../../../lib/features/roles/roleSlice";
 import Footer from "../../../components/common/Footer";
+import { resetEmpToast } from "../../../../lib/features/employee/employeeSlice";
 
 const page = () => {
-  const { error, rolesData, toastMsg, totalDataLength, roleSearchData } =
-    useSelector((state) => state.roles);
+  const { error, rolesData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.roles
+  );
+  const { toastMsg: empToast } = useSelector((state) => state.employee);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -87,6 +90,15 @@ const page = () => {
     }
   }, [toastMsg]);
 
+  useEffect(() => {
+    if (empToast) {
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...empToast }));
+        dispatch(resetEmpToast());
+      }
+    }
+  }, [empToast]);
+
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchRolesByPage({ search: e.target.value }));
@@ -104,6 +116,7 @@ const page = () => {
       setDataLimit(10);
     }
   };
+
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -114,7 +127,10 @@ const page = () => {
           {pagePermission?.write && (
             <>
               <WhiteBtn
-                onClick={() => dispatch(setShowEmployeeSideMenu(true))}
+                onClick={() => {
+                  dispatch(setShowEmployeeSideMenu(true));
+                  dispatch(setShowSideMenu({ value: true, mode: "add" }));
+                }}
                 title={"Add Employee"}
               />
               <GreenBtn

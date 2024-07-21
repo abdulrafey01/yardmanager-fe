@@ -28,7 +28,7 @@ const SideMenu = () => {
     <LocationSideMenu />
   ) : currentPage === "Vehicle" ? (
     <VehicleSideMenu />
-  ) : currentPage === "Employee" || showEmployeeSideMenu === true ? ( // this extra var bcz this menu used in other page also
+  ) : currentPage === "Employee" ? ( // this extra var bcz this menu used in other page also
     <EmployeeSideMenu />
   ) : currentPage === "Roles" ? (
     <RoleSideMenu />

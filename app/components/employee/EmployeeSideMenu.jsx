@@ -51,6 +51,10 @@ const EmployeeSideMenu = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log("showEmployeeSideMenu", showEmployeeSideMenu);
+  }, [showEmployeeSideMenu]);
+
   const onInputChange = (e) => {
     setDateInputType("date");
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -77,7 +81,7 @@ const EmployeeSideMenu = () => {
   // If no error only then close the menu
   useEffect(() => {
     // close the menu after submitting
-    if (!empToast?.red) {
+    if (empToast?.red === false) {
       dispatch(setShowSideMenu({ value: false }));
       dispatch(setShowEmployeeSideMenu(false));
       // reset the form values
@@ -182,29 +186,32 @@ const EmployeeSideMenu = () => {
       dispatch(addEmployee(formData));
     }
   };
+
+  const onClose = () => {
+    dispatch(setShowSideMenu({ value: false }));
+    dispatch(setShowEmployeeSideMenu(false));
+    setFormState({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      role: "",
+      position: "",
+      date: "",
+    });
+    setRoleInputValue("");
+    setDateInputType("text");
+  };
   return (
     <div
       className={`fixed flex w-full ${
-        showSideMenu.value || showEmployeeSideMenu ? "flex" : "hidden"
+        showSideMenu.value && showEmployeeSideMenu ? "flex" : "hidden"
       }   h-full  z-20 overflow-y-clip `}
     >
       {/* Black part */}
       <div
-        onClick={() => {
-          dispatch(setShowSideMenu({ value: false }));
-          setFormState({
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            role: "",
-            position: "",
-            date: "",
-          });
-          setDateInputType("text");
-          console.log("clicked");
-        }}
+        onClick={onClose}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>
 
@@ -331,10 +338,7 @@ const EmployeeSideMenu = () => {
 
         <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
           <div
-            onClick={() => {
-              dispatch(setShowSideMenu({ value: false, mode: "add" }));
-              dispatch(setShowEmployeeSideMenu(false));
-            }}
+            onClick={onClose}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >
             Cancel
