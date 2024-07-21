@@ -20,6 +20,7 @@ import { updatePersonal } from "../../../../../lib/features/profile/profileActio
 import { resetToast } from "../../../../../lib/features/profile/profileSlice";
 import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import axios from "axios";
+import { setUser } from "../../../../../lib/features/auth/authSlice";
 
 const page = ({}) => {
   const dispatch = useDispatch();
@@ -42,6 +43,9 @@ const page = ({}) => {
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
+  const [userId, setUserId] = React.useState(null);
+  const [empImg, setEmpImg] = React.useState("");
+  const [coverImg, setCoverImg] = React.useState("");
 
   // for adding margin top to block 2 bcz due to absolute container tailwind is not working
   useEffect(() => {
@@ -72,23 +76,6 @@ const page = ({}) => {
     });
   };
 
-  // // If not user then can't access this page
-  // useEffect(() => {
-  //   const routePage = async () => {
-  //     if (user?.userType !== "employee") {
-  //       return router.push("/profile");
-  //     }
-  //     setPersonalFormState({
-  //       firstName: user?.data.name.first,
-  //       lastName: user?.data.name.last,
-  //       email: user?.data.email,
-  //       username: user?.data.username,
-  //       password: user?.data.password,
-  //     });
-  //   };
-  //   routePage();
-  // }, []);
-
   useEffect(() => {
     const routePage = async () => {
       if (
@@ -106,8 +93,12 @@ const page = ({}) => {
       lastName: user?.data.name.last,
       email: user?.data.email,
       username: user?.data.username,
-      password: user?.data.password,
+      password: "",
     });
+    setUserId(user?.data._id);
+    setEmpImg(user?.data?.profile);
+    setCoverImg(user?.company.images.cover);
+    console.log("user", user);
   }, [user]);
 
   useEffect(() => {
@@ -117,8 +108,9 @@ const page = ({}) => {
         lastName: personalData?.name.last,
         email: personalData?.email,
         username: personalData?.username,
-        password: personalData?.password,
+        password: "",
       });
+      setEmpImg(personalData?.profile);
     }
   }, [personalData]);
 
@@ -148,7 +140,7 @@ const page = ({}) => {
     // formData.append;
 
     // submit personal form
-    dispatch(updatePersonal(formData));
+    dispatch(updatePersonal({ data: formData, id: userId }));
 
     // reset form
     setPersonalFormState({
@@ -160,6 +152,18 @@ const page = ({}) => {
       confirmPassword: "",
     });
   };
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setUser({
+  //       ...user,
+  //       data: {
+  //         ...user.data,
+  //         profile: empImg,
+  //       },
+  //     })
+  //   );
+  // }, [empImg]);
   const uploadImage = async (n) => {
     if (!image) {
       return;
@@ -167,17 +171,27 @@ const page = ({}) => {
     const imageForm = new FormData();
     imageForm.append("profile", image);
 
-    let token = await getCookie("token");
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
     axios
-      .put("https://yardmanager-be.vercel.app/api/users/update", imageForm, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(
+        `https://yardmanager-be.vercel.app/api/employees/s/${userId}`,
+        imageForm,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res.data);
         setImageToggle(0);
         setImage(null);
+        setEmpImg(res.data.data.profile);
+        setCoverImg(res.data.data.company.images.cover);
+        dispatch(
+          setShowToast({ value: true, msg: "Image uploaded successfully" })
+        );
+        dispatch(setUser({ ...user, data: res.data.data }));
       })
       .catch((err) => {
         console.log(err);
@@ -192,8 +206,8 @@ const page = ({}) => {
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col  space-y-4  w-screen md:w-full ">
       {/* Header Imgs container */}
-      <div className="flex relative w-full p-2">
-        <Image src={ProfileHeaderImg} className="rounded-lg w-full" />
+      <div className="flex relative w-full h-28 p-2">
+        <Image src={coverImg} layout="fill" className="rounded-lg w-full" />
         <div className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer">
           Edit display Image
         </div>
@@ -203,11 +217,17 @@ const page = ({}) => {
       </div>
       <div className="w-full relative flex flex-col p-6 space-y-4">
         {/* ProfileImg container */}
-        <div className="absolute w-20 h-14 sm:w-28 sm:h-28 p-1 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-full  object-cover">
-          <Image src={ProfileImg} />
+        <div className="absolute w-14 h-14  sm:w-24 sm:h-24 p-1 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-full ">
+          <Image
+            className="object-cover  rounded-full"
+            src={empImg}
+            alt="User Profile"
+            layout="fill"
+          />
+
           <Image
             onClick={() => setImageToggle(1)}
-            className="absolute bottom-[-5px] right-[5px] cursor-pointer"
+            className="absolute w-5 h-5 sm:w-10 sm:h-10 bottom-[-5px] right-[5px] cursor-pointer"
             src={EditImg}
           />
         </div>
@@ -239,12 +259,13 @@ const page = ({}) => {
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
               <input
-                className="w-full outline-none"
+                className="w-full outline-none bg-white text-gray-500"
                 type="text"
                 placeholder="Email Address"
                 name="email"
                 value={personalFormState.email}
                 onChange={onPersonalInputChange}
+                disabled
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">

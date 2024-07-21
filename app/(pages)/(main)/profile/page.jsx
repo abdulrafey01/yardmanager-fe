@@ -19,10 +19,12 @@ import { useRouter } from "next/navigation";
 import {
   updateCompany,
   updatePersonal,
+  updateUser,
 } from "../../../../lib/features/profile/profileActions";
 import { resetToast } from "../../../../lib/features/profile/profileSlice";
 import axios from "axios";
 import { getCookie, getLocalStorage } from "../../../helpers/storage";
+import { setUser } from "../../../../lib/features/auth/authSlice";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -46,15 +48,26 @@ const page = () => {
     username: "",
   });
 
-  const [localData, setLocalData] = useState(null);
+  const [userId, setUserId] = React.useState(null);
 
+  useEffect(() => {
+    if (user) {
+      console.log("user", user);
+    }
+  }, [user]);
   // Password eye toggle
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
+
+  const [coverImg, setCoverImg] = React.useState("");
+  const [companyImg, setCompanyImg] = React.useState("");
+  const [profileImg, setProfileImg] = React.useState("");
+
   useEffect(() => {
     const data = async () => {
       console.log("fetching data");
-      let token = await getCookie("token");
+      const token =
+        getCookie("token") || window?.sessionStorage.getItem("token");
       console.log(token);
       axios
         .get(`https://yardmanager-be.vercel.app/api/users/info`, {
@@ -68,8 +81,13 @@ const page = () => {
             lastName: res.data.data.user.name.last,
             email: res.data.data.user.email,
             username: res.data.data.user.username,
-            password: res.data.data.user.password,
+            password: "",
           });
+          setCoverImg(res.data.data.company.images.cover);
+          setCompanyImg(res.data.data.company.images.profile);
+          setProfileImg(res.data.data.user.profile);
+          setUserId(res.data.data.user._id);
+          dispatch;
         })
         .catch((err) => {
           console.log(err);
@@ -116,7 +134,7 @@ const page = () => {
       lastName: personalData?.name.last,
       email: personalData?.email,
       username: personalData?.username,
-      password: personalData?.password,
+      password: "",
     });
   }, [personalData]);
 
@@ -128,23 +146,6 @@ const page = () => {
     dispatch(resetToast());
   }, [toastMsg]);
 
-  // If not user then can't access this page
-  // useEffect(() => {
-  //   const routePage = async () => {
-  //     if (user?.userType !== "user") {
-  //       return router.push("/profile/employee");
-  //     }
-  //     setPersonalFormState({
-  //       firstName: user?.data.name.first,
-  //       lastName: user?.data.name.last,
-  //       email: user?.data.email,
-  //       username: user?.data.username,
-  //       password: user?.data.password,
-  //     });
-  //   };
-
-  //   routePage();
-  // }, []);
   useEffect(() => {
     const routePage = async () => {
       if ((await JSON.parse(getLocalStorage("user"))?.userType) !== "user") {
@@ -154,24 +155,6 @@ const page = () => {
     routePage();
   }, []);
 
-  // useEffect(() => {
-  //   if (JSON.parse(getLocalStorage("user"))) {
-  //     setLocalData(JSON.parse(getLocalStorage("user")));
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   if (localData) {
-  //     console.log("localData", localData);
-  //     setPersonalFormState({
-  //       firstName: localData?.data.name.first,
-  //       lastName: localData?.data.name.last,
-  //       email: localData?.data.email,
-  //       username: localData?.data.username,
-  //       password: localData?.data.password,
-  //     });
-  //   }
-  // }, [localData]);
   // set company form state
   const onCompanyInputChange = (event) => {
     setCompanyFormState({
@@ -192,43 +175,57 @@ const page = () => {
     event.preventDefault();
     // submit company form
     dispatch(updateCompany(companyFormState));
-
-    // reset form
-    setCompanyFormState({
-      name: "",
-      address: "",
-      phone: "",
-    });
   };
 
-  const uploadImage = async (n) => {
-    const imageForm = new FormData();
-    if (imageToggle === 1) {
-      imageForm.append("cover", image);
-    } else {
-      imageForm.append("profile", image);
+  const uploadImage = async () => {
+    if (!image) {
+      return;
     }
 
-    let token = await getCookie("token");
-    axios
-      .put(
-        "https://yardmanager-be.vercel.app/api/users/company-image",
-        imageForm,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        setImageToggle(0);
-        setImage(null);
-      })
-      .catch((err) => {
-        console.log(err);
-        setImage(null);
+    const imageForm = new FormData();
+    let url = "";
+    let successMessage = "Image uploaded successfully";
+    let errorMessage = "Image upload failed";
+
+    if (imageToggle === 1) {
+      imageForm.append("cover", image);
+      url = "https://yardmanager-be.vercel.app/api/users/company-image";
+    } else if (imageToggle === 2) {
+      imageForm.append("profile", image);
+      url = "https://yardmanager-be.vercel.app/api/users/company-image";
+    } else if (imageToggle === 3) {
+      imageForm.append("profile", image);
+      url = `https://yardmanager-be.vercel.app/api/employees/s/${userId}`;
+    } else {
+      return;
+    }
+
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+
+    try {
+      const res = await axios.put(url, imageForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      console.log(res.data);
+      setImageToggle(0);
+      setImage(null);
+
+      if (imageToggle === 1) {
+        setCoverImg(res.data.data.images.cover);
+      } else if (imageToggle === 2 || imageToggle === 3) {
+        setProfileImg(res.data.data.profile);
+      }
+
+      dispatch(setShowToast({ value: true, msg: successMessage }));
+      dispatch(setUser({ ...user, data: res.data.data }));
+    } catch (err) {
+      console.log(err);
+      setImage(null);
+      dispatch(setShowToast({ value: true, msg: errorMessage, red: true }));
+    }
   };
 
   const onPersonalFormSubmit = (event) => {
@@ -248,27 +245,23 @@ const page = () => {
     formData.append("password", personalFormState.password);
 
     // submit personal form
-    dispatch(updatePersonal(formData));
-
-    // reset form
-    setPersonalFormState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
-    });
+    dispatch(updateUser({ data: formData, id: userId }));
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col  space-y-4  w-screen md:w-full ">
       {/* Header Imgs container */}
-      <div className="flex relative w-full p-2">
-        <Image src={ProfileHeaderImg} className="rounded-lg w-full" />
+      <div className="relative flex w-full h-32 p-2">
+        <div className="relative w-full h-full">
+          <Image
+            src={coverImg}
+            layout="fill"
+            className="rounded-lg object-cover w-full h-full"
+          />
+        </div>
         <div
-          className="hidden sm:block absolute  top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold  cursor-pointer"
+          className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer"
           onClick={() => setImageToggle(1)}
         >
           Edit display Image
@@ -280,17 +273,26 @@ const page = () => {
           Edit
         </div>
       </div>
+
       <div className="w-full relative flex flex-col p-6 space-y-4">
         {/* ProfileImg container */}
-        <div className="absolute w-20 h-14 sm:w-40 sm:h-28 p-1 sm:p-2 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-lg">
-          <Image src={ProfileImg} alt="profile" />
+        <div className="absolute w-20 h-14 sm:w-32 sm:h-24 p-1 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-lg">
+          <div className="relative w-full h-full">
+            <Image
+              className="object-cover rounded-lg"
+              src={companyImg}
+              alt="User Profile"
+              layout="fill"
+            />
+          </div>
           <Image
-            className="absolute bottom-[-10px] right-[-10px] cursor-pointer"
+            className="absolute w-5 h-5 sm:w-10 sm:h-10 bottom-[-10px] right-[-10px] cursor-pointer"
             src={EditImg}
             alt="logo"
             onClick={() => setImageToggle(2)}
           />
         </div>
+
         {/* Block 1 */}
         <div
           className="w-full  bg-white p-4 space-y-4 rounded-lg"
@@ -342,10 +344,28 @@ const page = () => {
           </div>
         </div>
         {/* Block 2 */}
-        <div className="w-full bg-white p-4 space-y-4 rounded-lg">
+        <div className="w-full relative bg-white p-4 space-y-4 rounded-lg">
           <p className="font-bold text-[#344054] text-xl">
             Personal Information
           </p>
+          {/* ProfileImg container */}
+          <div className="w-full flex justify-center items-center">
+            <div className="relative w-20 h-20   p-1  flex justify-center items-center bg-white rounded-full ">
+              <Image
+                className="object-cover rounded-full "
+                layout="fill"
+                src={profileImg}
+                alt="User Profile"
+              />
+
+              <Image
+                onClick={() => setImageToggle(3)}
+                className="absolute   w-8 h-8 bottom-[-5px] right-[5px] cursor-pointer"
+                src={EditImg}
+              />
+            </div>
+          </div>
+
           <div className="grid grid-cols-2 w-full gap-4">
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
@@ -369,12 +389,13 @@ const page = () => {
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
               <input
-                className="w-full outline-none"
+                className="w-full outline-none bg-white text-gray-500"
                 type="text"
                 placeholder="Email Address"
                 name="email"
                 value={personalFormState.email}
                 onChange={onPersonalInputChange}
+                disabled
               />
             </div>
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">

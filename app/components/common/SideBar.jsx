@@ -169,7 +169,7 @@ const SideBar = () => {
       const updatedHideBtns = {};
 
       btnNames.forEach((name) => {
-        const privilege = user.data.role.privileges.find(
+        const privilege = user?.data?.role?.privileges.find(
           (privilege) => privilege.name === name
         );
         updatedHideBtns[name] = privilege ? !privilege.permissions.read : true;

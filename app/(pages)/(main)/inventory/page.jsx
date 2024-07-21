@@ -65,13 +65,16 @@ const page = () => {
     if (error) {
       console.log(error);
     }
+  }, [error]);
+
+  useEffect(() => {
     // When role data has come, set total pages
     if (inventoryData) {
       setDataFromServer(inventoryData);
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
     }
-  }, [error, inventoryData, dataLimit]);
+  }, [inventoryData, dataLimit]);
 
   useEffect(() => {
     if (toastMsg) {
@@ -89,14 +92,17 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 20 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 20 }));
+      setPageNumber(1);
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 30 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 30 }));
       setDataLimit(30);
+      setPageNumber(1);
     } else {
-      dispatch(fetchInventoryByPage({ page: pageNumber, limit: 10 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 10 }));
       setDataLimit(10);
+      setPageNumber(1);
     }
   };
 

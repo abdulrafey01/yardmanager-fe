@@ -98,18 +98,6 @@ const page = () => {
     // console.log(user);
   }, [user]);
 
-  const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      dispatch(fetchInvoicesByPage({ page: pageNumber, limit: 20 }));
-      setDataLimit(20);
-    } else if (e.target.value == 30) {
-      dispatch(fetchInvoicesByPage({ page: pageNumber, limit: 30 }));
-      setDataLimit(30);
-    } else {
-      dispatch(fetchInvoicesByPage({ page: pageNumber, limit: 10 }));
-      setDataLimit(10);
-    }
-  };
   useEffect(() => {
     if (invoiceToast) {
       dispatch(setShowToast({ value: true, ...invoiceToast }));
@@ -243,6 +231,21 @@ const page = () => {
     }
   }, [showSideMenu]);
 
+  const handleRadioClick = (e) => {
+    if (e.target.value == 20) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
+      setDataLimit(20);
+      setPageNumber(1);
+    } else if (e.target.value == 30) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
+      setDataLimit(30);
+      setPageNumber(1);
+    } else {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
+      setDataLimit(10);
+      setPageNumber(1);
+    }
+  };
   // Search function
   const handleSearch = (e) => {
     dispatch(fetchInvoicesByPage({ search: e.target.value }));

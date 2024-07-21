@@ -17,6 +17,7 @@ const PartSideMenu = () => {
     variant: [],
     color: false,
   });
+  const [variantInputVal, setVariantInputVal] = useState("");
 
   // Color toggle for inventory
   const [colorToggle, setColorToggle] = useState(
@@ -90,6 +91,12 @@ const PartSideMenu = () => {
         onClick={() => {
           dispatch(setShowSideMenu({ value: false }));
           console.log("clicked");
+          setFormData({
+            name: "",
+            variant: [],
+            color: false,
+          });
+          setVariantInputVal("");
         }}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>
@@ -146,6 +153,8 @@ const PartSideMenu = () => {
                 type="text"
                 placeholder="Variant"
                 name="variant"
+                onChange={(e) => setVariantInputVal(e.target.value)}
+                value={variantInputVal}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     if (e.target.value.length < 3) {
@@ -161,7 +170,7 @@ const PartSideMenu = () => {
                         ...formData,
                         variant: [...formData.variant, e.target.value],
                       });
-                      e.target.value = "";
+                      setVariantInputVal("");
                     }
                   }
                 }}
@@ -200,6 +209,12 @@ const PartSideMenu = () => {
           <div
             onClick={() => {
               dispatch(setShowSideMenu({ value: false, mode: "add" }));
+              setFormData({
+                name: "",
+                variant: [],
+                color: false,
+              });
+              setVariantInputVal("");
             }}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >

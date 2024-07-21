@@ -28,7 +28,7 @@ const useLoadAuthState = () => {
         console.log("User info:", response.data);
         dispatch(
           setUser({
-            userType: response.data.data.company,
+            company: response.data.data.company,
             data: response.data.data.user,
             userType: response.data.data.type,
           })

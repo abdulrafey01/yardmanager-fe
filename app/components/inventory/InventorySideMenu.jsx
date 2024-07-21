@@ -120,11 +120,11 @@ const InventorySideMenu = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    if (formState.name === "") {
+    if (formState.name === "" || formState.name === "undefined") {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the name field",
+          msg: "Please fill the Name field",
           red: true,
         })
       );
@@ -132,15 +132,23 @@ const InventorySideMenu = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the location field",
+          msg: "Please fill the Location field",
           red: true,
         })
       );
-    } else if (partValue === "") {
+    } else if (partId === null || partId === "") {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the part field",
+          msg: "Please select the Part field",
+          red: true,
+        })
+      );
+    } else if (locId === null || locId === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select the Location field",
           red: true,
         })
       );

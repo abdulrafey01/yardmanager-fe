@@ -63,22 +63,29 @@ const page = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Employee"));
-    dispatch(fetchEmployeesByPage({ page: pageNumber, limit: dataLimit }));
-  }, [dispatch, pageNumber]);
+    dispatch(
+      fetchEmployeesByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        filter: filterActive,
+      })
+    );
+  }, [dispatch, pageNumber, dataLimit, filterActive]);
 
   useEffect(() => {
     if (error) {
       console.log(error);
     }
     // When employee data has come set total pages
+  }, [error]);
+
+  useEffect(() => {
     if (employeeData) {
       setDataFromServer(employeeData);
-      // console.log(employeeData);
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
-      console.log(employeeData);
     }
-  }, [error, employeeData, dataLimit]);
+  }, [employeeData, dataLimit]);
 
   useEffect(() => {
     if (toastMsg) {
@@ -95,65 +102,55 @@ const page = () => {
   };
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: 20,
-          filter: filterActive,
-        })
-      );
-      setDataLimit(20);
-    } else if (e.target.value == 30) {
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: 30,
-          filter: filterActive,
-        })
-      );
-      setDataLimit(30);
-    } else {
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: 10,
-          filter: filterActive,
-        })
-      );
-      setDataLimit(10);
-    }
+    const limit = parseInt(e.target.value);
+    setDataLimit(limit);
+    setPageNumber(1); // Ensure the page number is reset to 1 when limit is changed
   };
+
   const handleFilterClick = (e) => {
     if (e.target.value === "Active") {
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: dataLimit,
-          filter: true,
-        })
-      );
       setFilterActive(true);
     } else if (e.target.value === "InActive") {
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: dataLimit,
-          filter: false,
-        })
-      );
       setFilterActive(false);
     } else {
-      // normal fetch for null
-      dispatch(
-        fetchEmployeesByPage({
-          page: pageNumber,
-          limit: dataLimit,
-        })
-      );
       setFilterActive(undefined);
     }
+    setPageNumber(1); // Ensure the page number is reset to 1 when a filter is applied
   };
+
+  // const handleFilterClick = (e) => {
+  //   if (e.target.value === "Active") {
+  //     dispatch(
+  //       fetchEmployeesByPage({
+  //         page: 1,
+  //         limit: dataLimit,
+  //         filter: true,
+  //       })
+  //     );
+  //     setFilterActive(true);
+  //     setPageNumber(1);
+  //   } else if (e.target.value === "InActive") {
+  //     dispatch(
+  //       fetchEmployeesByPage({
+  //         page: 1,
+  //         limit: dataLimit,
+  //         filter: false,
+  //       })
+  //     );
+  //     setFilterActive(false);
+  //     setPageNumber(1);
+  //   } else {
+  //     // normal fetch for null
+  //     dispatch(
+  //       fetchEmployeesByPage({
+  //         page: 1,
+  //         limit: dataLimit,
+  //       })
+  //     );
+  //     setFilterActive(undefined);
+  //     setPageNumber(1);
+  //   }
+  // };
 
   return (
     pagePermission?.read && (

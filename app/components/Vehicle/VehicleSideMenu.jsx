@@ -242,6 +242,7 @@ const InventorySideMenu = () => {
           variant: selectedItem.variant,
           notes: selectedItem.notes ? selectedItem.notes : "",
           startYear: new Date(selectedItem.startYear).getFullYear(),
+          lastYear: new Date(selectedItem.lastYear).getFullYear(),
           sku: selectedItem.sku,
         });
         setLocValue(selectedItem.location?.location);
@@ -367,7 +368,7 @@ const InventorySideMenu = () => {
                   onClick={() => setDateType1(true)}
                   className="w-full outline-none"
                   type={dateType1 ? "date" : "text"}
-                  placeholder="Start Date"
+                  placeholder="Start Year"
                   value={formState.startYear}
                   name="startYear"
                   onChange={onInputChange}
@@ -378,7 +379,7 @@ const InventorySideMenu = () => {
                   onClick={() => setDateType2(true)}
                   className="w-full outline-none"
                   type={dateType2 ? "date" : "text"}
-                  placeholder="End Date"
+                  placeholder="Last Year"
                   value={formState.lastYear}
                   name="lastYear"
                   onChange={onInputChange}

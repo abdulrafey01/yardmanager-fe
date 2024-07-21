@@ -105,15 +105,16 @@ const TopBar = () => {
           }, 200)
         }
         tabIndex={0}
-        className="flex relative space-x-2 justify-center items-center cursor-pointer select-none"
+        className="flex relative   space-x-2 justify-center items-center cursor-pointer select-none"
       >
-        <div>
+        <div className="w-12 h-12">
           <Image
             // src={user?.data?.profile}
-            src={Avatar}
+            src={user?.data?.profile}
+            alt="avatar"
             width={40}
             height={40}
-            alt="avatar"
+            className="rounded-full object-cover h-full w-full"
           />
         </div>
         <div className="flex flex-col">
@@ -144,14 +145,6 @@ const TopBar = () => {
             onClick={() => {
               dispatch(logout());
             }}
-            // onClick={() => {
-            //   dispatch(logout());
-            //   removeLocalStorage("priceToggle");
-            //   removeLocalStorage("partImageToggle");
-            //   // setTimeout(() => {
-
-            //   // }, timeout);
-            // }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
           >
             Logout

@@ -160,14 +160,17 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 20 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 20 }));
       setDataLimit(20);
+      setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 30 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 30 }));
       setDataLimit(30);
+      setPageNumber(1);
     } else {
-      dispatch(fetchVehiclesByPage({ page: pageNumber, limit: 10 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 10 }));
       setDataLimit(10);
+      setPageNumber(1);
     }
   };
   return (
