@@ -173,7 +173,7 @@ const EmployeeSideMenu = () => {
     // set form data with form state
     formData.append("name[first]", formState.firstName);
     formData.append("name[last]", formState.lastName);
-    formData.append("email", formState.email);
+    formData.append("email", formState.email.toLowerCase());
     formData.append("password", formState.confirmPassword);
     formData.append("role", formState.role);
     formData.append("position", formState.position);

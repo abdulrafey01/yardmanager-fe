@@ -26,6 +26,7 @@ import {
 } from "../../../../lib/features/vehicle/vehicleActions";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import {
+  resetAddedToInv,
   resetVehicleToast,
   setVinDecodedData,
 } from "../../../../lib/features/vehicle/vehicleSlice";
@@ -33,8 +34,14 @@ import Footer from "../../../components/common/Footer";
 import ImageDropzone from "../../../components/common/ImageDropzone";
 
 const page = () => {
-  const { error, vehicleData, toastMsg, totalDataLength, vinDecodedData } =
-    useSelector((state) => state.vehicle);
+  const {
+    error,
+    vehicleData,
+    toastMsg,
+    addedToInv,
+    totalDataLength,
+    vinDecodedData,
+  } = useSelector((state) => state.vehicle);
   const [showDecodeMenu, setShowDecodeMenu] = React.useState(false);
 
   const [imgArray2, setImgArray2] = React.useState([]);
@@ -84,6 +91,13 @@ const page = () => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (addedToInv) {
+      dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit }));
+      dispatch(resetAddedToInv());
+      setPageNumber(1);
+    }
+  }, [addedToInv]);
   useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {

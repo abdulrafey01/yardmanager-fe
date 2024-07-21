@@ -39,13 +39,19 @@ const TableHead = ({ titles }) => {
           )
         ) : index === 3 ? (
           renderBadgeCells(title)
-        ) : index === 4 ? (
+        ) : index === 4 || index === 5 || index === 7 ? (
           renderBadgeCells(title)
         ) : (
           <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>
         )
       )}
-      <p className=" min-w-16 p-3 bg-[#f2fff8]">Action</p>
+      {currentPage === "DeletedItems" ? (
+        <p className=" min-w-24 sm:min-w-16 text-end p-3 bg-[#f2fff8]">
+          Action
+        </p>
+      ) : (
+        <p className=" min-w-16 p-3 bg-[#f2fff8]">Action</p>
+      )}
     </div>
   );
 };

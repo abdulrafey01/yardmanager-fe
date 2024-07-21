@@ -366,13 +366,16 @@ const page = () => {
         updateInvoice({
           formData: {
             ...formData,
+            email: formData.email.toLowerCase(),
             datePaid: new Date(formData.datePaid),
           },
           id: item._id,
         })
       );
     } else {
-      dispatch(addInvoice(formData));
+      dispatch(
+        addInvoice({ ...formData, email: formData.email.toLowerCase() })
+      );
     }
 
     console.log("pageMode:", pageMode);

@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
   return (
-    <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
+    <div className="p-4 gap-2 w-full rounded-b-lg flex justify-between items-center">
       <p className="font-semibold text-sm">
         Page {pageNumber} of {totalPage}
       </p>

@@ -193,13 +193,21 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
-          {titles[5].map((variant, index) => (
+          {titles[5].length === 0 ? (
             <div
-              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#12121209]   rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
-              {variant}
+              No Variant
             </div>
-          ))}
+          ) : (
+            titles[5].map((variant, index) => (
+              <div
+                className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              >
+                {variant}
+              </div>
+            ))
+          )}
         </div>
       ) : index === 6 ? (
         <div
@@ -427,6 +435,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
                 </div>
               )
             )}
+
         <div
           className={` min-w-16 p-3 pl-8 relative text-center flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
