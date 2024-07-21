@@ -37,6 +37,7 @@ const page = () => {
   const { user } = useSelector((state) => state.auth);
 
   const [pagePermission, setPagePermission] = React.useState(null);
+  const [empPermission, setEmpPermission] = React.useState(null);
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -63,6 +64,27 @@ const page = () => {
     }
     console.log(user);
   }, [user]);
+
+  // Get page permission
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setEmpPermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setEmpPermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "employees"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
+
   useEffect(() => {
     dispatch(setCurrentPage("Roles"));
     dispatch(fetchRolesByPage({ page: pageNumber, limit: dataLimit }));
@@ -132,13 +154,15 @@ const page = () => {
           {/* Create Role Button */}
           {pagePermission?.write && (
             <>
-              <WhiteBtn
-                onClick={() => {
-                  dispatch(setShowEmployeeSideMenu(true));
-                  dispatch(setShowSideMenu({ value: true, mode: "add" }));
-                }}
-                title={"Add Employee"}
-              />
+              {empPermission?.write && (
+                <WhiteBtn
+                  onClick={() => {
+                    dispatch(setShowEmployeeSideMenu(true));
+                    dispatch(setShowSideMenu({ value: true, mode: "add" }));
+                  }}
+                  title={"Add Employee"}
+                />
+              )}
               <GreenBtn
                 onClick={() =>
                   dispatch(setShowSideMenu({ value: true, mode: "add" }))

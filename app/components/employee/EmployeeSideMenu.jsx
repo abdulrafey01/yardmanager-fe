@@ -33,9 +33,12 @@ const EmployeeSideMenu = () => {
   );
   const { toastMsg: empToast } = useSelector((state) => state.employee);
 
+  const [pagePermission, setPagePermission] = React.useState(null);
+
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
 
+  const { user } = useSelector((state) => state.auth);
   const [roleInputValue, setRoleInputValue] = React.useState("");
   const [formState, setFormState] = React.useState({
     firstName: "",
@@ -51,6 +54,25 @@ const EmployeeSideMenu = () => {
 
   const dispatch = useDispatch();
 
+  // Get page permission
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user") {
+        return setPagePermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setPagePermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "employees"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
   useEffect(() => {
     console.log("showEmployeeSideMenu", showEmployeeSideMenu);
   }, [showEmployeeSideMenu]);
@@ -343,22 +365,24 @@ const EmployeeSideMenu = () => {
           >
             Cancel
           </div>
-          <div
-            onClick={(e) => {
-              if (showSideMenu.mode === "preview") {
-                dispatch(setShowSideMenu({ value: true, mode: "edit" }));
-              } else {
-                onFormSubmit(e);
-              }
-            }}
-            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none `}
-          >
-            {showSideMenu.mode === "edit"
-              ? "Update Employee"
-              : showSideMenu.mode === "preview"
-              ? "Edit Employee"
-              : "Add Employee"}
-          </div>
+          {pagePermission?.update && (
+            <div
+              onClick={(e) => {
+                if (showSideMenu.mode === "preview") {
+                  dispatch(setShowSideMenu({ value: true, mode: "edit" }));
+                } else {
+                  onFormSubmit(e);
+                }
+              }}
+              className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none `}
+            >
+              {showSideMenu.mode === "edit"
+                ? "Update Employee"
+                : showSideMenu.mode === "preview"
+                ? "Edit Employee"
+                : "Add Employee"}
+            </div>
+          )}
         </div>
       </div>
     </div>

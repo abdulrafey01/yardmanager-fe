@@ -159,13 +159,15 @@ const page = () => {
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-end space-x-4  w-full p-2">
           {/* Add Employee Button */}
-          <GreenBtn
-            onClick={() => {
-              dispatch(setShowEmployeeSideMenu(true));
-              dispatch(setShowSideMenu({ value: true, mode: "add" }));
-            }}
-            title={"Add Employee"}
-          />
+          {pagePermission?.write && (
+            <GreenBtn
+              onClick={() => {
+                dispatch(setShowEmployeeSideMenu(true));
+                dispatch(setShowSideMenu({ value: true, mode: "add" }));
+              }}
+              title={"Add Employee"}
+            />
+          )}
         </div>
         {/* Table */}
         <div className=" border rounded-xl border-gray-300 flex flex-col">
