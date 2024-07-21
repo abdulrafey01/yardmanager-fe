@@ -69,7 +69,7 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
           openPermissionDetail ? "grid" : "hidden"
         }  grid-cols-4 gap-y-4 `}
       >
-        {title === "Recycled Items" ? (
+        {title === "Deleted Items" ? (
           <>
             <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
               <input

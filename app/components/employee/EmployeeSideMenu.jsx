@@ -31,6 +31,7 @@ const EmployeeSideMenu = () => {
   const { roleSearchData, toastMsg: roleToast } = useSelector(
     (state) => state.roles
   );
+  const { toastMsg: empToast } = useSelector((state) => state.employee);
 
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [togglePWDC, setTogglePWDC] = React.useState(false);
@@ -51,6 +52,7 @@ const EmployeeSideMenu = () => {
   const dispatch = useDispatch();
 
   const onInputChange = (e) => {
+    setDateInputType("date");
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
@@ -72,9 +74,88 @@ const EmployeeSideMenu = () => {
     }
   }, [selectedItem, showSideMenu]);
 
+  // If no error only then close the menu
+  useEffect(() => {
+    // close the menu after submitting
+    if (!empToast?.red) {
+      dispatch(setShowSideMenu({ value: false }));
+      dispatch(setShowEmployeeSideMenu(false));
+      // reset the form values
+      setFormState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "",
+        position: "",
+        date: "",
+      });
+      setRoleInputValue("");
+      setDateInputType("text");
+    }
+  }, [empToast]);
   const onFormSubmit = (e) => {
     e.preventDefault();
     console.log(formState);
+
+    if (formState.firstName === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter First name",
+          red: true,
+        })
+      );
+    } else if (formState.lastName === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Last name",
+          red: true,
+        })
+      );
+    } else if (formState.email === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Email",
+          red: true,
+        })
+      );
+    } else if (formState.password === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Password",
+          red: true,
+        })
+      );
+    } else if (formState.role === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select Role",
+          red: true,
+        })
+      );
+    } else if (formState.position === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please Enter Position",
+          red: true,
+        })
+      );
+    } else if (formState.date === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select Date",
+          red: true,
+        })
+      );
+    }
     // check if password and confirm password are same
     if (formState.password !== formState.confirmPassword) {
       return dispatch(
@@ -85,24 +166,6 @@ const EmployeeSideMenu = () => {
         })
       );
     }
-
-    if (
-      formState.firstName === "" ||
-      formState.lastName === "" ||
-      formState.email === "" ||
-      formState.role === "" ||
-      formState.position === "" ||
-      formState.date === ""
-    ) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "All field required",
-          red: true,
-        })
-      );
-    }
-
     // set form data with form state
     formData.append("name[first]", formState.firstName);
     formData.append("name[last]", formState.lastName);
@@ -118,23 +181,6 @@ const EmployeeSideMenu = () => {
     } else {
       dispatch(addEmployee(formData));
     }
-    // close the menu after submitting
-    dispatch(setShowSideMenu({ value: false }));
-    dispatch(setShowEmployeeSideMenu(false));
-
-    // reset the form values
-    setFormState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      role: "",
-      position: "",
-      date: "",
-    });
-    setRoleInputValue("");
-    setDateInputType("text");
   };
   return (
     <div

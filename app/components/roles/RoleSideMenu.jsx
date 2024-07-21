@@ -355,12 +355,12 @@ const AddRoleMenu = () => {
           <PermissionMenu
             perm={vehiclePerm}
             setPerm={setVehiclePerm}
-            title={"Vehicles"}
+            title={"My Vehicles"}
           />
           <PermissionMenu
             perm={recyclePerm}
             setPerm={setRecyclePerm}
-            title={"Recycled Items"}
+            title={"Deleted Items"}
           />
         </div>
 

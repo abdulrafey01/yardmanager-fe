@@ -212,7 +212,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             <input
               type="text"
               placeholder="Notes"
-              className="w-full outline-none bg-transparent"
+              className="w-full outline-none bg-transparent cursor-default "
               value={titles[6]}
               readOnly
             />
@@ -229,7 +229,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             <input
               type="text"
               placeholder="Location"
-              className="w-full outline-none bg-transparent"
+              className="w-full outline-none bg-transparent cursor-default "
               value={titles[7]}
               readOnly
             />
