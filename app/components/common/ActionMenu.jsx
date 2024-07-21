@@ -200,7 +200,7 @@ const ActionMenu = ({ index, item, permissions }) => {
           <p className="font-semibold hover:font-bold">Delete</p>
         </div>
       )}
-      {currentPage === "Vehicle" && (
+      {currentPage === "Vehicle" && permissions?.write && (
         <div
           onClick={() => {
             dispatch(setSelectedItem(item));
