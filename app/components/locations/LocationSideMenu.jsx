@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
   setShowSuccessModal,
+  setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import {
   addLocation,
@@ -36,6 +37,15 @@ const LocationSideMenu = () => {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
+    if (formData.location === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please Enter Location Name",
+          red: true,
+        })
+      );
+    }
     if (showSideMenu.mode === "edit") {
       dispatch(updateLocation({ formData, id: selectedItem._id }));
     } else {

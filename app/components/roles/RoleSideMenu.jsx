@@ -237,7 +237,7 @@ const AddRoleMenu = () => {
     e.preventDefault();
     if (roleName === "") {
       return dispatch(
-        setShowToast({ value: true, msg: "Role Name is required", red: true })
+        setShowToast({ value: true, msg: "Please Enter Role Name", red: true })
       );
     }
     if (showSideMenu.mode === "edit") {

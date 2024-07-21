@@ -9,8 +9,6 @@ import Toast from "../../abstracts/Toast";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import useloadAuthState from "../../helpers/authHook";
-import NavRow from "../../components/admin/common/NavRow";
-
 const layout = ({ children }) => {
   useloadAuthState();
   const router = useRouter();
@@ -27,15 +25,6 @@ const layout = ({ children }) => {
     // Clean up the timeout if `token` changes or component unmounts
     return () => clearTimeout(timeoutId);
   }, []);
-  // useloadAuthState();
-  // const router = useRouter();
-  // const { token } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   if (!getCookie("token") && !window?.sessionStorage.getItem("token")) {
-  //     router.push("/sign-in");
-  //   }
-  // }, [token]);
 
   return (
     <div className="flex relative w-full select-none  min-h-screen">

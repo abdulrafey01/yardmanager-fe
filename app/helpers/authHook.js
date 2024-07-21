@@ -39,9 +39,6 @@ const useLoadAuthState = () => {
     };
 
     fetchUserInfo();
-    // if (user) {
-    //   dispatch(setUser(JSON.parse(user)));
-    // }
   }, [dispatch]);
 };
 
