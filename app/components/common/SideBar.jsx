@@ -53,7 +53,6 @@ const SideBar = () => {
     recycled: true,
     employees: true,
     roles: true,
-    settings: true,
     vehicles: true,
     subscription: true,
   });
@@ -197,8 +196,8 @@ const SideBar = () => {
   }, [hideBtns]);
 
   useEffect(() => {
-    console.log("showBtns", showBtnsBottom);
-  }, [showBtns]);
+    console.log("showBtns", hideBtns);
+  }, [hideBtns]);
   // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
     if (currentPage === "MyProfile") {
@@ -265,8 +264,6 @@ const SideBar = () => {
       setActiveMainBtn(2);
     } else if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
-    } else {
-      setActiveMainBtn(-1);
     }
   }, [currentPage, pathName, showBtns]);
 
