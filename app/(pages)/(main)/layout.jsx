@@ -9,6 +9,7 @@ import Toast from "../../abstracts/Toast";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import useloadAuthState from "../../helpers/authHook";
+import NavRow from "../../components/admin/common/NavRow";
 const layout = ({ children }) => {
   useloadAuthState();
   const router = useRouter();
@@ -31,7 +32,7 @@ const layout = ({ children }) => {
       <Toast />
       <AbsoluteMenusAndModals />
       <SideBar />
-      <div className="flex-[5] flex w-full  flex-col">
+      <div className="flex-[5] flex w-full xl:max-w-[80%]  flex-col">
         <TopBar />
         {/* <NavRow /> */}
         {children}

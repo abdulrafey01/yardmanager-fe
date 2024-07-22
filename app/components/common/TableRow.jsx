@@ -165,6 +165,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[3].map((model, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
@@ -180,6 +181,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[4].map((make, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
@@ -202,6 +204,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           ) : (
             titles[5].map((variant, index) => (
               <div
+                key={index}
                 className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
               >
                 {variant}
@@ -277,6 +280,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[3].map((model, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {model}
@@ -292,6 +296,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         >
           {titles[index].map((make, index) => (
             <div
+              key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               {make}
@@ -348,6 +353,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
     return titles.map((title, index) =>
       index === 0 ? (
         <div
+          key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
@@ -380,6 +386,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
   const renderLocationRow = (titles) => {
     return titles.map((title, index) => (
       <div
+        key={index}
         onClick={() => dispatch(setShowActionMenu(-1))}
         className={` ${
           rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] flex  items-center"
@@ -417,6 +424,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           : titles.map((title, index) =>
               index === 0 ? (
                 <div
+                  key={index}
                   onClick={() => dispatch(setShowActionMenu(-1))}
                   className={` ${
                     rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "

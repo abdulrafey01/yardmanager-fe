@@ -19,7 +19,11 @@ const TableHead = ({ titles }) => {
   };
 
   const renderBadgeCells = (title) => {
-    if (currentPage === "Vehicle" || currentPage === "DeletedItems") {
+    if (
+      currentPage === "Vehicle" ||
+      currentPage === "DeletedItems" ||
+      currentPage === "Inventory"
+    ) {
       return <p className=" min-w-24 p-3 bg-[#f2fff8] flex-1">{title}</p>;
     } else {
       return <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>;

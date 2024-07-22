@@ -13,7 +13,7 @@ const topButtonsMain = [
   },
   {
     name: "Invoices",
-    route: "/invoices",
+    route: "/admin/invoices/",
   },
   {
     name: "Employees",
@@ -42,7 +42,7 @@ const topButtonsMain = [
   },
   {
     name: "Vehicles",
-    route: "/admin/vehicles",
+    route: "/admin/vehicle",
   },
 ];
 
@@ -54,7 +54,7 @@ const NavRow = () => {
         return (
           <Link
             href={item?.route}
-            className={`p-2 min-w-36 cursor-pointer lg:min-w-24  border border-[grey] rounded-3xl text-sm flex justify-center items-center text-center font-medium ${
+            className={`p-2 min-w-36 cursor-pointer  border border-[grey] rounded-3xl text-sm flex justify-center items-center text-center font-medium ${
               pathName === item?.route
                 ? "bg-[#78FFB6] sm:hover:bg-[#78FFB6] text-black border-none"
                 : "sm:hover:bg-[#ecf2ef49] text-[grey]"

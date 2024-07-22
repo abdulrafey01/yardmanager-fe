@@ -17,6 +17,38 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/admin/invoices",
+        destination: "/invoices",
+      },
+      {
+        source: "/admin/inventory",
+        destination: "/inventory",
+      },
+      {
+        source: "/admin/employees",
+        destination: "/employees",
+      },
+      {
+        source: "/admin/parts",
+        destination: "/parts",
+      },
+      {
+        source: "/admin/deleted-items",
+        destination: "/deleted-items",
+      },
+      {
+        source: "/admin/locations",
+        destination: "/deleted-items",
+      },
+      {
+        source: "/admin/vehicle",
+        destination: "/vehicle",
+      },
+    ];
+  },
 };
 
 export default nextConfig;
