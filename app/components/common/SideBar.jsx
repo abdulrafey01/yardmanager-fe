@@ -172,8 +172,8 @@ const SideBar = () => {
   useEffect(() => {
     if (user) {
       if (user.userType === "user" || user.userType === "employee") {
-        // return setShowBtns(sideButtonsMain);
-        return setShowBtns(adminSideButtonsMain);
+        return setShowBtns(sideButtonsMain);
+        // return setShowBtns(adminSideButtonsMain);
       }
       // else if (user.userType === "admin") {
       //   return setShowBtns(adminSideButtonsMain);

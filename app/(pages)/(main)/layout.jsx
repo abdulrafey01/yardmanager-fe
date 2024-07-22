@@ -33,7 +33,7 @@ const layout = ({ children }) => {
       <SideBar />
       <div className="flex-[5] flex w-full xl:max-w-[80%]  flex-col">
         <TopBar />
-        <NavRow />
+        {/* <NavRow /> */}
         {children}
       </div>
     </div>
