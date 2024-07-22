@@ -15,15 +15,14 @@ const layout = ({ children }) => {
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
 
+  // Set up the timeout
+  // Clean up the timeout if component unmounts
   useEffect(() => {
-    // Set up the timeout
     const timeoutId = setTimeout(() => {
       if (!token) {
         router.push("/sign-in");
       }
     }, 2000);
-
-    // Clean up the timeout if `token` changes or component unmounts
     return () => clearTimeout(timeoutId);
   }, []);
 
@@ -34,7 +33,7 @@ const layout = ({ children }) => {
       <SideBar />
       <div className="flex-[5] flex w-full xl:max-w-[80%]  flex-col">
         <TopBar />
-        {/* <NavRow /> */}
+        <NavRow />
         {children}
       </div>
     </div>

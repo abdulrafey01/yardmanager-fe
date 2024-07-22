@@ -41,7 +41,7 @@ const nextConfig = {
       },
       {
         source: "/admin/locations",
-        destination: "/deleted-items",
+        destination: "/locations",
       },
       {
         source: "/admin/vehicle",

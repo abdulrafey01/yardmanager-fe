@@ -311,8 +311,9 @@ const page = () => {
               >
                 <p>{filterValue1}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
+                {/* Dropdown */}
                 <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
                     showGraphFilter1 ? "block" : "hidden"
                   }`}
                 >
@@ -382,7 +383,7 @@ const page = () => {
                 <p>{filterValue2}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
                 <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
                     showGraphFilter2 ? "block" : "hidden"
                   }`}
                 >

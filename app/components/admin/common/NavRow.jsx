@@ -13,7 +13,7 @@ const topButtonsMain = [
   },
   {
     name: "Invoices",
-    route: "/admin/invoices/",
+    route: "/admin/invoices",
   },
   {
     name: "Employees",

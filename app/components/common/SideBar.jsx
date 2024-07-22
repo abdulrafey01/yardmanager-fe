@@ -44,7 +44,19 @@ const SideBar = () => {
   const [activeBottomBtn, setActiveBottomBtn] = useState(-1);
   const { showSideBar, currentPage } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
-  const [hideBtns, setHideBtns] = useState({});
+  const [hideBtns, setHideBtns] = useState({
+    dashboard: true,
+    inventory: true,
+    invoices: true,
+    locations: true,
+    parts: true,
+    recycled: true,
+    employees: true,
+    roles: true,
+    settings: true,
+    vehicles: true,
+    subscription: true,
+  });
   const [showBtns, setShowBtns] = useState([]);
   const [showBtnsBottom, setShowBtnsBottom] = useState([]);
   const btnNames = [
@@ -160,8 +172,8 @@ const SideBar = () => {
   useEffect(() => {
     if (user) {
       if (user.userType === "user" || user.userType === "employee") {
-        return setShowBtns(sideButtonsMain);
-        // return setShowBtns(adminSideButtonsMain);
+        // return setShowBtns(sideButtonsMain);
+        return setShowBtns(adminSideButtonsMain);
       }
       // else if (user.userType === "admin") {
       //   return setShowBtns(adminSideButtonsMain);
@@ -245,14 +257,16 @@ const SideBar = () => {
       );
     }
     // For admin
-    if (pathName === "/admin/yards") {
+    if (pathName === "/admin/dashboard") {
+      setActiveMainBtn(0);
+    } else if (pathName === "/admin/yards") {
       setActiveMainBtn(1);
-    }
-    if (pathName === "/admin/inventory") {
+    } else if (pathName === "/admin/inventory") {
       setActiveMainBtn(2);
-    }
-    if (pathName === "/admin/subscription") {
+    } else if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
+    } else {
+      setActiveMainBtn(-1);
     }
   }, [currentPage, pathName, showBtns]);
 

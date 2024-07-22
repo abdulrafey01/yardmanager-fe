@@ -27,8 +27,8 @@ const ImagePrevModal = () => {
             }
             alt="preview"
             className="relative rounded-2xl flex flex-col justify-center items-center gap-4  "
-            width={500}
-            height={500}
+            width={300}
+            height={300}
           />
           {/* Cross icon */}
           <Image

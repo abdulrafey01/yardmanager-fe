@@ -6,9 +6,9 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import MenuIcon from "../../../../assets/main/59-menu.svg";
 import UserIcon from "../../../../assets/main/83-user.svg";
-import VhcIcon from "../../../../assets/main/61-hc.svg";
-import InvoiceIcon from "../../../../assets/main/62-invo.svg";
-import EmpIcon from "../../../../assets/main/63-emp.svg";
+import InvIcon from "../../../../assets/main/84-inv.svg";
+import YardIcon from "../../../../assets/main/85-yard.svg";
+import SubIcon from "../../../../assets/main/86-sub.svg";
 import ArrowIcon from "../../../../assets/main/28-downarrow.svg";
 
 import CountBlock from "../../../../components/dashboard/CountBlock";
@@ -70,7 +70,7 @@ const page = () => {
   const [filterValue2, setFilterValue2] = React.useState("Yearly");
   const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
-    dispatch(setCurrentPage("Dashboard"));
+    dispatch(setCurrentPage("AdminDashboard"));
     dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
@@ -277,17 +277,17 @@ const page = () => {
           />
           <CountBlock
             title={"Total Inventory"}
-            icon={VhcIcon}
+            icon={InvIcon}
             count={data?.vehicles ?? 0}
           />
           <CountBlock
             title={"Total Yards"}
-            icon={InvoiceIcon}
+            icon={YardIcon}
             count={data?.locations ?? 0}
           />
           <CountBlock
             title={"Total Subscriptions"}
-            icon={EmpIcon}
+            icon={SubIcon}
             count={data?.employees ?? 0}
           />
         </div>
@@ -299,7 +299,7 @@ const page = () => {
           <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
             {/* Text and input container */}
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Vehicles Added</p>
+              <p className="font-bold text-lg">Total Inventory</p>
               {/* Time select input */}
               <div
                 onClick={() => {
@@ -316,7 +316,7 @@ const page = () => {
                 <p>{filterValue1}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
                 <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
                     showGraphFilter1 ? "block" : "hidden"
                   }`}
                 >
@@ -371,7 +371,7 @@ const page = () => {
           <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
             {/* Text and input container */}
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Parts Inventoried</p>
+              <p className="font-bold text-lg">Inventory Usage</p>
               {/* Time select input */}
               <div
                 onClick={() => setShowGraphFilter2(!showGraphFilter2)}
@@ -386,7 +386,7 @@ const page = () => {
                 <p>{filterValue2}</p>
                 <Image src={ArrowIcon} alt="ArrowIcon" />
                 <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-full border border-black ${
+                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
                     showGraphFilter2 ? "block" : "hidden"
                   }`}
                 >
@@ -438,21 +438,28 @@ const page = () => {
       {/* Table */}
       <div className=" border rounded-xl border-gray-300 flex flex-col">
         {/* Table Title container */}
-        <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
+        <div className="p-4 gap-2 w-full rounded-t-lg flex justify-between items-center">
           <p className="hidden sm:block font-bold text-lg md:text-2xl">
-            Invoices List
+            Subscription Items
           </p>
-          <p className="sm:hidden font-bold text-lg md:text-2xl">Invoices</p>
-          {/* Search abd filter input container*/}
-          <div className="flex  space-x-2 sm:space-x-4">
+          <p className="sm:hidden font-bold text-lg md:text-2xl">
+            Subscription
+          </p>
+          {/* Search and filter input container */}
+          <div className="flex space-x-2 sm:space-x-4">
             <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
               <Image src={SearchIcon} alt="SearchIcon" />
               <input
                 type="text"
+                name="search"
                 placeholder="Search"
                 className="w-full outline-none bg-transparent"
-                onChange={handleSearch}
+                //   onChange={handleSearch}
               />
+            </div>
+            <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+              <p>Filter</p>
+              <Image src={MenuIcon} alt="MenuIcon" />
             </div>
           </div>
         </div>
@@ -461,47 +468,52 @@ const page = () => {
           {/* Head */}
           <TableHead
             titles={[
+              "Sr.No",
               "Name",
-              "Invoice #",
-              "Email",
-              "Phone",
-              "Amount",
-              "Date",
+              "Subscription Plan",
+              "Start Date",
+              "End Date",
               "Status",
             ]}
           />
           {/* Body */}
-          {dataFromServer.length == 0 && (
-            <div className="text-center p-8 font-semibold">
-              No Data Available
-            </div>
-          )}
-
-          {dataFromServer.map((data, index) => (
-            <TableRow
-              titles={[
-                data.name,
-                data._id,
-                data.email,
-                data.phone,
-                data.paid,
-                new Date(data.datePaid).toLocaleDateString(),
-                data.status,
-              ]}
-              key={index}
-              rowIndex={index}
-              item={data}
-              permissions={pagePermission}
-            />
-          ))}
+          <TableRow
+            titles={[
+              "1",
+              "Mashaim Tariq",
+              "Premium",
+              "10/10/2022",
+              "10/10/2022",
+              "Active",
+            ]}
+          />
         </div>
         {/* Footer */}
-        <Footer
-          totalPage={totalPage}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          handleRadioClick={handleRadioClick}
-        />
+        <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
+          <p className="font-semibold text-sm">
+            Page {pageNumber} of {totalPage}
+          </p>
+          <div className="flex space-x-2">
+            <div
+              onClick={() =>
+                setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
+              }
+              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+            >
+              Previous
+            </div>
+            <div
+              onClick={() =>
+                setPageNumber(
+                  pageNumber === totalPage ? pageNumber : pageNumber + 1
+                )
+              }
+              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
+            >
+              Next
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
