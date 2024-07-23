@@ -14,6 +14,7 @@ const LocationSideMenu = () => {
   const dispatch = useDispatch();
 
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { toastMsg } = useSelector((state) => state.locations);
   const [formData, setFormData] = useState({
     location: "",
   });
@@ -51,8 +52,14 @@ const LocationSideMenu = () => {
     } else {
       dispatch(addLocation(formData));
     }
-    dispatch(setShowSideMenu({ value: false }));
   };
+
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(setShowSideMenu({ value: false }));
+    }
+  }, [toastMsg]);
+
   return (
     <div
       className={`fixed ${

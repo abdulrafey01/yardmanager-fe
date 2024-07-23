@@ -28,6 +28,7 @@ const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
+  const { toastMsg } = useSelector((state) => state.inventory);
   const [imgArray, setImgArray] = React.useState([]);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
@@ -263,20 +264,18 @@ const InventorySideMenu = () => {
     } else {
       dispatch(addInventory(formData));
     }
-    dispatch(setShowSideMenu({ value: false }));
-
-    setDateType1(false);
-    setDateType2(false);
   };
 
-  // const onFormSubmit = (e) => {
-  //   console.log(imgArray);
-  //   for (let i = 0; i < imgArray.length; i++) {
-  //     // formDataRef.current.set("images", files[i]);
-  //     formData.append(`images`, imgArray[i]);
-  //   }
-  //   dispatch(addInventory(formData));
-  // };
+  // Close the form if no error
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(setShowSideMenu({ value: false }));
+
+      setDateType1(false);
+      setDateType2(false);
+    }
+  }, [toastMsg]);
+
   const removeModelFromList = (index) => {
     setFormState({
       ...formState,
@@ -509,7 +508,7 @@ const InventorySideMenu = () => {
                   onClick={() => setDateType2(true)}
                   className="w-full outline-none"
                   type={dateType2 ? "date" : "text"}
-                  placeholder="End Year"
+                  placeholder="Last Year"
                   value={formState.lastYear}
                   name="lastYear"
                   onChange={onInputChange}

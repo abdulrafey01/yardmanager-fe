@@ -81,7 +81,7 @@ const page = () => {
   useEffect(() => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, ...toastMsg }));
-      if (!toastMsg.red) {
+      if (toastMsg?.red === false) {
         setFormData({
           name: "",
           email: "",
@@ -104,7 +104,10 @@ const page = () => {
         });
         setSubTotal(0);
         setGrandTotal(0);
-        router.push("/invoices");
+
+        setTimeout(() => {
+          router.push("/invoices");
+        }, 3000);
 
         dispatch(setShowSideMenu({ value: false }));
       }

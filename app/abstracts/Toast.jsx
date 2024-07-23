@@ -9,7 +9,7 @@ import {
   setShowToast,
 } from "../../lib/features/shared/sharedSlice";
 
-const AuthToast = ({}) => {
+const Toast = ({}) => {
   const { showToast } = useSelector((state) => state.shared);
   const dispatch = useDispatch();
   // useEffect(() => {
@@ -58,4 +58,4 @@ const AuthToast = ({}) => {
   );
 };
 
-export default AuthToast;
+export default Toast;

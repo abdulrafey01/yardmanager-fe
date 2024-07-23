@@ -34,7 +34,7 @@ const useLoadAuthState = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [dispatch]);
 };
 
 export default useLoadAuthState;
