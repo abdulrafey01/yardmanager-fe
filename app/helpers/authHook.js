@@ -8,11 +8,6 @@ const useLoadAuthState = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // const token = getCookie("token");
-    // if (token) {
-    //   dispatch(setToken(token));
-    // }
-    // const user = getLocalStorage("user");
     const fetchUserInfo = async () => {
       try {
         const response = await axios.get(

@@ -26,6 +26,8 @@ import axios from "axios";
 import { getCookie, getLocalStorage } from "../../../helpers/storage";
 import { setUser } from "../../../../lib/features/auth/authSlice";
 
+import PrfIcon from "../../../assets/main/87-avatar.svg";
+
 const page = () => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
@@ -195,7 +197,7 @@ const page = () => {
       url = "https://yardmanager-be.vercel.app/api/users/company-image";
     } else if (imageToggle === 3) {
       imageForm.append("profile", image);
-      url = `https://yardmanager-be.vercel.app/api/employees/s/${userId}`;
+      url = `https://yardmanager-be.vercel.app/api/users/update`;
     } else {
       return;
     }
@@ -255,7 +257,7 @@ const page = () => {
       <div className="relative flex w-full h-32 p-2">
         <div className="relative w-full h-full">
           <Image
-            src={coverImg}
+            src={coverImg ? coverImg : PrfIcon}
             layout="fill"
             className="rounded-lg object-cover w-full h-full"
           />
@@ -280,7 +282,7 @@ const page = () => {
           <div className="relative w-full h-full">
             <Image
               className="object-cover rounded-lg"
-              src={companyImg}
+              src={companyImg ? companyImg : PrfIcon}
               alt="User Profile"
               layout="fill"
             />
@@ -354,7 +356,7 @@ const page = () => {
               <Image
                 className="object-cover rounded-full "
                 layout="fill"
-                src={profileImg}
+                src={profileImg ? profileImg : PrfIcon}
                 alt="User Profile"
               />
 

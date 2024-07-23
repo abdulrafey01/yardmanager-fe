@@ -13,7 +13,6 @@ import SubscriptionSideMenu from "../subscription/SubscriptionSideMenu";
 // Admin panel
 import YardSideMenu from "../admin/yards/YardSideMenu";
 import UserSideMenu from "../admin/users/UserSideMenu";
-import InventoryAdminSideMenu from "../admin/inventory/InventorySideMenu";
 import SubscriptionAdminSideMenu from "../admin/subscription/SubscriptionAdminSideMenu";
 
 const SideMenu = () => {
@@ -39,8 +38,6 @@ const SideMenu = () => {
     <YardSideMenu />
   ) : currentPage === "Users" ? (
     <UserSideMenu />
-  ) : currentPage === "InventoryAdmin" ? (
-    <InventoryAdminSideMenu />
   ) : currentPage === "SubscriptionAdmin" ? (
     <SubscriptionAdminSideMenu />
   ) : null;

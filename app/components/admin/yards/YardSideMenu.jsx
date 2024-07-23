@@ -10,6 +10,8 @@ import Image from "next/image";
 const YardSideMenu = () => {
   const dispatch = useDispatch();
   const { showSideMenu } = useSelector((state) => state.shared);
+  const [yardDateType, setYardDateType] = React.useState("text");
+
   return (
     <div
       className={`fixed ${
@@ -51,22 +53,55 @@ const YardSideMenu = () => {
             }  flex flex-col space-y-4   w-full `}
           >
             {/* Yard Name input */}
-            <FancyInput identity={"yardName"} placeholder={"Yard Name"} />
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type="text"
+                placeholder="Yard Name"
+                name="yardName"
+              />
+            </div>
+
             {/* Yard Email input */}
-            <FancyInput identity={"yardEmail"} placeholder={"Yard Email"} />
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type="text"
+                placeholder="Yard Email"
+                name="yardEmail"
+              />
+            </div>
+
             {/* No of items input */}
-            <FancyInput identity={"noOfItems"} placeholder={"No. of Items"} />
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type="text"
+                placeholder="No. of Items"
+                name="noOfItems"
+              />
+            </div>
+
             {/* Yard Date input */}
-            <FancyInput
-              type={"date"}
-              identity={"yardDate"}
-              placeholder={"Select Date"}
-            />
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type={yardDateType}
+                onClick={() => setYardDateType("date")}
+                placeholder="Select Date"
+                name="yardDate"
+              />
+            </div>
+
             {/* Yard Location input */}
-            <FancyInput
-              identity={"yardLocation"}
-              placeholder={"Yard Location"}
-            />
+            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type="text"
+                placeholder="Yard Location"
+                name="yardLocation"
+              />
+            </div>
           </div>
         </div>
         {/* Buttons */}

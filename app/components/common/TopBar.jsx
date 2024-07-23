@@ -10,6 +10,8 @@ import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Header from "./Header";
 import { logout } from "../../../lib/features/auth/authSlice";
 import Link from "next/link";
+
+import PrfIcon from "../../assets/main/87-avatar.svg";
 import { removeLocalStorage } from "../../helpers/storage";
 
 const TopBar = () => {
@@ -110,7 +112,7 @@ const TopBar = () => {
         <div className="w-12 h-12">
           <Image
             // src={user?.data?.profile}
-            src={user?.data?.profile}
+            src={user?.data?.profile ? user?.data?.profile : PrfIcon}
             alt="avatar"
             width={40}
             height={40}

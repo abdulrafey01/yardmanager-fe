@@ -118,25 +118,11 @@ const page = () => {
         <div className=" overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
-            titles={[
-              "Sr.#",
-              "Yard Name",
-              "Email",
-              "Number of items",
-              "Date",
-              "Location",
-            ]}
+            titles={["Sr.#", "Yard Name", "Email", "Number of items", "Date"]}
           />
           {/* Body */}
           <TableRow
-            titles={[
-              "1",
-              "Ali",
-              "Hello@gmail",
-              "13435",
-              "12/5/2022",
-              "United Kingdom",
-            ]}
+            titles={["1", "Ali", "Hello@gmail", "13435", "12/5/2022"]}
           />
           {dataFromServer.map((data, index) => (
             <TableRow

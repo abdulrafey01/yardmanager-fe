@@ -170,14 +170,13 @@ const SideBar = () => {
 
   // Hide buttons based on user permissions
   useEffect(() => {
+    if (pathName.includes("/admin")) {
+      return setShowBtns(adminSideButtonsMain);
+    }
     if (user) {
       if (user.userType === "user") {
         return setShowBtns(sideButtonsMain);
-        // return setShowBtns(adminSideButtonsMain);
       }
-      // else if (user.userType === "admin") {
-      //   return setShowBtns(adminSideButtonsMain);
-      // }
       const updatedHideBtns = {};
 
       btnNames.forEach((name) => {
@@ -193,27 +192,8 @@ const SideBar = () => {
 
   useEffect(() => {
     setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
-    console.log(
-      "showbtnmain",
-      sideButtonsMain.filter((btn) => !hideBtns[btn.name2])
-    );
     setShowBtnsBottom(sideButtonsBottom.filter((btn) => !hideBtns[btn.name2]));
-    console.log(
-      "showbtnbottom",
-      sideButtonsBottom.filter((btn) => !hideBtns[btn.name2])
-    );
   }, [hideBtns]);
-
-  // useEffect(() => {
-  //   console.log("hidebtns", hideBtns);
-  // }, [hideBtns]);
-
-  // useEffect(() => {
-  //   console.log("showBtnsMain", showBtns);
-  // }, [showBtns]);
-  // useEffect(() => {
-  //   console.log("showBtnsBottom", showBtnsBottom);
-  // }, [showBtnsBottom]);
 
   // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
@@ -223,32 +203,23 @@ const SideBar = () => {
     }
     if (pathName === "/dashboard") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "dashboard"));
-    }
-    if (pathName === "/inventory") {
+    } else if (pathName === "/inventory") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "inventory"));
-    }
-    if (pathName === "/invoices") {
+    } else if (pathName === "/invoices") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "invoices"));
-    }
-    if (pathName === "/locations") {
+    } else if (pathName === "/locations") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "locations"));
-    }
-    if (pathName === "/parts") {
+    } else if (pathName === "/parts") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "parts"));
-    }
-    if (pathName === "/deleted-items") {
+    } else if (pathName === "/deleted-items") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "recycled"));
-    }
-    if (pathName === "/employees") {
+    } else if (pathName === "/employees") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "employees"));
-    }
-    if (pathName === "/roles") {
+    } else if (pathName === "/roles") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "roles"));
-    }
-    if (pathName === "/vehicle") {
+    } else if (pathName === "/vehicle") {
       setActiveMainBtn(showBtns.findIndex((btn) => btn.name2 === "vehicles"));
-    }
-    if (
+    } else if (
       pathName === "/subscription" ||
       pathName === "/subscription/plans" ||
       pathName === "/subscription/my-plans"
@@ -256,24 +227,21 @@ const SideBar = () => {
       setActiveMainBtn(
         showBtns.findIndex((btn) => btn.name2 === "subscription")
       );
-    }
-    if (pathName === "/settings") {
+    } else if (pathName === "/settings") {
       setActiveBottomBtn(
         showBtnsBottom.findIndex((btn) => btn.name2 === "settings")
       );
-    }
-    if (pathName === "/privacy-policy") {
+    } else if (pathName === "/privacy-policy") {
       setActiveBottomBtn(
         showBtnsBottom.findIndex((btn) => btn.name2 === "privacy-policy")
       );
-    }
-    if (pathName === "/terms-condition") {
+    } else if (pathName === "/terms-condition") {
       setActiveBottomBtn(
         showBtnsBottom.findIndex((btn) => btn.name2 === "terms-condition")
       );
     }
     // For admin
-    if (pathName === "/admin/dashboard") {
+    else if (pathName === "/admin/dashboard") {
       setActiveMainBtn(0);
     } else if (pathName === "/admin/yards") {
       setActiveMainBtn(1);
@@ -281,6 +249,8 @@ const SideBar = () => {
       setActiveMainBtn(2);
     } else if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
+    } else {
+      setActiveMainBtn(-1);
     }
   }, [currentPage, pathName, showBtns]);
 

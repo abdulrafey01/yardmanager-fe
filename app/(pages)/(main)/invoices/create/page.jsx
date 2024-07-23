@@ -81,6 +81,33 @@ const page = () => {
   useEffect(() => {
     if (toastMsg) {
       dispatch(setShowToast({ value: true, ...toastMsg }));
+      if (!toastMsg.red) {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          products: [],
+          tax: 0,
+          paid: "",
+          status: false,
+          notes: "",
+          datePaid: "",
+          paymentMethod: "",
+        });
+        setProductData({
+          product: "",
+          name: "",
+          quantity: "",
+          price: "",
+          date: "",
+          total: 0,
+        });
+        setSubTotal(0);
+        setGrandTotal(0);
+        router.push("/invoices");
+
+        dispatch(setShowSideMenu({ value: false }));
+      }
     }
     dispatch(resetInvoiceToast());
   }, [toastMsg]);
@@ -107,8 +134,8 @@ const page = () => {
   const [productData, setProductData] = useState({
     product: "",
     name: "",
-    quantity: 0,
-    price: 0,
+    quantity: "",
+    price: "",
     date: "",
     total: 0,
   });
@@ -258,16 +285,21 @@ const page = () => {
   };
 
   const onAddProductClick = () => {
-    if (
-      productName === "" ||
-      productData.quantity === "" ||
-      productData.price === "" ||
-      productData.date === ""
-    ) {
+    const missingFields = [
+      productName === "" && "Product Name",
+      productData.quantity === 0 && "Quantity",
+      productData.price === 0 && "Price",
+      productData.date === "" && "Date",
+    ]
+      .filter(Boolean)
+      .join(", ");
+
+    console.log(productData);
+    if (missingFields) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill all product fields.",
+          msg: `Please fill the ${missingFields} field.`,
           red: true,
         })
       );
@@ -334,7 +366,56 @@ const page = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     // console.log(formData);
-    if (!paymentMethod) {
+
+    if (formData.name.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Customer Name field",
+          red: true,
+        })
+      );
+    } else if (formData.email.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Customer Email field",
+          red: true,
+        })
+      );
+    } else if (formData.phone.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Customer Phone field",
+          red: true,
+        })
+      );
+    } else if (formData.products.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Products field",
+          red: true,
+        })
+      );
+    } else if (formData.datePaid.length === 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Date Paid field",
+          red: true,
+        })
+      );
+    } else if (formData.paid <= 0 || formData.paid === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill Payment Amount field",
+          red: true,
+        })
+      );
+    } else if (!paymentMethod) {
       return dispatch(
         setShowToast({
           value: true,
@@ -344,23 +425,6 @@ const page = () => {
       );
     }
 
-    if (
-      formData.name.length === 0 ||
-      formData.email.length === 0 ||
-      formData.phone.length === 0 ||
-      formData.products.length === 0 ||
-      formData.tax === 0 ||
-      formData.datePaid.length === 0 ||
-      formData.paid === 0
-    ) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please fill all the fields",
-          red: true,
-        })
-      );
-    }
     if (pageMode === "edit") {
       dispatch(
         updateInvoice({
@@ -379,31 +443,6 @@ const page = () => {
     }
 
     console.log("pageMode:", pageMode);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      products: [],
-      tax: 0,
-      paid: "",
-      status: false,
-      notes: "",
-      datePaid: "",
-      paymentMethod: "",
-    });
-    setProductData({
-      product: "",
-      name: "",
-      quantity: "",
-      price: "",
-      date: "",
-      total: 0,
-    });
-    setSubTotal(0);
-    setGrandTotal(0);
-    router.push("/invoices");
-
-    dispatch(setShowSideMenu({ value: false }));
   };
 
   const onCancel = () => {
@@ -460,6 +499,7 @@ const page = () => {
                 onChange={onInputChange}
                 value={formData.phone}
                 name="phone"
+                type={"number"}
                 placeholder={"Customer Phone Number"}
                 icon={PhoneIcon}
               />
@@ -519,9 +559,10 @@ const page = () => {
                             Enter character to search
                           </p>
                         )}
-                        {inventorySearchData.map((item) => {
+                        {inventorySearchData.map((item, index) => {
                           return (
                             <p
+                              key={index}
                               onClick={() => onProductNameClick(item)}
                               className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
                             >

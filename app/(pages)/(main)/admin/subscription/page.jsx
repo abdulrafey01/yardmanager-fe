@@ -121,11 +121,11 @@ const page = () => {
           {/* Head */}
           <TableHead
             titles={[
-              "Sr.No",
+              "Sr.#",
               "Name",
               "Subscription Plan",
               "Start Date",
-              "End Date",
+              "Renewal Date",
               "Status",
             ]}
           />

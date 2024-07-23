@@ -22,6 +22,8 @@ import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import axios from "axios";
 import { setUser } from "../../../../../lib/features/auth/authSlice";
 
+import PrfIcon from "../../../../assets/main/87-avatar2.svg";
+
 const page = ({}) => {
   const dispatch = useDispatch();
   const [marginTop, setMarginTop] = useState("70px");
@@ -153,17 +155,6 @@ const page = ({}) => {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     setUser({
-  //       ...user,
-  //       data: {
-  //         ...user.data,
-  //         profile: empImg,
-  //       },
-  //     })
-  //   );
-  // }, [empImg]);
   const uploadImage = async (n) => {
     if (!image) {
       return;
@@ -220,7 +211,7 @@ const page = ({}) => {
         <div className="absolute w-14 h-14  sm:w-24 sm:h-24 p-1 top-[-46px] sm:top-[-70px] flex justify-center items-center bg-white rounded-full ">
           <Image
             className="object-cover  rounded-full"
-            src={empImg}
+            src={empImg ? empImg : PrfIcon}
             alt="User Profile"
             layout="fill"
           />

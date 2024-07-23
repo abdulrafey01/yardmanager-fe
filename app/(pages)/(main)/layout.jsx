@@ -7,13 +7,14 @@ import TopBar from "../../components/common/TopBar";
 import "../../styles.css";
 import Toast from "../../abstracts/Toast";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import useloadAuthState from "../../helpers/authHook";
 import NavRow from "../../components/admin/common/NavRow";
 const layout = ({ children }) => {
   useloadAuthState();
   const router = useRouter();
   const { token } = useSelector((state) => state.auth);
+  const pathName = usePathname();
 
   // Set up the timeout
   // Clean up the timeout if component unmounts
@@ -33,7 +34,7 @@ const layout = ({ children }) => {
       <SideBar />
       <div className="flex-[5] flex w-full xl:max-w-[80%]  flex-col">
         <TopBar />
-        {/* <NavRow /> */}
+        {pathName.includes("admin") ? <NavRow /> : null}
         {children}
       </div>
     </div>
