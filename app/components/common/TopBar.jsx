@@ -121,7 +121,11 @@ const TopBar = () => {
         </div>
         <div className="flex flex-col">
           <p className="hidden sm:block text-xs font-bold">
-            {user?.data?.name?.first + " " + user?.data?.name?.last}
+            {user?.data?.name?.first
+              ? user?.data?.name?.first
+              : "" + " " + user?.data?.name?.last
+              ? user?.data?.name?.last
+              : ""}
           </p>
           <p className="hidden sm:block text-xs">
             {user?.userType === "user" ? "Shop Owner" : "Employee"}
