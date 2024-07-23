@@ -55,6 +55,7 @@ const SideBar = () => {
     roles: true,
     vehicles: true,
     subscription: true,
+    settings: true,
   });
   const [showBtns, setShowBtns] = useState([]);
   const [showBtnsBottom, setShowBtnsBottom] = useState([]);
@@ -170,7 +171,7 @@ const SideBar = () => {
   // Hide buttons based on user permissions
   useEffect(() => {
     if (user) {
-      if (user.userType === "user" || user.userType === "employee") {
+      if (user.userType === "user") {
         return setShowBtns(sideButtonsMain);
         // return setShowBtns(adminSideButtonsMain);
       }
@@ -192,12 +193,28 @@ const SideBar = () => {
 
   useEffect(() => {
     setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
+    console.log(
+      "showbtnmain",
+      sideButtonsMain.filter((btn) => !hideBtns[btn.name2])
+    );
     setShowBtnsBottom(sideButtonsBottom.filter((btn) => !hideBtns[btn.name2]));
+    console.log(
+      "showbtnbottom",
+      sideButtonsBottom.filter((btn) => !hideBtns[btn.name2])
+    );
   }, [hideBtns]);
 
-  useEffect(() => {
-    console.log("showBtns", hideBtns);
-  }, [hideBtns]);
+  // useEffect(() => {
+  //   console.log("hidebtns", hideBtns);
+  // }, [hideBtns]);
+
+  // useEffect(() => {
+  //   console.log("showBtnsMain", showBtns);
+  // }, [showBtns]);
+  // useEffect(() => {
+  //   console.log("showBtnsBottom", showBtnsBottom);
+  // }, [showBtnsBottom]);
+
   // Disable side buttons on certain pages and set active buttons on refresh
   useEffect(() => {
     if (currentPage === "MyProfile") {
