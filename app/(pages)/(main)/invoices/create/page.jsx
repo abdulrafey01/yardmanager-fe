@@ -107,7 +107,7 @@ const page = () => {
 
         setTimeout(() => {
           router.push("/invoices");
-        }, 3000);
+        }, 2000);
 
         dispatch(setShowSideMenu({ value: false }));
       }
