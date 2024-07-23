@@ -16,7 +16,7 @@ const MultiInput = ({
       {dataToMap?.map((item, index) => (
         <div
           key={index}
-          className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center gap-2 text-sm `}
+          className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center gap-2 text-sm `}
         >
           {item}
           <Image

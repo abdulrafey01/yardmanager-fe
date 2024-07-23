@@ -13,6 +13,7 @@ import { permission } from "process";
 import { addRole, updateRole } from "../../../lib/features/roles/roleActions";
 const AddRoleMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { toastMsg } = useSelector((state) => state.roles);
   const dispatch = useDispatch();
   const menuRef = useRef();
   const [formData, setFormData] = useState(null);
@@ -248,10 +249,14 @@ const AddRoleMenu = () => {
     } else {
       dispatch(addRole(formData));
     }
-    // dispatch(setShowSuccessModal(true));
-    dispatch(setShowSideMenu({ value: false }));
   };
 
+  // Close if no error
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(setShowSideMenu({ value: false }));
+    }
+  }, [toastMsg]);
   useEffect(() => {
     if (showSideMenu.value && menuRef.current) {
       menuRef.current.scrollTop = 0;

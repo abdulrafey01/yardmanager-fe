@@ -28,6 +28,7 @@ const InventorySideMenu = () => {
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
   const { colorToggle } = useSelector((state) => state.settings);
+  const { toastMsg } = useSelector((state) => state.vehicle);
 
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
@@ -91,7 +92,7 @@ const InventorySideMenu = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Location field",
+          msg: "Please Select Location from List",
           red: true,
         })
       );
@@ -99,15 +100,31 @@ const InventorySideMenu = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Part field",
+          msg: "Please Select Part from List",
           red: true,
         })
       );
-    } else if (formState.sku <= 0 || formState.sku === "" || !formState.sku) {
+    } else if (formState.startYear === "") {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill  the SKU field",
+          msg: "Please fill the Start Year field",
+          red: true,
+        })
+      );
+    } else if (formState.lastYear === "" || formState.lastYear === NaN) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please fill the Last Year field",
+          red: true,
+        })
+      );
+    } else if (formState.sku < 0 || formState.sku === "" || !formState.sku) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please add a Valid SKU",
           red: true,
         })
       );
@@ -184,6 +201,11 @@ const InventorySideMenu = () => {
 
     if (showSideMenu.mode === "edit") {
       dispatch(updateVehicle({ formData: formData, id: selectedItem._id }));
+    }
+  };
+
+  useEffect(() => {
+    if (toastMsg?.red === false) {
       setFormState({
         name: "",
         sku: "",
@@ -206,7 +228,7 @@ const InventorySideMenu = () => {
         formData.delete(key);
       });
     }
-  };
+  }, [toastMsg]);
 
   const removeModelFromList = (index) => {
     setFormState({

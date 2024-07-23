@@ -12,6 +12,8 @@ import GreenToggle from "../common/GreenToggle";
 import { getLocalStorage, setLocalStorage } from "../../helpers/storage";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { toastMsg } = useSelector((state) => state.parts);
+
   const [formData, setFormData] = useState({
     name: "",
     variant: [],
@@ -69,8 +71,14 @@ const PartSideMenu = () => {
     } else {
       dispatch(addPart(formData));
     }
-    dispatch(setShowSideMenu({ value: false }));
   };
+
+  // Close menu if no error
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(setShowSideMenu({ value: false }));
+    }
+  }, [toastMsg]);
 
   const removeVariantFromList = (index) => {
     setFormData({
