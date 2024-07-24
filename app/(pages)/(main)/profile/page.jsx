@@ -217,12 +217,15 @@ const page = () => {
 
       if (imageToggle === 1) {
         setCoverImg(res.data.data.images.cover);
-      } else if (imageToggle === 2 || imageToggle === 3) {
-        setProfileImg(res.data.data.profile);
+      } else if (imageToggle === 2) {
+        setCompanyImg(res.data.data.images.profile);
+      } else if (imageToggle === 3) {
+        setProfileImg(res.data.data.profile); // dont want to set user in case of profile image
+
+        dispatch(setUser({ ...user, data: res.data.data })); // setting user to change image in topnav
       }
 
       dispatch(setShowToast({ value: true, msg: successMessage }));
-      dispatch(setUser({ ...user, data: res.data.data }));
     } catch (err) {
       console.log(err);
       setImage(null);

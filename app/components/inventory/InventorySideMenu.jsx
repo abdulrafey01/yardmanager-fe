@@ -234,6 +234,7 @@ const InventorySideMenu = () => {
           if (typeof imgArray[i] !== "string") {
             formData.append(`newImage`, imgArray[i]);
           } else {
+            formData.append(`images${i}`, imgArray[i]);
           }
         }
       } else {

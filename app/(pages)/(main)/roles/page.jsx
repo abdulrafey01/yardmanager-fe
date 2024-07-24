@@ -44,6 +44,8 @@ const page = () => {
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState([]);
 
+  const [searchInputValue, setSearchInputValue] = React.useState("");
+
   const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
   useEffect(() => {
@@ -126,6 +128,7 @@ const page = () => {
 
   // Search function
   const handleSearch = (e) => {
+    setSearchInputValue(e.target.value);
     dispatch(fetchRolesByPage({ search: e.target.value }));
   };
 
@@ -143,6 +146,7 @@ const page = () => {
       setDataLimit(10);
       setPageNumber(1);
     }
+    setSearchInputValue("");
   };
 
   return (
@@ -188,6 +192,7 @@ const page = () => {
                   type="text"
                   placeholder="Search"
                   className="w-full outline-none bg-transparent"
+                  value={searchInputValue}
                   onChange={handleSearch}
                 />
               </div>

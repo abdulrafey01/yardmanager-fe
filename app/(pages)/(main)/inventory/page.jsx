@@ -24,6 +24,7 @@ const page = () => {
   );
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
+  const [searchInputValue, setSearchInputValue] = React.useState("");
 
   const dispatch = useDispatch();
   const [pageNumber, setPageNumber] = React.useState(1);
@@ -87,6 +88,7 @@ const page = () => {
 
   // Search function
   const handleSearch = (e) => {
+    setSearchInputValue(e.target.value);
     dispatch(fetchInventoryByPage({ search: e.target.value }));
   };
 
@@ -104,6 +106,8 @@ const page = () => {
       setDataLimit(10);
       setPageNumber(1);
     }
+    // Empty search input value
+    setSearchInputValue("");
   };
 
   return (
@@ -137,6 +141,7 @@ const page = () => {
                 <input
                   type="text"
                   placeholder="Search"
+                  value={searchInputValue}
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
                 />

@@ -36,6 +36,9 @@ const page = () => {
   const [showFilterMenu, setShowFilterMenu] = React.useState(false);
   const [filterActive, setFilterActive] = React.useState(undefined);
   const [dataLimit, setDataLimit] = React.useState(10);
+  const [filterAll, setFilterAll] = React.useState(true);
+
+  const [searchInputValue, setSearchInputValue] = React.useState("");
 
   // Get page permission
   useEffect(() => {
@@ -98,6 +101,9 @@ const page = () => {
 
   // Search function
   const handleSearch = (e) => {
+    setSearchInputValue(e.target.value);
+    setFilterActive(undefined);
+    setFilterAll(true); // for changing checkbox checked state
     dispatch(fetchEmployeesByPage({ search: e.target.value }));
   };
 
@@ -105,52 +111,23 @@ const page = () => {
     const limit = parseInt(e.target.value);
     setDataLimit(limit);
     setPageNumber(1); // Ensure the page number is reset to 1 when limit is changed
+    setSearchInputValue("");
   };
 
   const handleFilterClick = (e) => {
     if (e.target.value === "Active") {
+      setFilterAll(false);
       setFilterActive(true);
     } else if (e.target.value === "InActive") {
+      setFilterAll(false);
       setFilterActive(false);
     } else {
+      setFilterAll(true);
       setFilterActive(undefined);
     }
     setPageNumber(1); // Ensure the page number is reset to 1 when a filter is applied
+    setSearchInputValue("");
   };
-
-  // const handleFilterClick = (e) => {
-  //   if (e.target.value === "Active") {
-  //     dispatch(
-  //       fetchEmployeesByPage({
-  //         page: 1,
-  //         limit: dataLimit,
-  //         filter: true,
-  //       })
-  //     );
-  //     setFilterActive(true);
-  //     setPageNumber(1);
-  //   } else if (e.target.value === "InActive") {
-  //     dispatch(
-  //       fetchEmployeesByPage({
-  //         page: 1,
-  //         limit: dataLimit,
-  //         filter: false,
-  //       })
-  //     );
-  //     setFilterActive(false);
-  //     setPageNumber(1);
-  //   } else {
-  //     // normal fetch for null
-  //     dispatch(
-  //       fetchEmployeesByPage({
-  //         page: 1,
-  //         limit: dataLimit,
-  //       })
-  //     );
-  //     setFilterActive(undefined);
-  //     setPageNumber(1);
-  //   }
-  // };
 
   return (
     pagePermission?.read && (
@@ -186,6 +163,7 @@ const page = () => {
                   placeholder="Search"
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
+                  value={searchInputValue}
                 />
               </div>
               <div
@@ -244,7 +222,7 @@ const page = () => {
                     name="radio2"
                     type="radio"
                     value={"All"}
-                    defaultChecked
+                    checked={filterAll}
                     onChange={handleFilterClick}
                   />{" "}
                   All

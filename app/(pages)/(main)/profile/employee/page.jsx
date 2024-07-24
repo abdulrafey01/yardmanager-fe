@@ -199,12 +199,12 @@ const page = ({}) => {
       {/* Header Imgs container */}
       <div className="flex relative w-full h-28 p-2">
         <Image src={coverImg} layout="fill" className="rounded-lg w-full" />
-        <div className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer">
+        {/* <div className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer">
           Edit display Image
         </div>
         <div className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold">
           Edit
-        </div>
+        </div> */}
       </div>
       <div className="w-full relative flex flex-col p-6 space-y-4">
         {/* ProfileImg container */}

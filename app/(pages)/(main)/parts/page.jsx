@@ -33,6 +33,8 @@ const page = () => {
   const [totalPage, setTotalPage] = React.useState(0);
   const [dataFromServer, setDataFromServer] = React.useState(null);
 
+  const [searchInputValue, setSearchInputValue] = React.useState("");
+
   const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
   useEffect(() => {
@@ -83,6 +85,7 @@ const page = () => {
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
+    setSearchInputValue(e.target.value);
     dispatch(fetchPartsByPage({ search: e.target.value }));
   };
 
@@ -100,6 +103,7 @@ const page = () => {
       setDataLimit(10);
       setPageNumber(1);
     }
+    setSearchInputValue("");
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
@@ -130,6 +134,7 @@ const page = () => {
                 <input
                   type="text"
                   placeholder="Search"
+                  value={searchInputValue}
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
                 />

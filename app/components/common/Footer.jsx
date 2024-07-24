@@ -4,7 +4,7 @@ const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
   return (
     <div className="p-4 gap-2 w-full rounded-b-lg flex justify-between items-center">
       <p className="font-semibold text-sm">
-        Page {pageNumber} of {totalPage}
+        Page {pageNumber} of {totalPage == 0 ? 1 : totalPage}
       </p>
       {/* Rows per page container */}
       <div className="relative flex items-center justify-center gap-2">
