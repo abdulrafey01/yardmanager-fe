@@ -37,6 +37,7 @@ const PartSideMenu = () => {
       }
     } else {
       setFormData({ name: "", variant: [] });
+      setVariantInputVal("");
     }
   }, [selectedItem, showSideMenu]);
 
@@ -76,6 +77,7 @@ const PartSideMenu = () => {
   // Close menu if no error
   useEffect(() => {
     if (toastMsg?.red === false) {
+      setVariantInputVal("");
       dispatch(setShowSideMenu({ value: false }));
     }
   }, [toastMsg]);
@@ -145,7 +147,7 @@ const PartSideMenu = () => {
               {formData.variant.map((variant, index) => (
                 <div
                   key={index}
-                  className={`bg-[#1212121A]  rounded-full min-w-20 py-3 h-4 flex justify-center items-center gap-2 text-sm `}
+                  className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center gap-2 text-sm `}
                 >
                   {variant}
                   <Image
@@ -170,6 +172,14 @@ const PartSideMenu = () => {
                         setShowToast({
                           value: true,
                           msg: "Variant must be at least 3 characters",
+                          red: true,
+                        })
+                      );
+                    } else if (e.target.value.length > 25) {
+                      return dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Variant must be less than 25 characters",
                           red: true,
                         })
                       );

@@ -234,11 +234,11 @@ const InventorySideMenu = () => {
           if (typeof imgArray[i] !== "string") {
             formData.append(`newImage`, imgArray[i]);
           } else {
-            formData.append(`images${i}`, imgArray[i]);
+            formData.append(`images`, imgArray[i]);
           }
         }
       } else {
-        formData.append("images", "");
+        formData.append("images", []);
       }
     } else {
       // in add mode
@@ -529,6 +529,14 @@ const InventorySideMenu = () => {
                       red: true,
                     })
                   );
+                } else if (e.target.value.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model must be less than 25 characters",
+                      red: true,
+                    })
+                  );
                 } else {
                   setFormState({
                     ...formState,
@@ -554,6 +562,14 @@ const InventorySideMenu = () => {
                       })
                     )
                   );
+                } else if (e.target.value.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Make must be less than 25 characters",
+                      red: true,
+                    })
+                  );
                 } else {
                   setFormState({
                     ...formState,
@@ -578,6 +594,14 @@ const InventorySideMenu = () => {
                         red: true,
                       })
                     )
+                  );
+                } else if (e.target.value.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Variant must be less than 25 characters",
+                      red: true,
+                    })
                   );
                 } else {
                   setFormState({

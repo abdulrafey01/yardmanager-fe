@@ -18,7 +18,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         <div
           key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 flex-wrap gap-2 p-3 flex-[2]  items-center flex ${
+          className={` min-w-16  flex-wrap break-all  gap-2 p-3 flex-[2]  items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -53,7 +53,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-20 break-all  p-3  flex-1 flex items-center`}
+          } min-w-20   p-3  flex-1 flex items-center`}
         >
           <Badge received={title} />
         </div>
@@ -62,7 +62,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
+          } min-w-16  text-center  p-3 flex-1 flex items-center`}
         >
           {title}
         </div>
@@ -78,7 +78,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3  flex items-center`}
+          } min-w-16  text-center  p-3  flex items-center`}
         >
           {title}
         </div>
@@ -86,7 +86,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
         <div
           key={index}
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 p-3 flex-1 flex-wrap gap-2   flex   items-center ${
+          className={` min-w-22 p-3 flex-1 flex-wrap break-all  gap-2   flex   items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -102,7 +102,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 4 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22  flex-wrap gap-2  p-3 flex-1  flex  items-center ${
+          className={` min-w-22  flex-wrap break-all  gap-2  p-3 flex-1  flex  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -118,7 +118,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 5 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22  flex-wrap gap-2  p-3 flex-1  flex  items-center ${
+          className={` min-w-22  flex-wrap break-all  gap-2  p-3 flex-1  flex  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -134,7 +134,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 p-3 flex-1 flex break-all text-center items-center ${
+          className={` min-w-16 p-3 flex-1 flex  text-center items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -151,7 +151,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3  flex items-center`}
+          } min-w-16  text-center  p-3  flex items-center`}
         >
           {title}
         </div>
@@ -159,7 +159,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       index === 3 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+          className={` min-w-22  text-center p-3 flex-1 flex-wrap break-all  gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -175,7 +175,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 4 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+          className={` min-w-22  text-center p-3 flex-1 flex-wrap break-all  gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -191,7 +191,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 5 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+          className={` min-w-22  text-center p-3 flex-1 flex-wrap break-all  gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -215,7 +215,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 6 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+          className={` min-w-16  text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -232,7 +232,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 7 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex items-center flex-1 ${
+          className={` min-w-16  text-center p-3 flex items-center flex-1 ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -249,7 +249,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+          className={` min-w-16  text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -266,7 +266,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3  flex items-center`}
+          } min-w-16  text-center  p-3  flex items-center`}
         >
           {title}
         </div>
@@ -274,7 +274,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       index === 3 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+          className={` min-w-22  text-center p-3 flex-1 flex-wrap break-all  gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -290,7 +290,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 4 || index === 5 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-22 break-all text-center p-3 flex-1 flex-wrap gap-2   justify-start items-center flex ${
+          className={` min-w-22  text-center p-3 flex-1 flex-wrap break-all  gap-2   justify-start items-center flex ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
@@ -306,7 +306,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 6 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+          className={` min-w-16  text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -322,7 +322,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : index === 7 ? (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex items-center flex-1 ${
+          className={` min-w-16  text-center p-3 flex items-center flex-1 ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -339,7 +339,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       ) : (
         <div
           onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16 break-all text-center p-3 flex-1 flex items-center ${
+          className={` min-w-16  text-center p-3 flex-1 flex items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
@@ -357,7 +357,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3  flex items-center`}
+          } min-w-16  text-center  p-3  flex items-center`}
         >
           {title}
         </div>
@@ -366,7 +366,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16  p-3 break-all text-center flex-1 flex items-center`}
+          } min-w-16  p-3  text-center flex-1 flex items-center`}
         >
           <Badge active={title} />
         </div>
@@ -375,7 +375,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16 break-all text-center  p-3 flex-1 flex items-center`}
+          } min-w-16  text-center  p-3 flex-1 flex items-center`}
         >
           {title}
         </div>
@@ -428,7 +428,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
                   onClick={() => dispatch(setShowActionMenu(-1))}
                   className={` ${
                     rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-                  } min-w-16 break-all text-center  p-3  flex items-center`}
+                  } min-w-16  text-center  p-3  flex items-center`}
                 >
                   {title}
                 </div>
@@ -463,7 +463,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
             onBlur={() => {
               setTimeout(() => {
                 dispatch(setShowActionMenu(-1));
-              }, 200);
+              }, 300);
             }}
             src={DotsIcon}
             alt="MenuIcon"

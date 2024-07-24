@@ -49,8 +49,10 @@ const TableHead = ({ titles }) => {
           <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>
         )
       )}
-      {currentPage === "DeletedItems" ? (
-        <p className=" min-w-24 sm:min-w-16 text-end p-3 bg-[#f2fff8]">
+      {currentPage === "DeletedItems" ||
+      currentPage === "Invoices" ||
+      currentPage === "Inventory" ? (
+        <p className=" min-w-24 sm:min-w-16 text-center p-3 bg-[#f2fff8]">
           Action
         </p>
       ) : (
