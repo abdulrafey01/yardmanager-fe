@@ -104,7 +104,7 @@ const TopBar = () => {
         onBlur={() =>
           setTimeout(() => {
             setShowProfileMenu(false);
-          }, 200)
+          }, 300)
         }
         tabIndex={0}
         className="flex relative   space-x-2 justify-center items-center cursor-pointer select-none"

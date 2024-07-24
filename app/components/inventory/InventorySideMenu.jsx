@@ -420,7 +420,7 @@ const InventorySideMenu = () => {
                     () =>
                       setTimeout(() => {
                         setShowLocDropDown(false);
-                      }, 200) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
+                      }, 300) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
                   }
                 />
                 <Image src={DownArrow} alt="downarrow" />
@@ -461,13 +461,12 @@ const InventorySideMenu = () => {
                   onBlur={() =>
                     setTimeout(() => {
                       setShowPartDropDown(false);
-                    }, 200)
+                    }, 300)
                   }
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
                 <div
-                  onMouseLeave={() => setShowLocDropDown(false)}
                   className={`${
                     showPartDropDown ? "block" : "hidden"
                   } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}

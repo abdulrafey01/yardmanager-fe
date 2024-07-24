@@ -43,7 +43,7 @@ const DropDownInput = ({
         onBlur={() =>
           setTimeout(() => {
             setShowDropDown(false);
-          }, 200)
+          }, 300)
         }
       />
       <Image src={DownArrow} alt="downarrow" />

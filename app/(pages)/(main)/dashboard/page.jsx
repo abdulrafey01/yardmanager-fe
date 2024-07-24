@@ -305,7 +305,7 @@ const page = () => {
                 onBlur={() => {
                   setTimeout(() => {
                     setShowGraphFilter1(false);
-                  }, 200);
+                  }, 300);
                 }}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
               >
@@ -376,7 +376,7 @@ const page = () => {
                 onBlur={() => {
                   setTimeout(() => {
                     setShowGraphFilter2(false);
-                  }, 200);
+                  }, 300);
                 }}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
               >

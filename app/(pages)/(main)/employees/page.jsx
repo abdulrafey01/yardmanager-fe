@@ -171,7 +171,7 @@ const page = () => {
                 onBlur={() =>
                   setTimeout(() => {
                     setShowFilterMenu(false);
-                  }, 200)
+                  }, 300)
                 }
                 tabIndex={0}
                 className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
