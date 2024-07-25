@@ -112,7 +112,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.lastYear === "" || formState.lastYear === NaN) {
+    } else if (formState.lastYear === "" || isNaN(formState.lastYear)) {
       return dispatch(
         setShowToast({
           value: true,
@@ -190,12 +190,13 @@ const InventorySideMenu = () => {
       if (imgArray.length > 0) {
         for (let i = 0; i < imgArray.length; i++) {
           if (typeof imgArray[i] !== "string") {
-            formData.append(`images`, imgArray[i]);
+            formData.append(`newImage`, imgArray[i]);
           } else {
+            formData.append(`images`, imgArray[i]);
           }
         }
       } else {
-        formData.append("images", "");
+        // formData.append("images", []);
       }
     }
 
