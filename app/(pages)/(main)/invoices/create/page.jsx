@@ -68,7 +68,7 @@ const page = () => {
   // if can't write or update then redirect to invoices
   useEffect(() => {
     if (pagePermission?.write === false && pagePermission?.update === false) {
-      router.push("/invoices");
+      router.back();
     }
   }, [pagePermission]);
 
@@ -80,7 +80,6 @@ const page = () => {
 
   useEffect(() => {
     if (toastMsg) {
-      dispatch(setShowToast({ value: true, ...toastMsg }));
       if (toastMsg?.red === false) {
         setFormData({
           name: "",
@@ -106,13 +105,14 @@ const page = () => {
         setGrandTotal(0);
 
         setTimeout(() => {
-          router.push("/invoices");
-        }, 2000);
+          dispatch(setShowToast({ value: true, ...toastMsg }));
+        }, 1000);
+        dispatch(resetInvoiceToast());
+        router.back();
 
         dispatch(setShowSideMenu({ value: false }));
       }
     }
-    dispatch(resetInvoiceToast());
   }, [toastMsg]);
 
   // can use other way when do refactor but for now

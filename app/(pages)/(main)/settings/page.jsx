@@ -1,26 +1,29 @@
 "use client";
 import React, { useEffect } from "react";
 import GreenToggle from "../../../components/common/GreenToggle";
-import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
+import {
+  setCurrentPage,
+  setShowToast,
+} from "../../../../lib/features/shared/sharedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setColorToggle } from "../../../../lib/features/settings/settingsSlice";
 import { getLocalStorage, setLocalStorage } from "../../../helpers/storage";
-import { permission } from "process";
-
+import axios from "axios";
+import { updateCompany } from "../../../../lib/features/profile/profileActions";
+import { resetToast } from "../../../../lib/features/profile/profileSlice";
 const page = () => {
   const dispatch = useDispatch();
   const { colorToggle } = useSelector((state) => state.settings);
 
   const { user } = useSelector((state) => state.auth);
+  const { toastMsg } = useSelector((state) => state.profile);
   const [pagePermission, setPagePermission] = React.useState(null);
   const [priceToggle, setPriceToggle] = React.useState(false);
   const [partImageToggle, setPartImageToggle] = React.useState(false);
 
   useEffect(() => {
-    if (JSON.parse(getLocalStorage("priceToggle"))) {
-      setPriceToggle(JSON.parse(getLocalStorage("priceToggle")));
-    }
-  }, []);
+    setPriceToggle(user?.company?.price);
+  }, [user]);
 
   useEffect(() => {
     if (JSON.parse(getLocalStorage("partImageToggle"))) {
@@ -31,6 +34,13 @@ const page = () => {
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (toastMsg) {
+      dispatch(setShowToast({ value: true, ...toastMsg }));
+      dispatch(resetToast());
+    }
+  }, [toastMsg]);
 
   // Get page permission
   useEffect(() => {
@@ -51,6 +61,12 @@ const page = () => {
     }
     // console.log(user);
   }, [user]);
+
+  const changePrice = async (e) => {
+    dispatch(updateCompany({ price: e.target.checked }));
+    setPriceToggle(e.target.checked);
+    setLocalStorage("priceToggle", e.target.checked);
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -66,13 +82,7 @@ const page = () => {
                 : "flex opacity-50 pointer-events-none"
             } `}
           >
-            <GreenToggle
-              onChange={(e) => {
-                setPriceToggle(e.target.checked);
-                setLocalStorage("priceToggle", e.target.checked);
-              }}
-              checked={priceToggle}
-            />
+            <GreenToggle onChange={changePrice} checked={priceToggle} />
             <div className="flex flex-col justify-between">
               <p className="font-bold">Inventory Price</p>
               <p className="text-[#6E7793]">

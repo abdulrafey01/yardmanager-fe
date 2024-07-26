@@ -175,7 +175,9 @@ const SideBar = () => {
     }
     if (user) {
       if (user.userType === "user") {
-        return setShowBtns(sideButtonsMain);
+        setShowBtns(sideButtonsMain);
+        setShowBtnsBottom(sideButtonsBottom);
+        return;
       }
       const updatedHideBtns = {};
 
