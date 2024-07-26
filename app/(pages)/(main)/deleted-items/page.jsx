@@ -106,11 +106,13 @@ const page = () => {
 
   const deleteAll = async () => {
     try {
+      const token =
+        getCookie("token") || window?.sessionStorage.getItem("token");
       const response = await axios.delete(
         "https://yardmanager-be.vercel.app/api/inventory/all",
         {
           headers: {
-            Authorization: `Bearer ${getCookie("token")}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

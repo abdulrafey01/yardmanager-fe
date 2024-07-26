@@ -398,7 +398,7 @@ const page = () => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill Products field",
+          msg: "Please Add Products",
           red: true,
         })
       );
