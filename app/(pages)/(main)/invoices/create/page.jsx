@@ -104,14 +104,14 @@ const page = () => {
         setSubTotal(0);
         setGrandTotal(0);
 
-        setTimeout(() => {
-          dispatch(setShowToast({ value: true, ...toastMsg }));
-        }, 1000);
-        dispatch(resetInvoiceToast());
         router.back();
 
         dispatch(setShowSideMenu({ value: false }));
       }
+      setTimeout(() => {
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+      }, 1000);
+      dispatch(resetInvoiceToast());
     }
   }, [toastMsg]);
 
