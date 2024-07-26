@@ -127,6 +127,21 @@ const page = ({}) => {
   const onPersonalFormSubmit = (event) => {
     event.preventDefault();
 
+    if (
+      personalFormState.firstName === "" ||
+      personalFormState.firstName.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "First name is required", red: true })
+      );
+    } else if (
+      personalFormState.lastName === "" ||
+      personalFormState.lastName.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Last name is required", red: true })
+      );
+    }
     // check password
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
@@ -139,20 +154,32 @@ const page = ({}) => {
     formData.append("email", personalFormState.email);
     formData.append("username", personalFormState.username);
     formData.append("password", personalFormState.password);
-    // formData.append;
 
     // submit personal form
-    dispatch(updatePersonal({ data: formData, id: userId }));
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    axios
+      .put(
+        `https://yardmanager-be.vercel.app/api/employees/s/${userId}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
 
-    // reset form
-    setPersonalFormState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
-    });
+        dispatch(setShowToast({ value: true, msg: res.data.message }));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((err) => {
+        dispatch(
+          setShowToast({ value: true, msg: "Something went wrong", red: true })
+        );
+      });
   };
 
   const uploadImage = async (n) => {

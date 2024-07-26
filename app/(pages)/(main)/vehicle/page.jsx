@@ -14,11 +14,6 @@ import {
   setShowSideMenu,
   setShowToast,
 } from "../../../../lib/features/shared/sharedSlice";
-import UploadIcon from "../../../assets/main/44-upload.svg";
-
-import XIcon from "../../../assets/main/45-xclose.svg";
-
-import EnlargeIcon from "../../../assets/main/46-enlarge.svg";
 import {
   addVehicle,
   fetchVehiclesByPage,
@@ -27,6 +22,7 @@ import {
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import {
   resetAddedToInv,
+  resetVehicleAddedToast,
   resetVehicleToast,
   setVinDecodedData,
 } from "../../../../lib/features/vehicle/vehicleSlice";
@@ -38,6 +34,7 @@ const page = () => {
     error,
     vehicleData,
     toastMsg,
+    vehicleAddedToast,
     addedToInv,
     totalDataLength,
     vinDecodedData,
@@ -110,6 +107,20 @@ const page = () => {
   }, [toastMsg]);
 
   useEffect(() => {
+    if (vehicleAddedToast) {
+      dispatch(setShowToast({ value: true, ...vehicleAddedToast }));
+      if (vehicleAddedToast?.red === false) {
+        // reset data fields
+        setImgArray2([]);
+        setVinVal("");
+        dispatch(setVinDecodedData(null));
+        setShowDecodeMenu(false);
+      }
+      dispatch(resetVehicleAddedToast());
+    }
+  }, [vehicleAddedToast]);
+
+  useEffect(() => {
     // When part data has come, set total pages
     if (vehicleData) {
       setDataFromServer(vehicleData);
@@ -158,12 +169,6 @@ const page = () => {
       }
     }
     dispatch(addVehicle(formData));
-
-    // reset data fields
-    setImgArray2([]);
-    setVinVal("");
-    dispatch(setVinDecodedData(null));
-    setShowDecodeMenu(false);
   };
 
   const onImageChange2 = (e) => {
@@ -205,7 +210,7 @@ const page = () => {
             <div className="flex w-full space-x-2 sm:space-x-4">
               <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="Enter VIN Number"
                   className="w-full outline-none bg-transparent"
                   value={vinVal}
@@ -226,24 +231,27 @@ const page = () => {
                   <input
                     type="text"
                     placeholder="Year"
-                    className="w-full outline-none bg-transparent"
+                    className="w-full cursor-default outline-none bg-transparent"
                     value={vinDecodedData?.year ? vinDecodedData.year : ""}
+                    readOnly
                   />
                 </div>
                 <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                   <input
                     type="text"
                     placeholder="Make"
-                    className="w-full outline-none bg-transparent"
+                    className="w-full cursor-default outline-none bg-transparent"
                     value={vinDecodedData?.make ? vinDecodedData.make : ""}
+                    readOnly
                   />
                 </div>
                 <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                   <input
                     type="text"
                     placeholder="Model"
-                    className="w-full outline-none bg-transparent"
+                    className="w-full cursor-default outline-none bg-transparent"
                     value={vinDecodedData?.model ? vinDecodedData.model : ""}
+                    readOnly
                   />
                 </div>
               </div>
@@ -260,7 +268,7 @@ const page = () => {
                     setVinVal("");
                     dispatch(setVinDecodedData(null));
                     setShowDecodeMenu(false);
-                    setImgArray2(null);
+                    setImgArray2([]);
                   }}
                   title={"Discard"}
                 />

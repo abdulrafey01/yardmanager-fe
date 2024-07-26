@@ -175,6 +175,37 @@ const page = () => {
 
   const onCompanyFormSubmit = (event) => {
     event.preventDefault();
+    if (companyFormState.name === "" || companyFormState.name.length <= 0) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Company name can't be empty",
+          red: true,
+        })
+      );
+    } else if (
+      companyFormState.phone === "" ||
+      companyFormState.phone.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Company Phone can't be empty",
+          red: true,
+        })
+      );
+    } else if (
+      companyFormState.address === "" ||
+      companyFormState.address.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Company Address can't be empty",
+          red: true,
+        })
+      );
+    }
     // submit company form
     dispatch(updateCompany(companyFormState));
   };
@@ -235,7 +266,21 @@ const page = () => {
 
   const onPersonalFormSubmit = (event) => {
     event.preventDefault();
-
+    if (
+      personalFormState.firstName === "" ||
+      personalFormState.firstName.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "First name is required", red: true })
+      );
+    } else if (
+      personalFormState.lastName === "" ||
+      personalFormState.lastName.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Last name is required", red: true })
+      );
+    }
     // check password
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
@@ -250,7 +295,26 @@ const page = () => {
     formData.append("password", personalFormState.password);
 
     // submit personal form
-    dispatch(updateUser({ data: formData, id: userId }));
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    axios
+      .put(`https://yardmanager-be.vercel.app/api/users/update`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        dispatch(setShowToast({ value: true, msg: res.data.message }));
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((err) => {
+        dispatch(
+          setShowToast({ value: true, msg: "Something went wrong", red: true })
+        );
+      });
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that

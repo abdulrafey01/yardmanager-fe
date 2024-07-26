@@ -104,7 +104,11 @@ const page = () => {
     setSearchInputValue(e.target.value);
     setFilterActive(undefined);
     setFilterAll(true); // for changing checkbox checked state
-    dispatch(fetchEmployeesByPage({ search: e.target.value }));
+    if (e.target.value.length > 0) {
+      dispatch(fetchEmployeesByPage({ search: e.target.value }));
+    } else {
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 10 }));
+    }
   };
 
   const handleRadioClick = (e) => {
