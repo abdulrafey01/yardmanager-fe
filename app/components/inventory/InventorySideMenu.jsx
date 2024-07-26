@@ -259,6 +259,8 @@ const InventorySideMenu = () => {
     }
     if (colorToggle) {
       formData.append("color", formState.color);
+    } else {
+      formData.append("color", "");
     }
     if (showSideMenu.mode === "edit") {
       dispatch(updateInventory({ formData: formData, id: selectedItem._id }));
