@@ -554,13 +554,11 @@ const InventorySideMenu = () => {
               onPressEnter={(e) => {
                 if (e.target.value.length < 3) {
                   dispatch(
-                    dispatch(
-                      setShowToast({
-                        value: true,
-                        msg: "Make should be at least 3 characters",
-                        red: true,
-                      })
-                    )
+                    setShowToast({
+                      value: true,
+                      msg: "Make should be at least 3 characters",
+                      red: true,
+                    })
                   );
                 } else if (e.target.value.length > 25) {
                   return dispatch(
@@ -587,13 +585,11 @@ const InventorySideMenu = () => {
               onPressEnter={(e) => {
                 if (e.target.value.length < 3) {
                   dispatch(
-                    dispatch(
-                      setShowToast({
-                        value: true,
-                        msg: "Variant should be at least 3 characters",
-                        red: true,
-                      })
-                    )
+                    setShowToast({
+                      value: true,
+                      msg: "Variant should be at least 3 characters",
+                      red: true,
+                    })
                   );
                 } else if (e.target.value.length > 25) {
                   return dispatch(
