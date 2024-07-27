@@ -668,19 +668,19 @@ const InventorySideMenu = () => {
             )}
             <div className="flex w-full gap-4">
               {/* Inventory Price input */}
-              {priceToggle ||
-                (showSideMenu.mode === "preview" && (
-                  <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                    <input
-                      className="w-full outline-none"
-                      type="number"
-                      placeholder="Price"
-                      name="price"
-                      value={formState.price}
-                      onChange={onInputChange}
-                    />
-                  </div>
-                ))}
+              {priceToggle || showSideMenu.mode === "preview" ? (
+                <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                  <input
+                    className="w-full outline-none"
+                    type="number"
+                    placeholder="Price"
+                    name="price"
+                    value={formState.price}
+                    onChange={onInputChange}
+                  />
+                </div>
+              ) : null}
+
               {/* Inventory SKU input
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
@@ -705,14 +705,13 @@ const InventorySideMenu = () => {
               />
             </div>
             {/* Inventory Image input */}
-            {imageToggle ||
-              (showSideMenu.mode === "preview" && (
-                <ImageDropzone
-                  imgArray={imgArray}
-                  setImgArray={setImgArray}
-                  onImageChange={onImageChange}
-                />
-              ))}
+            {imageToggle || showSideMenu.mode === "preview" ? (
+              <ImageDropzone
+                imgArray={imgArray}
+                setImgArray={setImgArray}
+                onImageChange={onImageChange}
+              />
+            ) : null}
           </div>
         </div>
         {/* Buttons */}
