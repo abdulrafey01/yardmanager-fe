@@ -24,11 +24,14 @@ import MultiInput from "../common/MultiInput";
 import { getLocalStorage } from "../../helpers/storage";
 import PlusIcon from "../../assets/main/82-plus.svg";
 import ImageDropzone from "../common/ImageDropzone";
+import useLoadAuthState from "../../helpers/authHook";
 const InventorySideMenu = () => {
+  useLoadAuthState(); // for updating image and price fields
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
   const { toastMsg } = useSelector((state) => state.inventory);
+  const { user } = useSelector((state) => state.auth);
   const [imgArray, setImgArray] = React.useState([]);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
@@ -60,17 +63,19 @@ const InventorySideMenu = () => {
   });
 
   // Price Toggle for inventory
-  const [priceToggle, setPriceToggle] = React.useState(
-    JSON.parse(getLocalStorage("priceToggle")) || false
-  );
+  const [priceToggle, setPriceToggle] = React.useState(false);
 
   // Color toggle for inventory
   const [colorToggle, setColorToggle] = React.useState(false);
 
   // Image toggle for inventory
-  const [imageToggle, setImageToggle] = React.useState(
-    JSON.parse(getLocalStorage("partImageToggle")) || false
-  );
+  const [imageToggle, setImageToggle] = React.useState(false);
+
+  useEffect(() => {
+    setImageToggle(user?.company.image);
+    setPriceToggle(user?.company.price);
+  }, [user]);
+
   // Function to handle input change
   const onInputChange = (e) => {
     // formDataRef.current.set(e.target.name, e.target.value);
@@ -199,6 +204,44 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
+    }
+    if (priceToggle) {
+      if (formState.price === "" || formState.price <= 0) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please fill the Price field",
+            red: true,
+          })
+        );
+      }
+    }
+    if (colorToggle === true) {
+      if (
+        formState.color === "" ||
+        formState.color === null ||
+        formState.color === "undefined" ||
+        formState.color.length === 0
+      ) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please fill the Color field",
+            red: true,
+          })
+        );
+      }
+    }
+    if (imageToggle === true) {
+      if (imgArray.length === 0) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please select at least one Image",
+            red: true,
+          })
+        );
+      }
     }
 
     formData.append("name", formState.name);

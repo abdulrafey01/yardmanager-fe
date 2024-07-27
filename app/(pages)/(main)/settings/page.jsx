@@ -4,8 +4,13 @@ import GreenToggle from "../../../components/common/GreenToggle";
 import { setCurrentPage } from "../../../../lib/features/shared/sharedSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setColorToggle } from "../../../../lib/features/settings/settingsSlice";
-import { getLocalStorage, setLocalStorage } from "../../../helpers/storage";
+import {
+  getCookie,
+  getLocalStorage,
+  setLocalStorage,
+} from "../../../helpers/storage";
 import { permission } from "process";
+import axios from "axios";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -17,15 +22,8 @@ const page = () => {
   const [partImageToggle, setPartImageToggle] = React.useState(false);
 
   useEffect(() => {
-    if (JSON.parse(getLocalStorage("priceToggle"))) {
-      setPriceToggle(JSON.parse(getLocalStorage("priceToggle")));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (JSON.parse(getLocalStorage("partImageToggle"))) {
-      setPartImageToggle(JSON.parse(getLocalStorage("partImageToggle")));
-    }
+    setPartImageToggle(user?.company.image);
+    setPriceToggle(user?.company.price);
   }, []);
 
   useEffect(() => {
@@ -51,6 +49,50 @@ const page = () => {
     }
     // console.log(user);
   }, [user]);
+
+  const handleTogglePrice = async (e) => {
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    axios
+      .put(
+        "https://yardmanager-be.vercel.app/api/users/company",
+        { price: e.target.checked },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+
+        setPriceToggle(res.data.data.price);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleToggleImg = async (e) => {
+    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    axios
+      .put(
+        "https://yardmanager-be.vercel.app/api/users/company",
+        { image: e.target.checked },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+
+        setPartImageToggle(res.data.data.image);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -66,13 +108,7 @@ const page = () => {
                 : "flex opacity-50 pointer-events-none"
             } `}
           >
-            <GreenToggle
-              onChange={(e) => {
-                setPriceToggle(e.target.checked);
-                setLocalStorage("priceToggle", e.target.checked);
-              }}
-              checked={priceToggle}
-            />
+            <GreenToggle onChange={handleTogglePrice} checked={priceToggle} />
             <div className="flex flex-col justify-between">
               <p className="font-bold">Inventory Price</p>
               <p className="text-[#6E7793]">
@@ -89,13 +125,7 @@ const page = () => {
                 : "flex opacity-50 pointer-events-none"
             } `}
           >
-            <GreenToggle
-              onChange={(e) => {
-                setPartImageToggle(e.target.checked);
-                setLocalStorage("partImageToggle", e.target.checked);
-              }}
-              checked={partImageToggle}
-            />
+            <GreenToggle onChange={handleToggleImg} checked={partImageToggle} />
             <div className="flex flex-col justify-between">
               <p className="font-bold">Part Images</p>
               <p className="text-[#6E7793]">

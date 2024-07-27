@@ -17,6 +17,7 @@ import { fetchInventoryByPage } from "../../../../lib/features/inventory/invento
 import { calcTotalPage } from "../../../helpers/pagination";
 import Footer from "../../../components/common/Footer";
 import { resetInventoryToast } from "../../../../lib/features/inventory/inventorySlice";
+import useLoadAuthState from "../../../helpers/authHook";
 
 const page = () => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
