@@ -11,8 +11,10 @@ import {
 } from "../../../helpers/storage";
 import { permission } from "process";
 import axios from "axios";
+import useLoadAuthState from "../../../helpers/authHook";
 
 const page = () => {
+  useLoadAuthState();
   const dispatch = useDispatch();
   const { colorToggle } = useSelector((state) => state.settings);
 
@@ -24,7 +26,7 @@ const page = () => {
   useEffect(() => {
     setPartImageToggle(user?.company.image);
     setPriceToggle(user?.company.price);
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));
