@@ -380,7 +380,7 @@ const EmployeeSideMenu = () => {
                 ? "Update Employee"
                 : showSideMenu.mode === "preview"
                 ? "Edit Employee"
-                : "Add Employee"}
+                : "Send Invite"}
             </div>
           )}
         </div>
