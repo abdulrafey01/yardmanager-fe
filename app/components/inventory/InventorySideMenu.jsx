@@ -707,6 +707,7 @@ const InventorySideMenu = () => {
             {/* Inventory Image input */}
             {imageToggle || showSideMenu.mode === "preview" ? (
               <ImageDropzone
+                previewMode={showSideMenu.mode === "preview"}
                 imgArray={imgArray}
                 setImgArray={setImgArray}
                 onImageChange={onImageChange}

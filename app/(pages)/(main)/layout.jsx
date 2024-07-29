@@ -21,7 +21,11 @@ const layout = ({ children }) => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       if (!token) {
-        router.push("/sign-in");
+        if (pathName.includes("admin")) {
+          router.push("/admin/sign-in");
+        } else {
+          router.push("/sign-in");
+        }
       }
     }, 2000);
     return () => clearTimeout(timeoutId);

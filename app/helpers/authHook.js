@@ -3,12 +3,17 @@ import { useDispatch } from "react-redux";
 import { getCookie, getLocalStorage } from "./storage";
 import { setUser } from "../../lib/features/auth/authSlice";
 import axios from "axios";
+import { usePathname } from "next/navigation";
 
 const useLoadAuthState = () => {
   const dispatch = useDispatch();
+  const pathName = usePathname();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      if (pathName.includes("admin")) {
+        return dispatch(setUser({ userType: "user" })); // as admin have same permission as user
+      }
       try {
         const response = await axios.get(
           "https://yardmanager-be.vercel.app/api/users/info",

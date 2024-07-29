@@ -57,7 +57,7 @@ const EmployeeSideMenu = () => {
   // Get page permission
   useEffect(() => {
     if (user) {
-      if (user.userType === "user") {
+      if (user?.userType === "user") {
         return setPagePermission({
           read: true,
           write: true,
@@ -66,19 +66,21 @@ const EmployeeSideMenu = () => {
         });
       }
       setPagePermission(
-        user.data.role.privileges.find(
+        user?.data.role.privileges.find(
           (privilege) => privilege.name === "employees"
         )?.permissions
       );
     }
-    console.log(user);
+    console.log("user", user);
   }, [user]);
   useEffect(() => {
     console.log("showEmployeeSideMenu", showEmployeeSideMenu);
   }, [showEmployeeSideMenu]);
 
   const onInputChange = (e) => {
-    setDateInputType("date");
+    if (e.target.name === "date") {
+      setDateInputType("date");
+    }
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 

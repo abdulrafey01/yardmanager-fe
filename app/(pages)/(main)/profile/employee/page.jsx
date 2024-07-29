@@ -10,6 +10,7 @@ import ProfileHeaderImg from "../../../../assets/main/48-img.svg";
 import EditImg from "../../../../assets/main/50-editimg.svg";
 import WhiteBtn from "../../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../../abstracts/GreenBtn";
+import UploadIcon from "../../../../assets/main/44-upload.svg";
 
 import PWDIcon from "../../../../assets/auth/2-AdornmentEnd.svg";
 
@@ -286,7 +287,7 @@ const page = ({}) => {
                 disabled
               />
             </div>
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
+            {/* <div className="w-full p-3  hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
               <input
                 className="w-full outline-none"
                 type="text"
@@ -295,7 +296,7 @@ const page = ({}) => {
                 name="username"
                 onChange={onPersonalInputChange}
               />
-            </div>
+            </div> */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] flex justify-between items-center">
               <input
                 className="w-full outline-none"
@@ -339,7 +340,7 @@ const page = ({}) => {
                   confirmPassword: "",
                 });
               }}
-              title={"Discard"}
+              title={"Reset"}
             />
             <GreenBtn onClick={onPersonalFormSubmit} title={"Save Changes"} />
           </div>
@@ -354,7 +355,13 @@ const page = ({}) => {
         <div className="bg-white p-4 rounded-lg w-[500px]">
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-bold">Upload Image</h3>
-            <div className="cursor-pointer" onClick={() => setImageToggle(0)}>
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                setImageToggle(0);
+                setImage(null);
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -386,20 +393,12 @@ const page = ({}) => {
                     className="w-40 h-40"
                   />
                 ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-10 w-10"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2.828-2.828l4.586-4.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
+                  <div className="flex justify-center items-center flex-col gap-2">
+                    <Image src={UploadIcon} alt="UploadIcon" />
+                    <p className="text-[#01E268] font-bold">
+                      Upload Image
+                    </p>{" "}
+                  </div>
                 )}
                 <input
                   type="file"

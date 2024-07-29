@@ -11,6 +11,7 @@ import UploadIcon from "../../assets/main/44-upload.svg";
 import { useDispatch } from "react-redux";
 import { setPrevImage } from "../../../lib/features/shared/sharedSlice";
 const ImageDropzone = ({
+  previewMode = false,
   imgArray,
   setImgArray,
   onImageChange,
@@ -49,6 +50,8 @@ const ImageDropzone = ({
             </div>
           ))}
         </div>
+      ) : previewMode === true && imgArray?.length === 0 ? (
+        <p className="text-center">No Image Uploaded</p>
       ) : (
         <label
           className="flex flex-col justify-center items-center cursor-pointer  space-y-2 min-h-20 "

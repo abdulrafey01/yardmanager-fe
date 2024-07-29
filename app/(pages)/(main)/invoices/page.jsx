@@ -66,7 +66,6 @@ const page = () => {
     if (error) {
       console.log(error);
     }
-    // When invoice data has come set total pages
   }, [error]);
 
   useEffect(() => {

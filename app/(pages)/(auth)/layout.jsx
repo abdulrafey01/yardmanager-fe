@@ -3,12 +3,13 @@ import React, { useEffect } from "react";
 import SectionOne from "../../components/auth/common/SectionOne";
 import Toast from "../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 import { resetToast } from "../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
   const { token, error, toastMsg } = useSelector((state) => state.auth);
+  const pathName = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
@@ -27,8 +28,11 @@ const layout = ({ children }) => {
   // For Routing auth
   useEffect(() => {
     if (token) {
-      // console.log("token", token);
-      router.push("/dashboard");
+      if (pathName.includes("admin")) {
+        return router.push("/admin/dashboard");
+      } else {
+        router.push("/dashboard");
+      }
     }
   }, []);
 
