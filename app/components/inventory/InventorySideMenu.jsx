@@ -142,7 +142,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (partId === null || partId === "") {
+    } else if (partId === null || partId === "" || !partId) {
       return dispatch(
         setShowToast({
           value: true,
@@ -150,7 +150,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (locId === null || locId === "") {
+    } else if (locId === null || locId === "" || !locId) {
       return dispatch(
         setShowToast({
           value: true,
