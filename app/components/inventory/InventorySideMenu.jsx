@@ -122,6 +122,9 @@ const InventorySideMenu = () => {
     setImgArray([...imgArray, ...files]);
   };
 
+  function getDate(date) {
+    return new Date(date);
+  }
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
@@ -293,8 +296,16 @@ const InventorySideMenu = () => {
       }
     }
     formData.append("notes", formState.notes);
+    console.log(
+      "startYear",
+      getDate(formState.startYear),
+      "lastYear",
+      getDate(formState.lastYear)
+    );
     formData.append("startYear", formState.startYear);
+
     formData.append("lastYear", formState.lastYear);
+
     formData.append("part", `${partId}`); // partId);
     formData.append("location", `${locId}`);
     if (priceToggle) {
@@ -351,8 +362,8 @@ const InventorySideMenu = () => {
         console.log(selectedItem);
         setFormState({
           ...selectedItem,
-          startYear: new Date(selectedItem.startYear).toLocaleDateString(),
-          lastYear: new Date(selectedItem.lastYear).toLocaleDateString(),
+          startYear: selectedItem.startYear,
+          lastYear: selectedItem.lastYear,
         });
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem?.part?.name);
@@ -543,7 +554,13 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type={dateType1 ? "date" : "text"}
                   placeholder="Start Year"
-                  value={formState.startYear}
+                  value={
+                    formState.startYear.length > 1 // So that not show invalid date on add mode
+                      ? !dateType1
+                        ? new Date(formState.startYear).toLocaleDateString()
+                        : formState.startYear
+                      : ""
+                  } // bcz on edge browser the date function not working on Inputs date values
                   name="startYear"
                   onChange={onInputChange}
                 />
@@ -554,7 +571,13 @@ const InventorySideMenu = () => {
                   className="w-full outline-none"
                   type={dateType2 ? "date" : "text"}
                   placeholder="Last Year"
-                  value={formState.lastYear}
+                  value={
+                    formState.lastYear.length > 1
+                      ? !dateType2
+                        ? new Date(formState.lastYear).toLocaleDateString()
+                        : formState.lastYear
+                      : ""
+                  }
                   name="lastYear"
                   onChange={onInputChange}
                 />
