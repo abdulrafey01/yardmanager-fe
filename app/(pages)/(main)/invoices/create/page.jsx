@@ -434,7 +434,9 @@ const page = () => {
           formData: {
             ...formData,
             email: formData.email.toLowerCase(),
-            datePaid: new Date(formData.datePaid),
+            datePaid: () => {
+              return new Date(formData.datePaid);
+            },
           },
           id: item._id,
         })
