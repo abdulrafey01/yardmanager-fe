@@ -117,7 +117,7 @@ const page = () => {
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
     pagePermission?.read && (
-      <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative h-[70rem] flex flex-col space-y-4 w-screen md:w-full ">
+      <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative min-h-[70rem] flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-between  w-full p-2">
           <p className="font-bold text-lg">Manage Invoices</p>
           {/* Create Button */}
