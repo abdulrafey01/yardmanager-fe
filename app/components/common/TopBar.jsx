@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { setShowSideBar } from "../../../lib/features/shared/sharedSlice";
 import Header from "./Header";
-import { logout } from "../../../lib/features/auth/authSlice";
+import { adminLogout, logout } from "../../../lib/features/auth/authSlice";
 import Link from "next/link";
 
 import PrfIcon from "../../assets/main/87-avatar.svg";
@@ -149,6 +149,9 @@ const TopBar = () => {
           </Link>{" "}
           <div
             onClick={() => {
+              if (pathname.includes("admin")) {
+                return dispatch(adminLogout());
+              }
               dispatch(logout());
             }}
             className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"

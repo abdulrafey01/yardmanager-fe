@@ -32,10 +32,6 @@ const nextConfig = {
         destination: "/employees",
       },
       {
-        source: "/admin/parts",
-        destination: "/parts",
-      },
-      {
         source: "/admin/deleted-items",
         destination: "/deleted-items",
       },

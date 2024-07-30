@@ -1,22 +1,17 @@
 "use client";
 import React, { useEffect } from "react";
-import SectionOne from "../../components/auth/common/SectionOne";
-import Toast from "../../abstracts/Toast";
+import SectionOne from "../../../components/auth/common/SectionOne";
+import Toast from "../../../abstracts/Toast";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
-import { setShowToast } from "../../../lib/features/shared/sharedSlice";
-import { resetToast } from "../../../lib/features/auth/authSlice";
+import { setShowToast } from "../../../../lib/features/shared/sharedSlice";
+import { resetToast } from "../../../../lib/features/auth/authSlice";
 
 const layout = ({ children }) => {
-  const { token, error, toastMsg } = useSelector((state) => state.auth);
+  const { adminToken, error, toastMsg } = useSelector((state) => state.auth);
   const pathName = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
-  useEffect(() => {
-    if (error) {
-      console.log("error", error);
-    }
-  }, [error, dispatch]);
 
   useEffect(() => {
     if (toastMsg) {
@@ -27,8 +22,8 @@ const layout = ({ children }) => {
 
   // For Routing auth
   useEffect(() => {
-    if (token) {
-      router.push("/dashboard");
+    if (adminToken) {
+      router.push("/admin/dashboard");
     }
   }, []);
 

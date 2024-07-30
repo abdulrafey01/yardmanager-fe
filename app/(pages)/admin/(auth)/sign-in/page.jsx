@@ -14,7 +14,10 @@ import { login } from "../../../../../lib/features/auth/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setShowToast } from "../../../../../lib/features/shared/sharedSlice";
-import { setUser } from "../../../../../lib/features/auth/authSlice";
+import {
+  setAdminToken,
+  setUser,
+} from "../../../../../lib/features/auth/authSlice";
 
 export default function page() {
   const router = useRouter();
@@ -22,6 +25,7 @@ export default function page() {
   const [formData, setFormData] = React.useState({ email: "", password: "" });
   const [togglePWD, setTogglePWD] = React.useState(false);
   const [rememberme, setRememberme] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   // Function to handle input change
   const onInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -33,6 +37,7 @@ export default function page() {
 
   // Function to handle form submit
   const onFormSubmit = (e) => {
+    setLoading(true);
     axios
       .post(process.env.NEXT_PUBLIC_BASE_URL + "/admin/login", {
         email: formData.email?.toLowerCase(),
@@ -40,15 +45,13 @@ export default function page() {
       })
       .then((res) => {
         if (res.data.success) {
-          dispatch(setShowToast({ value: true, msg: res.data.message }));
           if (rememberme) {
-            cookie.set("token", res.data.token);
+            cookie.set("adminToken", res.data.token);
           } else {
-            window?.sessionStorage.setItem("token", res.data.token);
+            window?.sessionStorage.setItem("adminToken", res.data.token);
           }
-          setTimeout(() => {
-            window.location.href = "/admin/dashboard";
-          }, 2000);
+          dispatch(setAdminToken(res.data.token));
+          window.location.href = "/admin/dashboard";
         } else {
           dispatch(
             setShowToast({ value: true, msg: res.data.message, red: true })
@@ -63,6 +66,7 @@ export default function page() {
             red: true,
           })
         );
+        setLoading(false);
       });
   };
 
@@ -123,7 +127,7 @@ export default function page() {
           </div>
           {/* Button */}
           <div>
-            <AuthButton title="Sign In" />
+            <AuthButton loaderState={loading} title="Sign In" />
           </div>
         </form>
 

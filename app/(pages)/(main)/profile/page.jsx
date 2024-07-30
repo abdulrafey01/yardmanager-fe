@@ -598,6 +598,7 @@ const page = () => {
                 <input
                   type="file"
                   id="image"
+                  accept="image/png, image/gif, image/jpeg"
                   className="hidden"
                   onChange={(e) => setImage(e.target.files[0])}
                 />

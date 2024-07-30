@@ -404,6 +404,7 @@ const page = ({}) => {
                   type="file"
                   id="image"
                   className="hidden"
+                  accept="image/png, image/gif, image/jpeg"
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </label>

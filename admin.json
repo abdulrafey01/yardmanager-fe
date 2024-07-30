@@ -1,0 +1,409 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "9f1fdd50-db53-41c9-bbbc-6950a1c6e990",
+      "name": "Admin",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2024-07-30T07:14:33.000Z",
+      "createdAt": "2024-07-05T06:32:14.000Z",
+      "lastUpdatedBy": "23549590",
+      "uid": "23549590-9f1fdd50-db53-41c9-bbbc-6950a1c6e990"
+    },
+    "item": [
+      {
+        "name": "Auth",
+        "item": [
+          {
+            "name": "Register",
+            "id": "59e553f4-4b6e-4533-91c5-ff2357fc4c56",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "name",
+                    "value": "admin",
+                    "type": "text"
+                  },
+                  {
+                    "key": "email",
+                    "value": "admin@aiautoparts.com",
+                    "type": "text"
+                  },
+                  {
+                    "key": "password",
+                    "value": "admin123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "profile",
+                    "type": "file",
+                    "value": null,
+                    "disabled": true
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/admin/register",
+                "host": ["{{URL}}"],
+                "path": ["admin", "register"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-59e553f4-4b6e-4533-91c5-ff2357fc4c56"
+          },
+          {
+            "name": "SignIn",
+            "event": [
+              {
+                "listen": "test",
+                "script": {
+                  "id": "163d74d1-a33d-4581-9de4-7fceb0fea236",
+                  "exec": [
+                    "var jsonData = pm.response.json();\r",
+                    "var token = jsonData.token;\r",
+                    "pm.globals.set(\"token\", token);\r",
+                    ""
+                  ],
+                  "type": "text/javascript",
+                  "packages": {}
+                }
+              }
+            ],
+            "id": "1433c2a2-a531-4dbf-b980-2d6d3e70a2f6",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\r\n    \"email\": \"admin@aiautoparts.com\",\r\n    \"password\": \"admin123\"\r\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "{{URL}}/admin/login",
+                "host": ["{{URL}}"],
+                "path": ["admin", "login"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-1433c2a2-a531-4dbf-b980-2d6d3e70a2f6"
+          },
+          {
+            "name": "Get Info",
+            "id": "a85b8115-ccc7-488f-b99c-b62267a7caaa",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/admin/info",
+                "host": ["{{URL}}"],
+                "path": ["admin", "info"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-a85b8115-ccc7-488f-b99c-b62267a7caaa"
+          }
+        ],
+        "id": "8a001c9c-97ff-495c-95e2-db35e588af8c",
+        "uid": "23549590-8a001c9c-97ff-495c-95e2-db35e588af8c"
+      },
+      {
+        "name": "Users",
+        "item": [
+          {
+            "name": "All Users",
+            "id": "ef92083a-8158-4152-9752-e3eed22481c3",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/users/all",
+                "host": ["{{URL}}"],
+                "path": ["users", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-ef92083a-8158-4152-9752-e3eed22481c3"
+          },
+          {
+            "name": "Register",
+            "id": "49de7635-b983-4a5d-b445-5e77300e1c58",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "user[name][first]",
+                    "value": "Admin1",
+                    "type": "text"
+                  },
+                  {
+                    "key": "user[name][last]",
+                    "value": "Admin",
+                    "type": "text"
+                  },
+                  {
+                    "key": "user[username]",
+                    "value": "testuser3",
+                    "type": "text"
+                  },
+                  {
+                    "key": "user[email]",
+                    "value": "testuser@gmail.com",
+                    "type": "text"
+                  },
+                  {
+                    "key": "user[password]",
+                    "value": "test@123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "company[name]",
+                    "value": "Company",
+                    "type": "text"
+                  },
+                  {
+                    "key": "company[address]",
+                    "value": "Building 123, City ABC",
+                    "type": "text"
+                  },
+                  {
+                    "key": "company[phone]",
+                    "value": "123123123",
+                    "type": "text"
+                  },
+                  {
+                    "key": "companyImage",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68"
+                  },
+                  {
+                    "key": "profile",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68"
+                  },
+                  {
+                    "key": "cover",
+                    "type": "file",
+                    "src": "postman-cloud:///1ef34055-38af-4070-8e80-0b33a227ce68"
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{URL}}/users/register",
+                "host": ["{{URL}}"],
+                "path": ["users", "register"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-49de7635-b983-4a5d-b445-5e77300e1c58"
+          },
+          {
+            "name": "Single User",
+            "id": "b828ab2a-d0a8-4b20-b884-62d2ce3db943",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/users/s/66846d38275f62c019fa4eaa",
+                "host": ["{{URL}}"],
+                "path": ["users", "s", "66846d38275f62c019fa4eaa"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b828ab2a-d0a8-4b20-b884-62d2ce3db943"
+          },
+          {
+            "name": "Delete User",
+            "id": "da5b3c65-76cc-47b2-9f6f-daf56d3e4275",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": ""
+              }
+            },
+            "response": [],
+            "uid": "23549590-da5b3c65-76cc-47b2-9f6f-daf56d3e4275"
+          }
+        ],
+        "id": "562abcaf-8893-49d7-830c-209489154c73",
+        "uid": "23549590-562abcaf-8893-49d7-830c-209489154c73"
+      },
+      {
+        "name": "Yards",
+        "item": [
+          {
+            "name": "All Yards",
+            "id": "b4ef10e1-0ffa-427f-a511-fcf44621e933",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/company/all",
+                "host": ["{{URL}}"],
+                "path": ["company", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-b4ef10e1-0ffa-427f-a511-fcf44621e933"
+          },
+          {
+            "name": "Single Yard",
+            "id": "a0763cfa-523d-47f9-833b-c3eb4832a09b",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/company/all",
+                "host": ["{{URL}}"],
+                "path": ["company", "all"]
+              }
+            },
+            "response": [],
+            "uid": "23549590-a0763cfa-523d-47f9-833b-c3eb4832a09b"
+          },
+          {
+            "name": "Paginate",
+            "id": "66e2af2a-8bc9-46bd-931d-b47fe3189a85",
+            "protocolProfileBehavior": {
+              "disableBodyPruning": true
+            },
+            "request": {
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "{{token}}",
+                    "type": "string"
+                  }
+                ]
+              },
+              "method": "GET",
+              "header": [],
+              "url": {
+                "raw": "{{URL}}/company/paginate?page=1&limit=10",
+                "host": ["{{URL}}"],
+                "path": ["company", "paginate"],
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "1"
+                  },
+                  {
+                    "key": "limit",
+                    "value": "10"
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "uid": "23549590-66e2af2a-8bc9-46bd-931d-b47fe3189a85"
+          }
+        ],
+        "id": "0a912be4-8273-446f-ab0d-21cb1574c03e",
+        "uid": "23549590-0a912be4-8273-446f-ab0d-21cb1574c03e"
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "id": "6c9912ed-fcfb-4399-b99d-1dff4393ea32",
+          "type": "text/javascript",
+          "packages": {},
+          "exec": [""]
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "id": "1b6bf571-a4fb-4468-8c63-30ed31d20b02",
+          "type": "text/javascript",
+          "packages": {},
+          "exec": [""]
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "URL",
+        "value": "127.0.0.1:5000/api",
+        "type": "string",
+        "disabled": true
+      },
+      {
+        "key": "token",
+        "value": "",
+        "type": "string",
+        "disabled": true
+      }
+    ]
+  }
+}

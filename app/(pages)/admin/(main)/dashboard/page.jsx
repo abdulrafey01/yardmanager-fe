@@ -108,8 +108,11 @@ const page = () => {
   useEffect(() => {
     const fetchData = async () => {
       // console.log("fetching data");
-      let token =
-        (await getCookie("token")) || window?.sessionStorage.getItem("token");
+      const token =
+        getCookie("token") ||
+        window?.sessionStorage.getItem("token") ||
+        getCookie("adminToken") ||
+        window?.sessionStorage.getItem("adminToken");
       // console.log(state);
       // console.log(token);
       axios

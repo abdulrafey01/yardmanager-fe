@@ -1,5 +1,5 @@
 import React from "react";
-import PartsPage from "../../../components/parts/PartsPage";
+import PartsPage from "../../../../components/parts/PartsPage";
 
 const page = () => {
   return <PartsPage />;

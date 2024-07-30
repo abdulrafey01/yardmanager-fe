@@ -62,6 +62,7 @@ const ImageDropzone = ({
           <input
             onChange={onImageChange}
             id={htmlName}
+            accept="image/png, image/gif, image/jpeg"
             className="hidden"
             type="file"
             multiple
