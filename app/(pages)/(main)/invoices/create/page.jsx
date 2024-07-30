@@ -44,7 +44,7 @@ const page = () => {
 
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
-  const [datePaidInputType, setDatePaidInputType] = useState("date");
+  const [datePaidInputType, setDatePaidInputType] = useState("text");
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -227,7 +227,7 @@ const page = () => {
         paid: item.paid,
         status: item.status,
         notes: item.notes,
-        datePaid: new Date(item.datePaid).toLocaleDateString(),
+        datePaid: item.datePaid,
       });
       setPaymentMethod(item.paymentMethod);
       setDatePaidInputType("text");
@@ -434,9 +434,6 @@ const page = () => {
           formData: {
             ...formData,
             email: formData.email.toLowerCase(),
-            datePaid: () => {
-              return new Date(formData.datePaid);
-            },
           },
           id: item._id,
         })
@@ -748,7 +745,13 @@ const page = () => {
                   }}
                   type={datePaidInputType}
                   name={"datePaid"}
-                  value={formData.datePaid}
+                  value={
+                    formData.datePaid.length > 1
+                      ? datePaidInputType === "date"
+                        ? formData.datePaid
+                        : new Date(formData.datePaid).toLocaleDateString()
+                      : ""
+                  }
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />

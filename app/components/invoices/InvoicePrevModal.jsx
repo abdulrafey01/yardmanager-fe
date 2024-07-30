@@ -82,7 +82,7 @@ const InvoicePrevModal = () => {
             </div>
           </div>
           {/* fOurth Row */}
-          <div className="w-full hidden sm:flex   flex-col space-y-4">
+          <div className="w-full hidden lg:flex   flex-col space-y-4">
             <p className="font-bold text-[#344054] text-xl">Product Details</p>
             {/* Table */}
             <div className="w-full hidden lg:flex flex-col ">
@@ -102,7 +102,7 @@ const InvoicePrevModal = () => {
                 </p>
               </div>
               {/* Body */}
-              <div className="w-full flex flex-col justify-between border rounded-lg lg:rounded-none border-gray-300 rounded-b-lg">
+              <div className="w-full flex flex-col  max-h-40 overflow-y-auto no-scrollbar justify-between border rounded-lg lg:rounded-none border-gray-300 rounded-b-lg">
                 {/* Row 2 */}
                 {previewModal?.data?.products.map((product, index) => {
                   return (

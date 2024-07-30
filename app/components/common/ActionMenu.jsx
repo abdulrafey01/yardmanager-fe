@@ -192,7 +192,7 @@ const ActionMenu = ({ index, item, permissions }) => {
                   paid: item.paid,
                   status: item.status,
                   notes: item.notes,
-                  datePaid: new Date(item.datePaid).toLocaleDateString(),
+                  datePaid: item.datePaid,
                 },
               })
             );
