@@ -697,7 +697,7 @@ const page = () => {
               <div className="relative lg:w-2/3 w-full">
                 <MainInput
                   typeAble={false}
-                  className="pr-3"
+                  className="pr-3 cursor-pointer"
                   placeholder={"Select Payment Method"}
                   icon={SelectIcon}
                   onClick={() => {
@@ -818,6 +818,7 @@ const page = () => {
                       ...formData,
                       grandTotal,
                       subTotal,
+                      paymentMethod,
                     },
                   })
                 );

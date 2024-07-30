@@ -20,24 +20,12 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/admin/invoices",
-        destination: "/invoices",
-      },
-      {
-        source: "/admin/inventory",
-        destination: "/inventory",
-      },
-      {
         source: "/admin/employees",
         destination: "/employees",
       },
       {
         source: "/admin/deleted-items",
         destination: "/deleted-items",
-      },
-      {
-        source: "/admin/locations",
-        destination: "/locations",
       },
       {
         source: "/admin/vehicle",

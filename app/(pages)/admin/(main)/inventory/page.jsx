@@ -1,6 +1,5 @@
 import React from "react";
-import InventoryPage from "../../../components/inventory/InventoryPage";
-
+import InventoryPage from "../../../../components/inventory/InventoryPage";
 const page = () => {
   return <InventoryPage />;
 };

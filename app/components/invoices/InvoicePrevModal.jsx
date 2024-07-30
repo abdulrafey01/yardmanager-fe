@@ -73,7 +73,9 @@ const InvoicePrevModal = () => {
                 <p className="text-sm">
                   Payment Amount:{previewModal?.data?.paid}
                 </p>
-                <p className="text-sm">Payment Method:Cash Payment</p>
+                <p className="text-sm">
+                  Payment Method:{previewModal?.data?.paymentMethod}
+                </p>
                 <p className="text-sm">
                   Date:{" "}
                   {new Date(previewModal?.data?.datePaid).toLocaleDateString()}

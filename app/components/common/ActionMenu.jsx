@@ -193,6 +193,7 @@ const ActionMenu = ({ index, item, permissions }) => {
                   status: item.status,
                   notes: item.notes,
                   datePaid: item.datePaid,
+                  paymentMethod: item.paymentMethod,
                 },
               })
             );
