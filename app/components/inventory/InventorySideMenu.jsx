@@ -72,6 +72,13 @@ const InventorySideMenu = () => {
   const [imageToggle, setImageToggle] = React.useState(false);
 
   useEffect(() => {
+    if (user) {
+      if (user.userType === "admin") {
+        setImageToggle(true);
+        setPriceToggle(true);
+        return;
+      }
+    }
     setImageToggle(user?.company.image);
     setPriceToggle(user?.company.price);
   }, [user]);

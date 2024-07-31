@@ -1,22 +1,89 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSideMenu } from "../../../../lib/features/shared/sharedSlice";
+import {
+  setShowSideMenu,
+  setShowToast,
+} from "../../../../lib/features/shared/sharedSlice";
 import FancyInput from "../../common/FancyInput";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import CrossIcon from "../../../assets/main/80-cross.svg";
 import Image from "next/image";
+import { addYard } from "../../../../lib/adminApis/yardApi";
+import SingleImageDropzone from "../../common/SingleImageDropzone";
 
 const YardSideMenu = () => {
   const dispatch = useDispatch();
   const { showSideMenu } = useSelector((state) => state.shared);
   const [yardDateType, setYardDateType] = React.useState("text");
+  const [companyImage, setCompanyImage] = React.useState(null);
+  const [profileImage, setProfileImage] = React.useState(null);
+  const [coverImage, setCoverImage] = React.useState(null);
 
+  const [formState, setFormState] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    companyName: "",
+    companyPhone: "",
+    companyAddress: "",
+  });
+
+  // OnInput Change
+  const onInputChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+  // on form submit
+  const onFormSubmit = async () => {
+    console.log("Yard data", formState, companyImage, profileImage, coverImage);
+
+    const formData = new FormData();
+    formData.append("user[name][first]", formState.firstName);
+    formData.append("user[name][last]", formState.lastName);
+    formData.append("user[email]", formState.email);
+    formData.append("user[password]", formState.password);
+    formData.append("company[name]", formState.companyName);
+    formData.append("company[phone]", formState.companyPhone);
+    formData.append("company[address]", formState.companyAddress);
+    formData.append("companyImage", companyImage);
+    formData.append("profile", profileImage);
+    formData.append("cover", coverImage);
+    try {
+      const res = await addYard(formData);
+      if (res.success) {
+        dispatch(setShowToast({ value: true, msg: res.message }));
+        setFormState({
+          firstName: "",
+          lastName: "",
+          email: "",
+          password: "",
+          companyName: "",
+          companyPhone: "",
+          companyAddress: "",
+        });
+        setCompanyImage(null);
+        setProfileImage(null);
+        setCoverImage(null);
+        dispatch(setShowSideMenu({ value: false }));
+      } else {
+        dispatch(setShowToast({ value: true, msg: res.message, red: true }));
+      }
+    } catch (err) {
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: err.response.data.message,
+          red: true,
+        })
+      );
+    }
+  };
   return (
     <div
       className={`fixed ${
         showSideMenu.value ? "flex" : "hidden"
-      } w-full  h-full  z-20 overflow-y-clip `}
+      } w-full  h-full  z-20 overflow-y-clip`}
     >
       {/* Black part */}
       <div
@@ -52,54 +119,112 @@ const YardSideMenu = () => {
               "opacity-50 pointer-events-none"
             }  flex flex-col space-y-4   w-full `}
           >
-            {/* Yard Name input */}
+            {/* User name input */}
+            <div className="flex w-full gap-4">
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="First Name"
+                  value={formState.firstName}
+                  onChange={onInputChange}
+                  name="firstName"
+                />
+              </div>
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="Last Name"
+                  onChange={onInputChange}
+                  value={formState.lastName}
+                  name="lastName"
+                />
+              </div>
+            </div>
+
+            {/* User Email and Password input */}
+            <div className="flex w-full gap-4">
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  onChange={onInputChange}
+                  placeholder="User Email"
+                  value={formState.email}
+                  name="email"
+                />
+              </div>
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  onChange={onInputChange}
+                  placeholder="User Password"
+                  value={formState.password}
+                  name="password"
+                />
+              </div>
+            </div>
+
+            {/* Company name & number input */}
+            <div className="flex w-full gap-4">
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="Company Name"
+                  value={formState.companyName}
+                  onChange={onInputChange}
+                  name="companyName"
+                />
+              </div>
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <input
+                  className="w-full outline-none"
+                  type="number"
+                  placeholder="Company Phone"
+                  value={formState.companyPhone}
+                  onChange={onInputChange}
+                  name="companyPhone"
+                />
+              </div>
+            </div>
+
+            {/* Company Address input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
                 type="text"
-                placeholder="Yard Name"
-                name="yardName"
+                placeholder="Company Address"
+                value={formState.companyAddress}
+                onChange={onInputChange}
+                name="companyAddress"
               />
             </div>
-
-            {/* Yard Email input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Yard Email"
-                name="yardEmail"
+            {/* Company Image */}
+            <SingleImageDropzone
+              htmlName="companyImage"
+              img={companyImage}
+              onImageChange={(e) => setCompanyImage(e.target.files[0])}
+              setImg={setCompanyImage}
+              placeholder={"Upload Company Image"}
+            />
+            {/* Profile and Cover Image */}
+            <div className="flex w-full gap-4">
+              <SingleImageDropzone
+                htmlName="profileImage"
+                img={profileImage}
+                onImageChange={(e) => setProfileImage(e.target.files[0])}
+                setImg={setProfileImage}
+                placeholder={"Upload Profile Image"}
               />
-            </div>
-
-            {/* No of items input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="No. of Items"
-                name="noOfItems"
-              />
-            </div>
-
-            {/* Yard Date input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type={yardDateType}
-                onClick={() => setYardDateType("date")}
-                placeholder="Select Date"
-                name="yardDate"
-              />
-            </div>
-
-            {/* Yard Location input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Yard Location"
-                name="yardLocation"
+              <SingleImageDropzone
+                htmlName="coverImage"
+                img={coverImage}
+                onImageChange={(e) => setCoverImage(e.target.files[0])}
+                setImg={setCoverImage}
+                placeholder={"Upload Cover Image"}
               />
             </div>
           </div>
@@ -114,7 +239,7 @@ const YardSideMenu = () => {
             />
           </div>
           <div className="flex-1">
-            <GreenBtn title={"Save"} textCenter={true} />
+            <GreenBtn onClick={onFormSubmit} title={"Save"} textCenter={true} />
           </div>
         </div>
       </div>

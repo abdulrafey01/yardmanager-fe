@@ -36,7 +36,7 @@ const page = () => {
   // Get page permission
   useEffect(() => {
     if (user) {
-      if (user.userType === "user") {
+      if (user.userType === "admin") {
         return setPagePermission({
           read: true,
           write: true,
@@ -44,11 +44,6 @@ const page = () => {
           delete: true,
         });
       }
-      setPagePermission(
-        user.data.role.privileges.find(
-          (privilege) => privilege.name === "locations"
-        )?.permissions
-      );
     }
     console.log(user);
   }, [user]);

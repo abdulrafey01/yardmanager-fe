@@ -48,7 +48,7 @@ const page = () => {
   // Get page permission
   useEffect(() => {
     if (user) {
-      if (user.userType === "user") {
+      if (user.userType === "user" || user.userType === "admin") {
         return setPagePermission({
           read: true,
           write: true,

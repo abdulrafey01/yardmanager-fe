@@ -12,7 +12,7 @@ const useLoadAuthState = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       if (pathName.includes("admin")) {
-        return dispatch(setUser({ userType: "user" })); // as admin have same permission as user
+        return dispatch(setUser({ userType: "admin" })); // as admin
       }
       try {
         const response = await axios.get(

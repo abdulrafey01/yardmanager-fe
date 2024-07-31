@@ -81,7 +81,7 @@ const page = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.userType === "user") {
+      if (user.userType === "admin") {
         return setPagePermission({
           read: true,
           write: true,
@@ -89,11 +89,6 @@ const page = () => {
           delete: true,
         });
       }
-      setPagePermission(
-        user.data.role.privileges.find(
-          (privilege) => privilege.name === "invoices"
-        )?.permissions
-      );
     }
     // console.log(user);
   }, [user]);
