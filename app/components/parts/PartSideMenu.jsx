@@ -22,9 +22,7 @@ const PartSideMenu = () => {
   const [variantInputVal, setVariantInputVal] = useState("");
 
   // Color toggle for inventory
-  const [colorToggle, setColorToggle] = useState(
-    JSON.parse(getLocalStorage("colorToggle")) || false
-  );
+  const [colorToggle, setColorToggle] = useState(false);
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -79,6 +77,12 @@ const PartSideMenu = () => {
     if (toastMsg?.red === false) {
       setVariantInputVal("");
       dispatch(setShowSideMenu({ value: false }));
+      setFormData({
+        name: "",
+        variant: [],
+        color: false,
+      });
+      setColorToggle(false);
     }
   }, [toastMsg]);
 
@@ -107,6 +111,7 @@ const PartSideMenu = () => {
             color: false,
           });
           setVariantInputVal("");
+          setColorToggle(false);
         }}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>
@@ -233,6 +238,7 @@ const PartSideMenu = () => {
                 color: false,
               });
               setVariantInputVal("");
+              setColorToggle(false);
             }}
             className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
           >

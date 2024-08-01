@@ -513,9 +513,9 @@ const page = () => {
             <WhiteBtn
               onClick={() => {
                 setPersonalFormState({
+                  ...setPersonalFormState,
                   firstName: "",
                   lastName: "",
-                  email: "",
                   username: "",
                   password: "",
                   confirmPassword: "",

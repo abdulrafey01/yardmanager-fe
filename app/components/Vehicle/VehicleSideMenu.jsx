@@ -46,7 +46,6 @@ const InventorySideMenu = () => {
   const [colorSwitch, setColorSwitch] = React.useState(false);
   const [formState, setFormState] = React.useState({
     name: "",
-    sku: "",
     model: [],
     make: [],
     variant: [],
@@ -120,14 +119,6 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.sku < 0 || formState.sku === "" || !formState.sku) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please add a Valid SKU",
-          red: true,
-        })
-      );
     } else if (formState.model.length === 0) {
       return dispatch(
         setShowToast({
@@ -154,7 +145,6 @@ const InventorySideMenu = () => {
       );
     }
     formData.append("name", formState.name);
-    formData.append("sku", formState.sku);
     formData.append("location", locId);
     formData.append("part", partId);
     if (formState.model.length === 1) {
@@ -209,7 +199,6 @@ const InventorySideMenu = () => {
     if (toastMsg?.red === false) {
       setFormState({
         name: "",
-        sku: "",
         model: [],
         make: [],
         variant: [],
@@ -266,7 +255,6 @@ const InventorySideMenu = () => {
           notes: selectedItem.notes ? selectedItem.notes : "",
           startYear: new Date(selectedItem.startYear).getFullYear(),
           lastYear: new Date(selectedItem.lastYear).getFullYear(),
-          sku: selectedItem.sku,
         });
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem.part?.name);
@@ -277,7 +265,6 @@ const InventorySideMenu = () => {
     } else {
       setFormState({
         name: "",
-        sku: "",
         model: [],
         make: [],
         variant: [],
@@ -298,7 +285,6 @@ const InventorySideMenu = () => {
     dispatch(setShowSideMenu({ value: false }));
     setFormState({
       name: "",
-      sku: "",
       model: [],
       make: [],
       variant: [],
@@ -516,17 +502,6 @@ const InventorySideMenu = () => {
               </div>
             )}
 
-            {/* Inventory SKU input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="number"
-                placeholder="SKU"
-                name="sku"
-                value={formState.sku}
-                onChange={onInputChange}
-              />
-            </div>
             {/* Inventory Notes input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <textarea

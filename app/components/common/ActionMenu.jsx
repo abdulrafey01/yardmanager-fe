@@ -30,6 +30,7 @@ import { setShowEmployeeSideMenu } from "../../../lib/features/roles/roleSlice";
 const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
+  const { user } = useSelector((state) => state.auth);
   const router = useRouter();
 
   const duplicateInventory = () => {
@@ -71,7 +72,11 @@ const ActionMenu = ({ index, item, permissions }) => {
     formData.append("color", item?.color);
 
     dispatch(setShowActionMenu(-1));
-    dispatch(addInventory(formData));
+    if (user.userType === "admin") {
+      dispatch(addInventory({ data: formData, isAdmin: true }));
+    } else {
+      dispatch(addInventory({ data: formData }));
+    }
   };
   const renderDeletedItemsActionMenu = () => {
     return (
