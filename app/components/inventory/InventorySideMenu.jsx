@@ -93,7 +93,12 @@ const InventorySideMenu = () => {
     setLocValue(e.target.value);
     if (e.target.value.length >= 1) {
       setShowLocDropDown(true);
-      dispatch(searchLocationByName(e.target.value));
+      dispatch(
+        searchLocationByName({
+          val: e.target.value,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
       setShowLocDropDown(false);
     }
@@ -118,7 +123,12 @@ const InventorySideMenu = () => {
     setPartValue(e.target.value);
     if (e.target.value.length >= 1) {
       setShowPartDropDown(true);
-      dispatch(searchPartByName(e.target.value));
+      dispatch(
+        searchPartByName({
+          val: e.target.value,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
       setShowPartDropDown(false);
     }

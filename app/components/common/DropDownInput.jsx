@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import DownArrow from "../../assets/main/28-downarrow.svg";
 import Image from "next/image";
@@ -15,12 +15,15 @@ const DropDownInput = ({
 }) => {
   const [showDropDown, setShowDropDown] = React.useState(false);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
 
   const onInputChange = (e) => {
     setInputValue(e.target.value);
     if (e.target.value.length >= 1) {
       setShowDropDown(true);
-      dispatch(onSearch(e.target.value));
+      dispatch(
+        onSearch({ val: e.target.value, isAdmin: user?.userType === "admin" })
+      );
     } else {
       setShowDropDown(false);
     }

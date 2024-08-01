@@ -13,7 +13,7 @@ import { getLocalStorage, setLocalStorage } from "../../helpers/storage";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { toastMsg } = useSelector((state) => state.parts);
-
+  const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     name: "",
     variant: [],
@@ -66,9 +66,17 @@ const PartSideMenu = () => {
     }
 
     if (showSideMenu.mode === "edit") {
-      dispatch(updatePart({ formData, id: selectedItem._id }));
+      dispatch(
+        updatePart({
+          formData,
+          id: selectedItem._id,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
-      dispatch(addPart(formData));
+      dispatch(
+        addPart({ data: formData, isAdmin: user?.userType === "admin" })
+      );
     }
   };
 

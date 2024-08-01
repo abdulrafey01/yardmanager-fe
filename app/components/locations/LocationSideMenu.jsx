@@ -15,6 +15,7 @@ const LocationSideMenu = () => {
 
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { toastMsg } = useSelector((state) => state.locations);
+  const { user } = useSelector((state) => state.auth);
   const [formData, setFormData] = useState({
     location: "",
   });
@@ -38,19 +39,27 @@ const LocationSideMenu = () => {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (formData.location === "") {
+    if (formData.location.length < 5) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please Enter Location Name",
+          msg: "Please enter atleast 5 characters",
           red: true,
         })
       );
     }
     if (showSideMenu.mode === "edit") {
-      dispatch(updateLocation({ formData, id: selectedItem._id }));
+      dispatch(
+        updateLocation({
+          formData,
+          id: selectedItem._id,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
-      dispatch(addLocation(formData));
+      dispatch(
+        addLocation({ data: formData, isAdmin: user?.userType === "admin" })
+      );
     }
   };
 

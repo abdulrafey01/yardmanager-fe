@@ -272,6 +272,7 @@ const InventorySideMenu = () => {
           name: selectedItem.name,
           model: selectedItem.model,
           make: selectedItem.make,
+          color: selectedItem.color,
           variant: selectedItem.variant,
           notes: selectedItem.notes ? selectedItem.notes : "",
           startYear: new Date(selectedItem.startYear).getFullYear(),

@@ -190,12 +190,12 @@ const page = () => {
           dispatch(
             setShowToast({
               value: true,
-              msg: error.response.data.message,
+              msg: error.response?.data.message,
               red: true,
             })
           );
           setItem(null);
-          if (error.response.status === 403) {
+          if (error.response?.status === 403) {
             cleanStorage();
             setTimeout(() => {
               dispatch(logout());
@@ -268,7 +268,12 @@ const page = () => {
     setProductName(e.target.value);
     if (e.target.value.length >= 1) {
       setShowDropdown(true);
-      dispatch(searchInventoryByName(e.target.value));
+      dispatch(
+        searchInventoryByName({
+          val: e.target.value,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
       setShowDropdown(false);
     }

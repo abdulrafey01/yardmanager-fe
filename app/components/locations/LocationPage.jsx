@@ -22,7 +22,7 @@ import {
 import Footer from "../../components/common/Footer";
 import { resetLocToast } from "../../../lib/features/locations/locationSlice";
 
-const LocationPage = () => {
+const LocationPage = ({ isAdmin = false }) => {
   const { error, locationData, toastMsg, totalDataLength, locationSearchData } =
     useSelector((state) => state.locations);
 
@@ -39,7 +39,9 @@ const LocationPage = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Locations"));
-    dispatch(fetchLocationsByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchLocationsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+    );
   }, [dispatch, pageNumber]);
   // Get page permission
   useEffect(() => {
@@ -87,20 +89,20 @@ const LocationPage = () => {
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchLocationsByPage({ search: e.target.value }));
+    dispatch(fetchLocationsByPage({ search: e.target.value, isAdmin }));
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchLocationsByPage({ page: 1, limit: 20, isAdmin }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchLocationsByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchLocationsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchLocationsByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }

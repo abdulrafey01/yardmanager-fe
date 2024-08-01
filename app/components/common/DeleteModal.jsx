@@ -37,10 +37,20 @@ const DeleteModal = () => {
         dispatch(deleteInvoice(selectedItem._id));
         break;
       case "Locations":
-        dispatch(deleteLocation(selectedItem._id));
+        dispatch(
+          deleteLocation({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "Parts":
-        dispatch(deletePart(selectedItem._id));
+        dispatch(
+          deletePart({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
       case "Roles":
         dispatch(deleteRole(selectedItem._id));
         break;

@@ -21,7 +21,7 @@ import {
 import Footer from "../../components/common/Footer";
 import { resetPartToast } from "../../../lib/features/parts/partSlice";
 
-const PartsPage = () => {
+const PartsPage = ({ isAdmin = false }) => {
   const { error, partData, toastMsg, totalDataLength, partSearchData } =
     useSelector((state) => state.parts);
 
@@ -57,7 +57,7 @@ const PartsPage = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Parts"));
-    dispatch(fetchPartsByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(fetchPartsByPage({ page: pageNumber, limit: dataLimit, isAdmin }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -86,20 +86,20 @@ const PartsPage = () => {
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchPartsByPage({ search: e.target.value }));
+    dispatch(fetchPartsByPage({ search: e.target.value, isAdmin }));
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchPartsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchPartsByPage({ page: 1, limit: 20, isAdmin }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchPartsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchPartsByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchPartsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchPartsByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }
