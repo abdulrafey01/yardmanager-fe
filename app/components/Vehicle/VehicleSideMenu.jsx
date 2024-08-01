@@ -231,7 +231,8 @@ const InventorySideMenu = () => {
       setPartId("");
       setLocValue(null);
       setPartValue(null);
-
+      setDateType1(false);
+      setDateType2(false);
       dispatch(setShowSideMenu({ value: false }));
 
       formData.forEach((value, key) => {
@@ -540,13 +541,14 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div>
-            {/* Inventory Image input */}
-            <ImageDropzone
-              imgArray={imgArray}
-              setImgArray={setImgArray}
-              onImageChange={onImageChange}
-            />
           </div>
+          {/* Inventory Image input */}
+          <ImageDropzone
+            previewMode={showSideMenu.mode === "preview"}
+            imgArray={imgArray}
+            setImgArray={setImgArray}
+            onImageChange={onImageChange}
+          />
         </div>
         {/* Buttons */}
 
