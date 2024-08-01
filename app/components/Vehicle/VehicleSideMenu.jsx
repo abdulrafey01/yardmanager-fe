@@ -111,7 +111,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.lastYear === "" || formState.lastYear === "NAN") {
+    } else if (formState.lastYear === "" || isNaN(formState.lastYear)) {
       return dispatch(
         setShowToast({
           value: true,
