@@ -30,7 +30,11 @@ const ImageDropzone = ({
                 height={80}
                 alt="img"
               />
-              <div className="absolute top-[-15px] right-[-15px] cursor-pointer">
+              <div
+                className={`absolute top-[-15px] right-[-15px] cursor-pointer ${
+                  previewMode ? "pointer-events-none opacity-50" : ""
+                }`}
+              >
                 <Image
                   onClick={() => {
                     setImgArray(imgArray.filter((item) => item !== img));
@@ -72,7 +76,7 @@ const ImageDropzone = ({
       <label
         className={`absolute bg-white cursor-pointer top-2 right-2 ${
           imgArray?.length > 0 ? "block" : "hidden"
-        }`}
+        } ${previewMode ? "pointer-events-none opacity-50" : ""}`}
       >
         <input
           className="hidden"

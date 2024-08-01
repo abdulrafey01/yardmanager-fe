@@ -266,6 +266,19 @@ const ActionMenu = ({ index, item, permissions }) => {
           </div>
         </>
       )}
+      {/* Add Overview Menu button in Yards page */}
+      {currentPage === "Yards" && (
+        <div
+          onClick={() => {
+            setLocalStorage("companyId", item._id);
+            router.push("/admin/inventory");
+          }}
+          className=" flex cursor-pointer justify-center items-center space-x-2 "
+        >
+          <Image src={DuplicateIcon} alt="delete" height={20} width={20} />
+          <p className="font-semibold hover:font-bold">Overview</p>
+        </div>
+      )}
     </div>
   );
 };

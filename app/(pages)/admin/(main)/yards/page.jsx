@@ -22,6 +22,7 @@ import {
 import Footer from "../../../../components/common/Footer";
 import { resetLocToast } from "../../../../../lib/features/locations/locationSlice";
 import { getYardsByPage } from "../../../../../lib/adminApis/yardApi";
+import { removeLocalStorage } from "../../../../helpers/storage";
 
 const LocationPage = () => {
   // const { error, locationData, toastMsg, totalDataLength, locationSearchData } =
@@ -68,6 +69,11 @@ const LocationPage = () => {
     }
     console.log(user);
   }, [user]);
+
+  // Clean old data
+  useEffect(() => {
+    removeLocalStorage("companyId");
+  }, []);
 
   // Search function
   const handleSearch = (e) => {

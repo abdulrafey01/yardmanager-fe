@@ -20,10 +20,15 @@ const DeleteModal = () => {
   const dispatch = useDispatch();
   const { selectedItem, showDeleteModal, showSuccessModal, currentPage } =
     useSelector((state) => state.shared);
+  const { user } = useSelector((state) => state.auth);
   const deleteRow = () => {
     switch (currentPage) {
       case "Inventory":
-        dispatch(deleteInventory(selectedItem._id));
+        if (user?.userType === "admin") {
+          dispatch(deleteInventory({ id: selectedItem._id, isAdmin: true }));
+        } else {
+          dispatch(deleteInventory({ id: selectedItem._id }));
+        }
         break;
       case "Invoices":
         dispatch(deleteInvoice(selectedItem._id));

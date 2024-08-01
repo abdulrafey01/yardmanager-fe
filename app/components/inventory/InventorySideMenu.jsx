@@ -324,9 +324,23 @@ const InventorySideMenu = () => {
       formData.append("color", "");
     }
     if (showSideMenu.mode === "edit") {
-      dispatch(updateInventory({ formData: formData, id: selectedItem._id }));
+      if (user?.userType === "admin") {
+        dispatch(
+          updateInventory({
+            formData: formData,
+            id: selectedItem._id,
+            isAdmin: true,
+          })
+        );
+      } else {
+        dispatch(updateInventory({ formData: formData, id: selectedItem._id }));
+      }
     } else {
-      dispatch(addInventory(formData));
+      if (user?.userType === "admin") {
+        dispatch(addInventory({ data: formData, isAdmin: true }));
+      } else {
+        dispatch(addInventory({ data: formData }));
+      }
     }
   };
 
@@ -734,16 +748,16 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div>
-            {/* Inventory Image input */}
-            {imageToggle || showSideMenu.mode === "preview" ? (
-              <ImageDropzone
-                previewMode={showSideMenu.mode === "preview"}
-                imgArray={imgArray}
-                setImgArray={setImgArray}
-                onImageChange={onImageChange}
-              />
-            ) : null}
           </div>
+          {/* Inventory Image input */}
+          {imageToggle || showSideMenu.mode === "preview" ? (
+            <ImageDropzone
+              previewMode={showSideMenu.mode === "preview"}
+              imgArray={imgArray}
+              setImgArray={setImgArray}
+              onImageChange={onImageChange}
+            />
+          ) : null}
         </div>
         {/* Buttons */}
 

@@ -19,7 +19,7 @@ import Footer from "../../components/common/Footer";
 import { resetInventoryToast } from "../../../lib/features/inventory/inventorySlice";
 import useLoadAuthState from "../../helpers/authHook";
 
-const InventoryPage = () => {
+const InventoryPage = ({ isAdmin = false }) => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
     (state) => state.inventory
   );
@@ -36,7 +36,9 @@ const InventoryPage = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Inventory"));
-    dispatch(fetchInventoryByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchInventoryByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+    );
   }, [dispatch, pageNumber]);
 
   // Get page permission
@@ -91,20 +93,20 @@ const InventoryPage = () => {
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchInventoryByPage({ search: e.target.value }));
+    dispatch(fetchInventoryByPage({ search: e.target.value, isAdmin }));
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 20 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 20, isAdmin }));
       setPageNumber(1);
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 30 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 10 }));
+      dispatch(fetchInventoryByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }
