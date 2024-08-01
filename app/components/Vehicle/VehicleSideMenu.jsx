@@ -27,7 +27,6 @@ const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
-  const { colorToggle } = useSelector((state) => state.settings);
   const { toastMsg } = useSelector((state) => state.vehicle);
 
   const [imgArray, setImgArray] = React.useState(null);
@@ -43,7 +42,6 @@ const InventorySideMenu = () => {
 
   // useref is used to prevent adding new key on every character change
   const formData = new FormData();
-  const [colorSwitch, setColorSwitch] = React.useState(false);
   const [formState, setFormState] = React.useState({
     name: "",
     model: [],
@@ -55,6 +53,7 @@ const InventorySideMenu = () => {
     lastYear: "",
   });
   const [locId, setLocId] = React.useState(null);
+  const [colorToggle, setColorToggle] = React.useState(false);
 
   const [partId, setPartId] = React.useState(null);
 
@@ -111,7 +110,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.lastYear === "" || isNaN(formState.lastYear)) {
+    } else if (formState.lastYear === "") {
       return dispatch(
         setShowToast({
           value: true,
@@ -143,6 +142,23 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
+    }
+    if (colorToggle === true) {
+      console.log("color", formState.color);
+      if (
+        formState.color === "" ||
+        formState.color === null ||
+        formState.color === "undefined" ||
+        !formState.color
+      ) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please fill the Color field",
+            red: true,
+          })
+        );
+      }
     }
     formData.append("name", formState.name);
     formData.append("location", locId);
@@ -188,6 +204,10 @@ const InventorySideMenu = () => {
       } else {
         // formData.append("images", []);
       }
+    }
+
+    if (colorToggle) {
+      formData.append("color", formState.color);
     }
 
     if (showSideMenu.mode === "edit") {
@@ -261,6 +281,11 @@ const InventorySideMenu = () => {
         setImgArray(selectedItem?.images);
         setLocId(selectedItem.location?._id);
         setPartId(selectedItem.part?._id);
+        if (selectedItem?.color) {
+          setColorToggle(true);
+        } else {
+          setColorToggle(false);
+        }
       }
     } else {
       setFormState({
@@ -365,6 +390,7 @@ const InventorySideMenu = () => {
                 setIdFunc={(val) => {
                   setPartId(val);
                 }}
+                setColorToggle={setColorToggle}
                 setInputValue={setPartValue}
                 key={"part"}
               />
@@ -395,6 +421,7 @@ const InventorySideMenu = () => {
                 />
               </div>
             </div>
+
             {/* Inventory Model input */}
             <MultiInput
               dataToMap={formState.model}
@@ -489,7 +516,7 @@ const InventorySideMenu = () => {
               removeItemFunction={removeVariantFromList}
             />
             {/* Color input based on toggle */}
-            {colorSwitch && (
+            {colorToggle && (
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"

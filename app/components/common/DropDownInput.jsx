@@ -11,6 +11,7 @@ const DropDownInput = ({
   inputValue,
   setInputValue,
   setIdFunc,
+  setColorToggle = null, // for setting color only in case of part
 }) => {
   const [showDropDown, setShowDropDown] = React.useState(false);
   const dispatch = useDispatch();
@@ -28,6 +29,9 @@ const DropDownInput = ({
   const onNameClick = (item) => {
     setInputValue(item[keyToShow]);
     setIdFunc(item._id);
+    if (setColorToggle) {
+      setColorToggle(item.color);
+    }
     setShowDropDown(false);
   };
   return (
