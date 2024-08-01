@@ -593,7 +593,7 @@ const InventorySideMenu = () => {
                   type={dateType2 ? "date" : "text"}
                   placeholder="Last Year"
                   value={
-                    formState.lastYear.length > 1
+                    formState.lastYear?.length > 1
                       ? !dateType2
                         ? new Date(formState.lastYear).toLocaleDateString()
                         : formState.lastYear
