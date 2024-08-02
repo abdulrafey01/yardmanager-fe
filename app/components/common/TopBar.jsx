@@ -140,7 +140,7 @@ const TopBar = () => {
               ? "Shop Owner"
               : user?.userType === "admin"
               ? "Admin"
-              : "Employee"}
+              : user?.userType === "employee" && "Employee"}
           </p>
         </div>
         <div className="hidden sm:block p-2">
