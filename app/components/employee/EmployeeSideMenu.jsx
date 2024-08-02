@@ -78,9 +78,6 @@ const EmployeeSideMenu = () => {
   }, [showEmployeeSideMenu]);
 
   const onInputChange = (e) => {
-    if (e.target.name === "date") {
-      setDateInputType("date");
-    }
     setFormState({ ...formState, [e.target.name]: e.target.value });
   };
 
@@ -95,7 +92,7 @@ const EmployeeSideMenu = () => {
           email: selectedItem?.email,
           role: selectedItem?.role?._id,
           position: selectedItem?.position,
-          date: new Date(selectedItem?.date).toLocaleDateString(),
+          date: selectedItem?.date,
         });
         setRoleInputValue(selectedItem?.role?.name);
       }
@@ -336,7 +333,13 @@ const EmployeeSideMenu = () => {
                 className="w-full outline-none"
                 type={dateInputType}
                 placeholder="Date Hired"
-                value={formState.date}
+                value={
+                  formState.date.length > 1
+                    ? dateInputType === "date"
+                      ? formState.date
+                      : new Date(formState.date).toLocaleDateString()
+                    : ""
+                }
                 name="date"
                 onChange={onInputChange}
               />
