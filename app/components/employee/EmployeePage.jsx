@@ -21,11 +21,13 @@ import {
 import { resetEmpToast } from "../../../lib/features/employee/employeeSlice";
 import Footer from "../../components/common/Footer";
 import { setShowEmployeeSideMenu } from "../../../lib/features/roles/roleSlice";
+import { usePathname } from "next/navigation";
 
-const EmployeePage = () => {
+const EmployeePage = ({ isAdmin = false }) => {
   const { error, employeeData, toastMsg, totalDataLength, employeeSearchData } =
     useSelector((state) => state.employee);
   const { user } = useSelector((state) => state.auth);
+  const pathName = usePathname();
 
   const [pagePermission, setPagePermission] = React.useState(null);
 
@@ -70,6 +72,7 @@ const EmployeePage = () => {
         page: pageNumber,
         limit: dataLimit,
         filter: filterActive,
+        isAdmin,
       })
     );
   }, [dispatch, pageNumber, dataLimit, filterActive]);
@@ -104,9 +107,9 @@ const EmployeePage = () => {
     setFilterActive(undefined);
     setFilterAll(true); // for changing checkbox checked state
     if (e.target.value.length > 0) {
-      dispatch(fetchEmployeesByPage({ search: e.target.value }));
+      dispatch(fetchEmployeesByPage({ search: e.target.value, isAdmin }));
     } else {
-      dispatch(fetchEmployeesByPage({ page: 1, limit: 10 }));
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 10, isAdmin }));
     }
   };
 
@@ -137,7 +140,11 @@ const EmployeePage = () => {
       // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
       // pr-6 for small devices to make content away from scrollbar due to screen width
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
-        <div className="flex items-center justify-end space-x-4  w-full p-2">
+        <div
+          className={`flex items-center justify-end space-x-4  w-full p-2 ${
+            pathName === "/admin/overview" && "hidden"
+          }`}
+        >
           {/* Add Employee Button */}
           {pagePermission?.write && (
             <GreenBtn

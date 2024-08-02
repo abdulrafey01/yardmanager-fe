@@ -14,6 +14,7 @@ import { addRole, updateRole } from "../../../lib/features/roles/roleActions";
 const AddRoleMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { toastMsg } = useSelector((state) => state.roles);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const menuRef = useRef();
   const [formData, setFormData] = useState(null);
@@ -242,12 +243,22 @@ const AddRoleMenu = () => {
       );
     }
     if (showSideMenu.mode === "edit") {
-      dispatch(updateRole({ formData, id: selectedItem._id }));
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
+      dispatch(
+        updateRole({
+          formData,
+          id: selectedItem._id,
+          isAdmin: user?.userType === "admin",
+        })
+      );
+      if (user?.userType === "employee") {
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     } else {
-      dispatch(addRole(formData));
+      dispatch(
+        addRole({ data: formData, isAdmin: user?.userType === "admin" })
+      );
     }
   };
 

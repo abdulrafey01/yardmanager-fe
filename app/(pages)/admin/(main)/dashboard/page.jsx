@@ -71,12 +71,12 @@ const page = () => {
   const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
     dispatch(setCurrentPage("AdminDashboard"));
-    dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
+    // dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
-    dispatch(fetchInventoryCounts());
-    dispatch(fetchPartCounts());
+    // dispatch(fetchInventoryCounts());
+    // dispatch(fetchPartCounts());
   }, []);
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const page = () => {
           // console.log(err);
         });
     };
-    fetchData();
+    // fetchData();
   }, []);
 
   useEffect(() => {
@@ -231,22 +231,22 @@ const page = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
+      // dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
+      // dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
+      // dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
       setDataLimit(10);
       setPageNumber(1);
     }
   };
   // Search function
   const handleSearch = (e) => {
-    dispatch(fetchInvoicesByPage({ search: e.target.value }));
+    // dispatch(fetchInvoicesByPage({ search: e.target.value }));
   };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that

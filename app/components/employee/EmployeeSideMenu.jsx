@@ -175,11 +175,14 @@ const EmployeeSideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.date === "") {
+    } else if (
+      formState.date === "" ||
+      isNaN(new Date(formState.date).getTime())
+    ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please select Date",
+          msg: "Please select Date Hired",
           red: true,
         })
       );
@@ -205,9 +208,17 @@ const EmployeeSideMenu = () => {
 
     //  if in edit mode update else add
     if (showSideMenu.mode === "edit") {
-      dispatch(updateEmployee({ formData, id: selectedItem._id }));
+      dispatch(
+        updateEmployee({
+          formData,
+          id: selectedItem._id,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     } else {
-      dispatch(addEmployee(formData));
+      dispatch(
+        addEmployee({ data: formData, isAdmin: user?.userType === "admin" })
+      );
     }
   };
 

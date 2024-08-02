@@ -29,7 +29,7 @@ import {
 import Footer from "../../components/common/Footer";
 import ImageDropzone from "../../components/common/ImageDropzone";
 
-const VehiclePage = () => {
+const VehiclePage = ({ isAdmin = false }) => {
   const {
     error,
     vehicleData,
@@ -81,7 +81,9 @@ const VehiclePage = () => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
-    dispatch(fetchVehiclesByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchVehiclesByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+    );
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -92,7 +94,7 @@ const VehiclePage = () => {
 
   useEffect(() => {
     if (addedToInv) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit, isAdmin }));
       dispatch(resetAddedToInv());
       setPageNumber(1);
     }
@@ -100,7 +102,7 @@ const VehiclePage = () => {
   useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
-        dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(setShowToast({ value: true, ...toastMsg, isAdmin }));
         dispatch(resetVehicleToast());
       }
     }
@@ -131,7 +133,7 @@ const VehiclePage = () => {
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchVehiclesByPage({ search: e.target.value }));
+    dispatch(fetchVehiclesByPage({ search: e.target.value, isAdmin }));
   };
 
   // Decode Btn CLick
@@ -145,7 +147,7 @@ const VehiclePage = () => {
         })
       );
     }
-    dispatch(vinDecode(vinVal));
+    dispatch(vinDecode({ number: vinVal, isAdmin }));
     setShowDecodeMenu(true);
   };
 
@@ -168,7 +170,7 @@ const VehiclePage = () => {
         formData.append(`images`, imgArray2[i]);
       }
     }
-    dispatch(addVehicle(formData));
+    dispatch(addVehicle({ data: formData, isAdmin }));
   };
 
   const onImageChange2 = (e) => {
@@ -182,15 +184,15 @@ const VehiclePage = () => {
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 20 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 20, isAdmin }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 30 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 10 }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }

@@ -126,7 +126,11 @@ const ActionMenu = ({ index, item, permissions }) => {
       {permissions?.update &&
         (currentPage === "Invoices" || currentPage === "Dashboard" ? (
           <Link
-            href={"/invoices/create"}
+            href={
+              user?.userType === "admin"
+                ? "/admin/invoices/create"
+                : "/invoices/create"
+            }
             onClick={() => {
               // console.log(permissions);
               dispatch(setSelectedItem(item));
@@ -239,8 +243,28 @@ const ActionMenu = ({ index, item, permissions }) => {
           onClick={() => {
             dispatch(setSelectedItem(item));
             dispatch(setShowActionMenu(-1));
-            dispatch(addToInventory(item._id));
-            dispatch(fetchVehiclesByPage({ page: 1 }));
+
+            if (item.name === "" || !item.name || item.name.length <= 0) {
+              return dispatch(
+                setShowToast({
+                  value: true,
+                  msg: "Please fill the Name field",
+                  red: true,
+                })
+              );
+            }
+            dispatch(
+              addToInventory({
+                id: item._id,
+                isAdmin: user?.userType === "admin",
+              })
+            );
+            dispatch(
+              fetchVehiclesByPage({
+                page: 1,
+                isAdmin: user?.userType === "admin",
+              })
+            );
             console.log(item);
           }}
           className=" flex cursor-pointer justify-start items-center space-x-2 "
@@ -276,7 +300,7 @@ const ActionMenu = ({ index, item, permissions }) => {
         <div
           onClick={() => {
             setLocalStorage("companyId", item._id);
-            router.push("/admin/inventory");
+            router.push("/admin/overview");
           }}
           className=" flex cursor-pointer justify-center items-center space-x-2 "
         >

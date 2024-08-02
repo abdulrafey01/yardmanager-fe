@@ -20,7 +20,7 @@ import axios from "axios";
 import { getCookie } from "../../helpers/storage";
 import { resetDelToast } from "../../../lib/features/deleted-items/deletedItemsSlice";
 
-const DeletedItemsPage = () => {
+const DeletedItemsPage = ({ isAdmin = false }) => {
   const { error, deletedItemsData, toastMsg, totalDataLength } = useSelector(
     (state) => state.deletedItems
   );
@@ -56,7 +56,9 @@ const DeletedItemsPage = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("DeletedItems"));
-    dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+    );
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -85,20 +87,20 @@ const DeletedItemsPage = () => {
 
   // Search function
   const handleSearch = (e) => {
-    dispatch(fetchDeletedItemsByPage({ search: e.target.value }));
+    dispatch(fetchDeletedItemsByPage({ search: e.target.value, isAdmin }));
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 20 }));
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 20, isAdmin }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 30 }));
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }
@@ -106,10 +108,22 @@ const DeletedItemsPage = () => {
 
   const deleteAll = async () => {
     try {
-      const token =
-        getCookie("token") || window?.sessionStorage.getItem("token");
+      let token;
+      let companyId;
+
+      // role based token
+      if (isAdmin) {
+        token =
+          getCookie("adminToken") ||
+          window?.sessionStorage.getItem("adminToken");
+        companyId = JSON.parse(localStorage.getItem("companyId"));
+      } else {
+        token = getCookie("token") || window?.sessionStorage.getItem("token");
+      }
       const response = await axios.delete(
-        "https://yardmanager-be.vercel.app/api/inventory/all",
+        `https://yardmanager-be.vercel.app/api/inventory/all${
+          isAdmin ? `?company=${companyId}` : ""
+        }`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -120,7 +134,9 @@ const DeletedItemsPage = () => {
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
 
-      dispatch(fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit }));
+      dispatch(
+        fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      );
     } catch (error) {
       console.log(error);
       dispatch(

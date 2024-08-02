@@ -15,6 +15,7 @@ const RestoreModal = () => {
   const { showRestoreModal } = useSelector((state) => state.deletedItems);
   const { confirmModal } = useSelector((state) => state.subscribe);
   const { selectedItem } = useSelector((state) => state.shared);
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   return (
     (showRestoreModal || confirmModal) && (
@@ -74,7 +75,12 @@ const RestoreModal = () => {
           ) : (
             <div
               onClick={() => {
-                dispatch(restoreInventory(selectedItem._id));
+                dispatch(
+                  restoreInventory({
+                    id: selectedItem._id,
+                    isAdmin: user?.userType === "admin",
+                  })
+                );
                 dispatch(setShowRestoreModal(false));
               }}
               className="flex bg-[#78FFB6] p-2 lg:p-4 text-xs lg:text-base justify-center items-center border border-gray-300 rounded-lg flex-1 text-black font-bold hover:bg-[#49fb9c] cursor-pointer"

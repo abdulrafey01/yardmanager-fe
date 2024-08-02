@@ -1,49 +1,52 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import GreenBtn from "../../abstracts/GreenBtn";
 import SearchIcon from "../../assets/main/30-search.svg";
 import MenuIcon from "../../assets/main/37-menu.svg";
 import { calcTotalPage, displayData } from "../../helpers/pagination";
-
-import PlusIcon from "../../assets/main/29-plus.svg";
-import DownArrow from "../../assets/main/28-downarrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../components/common/TableHead";
 import TableRow from "../../components/common/TableRow";
 import "../../styles.css";
 import {
   setCurrentPage,
+  setShowSideMenu,
   setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
-import { useRouter } from "next/navigation";
-import { fetchInvoicesByPage } from "../../../lib/features/invoice/invoiceActions";
-import { getLocalStorage, removeLocalStorage } from "../../helpers/storage";
-import Footer from "../../components/common/Footer";
-import { resetInvoiceToast } from "../../../lib/features/invoice/invoiceSlice";
 
-const InvoicePage = ({ isAdmin = false }) => {
-  const { error, invoiceData, toastMsg, totalDataLength } = useSelector(
-    (state) => state.invoice
+import WhiteBtn from "../../abstracts/WhiteBtn";
+import {
+  fetchRolesByPage,
+  searchRoleByName,
+} from "../../../lib/features/roles/roleActions";
+import {
+  resetRoleToast,
+  resetState,
+  setShowEmployeeSideMenu,
+} from "../../../lib/features/roles/roleSlice";
+import Footer from "../../components/common/Footer";
+import { resetEmpToast } from "../../../lib/features/employee/employeeSlice";
+
+const RolesPage = ({ isAdmin = false }) => {
+  const { error, rolesData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.roles
   );
+  const { toastMsg: empToast } = useSelector((state) => state.employee);
+
   const { user } = useSelector((state) => state.auth);
 
-  const router = useRouter();
+  const [pagePermission, setPagePermission] = React.useState(null);
+  const [empPermission, setEmpPermission] = React.useState(null);
 
   const dispatch = useDispatch();
-  const [dataFromServer, setDataFromServer] = React.useState([]);
   const [pageNumber, setPageNumber] = React.useState(1);
   const [totalPage, setTotalPage] = React.useState(0);
-  const [dataLimit, setDataLimit] = React.useState(10);
+  const [dataFromServer, setDataFromServer] = React.useState([]);
 
   const [searchInputValue, setSearchInputValue] = React.useState("");
-  const [pagePermission, setPagePermission] = React.useState(null);
 
-  useEffect(() => {
-    dispatch(setCurrentPage("Invoices"));
-    dispatch(
-      fetchInvoicesByPage({ page: pageNumber, limit: dataLimit, isAdmin })
-    );
-  }, [dispatch, pageNumber]);
+  const [dataLimit, setDataLimit] = React.useState(10);
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -57,12 +60,37 @@ const InvoicePage = ({ isAdmin = false }) => {
       }
       setPagePermission(
         user.data.role.privileges.find(
-          (privilege) => privilege.name === "invoices"
+          (privilege) => privilege.name === "roles"
         )?.permissions
       );
     }
     console.log(user);
   }, [user]);
+
+  // Get page permission
+  useEffect(() => {
+    if (user) {
+      if (user.userType === "user" || user.userType === "admin") {
+        return setEmpPermission({
+          read: true,
+          write: true,
+          update: true,
+          delete: true,
+        });
+      }
+      setEmpPermission(
+        user.data.role.privileges.find(
+          (privilege) => privilege.name === "employees"
+        )?.permissions
+      );
+    }
+    console.log(user);
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(setCurrentPage("Roles"));
+    dispatch(fetchRolesByPage({ page: pageNumber, limit: dataLimit, isAdmin }));
+  }, [dispatch, pageNumber]);
 
   useEffect(() => {
     if (error) {
@@ -71,82 +99,93 @@ const InvoicePage = ({ isAdmin = false }) => {
   }, [error]);
 
   useEffect(() => {
-    if (invoiceData) {
-      setDataFromServer(invoiceData);
+    // When role data has come, set total pages
+    if (rolesData) {
+      setDataFromServer(rolesData);
       let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
       setTotalPage(totalPage);
+      console.log(rolesData);
     }
-  }, [invoiceData, dataLimit]);
+  }, [rolesData, dataLimit]);
 
   useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
+        dispatch(resetRoleToast());
       }
     }
-    dispatch(resetInvoiceToast());
   }, [toastMsg]);
+
+  useEffect(() => {
+    if (empToast) {
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...empToast }));
+        dispatch(resetEmpToast());
+      }
+    }
+  }, [empToast]);
+
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchInvoicesByPage({ search: e.target.value, isAdmin }));
+    dispatch(fetchRolesByPage({ search: e.target.value, isAdmin }));
   };
-
-  useEffect(() => {
-    //  for cleaning old data
-    if (getLocalStorage("invoiceId")) {
-      removeLocalStorage("invoiceId");
-    }
-  }, []);
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 20, isAdmin }));
+      dispatch(fetchRolesByPage({ page: 1, limit: 20, isAdmin }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 30, isAdmin }));
+      dispatch(fetchRolesByPage({ page: 1, limit: 30, isAdmin }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 10, isAdmin }));
+      dispatch(fetchRolesByPage({ page: 1, limit: 10, isAdmin }));
       setDataLimit(10);
       setPageNumber(1);
     }
     setSearchInputValue("");
   };
+
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
     pagePermission?.read && (
-      <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative min-h-[60rem] flex flex-col space-y-4 w-screen md:w-full ">
-        <div className="flex items-center justify-between  w-full p-2">
-          <p className="font-bold text-lg">Manage Invoices</p>
-          {/* Create Button */}
+      <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
+        <div className="flex items-center justify-end space-x-4  w-full p-2">
+          {/* Create Role Button */}
           {pagePermission?.write && (
-            <div
-              onClick={() => {
-                isAdmin
-                  ? router.push("/admin/invoices/create")
-                  : router.push("/invoices/create");
-              }}
-              className="cursor-pointer bg-[#78FFB6] hover:bg-[#37fd93] p-3 text-left rounded-lg flex space-x-2"
-            >
-              <p className="font-bold text-sm">Create Invoice</p>
-              <Image src={PlusIcon} alt="arrowIcon" />
-            </div>
+            <>
+              {empPermission?.write && (
+                <WhiteBtn
+                  onClick={() => {
+                    dispatch(setShowEmployeeSideMenu(true));
+                    dispatch(setShowSideMenu({ value: true, mode: "add" }));
+                  }}
+                  title={"Add Employee"}
+                />
+              )}
+              <GreenBtn
+                onClick={() =>
+                  dispatch(setShowSideMenu({ value: true, mode: "add" }))
+                }
+                title={"Create New Role"}
+              />
+            </>
           )}
         </div>
         {/* Table */}
         <div className=" border rounded-xl border-gray-300 flex flex-col">
           {/* Table Title container */}
-          <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
+          <div className="p-4 w-full rounded-t-lg flex justify-between items-center">
             <p className="hidden sm:block font-bold text-lg md:text-2xl">
-              Invoices List
+              Roles & Permission List
             </p>
-            <p className="sm:hidden font-bold text-lg md:text-2xl">Invoices</p>
-            {/* Search abd filter input container*/}
-            <div className="flex  space-x-2 sm:space-x-4">
+            <p className="sm:hidden font-bold text-lg md:text-2xl">Roles</p>
+            {/* Search input */}
+            <div className="flex  space-x-4">
               <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <Image src={SearchIcon} alt="SearchIcon" />
                 <input
@@ -157,22 +196,16 @@ const InvoicePage = ({ isAdmin = false }) => {
                   onChange={handleSearch}
                 />
               </div>
+              {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+                <p>Filter</p>
+                <Image src={MenuIcon} alt="MenuIcon" />
+              </div> */}
             </div>
           </div>
           {/* Table Container */}
-          <div className="overflow-x-auto sm:overflow-visible">
+          <div className=" overflow-y-visible ">
             {/* Head */}
-            <TableHead
-              titles={[
-                "User Name",
-                "Invoice #",
-                "Customer Name",
-                "Email Address",
-                "Grand Total",
-                "Order Date",
-                "Status",
-              ]}
-            />
+            <TableHead titles={["Sr #", "Role Name", "Employees"]} />
             {/* Body */}
             {dataFromServer.length == 0 && (
               <div className="text-center p-8 font-semibold">
@@ -182,19 +215,9 @@ const InvoicePage = ({ isAdmin = false }) => {
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[
+                  index + 1,
                   data.name,
-                  data._id,
-                  data.name,
-                  data.email,
-                  (() => {
-                    let subTotal = data.products.reduce((acc, product) => {
-                      return acc + product.quantity * product.price;
-                    }, 0);
-                    return subTotal + (data.tax * subTotal) / 100;
-                  })(),
-
-                  new Date(data.datePaid).toLocaleDateString(),
-                  data.status,
+                  data.employeesCount ? data.employeesCount : 0,
                 ]}
                 key={index}
                 rowIndex={index}
@@ -216,4 +239,4 @@ const InvoicePage = ({ isAdmin = false }) => {
   );
 };
 
-export default InvoicePage;
+export default RolesPage;

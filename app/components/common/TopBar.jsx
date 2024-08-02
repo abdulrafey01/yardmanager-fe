@@ -40,6 +40,12 @@ const TopBar = () => {
         return "Inventory Management";
       case "SubscriptionAdmin":
         return "Subscription Management";
+      case "Employee":
+        if (pathname === "/admin/overview") {
+          return "Overview";
+        } else {
+          return "Employee";
+        }
       default:
         return currentPage;
     }
@@ -121,14 +127,20 @@ const TopBar = () => {
         </div>
         <div className="flex flex-col">
           <p className="hidden sm:block text-xs font-bold">
-            {user?.data?.name?.first
+            {user?.userType === "admin"
+              ? user?.data?.name
+              : user?.data?.name?.first
               ? user?.data?.name?.first
               : "" + " " + user?.data?.name?.last
               ? user?.data?.name?.last
               : ""}
           </p>
           <p className="hidden sm:block text-xs">
-            {user?.userType === "user" ? "Shop Owner" : "Employee"}
+            {user?.userType === "user"
+              ? "Shop Owner"
+              : user?.userType === "admin"
+              ? "Admin"
+              : "Employee"}
           </p>
         </div>
         <div className="hidden sm:block p-2">

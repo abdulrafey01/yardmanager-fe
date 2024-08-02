@@ -1,9 +1,8 @@
 "use client";
 import React, { useEffect } from "react";
-import VehiclePage from "../../../../components/Vehicle/VehiclePage";
+import CreateInvoicePage from "../../../../../components/invoices/CreateInvoicePage";
 import { useRouter } from "next/navigation";
-import { getLocalStorage } from "../../../../helpers/storage";
-
+import { getLocalStorage } from "../../../../../helpers/storage";
 const page = () => {
   const router = useRouter();
   useEffect(() => {
@@ -11,7 +10,7 @@ const page = () => {
       router.back();
     }
   }, []);
-  return <VehiclePage isAdmin={true} />;
+  return <CreateInvoicePage isAdmin={true} />;
 };
 
 export default page;

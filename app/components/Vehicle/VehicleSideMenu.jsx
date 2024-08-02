@@ -28,6 +28,7 @@ const InventorySideMenu = () => {
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
   const { toastMsg } = useSelector((state) => state.vehicle);
+  const { user } = useSelector((state) => state.auth);
 
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
@@ -110,7 +111,10 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.lastYear === "") {
+    } else if (
+      formState.lastYear === "" ||
+      isNaN(new Date(formState.lastYear).getTime())
+    ) {
       return dispatch(
         setShowToast({
           value: true,
@@ -211,7 +215,13 @@ const InventorySideMenu = () => {
     }
 
     if (showSideMenu.mode === "edit") {
-      dispatch(updateVehicle({ formData: formData, id: selectedItem._id }));
+      dispatch(
+        updateVehicle({
+          formData: formData,
+          id: selectedItem._id,
+          isAdmin: user?.userType === "admin",
+        })
+      );
     }
   };
 

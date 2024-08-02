@@ -31,7 +31,12 @@ const DeleteModal = () => {
         }
         break;
       case "Invoices":
-        dispatch(deleteInvoice(selectedItem._id));
+        dispatch(
+          deleteInvoice({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "Dashboard":
         dispatch(deleteInvoice(selectedItem._id));
@@ -52,16 +57,36 @@ const DeleteModal = () => {
           })
         );
       case "Roles":
-        dispatch(deleteRole(selectedItem._id));
+        dispatch(
+          deleteRole({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "DeletedItems":
-        dispatch(deleteInventoryPermanently(selectedItem._id));
+        dispatch(
+          deleteInventoryPermanently({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "Vehicle":
-        dispatch(deleteVehicle(selectedItem._id));
+        dispatch(
+          deleteVehicle({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "Employee":
-        dispatch(deleteEmployee(selectedItem._id));
+        dispatch(
+          deleteEmployee({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
       default:
         break;
     }
