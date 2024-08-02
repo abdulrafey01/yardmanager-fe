@@ -51,7 +51,10 @@ const TopBar = () => {
     }
   };
   const renderPathText = () => {
-    if (pathname === "/invoices/create") {
+    if (
+      pathname === "/invoices/create" ||
+      pathname === "/admin/invoices/create"
+    ) {
       return <p className="text-[#4A5578] ">Create Invoice</p>;
     } else if (pathname === "/subscription/my-plans") {
       return <p className="text-[#4A5578] ">My Plans</p>;
@@ -64,6 +67,9 @@ const TopBar = () => {
   const handleClick = () => {
     switch (currentPage) {
       case "Invoices": {
+        if (user?.userType === "admin") {
+          return router.push("/admin/invoices");
+        }
         return router.push("/invoices");
       }
       case "Subscription": {
