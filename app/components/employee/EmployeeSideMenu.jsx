@@ -334,7 +334,7 @@ const EmployeeSideMenu = () => {
                 type={dateInputType}
                 placeholder="Date Hired"
                 value={
-                  formState.date.length > 1
+                  formState.date?.length > 1
                     ? dateInputType === "date"
                       ? formState.date
                       : new Date(formState.date).toLocaleDateString()
