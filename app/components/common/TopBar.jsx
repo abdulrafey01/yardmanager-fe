@@ -135,9 +135,7 @@ const TopBar = () => {
         </div>
         <div className="flex flex-col">
           <p className="hidden sm:block text-xs font-bold">
-            {user?.userType === "admin"
-              ? user?.data?.name
-              : user?.data?.name?.first
+            {user?.data?.name?.first
               ? user?.data?.name?.first
               : "" + " " + user?.data?.name?.last
               ? user?.data?.name?.last

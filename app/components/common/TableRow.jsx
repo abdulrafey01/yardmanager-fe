@@ -403,7 +403,7 @@ const TableRow = ({ titles, rowIndex, item, permissions }) => {
       <div
         className={`w-full border border-[#EDEEF2] ${
           rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-        } text-sm flex justify-between `}
+        } text-sm flex justify-between break-all`}
       >
         {currentPage === "Parts"
           ? renderPartRow(titles)

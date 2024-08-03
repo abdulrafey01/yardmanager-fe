@@ -148,18 +148,43 @@ const Profile2 = ({ isAdmin = false }) => {
       );
     }
     // submit personal form
+
     formData.append("name[first]", personalFormState.firstName);
     formData.append("name[last]", personalFormState.lastName);
     formData.append("email", personalFormState.email);
     formData.append("username", personalFormState.username);
     formData.append("password", personalFormState.password);
 
+    // Url
+    let url;
+    if (isAdmin) {
+      url = `https://yardmanager-be.vercel.app/api/admin/update`;
+    } else {
+      url = `https://yardmanager-be.vercel.app/api/employees/s/${userId}`;
+    }
+
     // submit personal form
-    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    let token;
+    if (isAdmin) {
+      token =
+        getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
+    } else {
+      token = getCookie("token") || window?.sessionStorage.getItem("token");
+    }
+
     axios
       .put(
-        `https://yardmanager-be.vercel.app/api/employees/s/${userId}`,
-        formData,
+        url,
+        isAdmin
+          ? {
+              name: {
+                first: personalFormState.firstName,
+                last: personalFormState.lastName,
+              },
+              email: personalFormState.email,
+              password: personalFormState.password,
+            }
+          : formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -186,29 +211,49 @@ const Profile2 = ({ isAdmin = false }) => {
       return;
     }
     const imageForm = new FormData();
-    imageForm.append("profile", image);
 
-    const token = getCookie("token") || window?.sessionStorage.getItem("token");
+    if (isAdmin) {
+      if (imageToggle === 1) {
+        imageForm.append("profile", image);
+      } else if (imageToggle === 2) {
+        imageForm.append("cover", image);
+      }
+    } else {
+      imageForm.append("profile", image);
+    }
+
+    // Url
+    let url;
+    if (isAdmin) {
+      url = `https://yardmanager-be.vercel.app/api/admin/update/images`;
+    } else {
+      url = `https://yardmanager-be.vercel.app/api/employees/s/${userId}`;
+    }
+
+    // submit image form
+    let token;
+    if (isAdmin) {
+      token =
+        getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
+    } else {
+      token = getCookie("token") || window?.sessionStorage.getItem("token");
+    }
     axios
-      .put(
-        `https://yardmanager-be.vercel.app/api/employees/s/${userId}`,
-        imageForm,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .put(url, imageForm, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         setImageToggle(0);
         setImage(null);
-        setEmpImg(res.data.data.profile);
-        setCoverImg(res.data.data.company.images.cover);
+        setEmpImg(res?.data?.data?.profile);
+        setCoverImg(res?.data?.data?.company?.images?.cover);
         dispatch(
           setShowToast({ value: true, msg: "Image uploaded successfully" })
         );
-        dispatch(setUser({ ...user, data: res.data.data }));
+        dispatch(setUser({ ...user, data: res.data?.data }));
       })
       .catch((err) => {
         console.log(err);
@@ -225,12 +270,22 @@ const Profile2 = ({ isAdmin = false }) => {
       {/* Header Imgs container */}
       <div className="flex relative w-full h-28 p-2">
         <Image src={coverImg} layout="fill" className="rounded-lg w-full" />
-        {/* <div className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer">
-          Edit display Image
-        </div>
-        <div className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold">
-          Edit
-        </div> */}
+        {isAdmin && (
+          <>
+            <div
+              onClick={() => setImageToggle(2)}
+              className="hidden sm:block absolute top-5 right-5 p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold cursor-pointer"
+            >
+              Edit display Image
+            </div>
+            <div
+              onClick={() => setImageToggle(2)}
+              className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold"
+            >
+              Edit
+            </div>
+          </>
+        )}
       </div>
       <div className="w-full relative flex flex-col p-6 space-y-4">
         {/* ProfileImg container */}

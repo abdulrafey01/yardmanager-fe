@@ -2,14 +2,15 @@
 import React, { useEffect } from "react";
 import EmployeePage from "../../../../components/employee/EmployeePage";
 import { useRouter } from "next/navigation";
-import { getLocalStorage } from "../../../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import CountBlock from "../../../../components/dashboard/CountBlock";
-import CarIcon from "../../../../assets/main/88-car.svg";
-import InvIcon from "../../../../assets/main/89-inv.svg";
-import EmpIcon from "../../../../assets/main/90-emp.svg";
-import LocIcon from "../../../../assets/main/91-loc.svg";
+import InvIcon from "../../../../assets/main/60-inv.svg";
+import VhcIcon from "../../../../assets/main/61-hc.svg";
+import InvoiceIcon from "../../../../assets/main/62-invo.svg";
+import EmpIcon from "../../../../assets/main/63-emp.svg";
 
 import { Montserrat } from "next/font/google";
+import axios from "axios";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
@@ -18,6 +19,36 @@ const page = () => {
     if (!JSON.parse(getLocalStorage("companyId"))) {
       router.back();
     }
+  }, []);
+
+  const [data, setData] = React.useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // console.log("fetching data");
+      let companyId = JSON.parse(getLocalStorage("companyId"));
+      let token =
+        (await getCookie("adminToken")) ||
+        window?.sessionStorage.getItem("adminToken");
+      // console.log(state);
+      // console.log(token);
+      axios
+        .get(
+          `https://yardmanager-be.vercel.app/api/analytics/count?company=${companyId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          // console.log("response");
+          console.log("counts", res.data);
+          setData(res.data);
+        })
+        .catch((err) => {
+          // console.log(err);
+        });
+    };
+    fetchData();
   }, []);
   return (
     <div>
@@ -38,10 +69,26 @@ const page = () => {
           </div>
           {/* 4 BLocks container */}
           <div className="flex w-full justify-between items-center gap-5 flex-wrap">
-            <CountBlock title={"Vehicles"} icon={CarIcon} count={0} />
-            <CountBlock title={"Inventory"} icon={InvIcon} count={0} />
-            <CountBlock title={"Employees"} icon={EmpIcon} count={0} />
-            <CountBlock title={"Active Locations"} icon={LocIcon} count={0} />
+            <CountBlock
+              title={"Parts"}
+              icon={InvIcon}
+              count={data?.parts ?? 0}
+            />
+            <CountBlock
+              title={"Vehicles"}
+              icon={VhcIcon}
+              count={data?.vehicles ?? 0}
+            />
+            <CountBlock
+              title={"Locations"}
+              icon={InvoiceIcon}
+              count={data?.locations ?? 0}
+            />
+            <CountBlock
+              title={"Employees"}
+              icon={EmpIcon}
+              count={data?.employees ?? 0}
+            />
           </div>
         </div>
       </div>

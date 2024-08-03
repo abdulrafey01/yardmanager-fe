@@ -104,7 +104,7 @@ const InvoicePrevModal = () => {
                 </p>
               </div>
               {/* Body */}
-              <div className="w-full flex flex-col  max-h-40 overflow-y-auto no-scrollbar justify-between border rounded-lg lg:rounded-none border-gray-300 rounded-b-lg">
+              <div className="w-full flex flex-col  max-h-40 overflow-y-auto justify-between border rounded-lg lg:rounded-none border-gray-300 rounded-b-lg">
                 {/* Row 2 */}
                 {previewModal?.data?.products.map((product, index) => {
                   return (

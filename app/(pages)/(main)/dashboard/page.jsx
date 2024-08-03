@@ -75,8 +75,8 @@ const page = () => {
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
-    dispatch(fetchInventoryCounts());
-    dispatch(fetchPartCounts());
+    dispatch(fetchInventoryCounts({ isAdmin: false }));
+    dispatch(fetchPartCounts({ isAdmin: false }));
   }, []);
 
   useEffect(() => {

@@ -156,14 +156,20 @@ const SideBar = () => {
       name: "Privacy Policy",
       iconW: PvcSvg,
       iconB: PvcSvgB,
-      route: "/privacy-policy",
+      route:
+        user?.userType === "admin"
+          ? "/admin/privacy-policy"
+          : "/privacy-policy",
       name2: "privacy-policy",
     },
     {
       name: "Terms & Conditions",
       iconW: TermSvg,
       iconB: TermSvgB,
-      route: "/terms-condition",
+      route:
+        user?.userType === "admin"
+          ? "/admin/terms-condition"
+          : "/terms-condition",
       name2: "terms-condition",
     },
   ];

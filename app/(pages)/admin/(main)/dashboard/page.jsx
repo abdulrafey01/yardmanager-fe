@@ -29,7 +29,7 @@ import {
   fetchPartCounts,
 } from "../../../../../lib/features/dashboard/dashboardActions";
 import axios from "axios";
-import { getCookie } from "../../../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import { resetToast } from "../../../../../lib/features/dashboard/dashboardSlice";
 import Footer from "../../../../components/common/Footer";
 import { resetInvoiceToast } from "../../../../../lib/features/invoice/invoiceSlice";
@@ -75,8 +75,8 @@ const page = () => {
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
-    // dispatch(fetchInventoryCounts());
-    // dispatch(fetchPartCounts());
+    dispatch(fetchInventoryCounts({ isAdmin: true }));
+    dispatch(fetchPartCounts({ isAdmin: true }));
   }, []);
 
   useEffect(() => {
@@ -104,16 +104,16 @@ const page = () => {
     const fetchData = async () => {
       // console.log("fetching data");
       const token =
-        getCookie("token") ||
-        window?.sessionStorage.getItem("token") ||
-        getCookie("adminToken") ||
-        window?.sessionStorage.getItem("adminToken");
+        getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
       // console.log(state);
       // console.log(token);
       axios
-        .get("https://yardmanager-be.vercel.app/api/analytics/count", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
+        .get(
+          `https://yardmanager-be.vercel.app/api/analytics/count?division=company`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
         .then((res) => {
           // console.log("response");
           console.log("counts", res.data);
@@ -123,7 +123,7 @@ const page = () => {
           // console.log(err);
         });
     };
-    // fetchData();
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -271,17 +271,17 @@ const page = () => {
           <CountBlock
             title={"Total Users"}
             icon={UserIcon}
-            count={data?.parts ?? 0}
+            count={data?.yards ?? 0}
           />
           <CountBlock
             title={"Total Inventory"}
             icon={InvIcon}
-            count={data?.vehicles ?? 0}
+            count={data?.inventories ?? 0}
           />
           <CountBlock
             title={"Total Yards"}
             icon={YardIcon}
-            count={data?.locations ?? 0}
+            count={data?.yards ?? 0}
           />
           <CountBlock
             title={"Total Subscriptions"}
@@ -356,7 +356,7 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Vehicles"}
+              label={"Inventory"}
               xLabels={inventoryGraphDates}
               data={inventoryMapData}
               greenColor={true}
@@ -369,7 +369,7 @@ const page = () => {
           <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
             {/* Text and input container */}
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Inventory Usage</p>
+              <p className="font-bold text-lg">Parts Inventoried</p>
               {/* Time select input */}
               <div
                 onClick={() => setShowGraphFilter2(!showGraphFilter2)}
