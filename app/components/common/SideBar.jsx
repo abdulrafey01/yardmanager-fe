@@ -149,7 +149,7 @@ const SideBar = () => {
       name: "Settings",
       iconW: SettSvg,
       iconB: SetSvgB,
-      route: "/settings",
+      route: user?.userType === "admin" ? "/admin/settings" : "/settings",
       name2: "settings",
     },
     {
@@ -171,10 +171,12 @@ const SideBar = () => {
   // Hide buttons based on user permissions
   useEffect(() => {
     if (pathName.includes("/admin")) {
-      return setShowBtns(adminSideButtonsMain);
+      setShowBtns(adminSideButtonsMain);
+      setShowBtnsBottom(sideButtonsBottom);
+      return;
     }
     if (user) {
-      if (user.userType === "user") {
+      if (user?.userType === "user") {
         setShowBtns(sideButtonsMain);
         setShowBtnsBottom(sideButtonsBottom);
         return;
@@ -185,7 +187,9 @@ const SideBar = () => {
         const privilege = user?.data?.role?.privileges.find(
           (privilege) => privilege.name === name
         );
-        updatedHideBtns[name] = privilege ? !privilege.permissions.read : true;
+        updatedHideBtns[name] = privilege
+          ? !privilege?.permissions?.read
+          : true;
       });
 
       setHideBtns(updatedHideBtns);

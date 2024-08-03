@@ -50,7 +50,9 @@ const NavRow = () => {
   const pathName = usePathname();
   return pathName === "/admin/dashboard" || // dont show navrow on admmin dashboard and yards pages
     pathName === "/admin/yards" ||
-    pathName === "/admin/invoices/create" ? null : (
+    pathName === "/admin/invoices/create" ||
+    pathName === "/admin/profile" ||
+    pathName === "/admin/settings" ? null : (
     <div className="bg-[#f9fafb]  pt-8 gap-2 px-4 flex justify-start items-center overflow-x-auto no-scrollbar">
       {topButtonsMain.map((item, index) => {
         return (

@@ -86,6 +86,8 @@ const TopBar = () => {
       return "/profile";
     } else if (user?.userType === "employee") {
       return "/profile/employee";
+    } else if (user?.userType === "admin") {
+      return "/admin/profile";
     }
     return "/"; // Default route in case userType is undefined or does not match
   };
