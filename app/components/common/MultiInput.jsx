@@ -33,6 +33,7 @@ const MultiInput = ({
           onPressEnter(e.target[0].value);
           e.target[0].value = "";
         }}
+        className="w-full outline-none"
       >
         <input
           className="w-full outline-none"

@@ -440,7 +440,7 @@ const InventorySideMenu = () => {
               placeholder="Model"
               name="model"
               onPressEnter={(e) => {
-                if (e.target.value.length < 3) {
+                if (e.length < 3) {
                   dispatch(
                     setShowToast({
                       value: true,
@@ -448,7 +448,7 @@ const InventorySideMenu = () => {
                       red: true,
                     })
                   );
-                } else if (e.target.value.length > 25) {
+                } else if (e.length > 25) {
                   return dispatch(
                     setShowToast({
                       value: true,
@@ -459,7 +459,7 @@ const InventorySideMenu = () => {
                 } else {
                   setFormState({
                     ...formState,
-                    model: [...formState.model, e.target.value],
+                    model: [...formState.model, e],
                   });
                 }
               }}
@@ -471,7 +471,7 @@ const InventorySideMenu = () => {
               placeholder="Make"
               name="make"
               onPressEnter={(e) => {
-                if (e.target.value.length < 3) {
+                if (e.length < 3) {
                   dispatch(
                     setShowToast({
                       value: true,
@@ -479,7 +479,7 @@ const InventorySideMenu = () => {
                       red: true,
                     })
                   );
-                } else if (e.target.value.length > 25) {
+                } else if (e.length > 25) {
                   return dispatch(
                     setShowToast({
                       value: true,
@@ -490,7 +490,7 @@ const InventorySideMenu = () => {
                 } else {
                   setFormState({
                     ...formState,
-                    make: [...formState.make, e.target.value],
+                    make: [...formState.make, e],
                   });
                 }
               }}
@@ -502,7 +502,7 @@ const InventorySideMenu = () => {
               placeholder="Variant"
               name="variant"
               onPressEnter={(e) => {
-                if (e.target.value.length < 3) {
+                if (e.length < 3) {
                   dispatch(
                     setShowToast({
                       value: true,
@@ -510,7 +510,7 @@ const InventorySideMenu = () => {
                       red: true,
                     })
                   );
-                } else if (e.target.value.length > 25) {
+                } else if (e.length > 25) {
                   return dispatch(
                     setShowToast({
                       value: true,
@@ -521,7 +521,7 @@ const InventorySideMenu = () => {
                 } else {
                   setFormState({
                     ...formState,
-                    variant: [...formState.variant, e.target.value],
+                    variant: [...formState.variant, e],
                   });
                 }
               }}

@@ -171,41 +171,45 @@ const PartSideMenu = () => {
                   />
                 </div>
               ))}
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Variant"
-                name="variant"
-                onChange={(e) => setVariantInputVal(e.target.value)}
-                value={variantInputVal}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    if (e.target.value.length < 3) {
-                      return dispatch(
-                        setShowToast({
-                          value: true,
-                          msg: "Variant must be at least 3 characters",
-                          red: true,
-                        })
-                      );
-                    } else if (e.target.value.length > 25) {
-                      return dispatch(
-                        setShowToast({
-                          value: true,
-                          msg: "Variant must be less than 25 characters",
-                          red: true,
-                        })
-                      );
-                    } else {
-                      setFormData({
-                        ...formData,
-                        variant: [...formData.variant, e.target.value],
-                      });
-                      setVariantInputVal("");
-                    }
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+
+                  if (e.target[0].value.length < 3) {
+                    return dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Variant must be at least 3 characters",
+                        red: true,
+                      })
+                    );
+                  } else if (e.target[0].value.length > 25) {
+                    return dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Variant must be less than 25 characters",
+                        red: true,
+                      })
+                    );
+                  } else {
+                    setFormData({
+                      ...formData,
+                      variant: [...formData.variant, e.target[0].value],
+                    });
+                    setVariantInputVal("");
                   }
                 }}
-              />
+                className="w-full outline-none"
+              >
+                <input
+                  className="w-full outline-none"
+                  type="text"
+                  placeholder="Variant"
+                  name="variant"
+                  onChange={(e) => setVariantInputVal(e.target.value)}
+                  value={variantInputVal}
+                />
+              </form>
             </div>
             {/* Color toggle */}
             <div className="w-full flex justify-between items-center">
