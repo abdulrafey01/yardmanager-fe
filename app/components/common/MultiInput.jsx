@@ -33,7 +33,7 @@ const MultiInput = ({
         placeholder={placeholder}
         name={name}
         onKeyDown={(e) => {
-          if (e.keyCode === 13) {
+          if (e.key === "Enter" || e.keyCode === 13 || e.which === 13) {
             onPressEnter(e);
             e.target.value = "";
           }

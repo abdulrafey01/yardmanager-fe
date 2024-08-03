@@ -179,7 +179,7 @@ const PartSideMenu = () => {
                 onChange={(e) => setVariantInputVal(e.target.value)}
                 value={variantInputVal}
                 onKeyDown={(e) => {
-                  if (e.keyCode === 13) {
+                  if (e.key === "Enter") {
                     if (e.target.value.length < 3) {
                       return dispatch(
                         setShowToast({
