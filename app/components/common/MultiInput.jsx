@@ -27,18 +27,26 @@ const MultiInput = ({
           />
         </div>
       ))}
-      <input
-        className="w-full outline-none"
-        type="text"
-        placeholder={placeholder}
-        name={name}
-        onKeyDown={(e) => {
-          if (e.code === "Enter") {
-            onPressEnter(e);
-            e.target.value = "";
-          }
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onPressEnter(e.target[0].value);
+          e.target[0].value = "";
         }}
-      />
+      >
+        <input
+          className="w-full outline-none"
+          type="text"
+          placeholder={placeholder}
+          name={name}
+          // onKeyDown={(e) => {
+          //   if (e.code === "Enter") {
+          //     onPressEnter(e);
+          //     e.target.value = "";
+          //   }
+          // }}
+        />
+      </form>
     </div>
   );
 };
