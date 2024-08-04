@@ -25,6 +25,7 @@ import { getLocalStorage } from "../../helpers/storage";
 import PlusIcon from "../../assets/main/82-plus.svg";
 import ImageDropzone from "../common/ImageDropzone";
 import useLoadAuthState from "../../helpers/authHook";
+import { usePathname } from "next/navigation";
 const InventorySideMenu = () => {
   useLoadAuthState(); // for updating image and price fields
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
@@ -71,6 +72,7 @@ const InventorySideMenu = () => {
   // Image toggle for inventory
   const [imageToggle, setImageToggle] = React.useState(false);
 
+  const pathName = usePathname();
   useEffect(() => {
     if (user) {
       if (user.userType === "admin") {
@@ -340,6 +342,13 @@ const InventorySideMenu = () => {
             formData: formData,
             id: selectedItem._id,
             isAdmin: true,
+            totalOverview:
+              pathName === "/admin/inventory-overview"
+                ? {
+                    value: true,
+                    id: selectedItem.company,
+                  }
+                : false,
           })
         );
       } else {

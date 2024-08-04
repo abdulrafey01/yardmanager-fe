@@ -19,7 +19,7 @@ import Footer from "../../components/common/Footer";
 import { resetInventoryToast } from "../../../lib/features/inventory/inventorySlice";
 import useLoadAuthState from "../../helpers/authHook";
 
-const InventoryPage = ({ isAdmin = false }) => {
+const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
   const { error, inventoryData, toastMsg, totalDataLength } = useSelector(
     (state) => state.inventory
   );
@@ -37,7 +37,12 @@ const InventoryPage = ({ isAdmin = false }) => {
   useEffect(() => {
     dispatch(setCurrentPage("Inventory"));
     dispatch(
-      fetchInventoryByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      fetchInventoryByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        isAdmin,
+        totalOverview,
+      })
     );
   }, [dispatch, pageNumber]);
 
@@ -93,20 +98,28 @@ const InventoryPage = ({ isAdmin = false }) => {
   // Search function
   const handleSearch = (e) => {
     setSearchInputValue(e.target.value);
-    dispatch(fetchInventoryByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchInventoryByPage({ search: e.target.value, isAdmin, totalOverview })
+    );
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 20, isAdmin }));
+      dispatch(
+        fetchInventoryByPage({ page: 1, limit: 20, isAdmin, totalOverview })
+      );
       setPageNumber(1);
       setDataLimit(20);
     } else if (e.target.value == 30) {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 30, isAdmin }));
+      dispatch(
+        fetchInventoryByPage({ page: 1, limit: 30, isAdmin, totalOverview })
+      );
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      dispatch(fetchInventoryByPage({ page: 1, limit: 10, isAdmin }));
+      dispatch(
+        fetchInventoryByPage({ page: 1, limit: 10, isAdmin, totalOverview })
+      );
       setDataLimit(10);
       setPageNumber(1);
     }
@@ -121,7 +134,7 @@ const InventoryPage = ({ isAdmin = false }) => {
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-end space-x-4  w-full p-2">
           {/* Add Inventory Button */}
-          {pagePermission.write && (
+          {pagePermission.write && !totalOverview && (
             <GreenBtn
               onClick={() =>
                 dispatch(setShowSideMenu({ value: true, mode: "add" }))

@@ -16,16 +16,30 @@ import { setShowDeleteModal } from "../../../lib/features/shared/sharedSlice";
 
 import { deleteInventoryPermanently } from "../../../lib/features/deleted-items/deletedItemsActions";
 import { deletePart } from "../../../lib/features/parts/partActions";
+import { usePathname } from "next/navigation";
 const DeleteModal = () => {
   const dispatch = useDispatch();
   const { selectedItem, showDeleteModal, showSuccessModal, currentPage } =
     useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
+  const pathName = usePathname();
   const deleteRow = () => {
     switch (currentPage) {
       case "Inventory":
         if (user?.userType === "admin") {
-          dispatch(deleteInventory({ id: selectedItem._id, isAdmin: true }));
+          dispatch(
+            deleteInventory({
+              id: selectedItem._id,
+              isAdmin: true,
+              totalOverview:
+                pathName === "/admin/inventory-overview"
+                  ? {
+                      value: true,
+                      id: selectedItem.company,
+                    }
+                  : false,
+            })
+          );
         } else {
           dispatch(deleteInventory({ id: selectedItem._id }));
         }

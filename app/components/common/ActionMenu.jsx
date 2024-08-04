@@ -16,7 +16,7 @@ import {
   setShowToast,
 } from "../../../lib/features/shared/sharedSlice";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { addInventory } from "../../../lib/features/inventory/inventoryActions";
 import { setLocalStorage } from "../../helpers/storage";
@@ -32,6 +32,7 @@ const ActionMenu = ({ index, item, permissions }) => {
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
+  const pathName = usePathname();
 
   const duplicateInventory = () => {
     console.log("item", item);
@@ -275,26 +276,27 @@ const ActionMenu = ({ index, item, permissions }) => {
           </p>
         </div>
       )}
-      {currentPage === "Inventory" && (
-        <>
-          {/* <div
+      {currentPage === "Inventory" &&
+        pathName !== "/admin/inventory-overview" && (
+          <>
+            {/* <div
             onClick={() => {}}
             className=" flex cursor-pointer justify-center items-center space-x-2 "
           >
             <Image src={CartIcon} alt="delete" height={20} width={20} />
             <p className="font-semibold hover:font-bold">Add to invoice</p>
           </div> */}
-          <div
-            onClick={() => {
-              duplicateInventory(item);
-            }}
-            className=" flex cursor-pointer justify-center items-center space-x-2 "
-          >
-            <Image src={DuplicateIcon} alt="delete" height={20} width={20} />
-            <p className="font-semibold hover:font-bold">Duplicate</p>
-          </div>
-        </>
-      )}
+            <div
+              onClick={() => {
+                duplicateInventory(item);
+              }}
+              className=" flex cursor-pointer justify-center items-center space-x-2 "
+            >
+              <Image src={DuplicateIcon} alt="delete" height={20} width={20} />
+              <p className="font-semibold hover:font-bold">Duplicate</p>
+            </div>
+          </>
+        )}
       {/* Add Overview Menu button in Yards page */}
       {currentPage === "Yards" && (
         <div

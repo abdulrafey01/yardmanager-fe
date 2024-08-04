@@ -257,7 +257,7 @@ const SideBar = () => {
       setActiveMainBtn(0);
     } else if (pathName === "/admin/yards") {
       setActiveMainBtn(1);
-    } else if (pathName === "/admin/inventory") {
+    } else if (pathName === "/admin/inventory-overview") {
       setActiveMainBtn(2);
     } else if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
@@ -289,7 +289,7 @@ const SideBar = () => {
       name: "Inventory Overview",
       iconW: InvtSvg,
       iconB: InvtSvgB,
-      route: "/admin/inventory",
+      route: "/admin/inventory-overview",
     },
     {
       name: "Subscription",
