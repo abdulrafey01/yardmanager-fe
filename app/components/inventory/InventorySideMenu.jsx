@@ -99,6 +99,13 @@ const InventorySideMenu = () => {
         searchLocationByName({
           val: e.target.value,
           isAdmin: user?.userType === "admin",
+          totalOverview:
+            pathName === "/admin/inventory-overview"
+              ? {
+                  value: true,
+                  id: selectedItem.company,
+                }
+              : false,
         })
       );
     } else {
@@ -129,6 +136,13 @@ const InventorySideMenu = () => {
         searchPartByName({
           val: e.target.value,
           isAdmin: user?.userType === "admin",
+          totalOverview:
+            pathName === "/admin/inventory-overview"
+              ? {
+                  value: true,
+                  id: selectedItem.company,
+                }
+              : false,
         })
       );
     } else {
