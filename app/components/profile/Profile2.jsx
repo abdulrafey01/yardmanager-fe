@@ -98,7 +98,11 @@ const Profile2 = ({ isAdmin = false }) => {
     });
     setUserId(user?.data._id);
     setEmpImg(user?.data?.profile);
-    setCoverImg(user?.company?.images?.cover);
+    if (isAdmin) {
+      setCoverImg(user?.data?.cover);
+    } else {
+      setCoverImg(user?.company?.images?.cover);
+    }
     console.log("user", user);
   }, [user]);
 
@@ -249,7 +253,11 @@ const Profile2 = ({ isAdmin = false }) => {
         setImageToggle(0);
         setImage(null);
         setEmpImg(res?.data?.data?.profile);
-        setCoverImg(res?.data?.data?.company?.images?.cover);
+        if (isAdmin) {
+          setCoverImg(res?.data?.data?.cover);
+        } else {
+          setCoverImg(res?.data?.data?.company?.images?.cover);
+        }
         dispatch(
           setShowToast({ value: true, msg: "Image uploaded successfully" })
         );
@@ -263,13 +271,21 @@ const Profile2 = ({ isAdmin = false }) => {
         );
       });
   };
+
+  useEffect(() => {
+    console.log("cover img", coverImg);
+  }, [coverImg]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col  space-y-4  w-screen md:w-full ">
       {/* Header Imgs container */}
       <div className="flex relative w-full h-28 p-2">
-        <Image src={coverImg} layout="fill" className="rounded-lg w-full" />
+        <Image
+          src={coverImg ? coverImg : PrfIcon}
+          layout="fill"
+          className="rounded-lg w-full"
+        />
         {isAdmin && (
           <>
             <div
