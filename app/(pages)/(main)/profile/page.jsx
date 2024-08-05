@@ -285,6 +285,14 @@ const page = () => {
       );
     }
     // check password
+    if (
+      personalFormState.password === "" ||
+      personalFormState.password.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Password is required", red: true })
+      );
+    }
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
         setShowToast({ value: true, msg: "Password don't match", red: true })
