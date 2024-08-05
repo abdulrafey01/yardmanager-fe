@@ -26,6 +26,8 @@ import PlusIcon from "../../assets/main/82-plus.svg";
 import ImageDropzone from "../common/ImageDropzone";
 import useLoadAuthState from "../../helpers/authHook";
 import { usePathname } from "next/navigation";
+import { resetLocationSearchData } from "../../../lib/features/locations/locationSlice";
+import { resetPartSearchData } from "../../../lib/features/parts/partSlice";
 const InventorySideMenu = () => {
   useLoadAuthState(); // for updating image and price fields
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
@@ -385,6 +387,8 @@ const InventorySideMenu = () => {
   // Close the form if no error
   useEffect(() => {
     if (toastMsg?.red === false) {
+      dispatch(resetLocationSearchData());
+      dispatch(resetPartSearchData());
       dispatch(setShowSideMenu({ value: false }));
 
       setDateType1(false);
@@ -455,11 +459,15 @@ const InventorySideMenu = () => {
       setDateType1(false);
       setDateType2(false);
       setPartValue("");
+      dispatch(resetLocationSearchData());
+      dispatch(resetPartSearchData());
     }
   }, [selectedItem, showSideMenu]);
 
   const onCloseMenu = () => {
     dispatch(setShowSideMenu({ value: false }));
+    dispatch(resetLocationSearchData());
+    dispatch(resetPartSearchData());
     setFormState({
       name: "",
       sku: "",

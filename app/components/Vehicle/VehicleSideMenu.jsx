@@ -23,6 +23,8 @@ import MultiInput from "../common/MultiInput";
 import { updateVehicle } from "../../../lib/features/vehicle/vehicleActions";
 import DropDownInput from "../common/DropDownInput";
 import ImageDropzone from "../common/ImageDropzone";
+import { resetLocationSearchData } from "../../../lib/features/locations/locationSlice";
+import { resetPartSearchData } from "../../../lib/features/parts/partSlice";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -243,6 +245,8 @@ const InventorySideMenu = () => {
       setPartValue(null);
       setDateType1(false);
       setDateType2(false);
+      dispatch(resetLocationSearchData());
+      dispatch(resetPartSearchData());
       dispatch(setShowSideMenu({ value: false }));
 
       formData.forEach((value, key) => {
@@ -315,11 +319,15 @@ const InventorySideMenu = () => {
       setPartValue("");
       setLocId(null);
       setPartId(null);
+      dispatch(resetLocationSearchData());
+      dispatch(resetPartSearchData());
     }
   }, [selectedItem, showSideMenu]);
 
   const onCloseMenu = () => {
     dispatch(setShowSideMenu({ value: false }));
+    dispatch(resetLocationSearchData());
+    dispatch(resetPartSearchData());
     setFormState({
       name: "",
       model: [],

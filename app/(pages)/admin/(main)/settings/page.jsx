@@ -27,7 +27,7 @@ const page = () => {
         </div>
 
         {/* Second TOggle */}
-        <div
+        {/* <div
           className={`w-full bg-white  items-center justify-start  p-4 rounded-lg flex `}
         >
           <GreenToggle />
@@ -37,7 +37,7 @@ const page = () => {
               Allow super admins to edit user roles.
             </p>
           </div>
-        </div>
+        </div> */}
         {/* Third Toggle */}
         <div
           className={`w-full bg-white  items-center justify-start  p-4 rounded-lg flex `}

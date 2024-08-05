@@ -34,6 +34,7 @@ import { getCookie, getLocalStorage } from "../../helpers/storage";
 import axios from "axios";
 import { cleanStorage } from "../../helpers/cleanStorage";
 import { logout } from "../../../lib/features/auth/authSlice";
+import { resetInventorySearchData } from "../../../lib/features/inventory/inventorySlice";
 const CreateInvoicePage = ({ isAdmin = false }) => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -103,6 +104,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
         });
         setSubTotal(0);
         setGrandTotal(0);
+        dispatch(resetInventorySearchData());
 
         router.back();
 
@@ -245,6 +247,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
       setPaymentMethod(item.paymentMethod);
       setDatePaidInputType("text");
     } else {
+      dispatch(resetInventorySearchData());
       setFormData({
         name: "",
         email: "",
@@ -470,6 +473,8 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   };
 
   const onCancel = () => {
+    dispatch(resetInventorySearchData());
+
     router.back();
 
     // so that we can go back to invoices page

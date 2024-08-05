@@ -20,6 +20,7 @@ import {
 import { searchLocationByName } from "../../../lib/features/locations/locationActions";
 import { searchRoleByName } from "../../../lib/features/roles/roleActions";
 import {
+  resetRoleSearchData,
   resetState,
   setShowEmployeeSideMenu,
 } from "../../../lib/features/roles/roleSlice";
@@ -103,6 +104,7 @@ const EmployeeSideMenu = () => {
   useEffect(() => {
     // close the menu after submitting
     if (empToast?.red === false) {
+      dispatch(resetRoleSearchData());
       dispatch(setShowSideMenu({ value: false }));
       dispatch(setShowEmployeeSideMenu(false));
       // reset the form values
@@ -222,6 +224,8 @@ const EmployeeSideMenu = () => {
   };
 
   const onClose = () => {
+    dispatch(resetRoleSearchData());
+
     dispatch(setShowSideMenu({ value: false }));
     dispatch(setShowEmployeeSideMenu(false));
     setFormState({
