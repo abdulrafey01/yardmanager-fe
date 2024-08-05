@@ -42,13 +42,15 @@ const InvoicePrevModal = () => {
       {/* Container equal to screen to middle the modal */}
       <div className="w-full relative z-[60] h-screen flex justify-center items-center">
         {/* Modal */}
-        <div className="relative bg-white p-8 md:w-1/2 flex flex-col gap-4  ">
+        <div className="relative bg-white p-8 w-[90%] md:w-1/2 flex flex-col gap-4  ">
           {/* First row */}
           <div className="flex justify-between items-center">
             <Header darkType={true} />
             <div className="flex flex-col items-end">
               <p className="font-bold text-lg">INVOICE</p>
-              <p>#4527472-20</p>
+              {previewModal?.data?.id && (
+                <p className="break-all w-20"># {previewModal?.data?.id}</p>
+              )}
             </div>
           </div>
           {/* Second row */}

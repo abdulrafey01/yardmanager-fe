@@ -197,6 +197,7 @@ const ActionMenu = ({ index, item, permissions }) => {
               setPreviewModal({
                 value: true,
                 data: {
+                  id: item._id,
                   name: item.name,
                   email: item.email,
                   phone: item.phone,

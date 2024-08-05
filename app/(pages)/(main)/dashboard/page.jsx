@@ -455,16 +455,16 @@ const page = () => {
           </div>
         </div>
         {/* Table Container */}
-        <div className=" overflow-x-auto sm:overflow-visible">
+        <div className="overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={[
-              "Name",
+              "User Name",
               "Invoice #",
-              "Email",
-              "Phone",
-              "Amount",
-              "Date",
+              "Customer Name",
+              "Email Address",
+              "Grand Total",
+              "Order Date",
               "Status",
             ]}
           />
@@ -474,15 +474,20 @@ const page = () => {
               No Data Available
             </div>
           )}
-
           {dataFromServer.map((data, index) => (
             <TableRow
               titles={[
                 data.name,
                 data._id,
+                data.name,
                 data.email,
-                data.phone,
-                data.paid,
+                (() => {
+                  let subTotal = data.products.reduce((acc, product) => {
+                    return acc + product.quantity * product.price;
+                  }, 0);
+                  return subTotal + (data.tax * subTotal) / 100;
+                })(),
+
                 new Date(data.datePaid).toLocaleDateString(),
                 data.status,
               ]}

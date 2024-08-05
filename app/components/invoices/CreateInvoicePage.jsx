@@ -838,6 +838,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                     value: true,
                     data: {
                       ...formData,
+                      id: invoiceId,
                       grandTotal,
                       subTotal,
                       paymentMethod,
