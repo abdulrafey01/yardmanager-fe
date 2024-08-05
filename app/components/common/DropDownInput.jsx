@@ -22,7 +22,11 @@ const DropDownInput = ({
     if (e.target.value.length >= 1) {
       setShowDropDown(true);
       dispatch(
-        onSearch({ val: e.target.value, isAdmin: user?.userType === "admin" })
+        onSearch({
+          val: e.target.value,
+          isAdmin: user?.userType === "admin",
+          totalOverview: false,
+        })
       );
     } else {
       setShowDropDown(false);
