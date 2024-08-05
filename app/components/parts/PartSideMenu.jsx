@@ -175,11 +175,11 @@ const PartSideMenu = () => {
                 onSubmit={(e) => {
                   e.preventDefault();
 
-                  if (e.target[0].value.length < 3) {
+                  if (e.target[0].value.length < 1) {
                     return dispatch(
                       setShowToast({
                         value: true,
-                        msg: "Variant must be at least 3 characters",
+                        msg: "Variant must be at least 1 character",
                         red: true,
                       })
                     );

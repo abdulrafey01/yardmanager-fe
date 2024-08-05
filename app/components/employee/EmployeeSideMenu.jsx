@@ -118,6 +118,8 @@ const EmployeeSideMenu = () => {
       });
       setRoleInputValue("");
       setDateInputType("text");
+      setTogglePWD(false);
+      setTogglePWDC(false);
     }
   }, [empToast]);
   const onFormSubmit = (e) => {
@@ -234,6 +236,8 @@ const EmployeeSideMenu = () => {
     });
     setRoleInputValue("");
     setDateInputType("text");
+    setTogglePWD(false);
+    setTogglePWDC(false);
   };
   return (
     <div

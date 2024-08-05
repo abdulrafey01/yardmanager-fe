@@ -648,11 +648,11 @@ const InventorySideMenu = () => {
               placeholder="Model"
               name="model"
               onPressEnter={(e) => {
-                if (e.length < 3) {
+                if (e.length < 1) {
                   dispatch(
                     setShowToast({
                       value: true,
-                      msg: "Model should be at least 3 characters",
+                      msg: "Model should be at least 1 character",
                       red: true,
                     })
                   );
@@ -679,11 +679,11 @@ const InventorySideMenu = () => {
               placeholder="Make"
               name="make"
               onPressEnter={(e) => {
-                if (e.length < 3) {
+                if (e.length < 1) {
                   dispatch(
                     setShowToast({
                       value: true,
-                      msg: "Make should be at least 3 characters",
+                      msg: "Make should be at least 1 character",
                       red: true,
                     })
                   );
@@ -710,11 +710,11 @@ const InventorySideMenu = () => {
               placeholder="Variant"
               name="variant"
               onPressEnter={(e) => {
-                if (e.length < 3) {
+                if (e.length < 1) {
                   dispatch(
                     setShowToast({
                       value: true,
-                      msg: "Variant should be at least 3 characters",
+                      msg: "Variant should be at least 1 character",
                       red: true,
                     })
                   );
