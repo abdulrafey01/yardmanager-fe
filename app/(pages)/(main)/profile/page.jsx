@@ -151,13 +151,15 @@ const page = () => {
   }, [toastMsg]);
 
   useEffect(() => {
-    const routePage = async () => {
-      if ((await user?.userType) !== "user") {
-        return router.push("/profile/employee");
-      }
-    };
-    routePage();
-  }, []);
+    if (user) {
+      const routePage = async () => {
+        if ((await user?.userType) !== "user") {
+          return router.push("/profile/employee");
+        }
+      };
+      routePage();
+    }
+  }, [user]);
 
   // set company form state
   const onCompanyInputChange = (event) => {

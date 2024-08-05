@@ -80,13 +80,15 @@ const Profile2 = ({ isAdmin = false }) => {
   };
 
   useEffect(() => {
-    const routePage = async () => {
-      if ((await user?.userType) === "user") {
-        return router.push("/profile");
-      }
-    };
-    routePage();
-  }, []);
+    if (user) {
+      const routePage = async () => {
+        if ((await JSON.parse(getLocalStorage("user"))?.userType) === "user") {
+          return router.push("/profile");
+        }
+      };
+      routePage();
+    }
+  }, [user]);
 
   useEffect(() => {
     setPersonalFormState({
@@ -146,14 +148,6 @@ const Profile2 = ({ isAdmin = false }) => {
       );
     }
     // check password
-    if (
-      personalFormState.password === "" ||
-      personalFormState.password.length <= 0
-    ) {
-      return dispatch(
-        setShowToast({ value: true, msg: "Password is required", red: true })
-      );
-    }
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
         setShowToast({ value: true, msg: "Password don't match", red: true })
