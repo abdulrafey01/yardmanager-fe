@@ -1,7 +1,15 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import GreenToggle from "../../../../components/common/GreenToggle";
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
 
 const page = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentPage("Settings"));
+  }, [dispatch]);
+
   return (
     <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-4 w-screen md:w-full ">
       <>

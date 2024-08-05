@@ -1,6 +1,13 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentPage } from "../../../lib/features/shared/sharedSlice";
 
 const page = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(setCurrentPage("Terms & Conditions"));
+  }, [dispatch]);
   return (
     <div className="bg-[#f9fafb] flex-1 flex flex-col p-4 justify-start items-center">
       <div className="bg-white rounded-lg flex-1 flex flex-col w-full p-4 space-y-8">

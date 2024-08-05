@@ -88,6 +88,7 @@ const InvoicePage = ({ isAdmin = false }) => {
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
     setSearchInputValue(e.target.value);
     dispatch(fetchInvoicesByPage({ search: e.target.value, isAdmin }));
   };

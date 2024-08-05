@@ -261,6 +261,12 @@ const SideBar = () => {
       setActiveMainBtn(2);
     } else if (pathName === "/admin/subscription") {
       setActiveMainBtn(3);
+    } else if (pathName === "/admin/settings") {
+      setActiveBottomBtn(0);
+    } else if (pathName === "/admin/privacy-policy") {
+      setActiveBottomBtn(1);
+    } else if (pathName === "/admin/terms-condition") {
+      setActiveBottomBtn(2);
     } else {
       setActiveMainBtn(-1);
     }

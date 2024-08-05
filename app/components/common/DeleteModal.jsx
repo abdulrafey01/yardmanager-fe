@@ -53,7 +53,12 @@ const DeleteModal = () => {
         );
         break;
       case "Dashboard":
-        dispatch(deleteInvoice(selectedItem._id));
+        dispatch(
+          deleteInvoice({
+            id: selectedItem._id,
+            isAdmin: user?.userType === "admin",
+          })
+        );
         break;
       case "Locations":
         dispatch(

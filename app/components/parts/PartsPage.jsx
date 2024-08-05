@@ -85,6 +85,8 @@ const PartsPage = ({ isAdmin = false }) => {
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
+
     setSearchInputValue(e.target.value);
     dispatch(fetchPartsByPage({ search: e.target.value, isAdmin }));
   };

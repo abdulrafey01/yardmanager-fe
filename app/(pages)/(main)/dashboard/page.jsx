@@ -248,6 +248,7 @@ const page = () => {
   };
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
     dispatch(fetchInvoicesByPage({ search: e.target.value }));
   };
   return (

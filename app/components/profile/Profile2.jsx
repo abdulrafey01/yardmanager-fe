@@ -81,7 +81,7 @@ const Profile2 = ({ isAdmin = false }) => {
 
   useEffect(() => {
     const routePage = async () => {
-      if ((await JSON.parse(getLocalStorage("user"))?.userType) === "user") {
+      if ((await user?.userType) === "user") {
         return router.push("/profile");
       }
     };
@@ -146,6 +146,14 @@ const Profile2 = ({ isAdmin = false }) => {
       );
     }
     // check password
+    if (
+      personalFormState.password === "" ||
+      personalFormState.password.length <= 0
+    ) {
+      return dispatch(
+        setShowToast({ value: true, msg: "Password is required", red: true })
+      );
+    }
     if (personalFormState.password !== personalFormState.confirmPassword) {
       return dispatch(
         setShowToast({ value: true, msg: "Password don't match", red: true })
@@ -296,7 +304,7 @@ const Profile2 = ({ isAdmin = false }) => {
             </div>
             <div
               onClick={() => setImageToggle(2)}
-              className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black font-semibold"
+              className="sm:hidden absolute top-3 right-3 sm:top-5 sm:right-5 p-1 sm:p-2 bg-[#E6F2F9] rounded-lg text-xs text-black cursor-pointer font-semibold"
             >
               Edit
             </div>
@@ -427,8 +435,8 @@ const Profile2 = ({ isAdmin = false }) => {
             <div
               className="cursor-pointer"
               onClick={() => {
-                setImageToggle(0);
                 setImage(null);
+                setImageToggle(0);
               }}
             >
               <svg
@@ -474,7 +482,13 @@ const Profile2 = ({ isAdmin = false }) => {
                   id="image"
                   className="hidden"
                   accept="image/png, image/gif, image/jpeg"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onClick={(e) => {
+                    e.target.value = null;
+                  }}
+                  onChange={(e) => {
+                    console.log("image", e.target.files[0]);
+                    setImage(e.target.files[0]);
+                  }}
                 />
               </label>
             </div>

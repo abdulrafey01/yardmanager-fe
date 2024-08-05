@@ -67,7 +67,17 @@ const ActionMenu = ({ index, item, permissions }) => {
     formData.append("notes", item?.notes);
     formData.append("sku", item?.sku);
     formData.append("price", item?.price);
-    formData.append("images", item?.images);
+    if (item?.images.length > 0) {
+      console.log("here 1");
+      for (let i = 0; i < item?.images.length; i++) {
+        // formDataRef.current.set("images", files[i]);
+        formData.append(`images`, item?.images[i]);
+      }
+    } else {
+      console.log("here 2");
+
+      formData.delete("images");
+    }
     formData.append("startYear", item?.startYear);
     formData.append("lastYear", item?.lastYear);
     formData.append("color", item?.color);
@@ -245,11 +255,11 @@ const ActionMenu = ({ index, item, permissions }) => {
             dispatch(setSelectedItem(item));
             dispatch(setShowActionMenu(-1));
 
-            if (item.name === "" || !item.name || item.name.length <= 0) {
+            if (item.part === null || item.part === "" || !item.part) {
               return dispatch(
                 setShowToast({
                   value: true,
-                  msg: "Please fill the Name field",
+                  msg: "Please Fill Part Field from Menu",
                   red: true,
                 })
               );

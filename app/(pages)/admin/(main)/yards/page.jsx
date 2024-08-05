@@ -77,6 +77,7 @@ const LocationPage = () => {
 
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
     setSearchInputValue(e.target.value);
     getYardsByPage({ search: e.target.value }).then((res) => {
       setDataFromServer(res.data);

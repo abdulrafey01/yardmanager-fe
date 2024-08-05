@@ -5,6 +5,8 @@ import MainInput from "../common/MainInput";
 import { useDispatch, useSelector } from "react-redux";
 import Image from "next/image";
 import CrossIcon from "../../assets/main/65-close.svg";
+import BasketIcon2 from "../../assets/main/81-greybasket.svg";
+
 import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 
 const InvoicePrevModal = () => {
@@ -84,12 +86,12 @@ const InvoicePrevModal = () => {
             </div>
           </div>
           {/* fOurth Row */}
-          <div className="w-full hidden lg:flex   flex-col space-y-4">
+          <div className="w-full   flex-col space-y-4">
             <p className="font-bold text-[#344054] text-xl">Product Details</p>
             {/* Table */}
-            <div className="w-full hidden lg:flex flex-col ">
+            <div className="w-full  lg:flex flex-col ">
               {/* Head */}
-              <div className="flex w-full font-semibold bg-[#D0D5DD] border-t border-[#EDEEF2] text-sm  justify-between rounded-t-xl ">
+              <div className="lg:flex hidden w-full font-semibold bg-[#D0D5DD] border-t border-[#EDEEF2] text-sm  justify-between rounded-t-xl ">
                 <p className=" min-w-16 p-4  bg-[#D0D5DD]  rounded-t-xl">
                   Sr #
                 </p>
@@ -106,42 +108,88 @@ const InvoicePrevModal = () => {
               {/* Body */}
               <div className="w-full flex flex-col  max-h-40 overflow-y-auto justify-between border rounded-lg lg:rounded-none border-gray-300 rounded-b-lg">
                 {/* Row 2 */}
-                {previewModal?.data?.products.map((product, index) => {
-                  return (
-                    <div className="w-full hidden lg:flex justify-between border-gray-300 border-b">
-                      <div className=" min-w-16 p-4  border border-[#EAECF0]  flex items-center">
-                        <p className="  px-2 break-all flex-1 flex items-center ">
-                          {index + 1}
-                        </p>
-                      </div>
-                      <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                        <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.name}
-                        </p>
-                      </div>
-                      <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                        <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.quantity}
-                        </p>
-                      </div>
-                      <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                        <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.price}
-                        </p>
-                      </div>
-                      <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                        <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {new Date(product.date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                        <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
-                          {product.quantity * product.price}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
+                {previewModal?.data?.products?.length === 0 ? (
+                  <p className="p-4">No Products</p>
+                ) : (
+                  previewModal?.data?.products.map((product, index) => {
+                    return (
+                      <>
+                        <div className="w-full hidden lg:flex justify-between border-gray-300 border-b">
+                          <div className=" min-w-16 p-4  border border-[#EAECF0]  flex items-center">
+                            <p className="  px-2 break-all flex-1 flex items-center ">
+                              {index + 1}
+                            </p>
+                          </div>
+                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                              {product.name}
+                            </p>
+                          </div>
+                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                              {product.quantity}
+                            </p>
+                          </div>
+                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                              {product.price}
+                            </p>
+                          </div>
+                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                              {new Date(product.date).toLocaleDateString()}
+                            </p>
+                          </div>
+                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                              {product.quantity * product.price}
+                            </p>
+                          </div>
+                        </div>
+                        {/* FOr small devices */}
+                        <div className="w-full lg:hidden flex p-2 ">
+                          <div className="flex flex-col text-sm w-full p-4 gap-2 bg-gray-100  rounded-lg">
+                            {/* Container 1 */}
+                            <div className="flex justify-between items-center w-full">
+                              <div className="flex flex-col gap-1 flex-1 ">
+                                <p className="font-semibold">Product Name</p>
+                                <p className="text-[gray]">{product.name}</p>
+                              </div>
+                            </div>
+                            {/* Container 2 */}
+                            <div className="flex  items-center w-full gap-1">
+                              <div className="flex flex-col gap-1 flex-1 justify-center items-center">
+                                <p className="font-semibold">Unit Price</p>
+                                <p className="text-[gray]">{product.price}</p>
+                              </div>
+                              <div className="w-[1px] h-8 bg-[gray]" />
+                              <div className="flex flex-col gap-1 flex-1 justify-center items-center">
+                                <p className="font-semibold">Quantity</p>
+                                <p className="text-[gray]">
+                                  {product.quantity}
+                                </p>
+                              </div>
+                              <div className="w-[1px] h-8 bg-[gray]" />
+                              <div className="flex flex-col gap-1 flex-1 justify-center items-center">
+                                <p className="font-semibold">Date</p>
+                                <p className="text-[gray]">
+                                  {new Date(product.date).toLocaleDateString()}
+                                </p>
+                              </div>
+                              <div className="w-[1px] h-8 bg-[gray]" />
+                              <div className="flex flex-col gap-1 flex-1 justify-center items-center ">
+                                <p className="font-semibold">Total</p>
+                                <p className="text-[gray]">
+                                  {product.quantity * product.price}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })
+                )}
               </div>
             </div>
           </div>
@@ -151,7 +199,11 @@ const InvoicePrevModal = () => {
             <p className="font-semibold text-[#344054] text-xl">
               Additional Note
             </p>
-            <p>{previewModal?.data?.notes}</p>
+            {previewModal?.data?.notes === "" ? (
+              <p className="text-sm font-bold">Empty Note</p>
+            ) : (
+              <p>{previewModal?.data?.notes}</p>
+            )}
           </div>
           {/* Sixth box row */}
           <div className="flex w-full justify-end">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setShowSideMenu,
@@ -14,7 +14,8 @@ import SingleImageDropzone from "../../common/SingleImageDropzone";
 
 const YardSideMenu = () => {
   const dispatch = useDispatch();
-  const { showSideMenu } = useSelector((state) => state.shared);
+
+  const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const [yardDateType, setYardDateType] = React.useState("text");
   const [companyImage, setCompanyImage] = React.useState(null);
   const [profileImage, setProfileImage] = React.useState(null);
@@ -29,6 +30,40 @@ const YardSideMenu = () => {
     companyPhone: "",
     companyAddress: "",
   });
+
+  // To do: edit useffect, show data and  update form submit
+  useEffect(() => {
+    if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
+      if (selectedItem) {
+        console.log("item", selectedItem);
+        setFormState({
+          firstName: selectedItem?.owner?.name?.first,
+          lastName: selectedItem?.owner?.name?.last,
+          email: selectedItem?.owner?.email,
+          companyName: selectedItem?.name,
+          companyPhone: selectedItem?.phone,
+          companyAddress: selectedItem?.address,
+          password: "",
+        });
+        setCoverImage(selectedItem?.images?.cover);
+        setCompanyImage(selectedItem?.images?.profile);
+        setProfileImage(selectedItem?.owner?.profile);
+      }
+    } else {
+      setFormState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        companyName: "",
+        companyPhone: "",
+        companyAddress: "",
+      });
+      setCoverImage(null);
+      setCompanyImage(null);
+      setProfileImage(null);
+    }
+  }, [selectedItem, showSideMenu]);
 
   // OnInput Change
   const onInputChange = (e) => {
@@ -80,7 +115,6 @@ const YardSideMenu = () => {
     }
   };
 
-  // To do: edit useffect, show data and  update form submit
   return (
     <div
       className={`fixed ${
@@ -204,22 +238,22 @@ const YardSideMenu = () => {
                 name="companyAddress"
               />
             </div>
-            {/* Company Image */}
+            {/* Profile  Image Personal */}
             <SingleImageDropzone
-              htmlName="companyImage"
-              img={companyImage}
-              onImageChange={(e) => setCompanyImage(e.target.files[0])}
-              setImg={setCompanyImage}
-              placeholder={"Upload Company Image"}
+              htmlName="profileImage"
+              img={profileImage}
+              onImageChange={(e) => setProfileImage(e.target.files[0])}
+              setImg={setProfileImage}
+              placeholder={"Upload Profile Image"}
             />
-            {/* Profile and Cover Image */}
+            {/*Company Profile and Cover Image */}
             <div className="flex w-full gap-4">
               <SingleImageDropzone
-                htmlName="profileImage"
-                img={profileImage}
-                onImageChange={(e) => setProfileImage(e.target.files[0])}
-                setImg={setProfileImage}
-                placeholder={"Upload Profile Image"}
+                htmlName="companyImage"
+                img={companyImage}
+                onImageChange={(e) => setCompanyImage(e.target.files[0])}
+                setImg={setCompanyImage}
+                placeholder={"Upload Company Image"}
               />
               <SingleImageDropzone
                 htmlName="coverImage"

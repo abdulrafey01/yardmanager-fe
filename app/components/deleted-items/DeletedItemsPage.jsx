@@ -87,6 +87,8 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
 
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
+
     dispatch(fetchDeletedItemsByPage({ search: e.target.value, isAdmin }));
   };
 

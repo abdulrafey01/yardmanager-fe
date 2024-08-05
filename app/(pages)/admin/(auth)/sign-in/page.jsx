@@ -18,6 +18,7 @@ import {
   setAdminToken,
   setUser,
 } from "../../../../../lib/features/auth/authSlice";
+import cookie from "js-cookie";
 
 export default function page() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function page() {
           if (rememberme) {
             cookie.set("adminToken", res.data.token);
           } else {
-            window?.sessionStorage.setItem("adminToken", res.data.token);
+            window?.sessionStorage?.setItem("adminToken", res.data.token);
           }
           dispatch(setAdminToken(res.data.token));
           window.location.href = "/admin/dashboard";
@@ -113,7 +114,7 @@ export default function page() {
                   Remember Me
                 </label>
               </div>
-              <div
+              {/* <div
                 onClick={() => {
                   router.push("/forgot-password");
                 }}
@@ -122,7 +123,7 @@ export default function page() {
                 <p className="text-sm sm:text-base font-semibold">
                   Forgot Password?
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Button */}

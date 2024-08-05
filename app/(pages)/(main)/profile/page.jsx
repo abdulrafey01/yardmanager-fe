@@ -152,7 +152,7 @@ const page = () => {
 
   useEffect(() => {
     const routePage = async () => {
-      if ((await JSON.parse(getLocalStorage("user"))?.userType) !== "user") {
+      if ((await user?.userType) !== "user") {
         return router.push("/profile/employee");
       }
     };
@@ -600,6 +600,9 @@ const page = () => {
                   id="image"
                   accept="image/png, image/gif, image/jpeg"
                   className="hidden"
+                  onClick={(e) => {
+                    e.target.value = null;
+                  }}
                   onChange={(e) => setImage(e.target.files[0])}
                 />
               </label>

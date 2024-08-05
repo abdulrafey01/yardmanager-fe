@@ -132,6 +132,8 @@ const VehiclePage = ({ isAdmin = false }) => {
   }, [vehicleData, dataLimit]);
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
+
     setSearchInputValue(e.target.value);
     dispatch(fetchVehiclesByPage({ search: e.target.value, isAdmin }));
   };
@@ -142,7 +144,7 @@ const VehiclePage = ({ isAdmin = false }) => {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Exact 17 digits required for VIN",
+          msg: "Exact 17 characters required for VIN",
           red: true,
         })
       );
@@ -212,7 +214,7 @@ const VehiclePage = ({ isAdmin = false }) => {
             <div className="flex w-full space-x-2 sm:space-x-4">
               <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Enter VIN Number"
                   className="w-full outline-none bg-transparent"
                   value={vinVal}

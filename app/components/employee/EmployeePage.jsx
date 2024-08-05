@@ -103,6 +103,8 @@ const EmployeePage = ({ isAdmin = false }) => {
 
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
+
     setSearchInputValue(e.target.value);
     setFilterActive(undefined);
     setFilterAll(true); // for changing checkbox checked state

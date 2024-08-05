@@ -308,8 +308,8 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   const onAddProductClick = () => {
     const missingFields = [
       productName === "" && "Product Name",
-      productData.quantity === 0 && "Quantity",
-      productData.price === 0 && "Price",
+      productData.quantity === 0 || (productData.quantity === "" && "Quantity"),
+      productData.price === 0 || (productData.price === "" && "Price"),
       productData.date === "" && "Date",
     ]
       .filter(Boolean)

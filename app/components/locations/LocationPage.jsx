@@ -88,6 +88,8 @@ const LocationPage = ({ isAdmin = false }) => {
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
+
     setSearchInputValue(e.target.value);
     dispatch(fetchLocationsByPage({ search: e.target.value, isAdmin }));
   };

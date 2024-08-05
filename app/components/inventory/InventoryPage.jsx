@@ -97,6 +97,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
 
   // Search function
   const handleSearch = (e) => {
+    setPageNumber(1);
     setSearchInputValue(e.target.value);
     dispatch(
       fetchInventoryByPage({ search: e.target.value, isAdmin, totalOverview })

@@ -322,10 +322,15 @@ const InventorySideMenu = () => {
     } else {
       // in add mode
       if (imgArray.length > 0) {
+        console.log("here 1");
         for (let i = 0; i < imgArray.length; i++) {
           // formDataRef.current.set("images", files[i]);
           formData.append(`images`, imgArray[i]);
         }
+      } else {
+        console.log("here 2");
+
+        formData.delete("images");
       }
     }
     formData.append("notes", formState.notes);
