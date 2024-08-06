@@ -39,21 +39,24 @@ const LocationPage = () => {
   const [dataLimit, setDataLimit] = React.useState(10);
   const [searchInputValue, setSearchInputValue] = React.useState("");
 
+  const refreshYardData = async () => {
+    setSearchInputValue("");
+    try {
+      const res = await getYardsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+      });
+      if (res.success) {
+        setDataFromServer(res.data);
+        let { totalPage } = calcTotalPage(res.meta.total, dataLimit);
+        setTotalPage(totalPage);
+      }
+    } catch (error) {}
+  };
+
   useEffect(() => {
     dispatch(setCurrentPage("Yards"));
-    (async () => {
-      try {
-        const res = await getYardsByPage({
-          page: pageNumber,
-          limit: dataLimit,
-        });
-        if (res.success) {
-          setDataFromServer(res.data);
-          let { totalPage } = calcTotalPage(res.meta.total, dataLimit);
-          setTotalPage(totalPage);
-        }
-      } catch (error) {}
-    })();
+    refreshYardData();
   }, [dispatch, pageNumber]);
   // Get page permission
   useEffect(() => {
@@ -160,13 +163,14 @@ const LocationPage = () => {
                   index + 1,
                   data.name,
                   data.owner.email,
-                  0,
+                  data?.countInventory,
                   new Date(data.createdAt).toLocaleDateString(),
                 ]}
                 key={index}
                 rowIndex={index}
                 item={data}
                 permissions={pagePermission}
+                refreshYardData={refreshYardData}
               />
             ))}
           </div>

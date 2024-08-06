@@ -26,8 +26,12 @@ import {
   fetchVehiclesByPage,
 } from "../../../lib/features/vehicle/vehicleActions";
 import { setShowEmployeeSideMenu } from "../../../lib/features/roles/roleSlice";
+import {
+  getYardsByPage,
+  handleYardActivation,
+} from "../../../lib/adminApis/yardApi";
 
-const ActionMenu = ({ index, item, permissions }) => {
+const ActionMenu = ({ index, item, permissions, refreshYardData = null }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
@@ -88,6 +92,30 @@ const ActionMenu = ({ index, item, permissions }) => {
     } else {
       dispatch(addInventory({ data: formData }));
     }
+  };
+
+  const handleCompanyActivation = () => {
+    handleYardActivation({
+      id: item?._id,
+      data: {
+        active: item?.active ? false : true,
+      },
+    })
+      .then((res) => {
+        if (res.success === true) {
+          dispatch(setShowToast({ value: true, msg: res.message }));
+          refreshYardData();
+        }
+      })
+      .catch((err) => {
+        dispatch(
+          setShowToast({
+            value: true,
+            msg: "Failed to change active status",
+            red: true,
+          })
+        );
+      });
   };
   const renderDeletedItemsActionMenu = () => {
     return (
@@ -310,16 +338,32 @@ const ActionMenu = ({ index, item, permissions }) => {
         )}
       {/* Add Overview Menu button in Yards page */}
       {currentPage === "Yards" && (
-        <div
-          onClick={() => {
-            setLocalStorage("companyId", item._id);
-            router.push("/admin/overview");
-          }}
-          className=" flex cursor-pointer justify-center items-center space-x-2 "
-        >
-          <Image src={DuplicateIcon} alt="delete" height={20} width={20} />
-          <p className="font-semibold hover:font-bold">Overview</p>
-        </div>
+        <>
+          <div
+            onClick={() => {
+              setLocalStorage("companyId", item._id);
+              router.push("/admin/overview");
+            }}
+            className=" flex cursor-pointer justify-center items-center space-x-2 "
+          >
+            <Image src={DuplicateIcon} alt="delete" height={20} width={20} />
+            <p className="font-semibold hover:font-bold">Overview</p>
+          </div>
+          <div
+            onClick={handleCompanyActivation}
+            className=" flex cursor-pointer justify-center items-center space-x-2 "
+          >
+            <Image
+              src={RestoreIcon}
+              alt="active/inactive"
+              height={20}
+              width={20}
+            />
+            <p className="font-semibold hover:font-bold">
+              {item?.active ? "Deactivate" : "Activate"}
+            </p>
+          </div>
+        </>
       )}
     </div>
   );
