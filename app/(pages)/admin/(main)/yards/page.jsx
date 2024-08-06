@@ -3,7 +3,6 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import GreenBtn from "../../../../abstracts/GreenBtn";
 import SearchIcon from "../../../../assets/main/30-search.svg";
-import MenuIcon from "../../../../assets/main/37-menu.svg";
 import { calcTotalPage } from "../../../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../../../components/common/TableHead";
@@ -14,19 +13,16 @@ import {
   setShowSideMenu,
   setShowToast,
 } from "../../../../../lib/features/shared/sharedSlice";
-import {
-  fetchAllLocations,
-  fetchLocationsByPage,
-  searchLocationByName,
-} from "../../../../../lib/features/locations/locationActions";
 import Footer from "../../../../components/common/Footer";
 import { resetLocToast } from "../../../../../lib/features/locations/locationSlice";
-import { getYardsByPage } from "../../../../../lib/adminApis/yardApi";
 import { removeLocalStorage } from "../../../../helpers/storage";
+import { fetchYardsByPage } from "../../../../../lib/features/yards/yardActions";
+import { resetYardToast } from "../../../../../lib/features/yards/yardSlice";
 
 const LocationPage = () => {
-  // const { error, locationData, toastMsg, totalDataLength, locationSearchData } =
-  //   useSelector((state) => state.locations);
+  const { error, yardData, toastMsg, totalDataLength } = useSelector(
+    (state) => state.yards
+  );
 
   const { user } = useSelector((state) => state.auth);
 
@@ -39,25 +35,11 @@ const LocationPage = () => {
   const [dataLimit, setDataLimit] = React.useState(10);
   const [searchInputValue, setSearchInputValue] = React.useState("");
 
-  const refreshYardData = async () => {
-    setSearchInputValue("");
-    try {
-      const res = await getYardsByPage({
-        page: pageNumber,
-        limit: dataLimit,
-      });
-      if (res.success) {
-        setDataFromServer(res.data);
-        let { totalPage } = calcTotalPage(res.meta.total, dataLimit);
-        setTotalPage(totalPage);
-      }
-    } catch (error) {}
-  };
-
   useEffect(() => {
     dispatch(setCurrentPage("Yards"));
-    refreshYardData();
+    dispatch(fetchYardsByPage({ page: pageNumber, limit: dataLimit }));
   }, [dispatch, pageNumber]);
+
   // Get page permission
   useEffect(() => {
     if (user) {
@@ -78,32 +60,51 @@ const LocationPage = () => {
     removeLocalStorage("companyId");
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (yardData) {
+      setDataFromServer(yardData);
+      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
+      setTotalPage(totalPage);
+    }
+  }, [yardData, dataLimit]);
+
+  useEffect(() => {
+    if (toastMsg) {
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+        if (toastMsg?.red === false) {
+          setPageNumber(1); // add yard returning different json, so on add calling fetchyard api, here just handling side effect
+          setDataLimit(10);
+        }
+        dispatch(resetYardToast());
+      }
+    }
+  }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
     setPageNumber(1);
+
     setSearchInputValue(e.target.value);
-    getYardsByPage({ search: e.target.value }).then((res) => {
-      setDataFromServer(res.data);
-    });
+    dispatch(fetchYardsByPage({ search: e.target.value }));
   };
 
   const handleRadioClick = (e) => {
     if (e.target.value == 20) {
-      getYardsByPage({ page: 1, limit: 20 }).then((res) => {
-        setDataFromServer(res.data);
-      });
+      dispatch(fetchYardsByPage({ page: 1, limit: 20 }));
       setDataLimit(20);
       setPageNumber(1);
     } else if (e.target.value == 30) {
-      getYardsByPage({ page: 1, limit: 30 }).then((res) => {
-        setDataFromServer(res.data);
-      });
+      dispatch(fetchYardsByPage({ page: 1, limit: 30 }));
       setDataLimit(30);
       setPageNumber(1);
     } else {
-      getYardsByPage({ page: 1, limit: 10 }).then((res) => {
-        setDataFromServer(res.data);
-      });
+      dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
       setDataLimit(10);
       setPageNumber(1);
     }
@@ -161,8 +162,8 @@ const LocationPage = () => {
               <TableRow
                 titles={[
                   index + 1,
-                  data.name,
-                  data.owner.email,
+                  data?.name,
+                  data?.owner?.email,
                   data?.countInventory,
                   new Date(data.createdAt).toLocaleDateString(),
                 ]}
@@ -170,7 +171,6 @@ const LocationPage = () => {
                 rowIndex={index}
                 item={data}
                 permissions={pagePermission}
-                refreshYardData={refreshYardData}
               />
             ))}
           </div>

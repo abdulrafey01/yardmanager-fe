@@ -9,13 +9,18 @@ import WhiteBtn from "../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import CrossIcon from "../../../assets/main/80-cross.svg";
 import Image from "next/image";
-import { addYard } from "../../../../lib/adminApis/yardApi";
 import SingleImageDropzone from "../../common/SingleImageDropzone";
+import {
+  addYard,
+  fetchYardsByPage,
+} from "../../../../lib/features/yards/yardActions";
 
 const YardSideMenu = () => {
   const dispatch = useDispatch();
 
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
+  const { toastMsg } = useSelector((state) => state.yards);
+
   const [yardDateType, setYardDateType] = React.useState("text");
   const [companyImage, setCompanyImage] = React.useState(null);
   const [profileImage, setProfileImage] = React.useState(null);
@@ -84,36 +89,52 @@ const YardSideMenu = () => {
     formData.append("companyImage", companyImage);
     formData.append("profile", profileImage);
     formData.append("cover", coverImage);
-    try {
-      const res = await addYard(formData);
-      if (res.success) {
-        dispatch(setShowToast({ value: true, msg: res.message }));
-        setFormState({
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          companyName: "",
-          companyPhone: "",
-          companyAddress: "",
+
+    if (showSideMenu.mode === "edit") {
+    } else {
+      dispatch(addYard(formData))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
         });
-        setCompanyImage(null);
-        setProfileImage(null);
-        setCoverImage(null);
-        dispatch(setShowSideMenu({ value: false }));
-      } else {
-        dispatch(setShowToast({ value: true, msg: res.message, red: true }));
-      }
-    } catch (err) {
-      dispatch(
-        setShowToast({
-          value: true,
-          msg: err.response.data.message,
-          red: true,
-        })
-      );
     }
+    // try {
+    //   const res = await addYard(formData);
+    //   if (res.success) {
+    //     dispatch(setShowToast({ value: true, msg: res.message }));
+
+    //   } else {
+    //     dispatch(setShowToast({ value: true, msg: res.message, red: true }));
+    //   }
+    // } catch (err) {
+    //   dispatch(
+    //     setShowToast({
+    //       value: true,
+    //       msg: err.response.data.message,
+    //       red: true,
+    //     })
+    //   );
+    // }
   };
+
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      setFormState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        companyName: "",
+        companyPhone: "",
+        companyAddress: "",
+      });
+      setCompanyImage(null);
+      setProfileImage(null);
+      setCoverImage(null);
+      dispatch(setShowSideMenu({ value: false }));
+      dispatch(setShowSideMenu({ value: false }));
+    }
+  }, [toastMsg]);
 
   return (
     <div

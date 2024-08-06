@@ -31,7 +31,7 @@ import {
   handleYardActivation,
 } from "../../../lib/adminApis/yardApi";
 
-const ActionMenu = ({ index, item, permissions, refreshYardData = null }) => {
+const ActionMenu = ({ index, item, permissions }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
@@ -104,7 +104,6 @@ const ActionMenu = ({ index, item, permissions, refreshYardData = null }) => {
       .then((res) => {
         if (res.success === true) {
           dispatch(setShowToast({ value: true, msg: res.message }));
-          refreshYardData();
         }
       })
       .catch((err) => {

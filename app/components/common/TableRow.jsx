@@ -8,14 +8,7 @@ import Badge from "../invoices/Badge";
 import "../../styles.css";
 import { setShowActionMenu } from "../../../lib/features/shared/sharedSlice";
 
-const TableRow = ({
-  titles,
-  rowIndex,
-  item,
-  permissions,
-  refreshYardData = null,
-}) => {
-  //refreshYardData is used to refresh the table of yards page admin, nothing for anywhere else
+const TableRow = ({ titles, rowIndex, item, permissions }) => {
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const dispatch = useDispatch();
   const renderPartRow = (titles) => {
@@ -476,12 +469,7 @@ const TableRow = ({
             alt="MenuIcon"
             className="cursor-pointer "
           ></Image>
-          <ActionMenu
-            permissions={permissions}
-            index={rowIndex}
-            item={item}
-            refreshYardData={refreshYardData}
-          />
+          <ActionMenu permissions={permissions} index={rowIndex} item={item} />
         </div>
       </div>
     </div>
