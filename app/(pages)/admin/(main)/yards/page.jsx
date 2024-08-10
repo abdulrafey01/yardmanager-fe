@@ -171,6 +171,11 @@ const LocationPage = () => {
                 rowIndex={index}
                 item={data}
                 permissions={pagePermission}
+                fetchYards={() => {
+                  dispatch(
+                    fetchYardsByPage({ page: pageNumber, limit: dataLimit })
+                  );
+                }}
               />
             ))}
           </div>

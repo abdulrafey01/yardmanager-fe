@@ -30,8 +30,9 @@ import {
   getYardsByPage,
   handleYardActivation,
 } from "../../../lib/adminApis/yardApi";
+import { fetchYardsByPage } from "../../../lib/features/yards/yardActions";
 
-const ActionMenu = ({ index, item, permissions }) => {
+const ActionMenu = ({ index, item, permissions, fetchYards }) => {
   const dispatch = useDispatch();
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
@@ -104,6 +105,7 @@ const ActionMenu = ({ index, item, permissions }) => {
       .then((res) => {
         if (res.success === true) {
           dispatch(setShowToast({ value: true, msg: res.message }));
+          fetchYards(); //fetch yards
         }
       })
       .catch((err) => {
