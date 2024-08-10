@@ -95,13 +95,13 @@ const LocationPage = () => {
   };
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      dispatch(fetchYardsByPage({ page: 1, limit: 20 }));
-      setDataLimit(20);
+    if (e.target.value == 25) {
+      dispatch(fetchYardsByPage({ page: 1, limit: 25 }));
+      setDataLimit(25);
       setPageNumber(1);
-    } else if (e.target.value == 30) {
-      dispatch(fetchYardsByPage({ page: 1, limit: 30 }));
-      setDataLimit(30);
+    } else if (e.target.value == 50) {
+      dispatch(fetchYardsByPage({ page: 1, limit: 50 }));
+      setDataLimit(50);
       setPageNumber(1);
     } else {
       dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
