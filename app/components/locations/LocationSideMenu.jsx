@@ -39,11 +39,11 @@ const LocationSideMenu = () => {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (formData.location.length < 5) {
+    if (formData.location.length < 1) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please enter atleast 5 characters",
+          msg: "Please enter at least 1 character",
           red: true,
         })
       );

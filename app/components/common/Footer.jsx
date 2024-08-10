@@ -24,32 +24,32 @@ const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
           10
         </label>{" "}
         <label
-          htmlFor="20"
+          htmlFor="25"
           onClick={() => {}}
           className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
         >
           <input
-            id="20"
+            id="25"
             name="radio"
             type="radio"
-            value={20}
+            value={25}
             onChange={handleRadioClick}
           />{" "}
-          20
+          25
         </label>
         <label
-          htmlFor="30"
+          htmlFor="50"
           onClick={() => {}}
           className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
         >
           <input
-            id="30"
+            id="50"
             name="radio"
             type="radio"
-            value={30}
+            value={50}
             onChange={handleRadioClick}
           />{" "}
-          30
+          50
         </label>
       </div>
       <div className="flex gap-2 flex-col sm:flex-row">

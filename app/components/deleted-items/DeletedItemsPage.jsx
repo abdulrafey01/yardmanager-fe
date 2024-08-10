@@ -93,13 +93,13 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
   };
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 20, isAdmin }));
-      setDataLimit(20);
+    if (e.target.value == 25) {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 25, isAdmin }));
+      setDataLimit(25);
       setPageNumber(1);
-    } else if (e.target.value == 30) {
-      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 30, isAdmin }));
-      setDataLimit(30);
+    } else if (e.target.value == 50) {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 50, isAdmin }));
+      setDataLimit(50);
       setPageNumber(1);
     } else {
       dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10, isAdmin }));

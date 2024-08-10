@@ -105,17 +105,17 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
   };
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
+    if (e.target.value == 25) {
       dispatch(
-        fetchInventoryByPage({ page: 1, limit: 20, isAdmin, totalOverview })
+        fetchInventoryByPage({ page: 1, limit: 25, isAdmin, totalOverview })
       );
       setPageNumber(1);
-      setDataLimit(20);
-    } else if (e.target.value == 30) {
+      setDataLimit(25);
+    } else if (e.target.value == 50) {
       dispatch(
-        fetchInventoryByPage({ page: 1, limit: 30, isAdmin, totalOverview })
+        fetchInventoryByPage({ page: 1, limit: 50, isAdmin, totalOverview })
       );
-      setDataLimit(30);
+      setDataLimit(50);
       setPageNumber(1);
     } else {
       dispatch(

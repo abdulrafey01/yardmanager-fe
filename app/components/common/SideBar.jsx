@@ -130,7 +130,7 @@ const SideBar = () => {
       name2: "roles",
     },
     {
-      name: "My Vehicle",
+      name: "Vehicles",
       iconW: CarSvg,
       iconB: CarSvgB,
       route: "/vehicle",

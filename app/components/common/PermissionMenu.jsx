@@ -36,6 +36,13 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
         update: e.target.checked,
         delete: e.target.checked,
       });
+    } else if (e.target.name === "read") {
+      // if cannot read then also cannot do anything else
+      if (e.target.checked === false) {
+        setPerm({ read: false, write: false, update: false, delete: false });
+      } else {
+        setPerm({ ...perm, [e.target.name]: e.target.checked });
+      }
     } else {
       setPerm({ ...perm, [e.target.name]: e.target.checked });
     }
@@ -105,7 +112,9 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
         ) : (
           <>
             {/* Checkbox */}
-            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+            <div
+              className={`bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3 `}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
@@ -116,7 +125,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
               <p>View</p>
             </div>
             {/* Checkbox */}
-            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+            <div
+              className={`bg-white  justify-start items-center rounded-sm  border-white space-x-3  ${
+                perm.read ? "flex" : "hidden"
+              }`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
@@ -127,7 +140,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
               <p>Add</p>
             </div>
             {/* Checkbox */}
-            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+            <div
+              className={`bg-white  justify-start items-center rounded-sm  border-white space-x-3  ${
+                perm.read ? "flex" : "hidden"
+              }`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"
@@ -138,7 +155,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
               <p>Edit</p>
             </div>
             {/* Checkbox */}
-            <div className="bg-white flex justify-start items-center rounded-sm  border-white space-x-3">
+            <div
+              className={`bg-white  justify-start items-center rounded-sm  border-white space-x-3  ${
+                perm.read ? "flex" : "hidden"
+              }`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]"

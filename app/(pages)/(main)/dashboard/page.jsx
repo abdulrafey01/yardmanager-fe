@@ -232,12 +232,12 @@ const page = () => {
   }, [showSideMenu]);
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
+    if (e.target.value == 25) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 25 }));
       setDataLimit(20);
       setPageNumber(1);
-    } else if (e.target.value == 30) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
+    } else if (e.target.value == 50) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 50 }));
       setDataLimit(30);
       setPageNumber(1);
     } else {

@@ -30,6 +30,7 @@ const SectionOne = () => {
         <div className=" relative overflow-visible">
           <Image
             // className="sm:w-80 sm:h-80"
+            className="invisible"
             src={ManImg}
             alt="logo"
             width={350}
@@ -54,8 +55,8 @@ const SectionOne = () => {
       </div>
       {/* Text containers */}
       <div className=" w-full flex flex-col space-y-6 text-white">
-        <p className="text-sm font-bold sm:text-xl">
-          The Simplest way to manage your Auto Parts Inventory
+        <p className="text-sm font-bold ">
+          The Simplest way to manage your Automobiles Spare Parts!
         </p>
         <p className="text-sm pr-5">{descArray[activeLineIndex]}</p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">
