@@ -10,6 +10,7 @@ import {
   setShowSideMenu,
 } from "../../../../../lib/features/shared/sharedSlice";
 import { useDispatch } from "react-redux";
+import StripeComponent from "../../../../components/stripe/StripeComponent";
 
 const page = () => {
   const dispatch = useDispatch();
@@ -60,11 +61,12 @@ const page = () => {
           />
         )}
 
-        <PaymentCard
+        <StripeComponent />
+        {/* <PaymentCard
           isCheckedOut={isCheckedOut}
           setIsCheckedOut={setCheckedOut}
-        />
-        <BankCard isCheckedOut={isCheckedOut} />
+        /> */}
+        {/* <BankCard isCheckedOut={isCheckedOut} /> */}
       </div>
     </div>
   );

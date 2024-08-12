@@ -102,6 +102,14 @@ const VehiclePage = ({ isAdmin = false }) => {
   useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
+        // if vin decode failed close the menu
+        if (toastMsg?.red === true) {
+          // reset data fields
+          setImgArray2([]);
+          setVinVal("");
+          dispatch(setVinDecodedData(null));
+          setShowDecodeMenu(false);
+        }
         dispatch(setShowToast({ value: true, ...toastMsg, isAdmin }));
         dispatch(resetVehicleToast());
       }
