@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getCookie, getLocalStorage } from "./storage";
-import { logout, setUser } from "../../lib/features/auth/authSlice";
+import {
+  adminLogout,
+  logout,
+  setUser,
+} from "../../lib/features/auth/authSlice";
 import axios from "axios";
 import { usePathname } from "next/navigation";
 import { cleanStorage } from "./cleanStorage";
@@ -27,6 +31,7 @@ const useLoadAuthState = () => {
           );
           dispatch(setUser({ data: response.data.data, userType: "admin" })); // as admin
         } catch (error) {
+          dispatch(adminLogout());
           console.log("Error fetching Admin info:", error);
         }
       } else {
