@@ -31,7 +31,12 @@ const useLoadAuthState = () => {
           );
           dispatch(setUser({ data: response.data.data, userType: "admin" })); // as admin
         } catch (error) {
-          dispatch(adminLogout());
+          if (error.response.status === 403) {
+            cleanStorage();
+            setTimeout(() => {
+              dispatch(adminLogout());
+            }, 3000);
+          }
           console.log("Error fetching Admin info:", error);
         }
       } else {
