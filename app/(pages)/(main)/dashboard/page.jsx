@@ -251,6 +251,15 @@ const page = () => {
     setPageNumber(1);
     dispatch(fetchInvoicesByPage({ search: e.target.value }));
   };
+
+  // on Close menu if no error
+  useEffect(() => {
+    if (invoiceToast?.red === false) {
+      dispatch(fetchInvoicesByPage({ page: 1, limit: 10, isAdmin }));
+      setPageNumber(1);
+      setDataLimit(10);
+    }
+  }, [invoiceToast]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width

@@ -137,6 +137,14 @@ const EmployeePage = ({ isAdmin = false }) => {
     setSearchInputValue("");
   };
 
+  // on Close menu if no error
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(fetchEmployeesByPage({ page: 1, limit: 10, isAdmin }));
+      setPageNumber(1);
+      setDataLimit(10);
+    }
+  }, [toastMsg]);
   return (
     pagePermission?.read && (
       // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that

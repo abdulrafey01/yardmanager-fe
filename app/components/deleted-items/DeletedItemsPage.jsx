@@ -150,6 +150,15 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
       );
     }
   };
+
+  // on Close menu if no error
+  useEffect(() => {
+    if (toastMsg?.red === false) {
+      dispatch(fetchDeletedItemsByPage({ page: 1, limit: 10, isAdmin }));
+      setPageNumber(1);
+      setDataLimit(10);
+    }
+  }, [toastMsg]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
