@@ -12,17 +12,45 @@ import {
 import { useDispatch } from "react-redux";
 import StripeComponent from "../../../../components/stripe/StripeComponent";
 import { useSearchParams } from "next/navigation";
+import axios from "axios";
+import { getCookie } from "../../../../helpers/storage";
 
 const MyPlans = () => {
   const dispatch = useDispatch();
   const [isCheckedOut, setCheckedOut] = React.useState(false);
   const params = useSearchParams();
   const premium = params.get("premium");
+  const [clientSecret, setClientSecret] = React.useState(null);
 
   useEffect(() => {
     dispatch(setCurrentPage("Subscription"));
   }, [dispatch]);
 
+  useEffect(() => {
+    const getSecret = async () => {
+      console.log("Called");
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+        console.log(
+          "subscription",
+          response?.data?.data[0]?.latest_invoice?.payment_intent?.client_secret
+        );
+        setClientSecret(
+          response?.data?.data[0]?.latest_invoice?.payment_intent?.client_secret
+        );
+      } catch (error) {}
+    };
+    getSecret();
+  }, []);
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* First container for Buttons */}
@@ -64,7 +92,7 @@ const MyPlans = () => {
           />
         )}
 
-        <StripeComponent premium={premium} />
+        <StripeComponent clientSecret={clientSecret} premium={premium} />
         {/* <PaymentCard
           isCheckedOut={isCheckedOut}
           setIsCheckedOut={setCheckedOut}
