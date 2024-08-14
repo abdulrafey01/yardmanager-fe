@@ -457,6 +457,14 @@ const TableRow = ({
         >
           <Image
             onClick={() => {
+              if (currentPage === "DeletedItems") {
+                if (
+                  permissions?.write === false &&
+                  permissions?.delete === false
+                ) {
+                  return;
+                }
+              }
               // if clicked on same row icon, close the Menu else close all and open respective row icon
               if (showActionMenu === rowIndex) {
                 dispatch(setShowActionMenu(-1));

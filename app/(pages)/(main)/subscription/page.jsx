@@ -16,21 +16,21 @@ const page = () => {
     dispatch(setCurrentPage("Subscription"));
   }, [dispatch]);
 
-  useEffect(async () => {
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
-        {
-          headers: {
-            Authorization: `Bearer ${
-              getCookie("token") || window?.sessionStorage.getItem("token")
-            }`,
-          },
-        }
-      );
-      console.log("subscription", response?.data[0]?.plan?.amount);
-    } catch (error) {}
-  }, []);
+  // useEffect(async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${
+  //             getCookie("token") || window?.sessionStorage.getItem("token")
+  //           }`,
+  //         },
+  //       }
+  //     );
+  //     console.log("subscription", response?.data[0]?.plan?.amount);
+  //   } catch (error) {}
+  // }, []);
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       <div className="flex items-center justify-end space-x-4  w-full ">

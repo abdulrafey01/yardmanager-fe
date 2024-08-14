@@ -78,7 +78,9 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
       >
         {title === "Deleted Items" ? (
           <>
-            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+            <div
+              className={`bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
@@ -88,7 +90,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
               />
               <p>View</p>
             </div>
-            <div className="bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+            <div
+              className={`bg-white flex justify-start items-center rounded-sm  border-gray-100 space-x-3 ${
+                perm.read ? "flex" : "hidden"
+              }`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
@@ -98,7 +104,11 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
               />
               <p>Restore</p>
             </div>
-            <div className="bg-white ml-8 flex justify-start items-center rounded-sm  border-gray-100 space-x-3">
+            <div
+              className={`bg-white ml-8 flex justify-start items-center rounded-sm  border-gray-100 space-x-3 ${
+                perm.read ? "flex" : "hidden"
+              }`}
+            >
               <input
                 type="checkbox"
                 className="h-3.5 w-3.5 outline-none accent-[#78ffb6]  "
