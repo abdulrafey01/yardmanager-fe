@@ -21,7 +21,9 @@ const PlanBox = ({
       }`}
     >
       {/* Diamond icon */}
-      <div className={`p-3 rounded-lg bg-[#78FFB6] ${premium && "bg-black"}`}>
+      <div
+        className={`p-3 rounded-lg  ${premium ? "bg-black" : "bg-[#78FFB6]"}`}
+      >
         <Image src={premium ? DiamondGreen : DiamondIcon} alt="SubscribeIcon" />
       </div>
       {/* Texts */}
@@ -58,14 +60,17 @@ const PlanBox = ({
         </div>
       ) : !btnGreen ? (
         <div className="w-full">
-          <div className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center">
+          <Link
+            href="/subscription/my-plans?premium=false"
+            className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center"
+          >
             <p className="font-medium text-base">Subscribe</p>
-          </div>
+          </Link>
         </div>
       ) : (
         <div className="w-full">
           <Link
-            href="/subscription/my-plans"
+            href="/subscription/my-plans?premium=true"
             className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
           >
             <p className="font-bold text-sm">Subscribe</p>

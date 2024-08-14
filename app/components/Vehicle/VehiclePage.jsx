@@ -109,6 +109,8 @@ const VehiclePage = ({ isAdmin = false }) => {
           setVinVal("");
           dispatch(setVinDecodedData(null));
           setShowDecodeMenu(false);
+        } else {
+          setShowDecodeMenu(true);
         }
         dispatch(setShowToast({ value: true, ...toastMsg, isAdmin }));
         dispatch(resetVehicleToast());
@@ -158,7 +160,7 @@ const VehiclePage = ({ isAdmin = false }) => {
       );
     }
     dispatch(vinDecode({ number: vinVal, isAdmin }));
-    setShowDecodeMenu(true);
+    // setShowDecodeMenu(true);
   };
 
   useEffect(() => {

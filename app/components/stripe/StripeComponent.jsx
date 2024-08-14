@@ -5,6 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 
 import CheckoutForm from "./CheckoutForm";
 import "./stripe.css";
+import { useSelector } from "react-redux";
 
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
@@ -13,19 +14,32 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 );
 
-export default function App() {
+export default function App({ premium }) {
   const [clientSecret, setClientSecret] = React.useState("");
+  const { user } = useSelector((state) => state.auth);
 
   React.useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    fetch("/api/create-payment-intent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret));
-  }, []);
+    if (user) {
+      // Create PaymentIntent as soon as the page loads
+      fetch(process.env.NEXT_PUBLIC_BASE_URL + "/subscription/new", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          priceId: premium === "true" ? "yearly" : "monthly",
+          user: {
+            name: {
+              first: user?.data?.name?.first,
+              last: user?.data?.name?.last,
+            },
+            email: user?.data?.email,
+            // password: data.password,
+          },
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => setClientSecret(data.clientSecret));
+    }
+  }, [user]);
 
   const appearance = {
     theme: "stripe",

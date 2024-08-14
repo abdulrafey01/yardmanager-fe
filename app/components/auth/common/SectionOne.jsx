@@ -56,7 +56,7 @@ const SectionOne = () => {
       {/* Text containers */}
       <div className=" w-full flex flex-col space-y-6 text-white">
         <p className="text-sm font-bold ">
-          The Simplest way to manage your Automobiles Spare Parts!
+          The simplest way to manage your Auto parts Inventory!
         </p>
         <p className="text-sm pr-5">{descArray[activeLineIndex]}</p>
         <div className="flex justify-between items-center sm:justify-start sm:space-x-2">

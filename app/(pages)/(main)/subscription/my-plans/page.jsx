@@ -11,10 +11,13 @@ import {
 } from "../../../../../lib/features/shared/sharedSlice";
 import { useDispatch } from "react-redux";
 import StripeComponent from "../../../../components/stripe/StripeComponent";
+import { useSearchParams } from "next/navigation";
 
 const page = () => {
   const dispatch = useDispatch();
   const [isCheckedOut, setCheckedOut] = React.useState(false);
+  const params = useSearchParams();
+  const premium = params.get("premium");
 
   useEffect(() => {
     dispatch(setCurrentPage("Subscription"));
@@ -43,10 +46,10 @@ const page = () => {
       <div className="h-full bg-white border rounded-xl border-gray-300 p-6 gap-8 flex flex-col lg:flex-row justify-center items-center lg:justify-start lg:items-start text-center ">
         {!isCheckedOut && (
           <PlanBox
-            title={"Annual Plan"}
-            description={
-              "Take Your Business to the Next Level with 21 days free trails of yearly plan"
-            }
+            title={premium === "true" ? "Annual Plan" : "Monthly Plan"}
+            description={`Take Your Business to the Next Level with 21 days free trails of ${
+              premium === "true" ? "annual" : "monthly"
+            } plan`}
             price={"$83"}
             features={[
               "Advanced Marketing Tools",
@@ -56,12 +59,12 @@ const page = () => {
               "24/7 Priority Support",
             ]}
             btnGreen={true}
-            premium={true}
+            premium={premium === "true"}
             myPlanBox={true}
           />
         )}
 
-        <StripeComponent />
+        <StripeComponent premium={premium} />
         {/* <PaymentCard
           isCheckedOut={isCheckedOut}
           setIsCheckedOut={setCheckedOut}
