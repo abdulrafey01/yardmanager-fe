@@ -132,10 +132,14 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
   useEffect(() => {
     if (toastMsg?.red === false) {
       dispatch(
-        fetchInventoryByPage({ page: 1, limit: 10, isAdmin, totalOverview })
+        fetchInventoryByPage({
+          page: 1,
+          limit: dataLimit,
+          isAdmin,
+          totalOverview,
+        })
       );
       setPageNumber(1);
-      setDataLimit(10);
     }
   }, [toastMsg]);
   return (

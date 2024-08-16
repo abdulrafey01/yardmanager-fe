@@ -19,21 +19,25 @@ const page = () => {
   }, [dispatch]);
 
   const [currentSubscription, setCurrentSubscription] = React.useState(null);
-  useEffect(async () => {
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
-        {
-          headers: {
-            Authorization: `Bearer ${
-              getCookie("token") || window?.sessionStorage.getItem("token")
-            }`,
-          },
-        }
-      );
-      console.log("subscription", response?.data);
-      setCurrentSubscription(response?.data?.data[0]);
-    } catch (error) {}
+
+  useEffect(() => {
+    const getSubscription = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+        console.log("subscription", response?.data);
+        setCurrentSubscription(response?.data?.data[0]);
+      } catch (error) {}
+    };
+    getSubscription();
   }, []);
 
   return (

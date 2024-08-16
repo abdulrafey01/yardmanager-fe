@@ -113,9 +113,8 @@ const LocationPage = () => {
   // on Close menu if no error
   useEffect(() => {
     if (toastMsg?.red === false) {
-      dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
+      dispatch(fetchYardsByPage({ page: 1, limit: dataLimit }));
       setPageNumber(1);
-      setDataLimit(10);
     }
   }, [toastMsg]);
   return (

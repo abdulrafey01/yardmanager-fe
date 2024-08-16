@@ -255,9 +255,8 @@ const page = () => {
   // on Close menu if no error
   useEffect(() => {
     if (invoiceToast?.red === false) {
-      dispatch(fetchInvoicesByPage({ page: 1, limit: 10, isAdmin }));
+      dispatch(fetchInvoicesByPage({ page: 1, limit: dataLimit, isAdmin }));
       setPageNumber(1);
-      setDataLimit(10);
     }
   }, [invoiceToast]);
   return (

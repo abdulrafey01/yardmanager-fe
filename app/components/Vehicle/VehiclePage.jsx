@@ -214,9 +214,8 @@ const VehiclePage = ({ isAdmin = false }) => {
   // on Close menu if no error
   useEffect(() => {
     if (toastMsg?.red === false) {
-      dispatch(fetchVehiclesByPage({ page: 1, limit: 10, isAdmin }));
+      dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit, isAdmin }));
       setPageNumber(1);
-      setDataLimit(10);
     }
   }, [toastMsg]);
   return (
