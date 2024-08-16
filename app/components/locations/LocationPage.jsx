@@ -85,6 +85,7 @@ const LocationPage = ({ isAdmin = false }) => {
         dispatch(resetLocToast());
       }
     }
+    console.log(toastMsg);
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
