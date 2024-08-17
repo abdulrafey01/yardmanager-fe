@@ -4,6 +4,11 @@ import DiamondIcon from "../../assets/main/68-diamond.svg";
 import DiamondGreen from "../../assets/main/70-diamond.svg";
 import TickIcon from "../../assets/main/69-tick.svg";
 import Link from "next/link";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setShowToast } from "../../../lib/features/shared/sharedSlice";
+import { getCookie } from "../../helpers/storage";
+import { useRouter } from "next/navigation";
 
 const PlanBox = ({
   features,
@@ -13,7 +18,71 @@ const PlanBox = ({
   premium,
   btnGreen = false,
   myPlanBox = false,
+  currentSubscription = false,
+  setCurrentSubscription,
 }) => {
+  const dispatch = useDispatch();
+
+  const router = useRouter();
+  const cancelSubscription = async () => {
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL +
+          "/subscription/cancel/" +
+          currentSubscription.id,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              getCookie("token") || window?.sessionStorage.getItem("token")
+            }`,
+          },
+        }
+      );
+      setCurrentSubscription(false);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Subscription Cancelled Successfully",
+        })
+      );
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Fail to cancel subscription",
+          red: true,
+        })
+      );
+    }
+  };
+
+  const getSecret = async (plan) => {
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription/" + plan,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              getCookie("token") || window?.sessionStorage.getItem("token")
+            }`,
+          },
+        }
+      );
+
+      router.push(
+        `/subscription/my-plans?premium=${plan === "yearly" ? true : false}`
+      );
+    } catch (error) {
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Unsubscribe From Other Plan first",
+          red: true,
+        })
+      );
+    }
+  };
   return (
     <div
       className={` relative border rounded-xl border-gray-300 flex flex-col  p-4 w-[18rem] sm:w-[25rem] items-start gap-4 ${
@@ -48,33 +117,54 @@ const PlanBox = ({
       {/* Subscribe Button */}
       {myPlanBox ? (
         <div className="w-full flex justify-between gap-4">
-          <div className="cursor-pointer flex-1  bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center">
-            <p className="font-medium text-base">Cancel</p>
-          </div>
           <Link
-            href="/subscription/my-plans"
+            href="/subscription/plans"
+            className="cursor-pointer flex-1  bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center"
+          >
+            <p className="font-medium text-base">Cancel</p>
+          </Link>
+          <Link
+            href="/subscription/plans"
             className="select-none cursor-pointer flex-1  py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
           >
             <p className="font-bold text-sm">Change Plan</p>
           </Link>
         </div>
-      ) : !btnGreen ? (
+      ) : !btnGreen ? ( // for monthly box
         <div className="w-full">
-          <Link
-            href="/subscription/my-plans?premium=false"
-            className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center"
-          >
-            <p className="font-medium text-base">Subscribe</p>
-          </Link>
+          {currentSubscription?.plan?.interval === "month" ? (
+            <div
+              onClick={cancelSubscription}
+              className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center"
+            >
+              <p className="font-medium text-base">Cancel</p>
+            </div>
+          ) : (
+            <div
+              onClick={() => getSecret("monthly")}
+              className="cursor-pointer bg-white border border-gray-300 sm:hover:bg-[#EDEEF2] py-3 px-4 text-left rounded-lg flex justify-center items-center"
+            >
+              <p className="font-medium text-base">Subscribe</p>
+            </div>
+          )}
         </div>
       ) : (
         <div className="w-full">
-          <Link
-            href="/subscription/my-plans?premium=true"
-            className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
-          >
-            <p className="font-bold text-sm">Subscribe</p>
-          </Link>
+          {currentSubscription?.plan?.interval === "year" ? (
+            <div
+              onClick={cancelSubscription}
+              className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
+            >
+              <p className="font-bold text-sm">Cancel</p>
+            </div>
+          ) : (
+            <div
+              onClick={() => getSecret("yearly")}
+              className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
+            >
+              <p className="font-bold text-sm">Subscribe</p>
+            </div>
+          )}
         </div>
       )}
       {/* Best value container */}

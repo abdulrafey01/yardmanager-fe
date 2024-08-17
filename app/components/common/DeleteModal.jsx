@@ -17,6 +17,7 @@ import { setShowDeleteModal } from "../../../lib/features/shared/sharedSlice";
 import { deleteInventoryPermanently } from "../../../lib/features/deleted-items/deletedItemsActions";
 import { deletePart } from "../../../lib/features/parts/partActions";
 import { usePathname } from "next/navigation";
+import { deleteYard } from "../../../lib/features/yards/yardActions";
 const DeleteModal = () => {
   const dispatch = useDispatch();
   const { selectedItem, showDeleteModal, showSuccessModal, currentPage } =
@@ -106,6 +107,12 @@ const DeleteModal = () => {
             isAdmin: user?.userType === "admin",
           })
         );
+      case "Yards":
+        dispatch(
+          deleteYard({
+            id: selectedItem._id,
+          })
+        );
       default:
         break;
     }
@@ -133,6 +140,8 @@ const DeleteModal = () => {
         return "Delete Part";
       case "Employee":
         return "Remove Employee";
+      case "Yards":
+        return "Remove Yard";
       default:
         break;
     }
@@ -163,6 +172,8 @@ const DeleteModal = () => {
         return "Are you sure you want to delete this part? Deleting it will permanently remove it from your system.";
       case "Employee":
         return "Are you sure you want to remove this employee? Removing them will permanently remove their access to your system.";
+      case "Yards":
+        return "Are you sure you want to remove this yard? Removing it will permanently remove its access to your system.";
       default:
         break;
     }

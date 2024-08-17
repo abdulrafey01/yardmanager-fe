@@ -6,7 +6,7 @@ import { Rubik } from "next/font/google";
 
 const rubik = Rubik({ subsets: ["latin"] });
 
-const BankCard = ({ isCheckedOut }) => {
+const BankCard = ({ isCheckedOut = true }) => {
   return (
     <div
       className={`flex-1 w-full border flex flex-col gap-4 p-4 border-gray-300 rounded-lg ${

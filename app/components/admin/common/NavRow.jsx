@@ -55,7 +55,8 @@ const NavRow = () => {
     pathName === "/admin/settings" ||
     pathName === "/admin/inventory-overview" ||
     pathName === "/admin/privacy-policy" ||
-    pathName === "/admin/terms-condition" ? null : (
+    pathName === "/admin/terms-condition" ||
+    pathName === "/admin/subscription-overview" ? null : (
     <div className="bg-[#f9fafb]  pt-8 gap-2 px-4 flex justify-start items-center overflow-x-auto no-scrollbar">
       {topButtonsMain.map((item, index) => {
         return (

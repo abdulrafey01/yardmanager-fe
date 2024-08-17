@@ -3,11 +3,35 @@ import React, { useEffect } from "react";
 import PlanBox from "../../../../components/subscription/PlanBox";
 import { useDispatch } from "react-redux";
 import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
+import { getCookie } from "../../../../helpers/storage";
+import axios from "axios";
 const page = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(setCurrentPage("Subscription"));
   }, [dispatch]);
+
+  const [currentSubscription, setCurrentSubscription] = React.useState(null);
+
+  useEffect(() => {
+    const getSubscription = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+        console.log("subscription", response?.data);
+        setCurrentSubscription(response?.data?.data[0]);
+      } catch (error) {}
+    };
+    getSubscription();
+  }, []);
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* Main container */}
@@ -38,6 +62,8 @@ const page = () => {
               "Third-party Integrations",
               "24/7 Priority Support",
             ]}
+            currentSubscription={currentSubscription}
+            setCurrentSubscription={setCurrentSubscription}
           />
           <PlanBox
             title={"Annual Plan"}
@@ -54,6 +80,8 @@ const page = () => {
             ]}
             btnGreen={true}
             premium={true} // used
+            currentSubscription={currentSubscription}
+            setCurrentSubscription={setCurrentSubscription}
           />
         </div>
       </div>

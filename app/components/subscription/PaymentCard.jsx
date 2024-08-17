@@ -5,19 +5,25 @@ import CardsIcon from "../../assets/main/72-cards.svg";
 import CirclesIcon from "../../assets/main/73-paycircles.svg";
 import RoundMenuIcon from "../../components/subscription/RoundMenuIcon";
 import Image from "next/image";
+import { useSelector } from "react-redux";
 
-const PaymentCard = ({ isCheckedOut, setIsCheckedOut }) => {
+const PaymentCard = ({ isCheckedOut = true, setIsCheckedOut, card }) => {
   const [dateInputType, setDateInputType] = React.useState("text");
+  const { user } = useSelector((state) => state.auth);
   return (
     <div
-      className={`flex flex-1 w-full flex-col  border border-gray-300 rounded-lg  `}
+      className={`flex flex-1 flex-col  border border-gray-300 rounded-lg  `}
     >
       <div className="w-full p-4 flex flex-col gap-4">
         {/* Heading Div First */}
         <div className="flex justify-between items-center ">
           {/* Text container */}
           <div className="flex flex-col items-start gap-2">
-            <p className="font-semibold text-xl text-start ">Payment Method</p>
+            <p className="font-semibold text-xl text-start ">
+              {/* Capitalizing the first letter */}
+              {card?.card?.brand.charAt(0).toUpperCase() +
+                card?.card?.brand.slice(1)}
+            </p>
             {!isCheckedOut && (
               <p className="text-gray-600 text-start text-sm font-medium">
                 Please provide the following details!
@@ -40,14 +46,18 @@ const PaymentCard = ({ isCheckedOut, setIsCheckedOut }) => {
         {isCheckedOut && (
           <div className="flex justify-start items-center gap-4">
             <Image src={CirclesIcon} alt="CirclesIcon" />
-            <p className="text-lg font-semibold">Mashaim Tariq</p>
+            <p className="text-lg font-semibold">
+              {user?.data?.name?.first} {user?.data?.name?.last}
+            </p>
           </div>
         )}
 
         {isCheckedOut && (
           <div className="flex flex-col items-start mt-6">
             <p className="text-black  text-base ">Expiry Date</p>
-            <p className="font-semibold">12/29</p>
+            <p className="font-semibold">
+              {card?.card?.exp_month} / {card?.card?.exp_year}
+            </p>
           </div>
         )}
       </div>
@@ -55,7 +65,7 @@ const PaymentCard = ({ isCheckedOut, setIsCheckedOut }) => {
       {isCheckedOut && (
         <div>
           <hr className="w-[80%]" />
-          <p className="text-start font-medium p-4">5885*****</p>
+          <p className="text-start font-medium p-4">*****{card?.card?.last4}</p>
         </div>
       )}
       {/* Inputs container */}

@@ -71,7 +71,7 @@ const page = () => {
     <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-4 w-screen md:w-full ">
       <>
         <h2 className="font-bold text-2xl">General Settings</h2>
-        <div
+        {/* <div
           className={`w-full bg-white  items-center justify-start  p-4 rounded-lg flex `}
         >
           <GreenToggle
@@ -84,7 +84,7 @@ const page = () => {
               Automatically approve new user registrations upon submission.
             </p>
           </div>
-        </div>
+        </div> */}
 
         {/* Second TOggle */}
         {/* <div

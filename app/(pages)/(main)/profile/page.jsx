@@ -498,6 +498,7 @@ const page = () => {
                 onChange={onPersonalInputChange}
               />
               <Image
+                className="cursor-pointer"
                 src={togglePWD ? PWDIcon : PwdHideIcon}
                 onClick={() => setTogglePWD(!togglePWD)}
                 alt="logo"
@@ -513,6 +514,7 @@ const page = () => {
                 onChange={onPersonalInputChange}
               />
               <Image
+                className="cursor-pointer"
                 src={togglePWDC ? PWDIcon : PwdHideIcon}
                 onClick={() => setTogglePWDC(!togglePWDC)}
                 alt="logo"

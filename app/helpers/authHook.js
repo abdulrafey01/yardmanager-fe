@@ -31,12 +31,11 @@ const useLoadAuthState = () => {
           );
           dispatch(setUser({ data: response.data.data, userType: "admin" })); // as admin
         } catch (error) {
-          if (error.response.status === 403) {
-            cleanStorage();
-            setTimeout(() => {
-              dispatch(adminLogout());
-            }, 3000);
-          }
+          // Any error in fetching info ,logout
+          cleanStorage();
+          setTimeout(() => {
+            dispatch(adminLogout());
+          }, 3000);
           console.log("Error fetching Admin info:", error);
         }
       } else {
@@ -60,12 +59,11 @@ const useLoadAuthState = () => {
             })
           );
         } catch (error) {
-          if (error.response.status === 403) {
-            cleanStorage();
-            setTimeout(() => {
-              dispatch(logout());
-            }, 3000);
-          }
+          // Any error in fetching info ,logout
+          cleanStorage();
+          setTimeout(() => {
+            dispatch(logout());
+          }, 3000);
           console.log("Error fetching user info:", error);
         }
       }

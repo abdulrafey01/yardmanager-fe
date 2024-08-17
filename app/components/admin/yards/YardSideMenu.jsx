@@ -13,6 +13,7 @@ import SingleImageDropzone from "../../common/SingleImageDropzone";
 import {
   addYard,
   fetchYardsByPage,
+  updateYard,
 } from "../../../../lib/features/yards/yardActions";
 
 const YardSideMenu = () => {
@@ -79,42 +80,49 @@ const YardSideMenu = () => {
     console.log("Yard data", formState, companyImage, profileImage, coverImage);
 
     const formData = new FormData();
-    formData.append("user[name][first]", formState.firstName);
-    formData.append("user[name][last]", formState.lastName);
-    formData.append("user[email]", formState.email);
-    formData.append("user[password]", formState.password);
-    formData.append("company[name]", formState.companyName);
-    formData.append("company[phone]", formState.companyPhone);
-    formData.append("company[address]", formState.companyAddress);
-    formData.append("companyImage", companyImage);
-    formData.append("profile", profileImage);
-    formData.append("cover", coverImage);
 
     if (showSideMenu.mode === "edit") {
+      // submit personal form
+      formData.append("name[first]", formState.firstName);
+      formData.append("name[last]", formState.lastName);
+      formData.append("email", formState.email);
+      formData.append("password", formState.password);
+
+      dispatch(
+        updateYard({
+          id: selectedItem?._id,
+          userId: selectedItem?.owner?._id,
+          companyData: {
+            name: formState.companyName,
+            address: formState.companyAddress,
+            phone: formState.companyPhone,
+          },
+          userData: formData,
+        })
+      )
+        .unwrap()
+        .then(() => {
+          dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
+        })
+        .catch((err) => {});
     } else {
+      formData.append("user[name][first]", formState.firstName);
+      formData.append("user[name][last]", formState.lastName);
+      formData.append("user[email]", formState.email);
+      formData.append("user[password]", formState.password);
+      formData.append("company[name]", formState.companyName);
+      formData.append("company[phone]", formState.companyPhone);
+      formData.append("company[address]", formState.companyAddress);
+      formData.append("companyImage", companyImage);
+      formData.append("profile", profileImage);
+      formData.append("cover", coverImage);
       dispatch(addYard(formData))
         .unwrap()
         .then(() => {
           dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
-        });
+        })
+        .catch((err) => {});
     }
-    // try {
-    //   const res = await addYard(formData);
-    //   if (res.success) {
-    //     dispatch(setShowToast({ value: true, msg: res.message }));
-
-    //   } else {
-    //     dispatch(setShowToast({ value: true, msg: res.message, red: true }));
-    //   }
-    // } catch (err) {
-    //   dispatch(
-    //     setShowToast({
-    //       value: true,
-    //       msg: err.response.data.message,
-    //       red: true,
-    //     })
-    //   );
-    // }
   };
 
   useEffect(() => {
@@ -259,30 +267,36 @@ const YardSideMenu = () => {
                 name="companyAddress"
               />
             </div>
-            {/* Profile  Image Personal */}
-            <SingleImageDropzone
-              htmlName="profileImage"
-              img={profileImage}
-              onImageChange={(e) => setProfileImage(e.target.files[0])}
-              setImg={setProfileImage}
-              placeholder={"Upload Profile Image"}
-            />
-            {/*Company Profile and Cover Image */}
-            <div className="flex w-full gap-4">
+            <div
+              className={`flex flex-col gap-4 ${
+                showSideMenu.mode === "edit" ? "hidden" : "flex"
+              }`}
+            >
+              {/* Profile  Image Personal */}
               <SingleImageDropzone
-                htmlName="companyImage"
-                img={companyImage}
-                onImageChange={(e) => setCompanyImage(e.target.files[0])}
-                setImg={setCompanyImage}
-                placeholder={"Upload Company Image"}
+                htmlName="profileImage"
+                img={profileImage}
+                onImageChange={(e) => setProfileImage(e.target.files[0])}
+                setImg={setProfileImage}
+                placeholder={"Upload Profile Image"}
               />
-              <SingleImageDropzone
-                htmlName="coverImage"
-                img={coverImage}
-                onImageChange={(e) => setCoverImage(e.target.files[0])}
-                setImg={setCoverImage}
-                placeholder={"Upload Cover Image"}
-              />
+              {/*Company Profile and Cover Image */}
+              <div className="flex w-full gap-4">
+                <SingleImageDropzone
+                  htmlName="companyImage"
+                  img={companyImage}
+                  onImageChange={(e) => setCompanyImage(e.target.files[0])}
+                  setImg={setCompanyImage}
+                  placeholder={"Upload Company Image"}
+                />
+                <SingleImageDropzone
+                  htmlName="coverImage"
+                  img={coverImage}
+                  onImageChange={(e) => setCoverImage(e.target.files[0])}
+                  setImg={setCoverImage}
+                  placeholder={"Upload Cover Image"}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -295,7 +309,11 @@ const YardSideMenu = () => {
               textCenter={true}
             />
           </div>
-          <div className="flex-1">
+          <div
+            className={`flex-1 ${
+              showSideMenu.mode === "preview" ? "hidden" : ""
+            }`}
+          >
             <GreenBtn onClick={onFormSubmit} title={"Save"} textCenter={true} />
           </div>
         </div>

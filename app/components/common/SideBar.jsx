@@ -234,7 +234,8 @@ const SideBar = () => {
     } else if (
       pathName === "/subscription" ||
       pathName === "/subscription/plans" ||
-      pathName === "/subscription/my-plans"
+      pathName === "/subscription/my-plans" ||
+      pathName === "/subscription/cards"
     ) {
       setActiveMainBtn(
         showBtns.findIndex((btn) => btn.name2 === "subscription")
@@ -259,7 +260,7 @@ const SideBar = () => {
       setActiveMainBtn(1);
     } else if (pathName === "/admin/inventory-overview") {
       setActiveMainBtn(2);
-    } else if (pathName === "/admin/subscription") {
+    } else if (pathName === "/admin/subscription-overview") {
       setActiveMainBtn(3);
     } else if (pathName === "/admin/settings") {
       setActiveBottomBtn(0);
@@ -301,7 +302,7 @@ const SideBar = () => {
       name: "Subscription",
       iconW: SubcSvg,
       iconB: SubSvgB,
-      route: "/admin/subscription",
+      route: "/admin/subscription-overview",
     },
   ];
 
