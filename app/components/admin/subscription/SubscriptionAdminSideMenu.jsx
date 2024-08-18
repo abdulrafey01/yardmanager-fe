@@ -1,15 +1,68 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSideMenu } from "../../../../lib/features/shared/sharedSlice";
+import {
+  setShowSideMenu,
+  setShowToast,
+} from "../../../../lib/features/shared/sharedSlice";
 import FancyInput from "../../common/FancyInput";
 import WhiteBtn from "../../../abstracts/WhiteBtn";
 import GreenBtn from "../../../abstracts/GreenBtn";
 import CrossIcon from "../../../assets/main/80-cross.svg";
 import Image from "next/image";
 
+import DownArrow from "../../../assets/main/28-downarrow.svg";
+import axios from "axios";
+import { getCookie } from "../../../helpers/storage";
+
 const SubscriptionAdminSideMenu = () => {
   const dispatch = useDispatch();
   const { showSideMenu } = useSelector((state) => state.shared);
+  const [showDropDown, setShowDropDown] = React.useState(true);
+  const [inputVal, setInputVal] = React.useState("");
+
+  const onPlanNameClick = (val) => {
+    setInputVal(val);
+    setShowDropDown(!showDropDown);
+  };
+
+  const addSubscription = async () => {
+    let companyId = JSON.parse(localStorage.getItem("companyId"));
+    let token =
+      getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
+    try {
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/new-subscription",
+        {
+          priceId: inputVal.toLowerCase(),
+          company: companyId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Subscription added successfully",
+          red: true,
+        })
+      );
+      setInputVal("");
+      dispatch(setShowSideMenu({ value: false }));
+      window?.location.reload();
+    } catch (error) {
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: error.response.data.error,
+          red: true,
+        })
+      );
+    }
+  };
+
   return (
     <div
       className={`fixed ${
@@ -19,6 +72,7 @@ const SubscriptionAdminSideMenu = () => {
       {/* Black part */}
       <div
         onClick={() => {
+          setInputVal("");
           dispatch(setShowSideMenu({ value: false }));
           console.log("clicked");
         }}
@@ -50,41 +104,61 @@ const SubscriptionAdminSideMenu = () => {
               "opacity-50 pointer-events-none"
             }  flex flex-col gap-5  w-full `}
           >
-            {/* Subscription Name input */}
-            <FancyInput
-              identity={"subscriptionName"}
-              placeholder={"Subscription Name"}
-            />
-            {/* Subscription Email input */}
-            <FancyInput
-              identity={"subscriptionEmail"}
-              placeholder={"Subscription Email"}
-            />
-            {/* Subscription Start Date input */}
-            <FancyInput
-              type={"date"}
-              identity={"subscriptionStartDate"}
-              placeholder={"Start Date"}
-            />
-            {/* Subscription End Date input */}
-            <FancyInput
-              type={"date"}
-              identity={"subscriptionEndDate"}
-              placeholder={"End Date"}
-            />
+            <div className="w-full flex justify-between items-center relative p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                onClick={() => setShowDropDown(true)}
+                className="w-full outline-none cursor-pointer"
+                type="text"
+                placeholder="Select Plan"
+                value={inputVal}
+              />
+
+              <Image
+                onClick={() => setShowDropDown(!showDropDown)}
+                className="cursor-pointer"
+                src={DownArrow}
+                alt="downarrow"
+              />
+              {/* Dropdown */}
+              <div
+                className={`${
+                  showDropDown ? "block" : "hidden"
+                } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+              >
+                <p
+                  onClick={() => onPlanNameClick("Monthly")}
+                  className="p-2 border-b-[1px] border-black cursor-pointer hover:bg-gray-300 "
+                >
+                  Monthly
+                </p>
+                <p
+                  onClick={() => onPlanNameClick("Yearly")}
+                  className="p-2 cursor-pointer hover:bg-gray-300 "
+                >
+                  Yearly
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         {/* Buttons */}
         <div className="flex w-full p-4  justify-center  gap-4 flex-1 items-end">
           <div className="flex-1">
             <WhiteBtn
-              onClick={() => dispatch(setShowSideMenu({ value: false }))}
+              onClick={() => {
+                setInputVal("");
+                dispatch(setShowSideMenu({ value: false }));
+              }}
               title={"Cancel"}
               textCenter={true}
             />
           </div>
           <div className="flex-1">
-            <GreenBtn title={"Save"} textCenter={true} />
+            <GreenBtn
+              onClick={addSubscription}
+              title={"Save"}
+              textCenter={true}
+            />
           </div>
         </div>
       </div>

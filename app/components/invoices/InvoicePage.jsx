@@ -41,7 +41,12 @@ const InvoicePage = ({ isAdmin = false }) => {
   useEffect(() => {
     dispatch(setCurrentPage("Invoices"));
     dispatch(
-      fetchInvoicesByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      fetchInvoicesByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
     );
   }, [dispatch, pageNumber]);
   // Get page permission
@@ -90,7 +95,14 @@ const InvoicePage = ({ isAdmin = false }) => {
   const handleSearch = (e) => {
     setPageNumber(1);
     setSearchInputValue(e.target.value);
-    dispatch(fetchInvoicesByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchInvoicesByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
   useEffect(() => {

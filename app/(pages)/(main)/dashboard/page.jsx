@@ -441,79 +441,80 @@ const page = () => {
           </div>
         </div>
       </div>
-      {/* Table */}
-      <div className=" border rounded-xl border-gray-300 flex flex-col">
-        {/* Table Title container */}
-        <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
-          <p className="hidden sm:block font-bold text-lg md:text-2xl">
-            Invoices List
-          </p>
-          <p className="sm:hidden font-bold text-lg md:text-2xl">Invoices</p>
-          {/* Search abd filter input container*/}
-          <div className="flex  space-x-2 sm:space-x-4">
-            <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-              <Image src={SearchIcon} alt="SearchIcon" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="w-full outline-none bg-transparent"
-                onChange={handleSearch}
-              />
+      {pagePermission?.read && (
+        <div className=" border rounded-xl border-gray-300 flex flex-col">
+          {/* Table Title container */}
+          <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
+            <p className="hidden sm:block font-bold text-lg md:text-2xl">
+              Invoices List
+            </p>
+            <p className="sm:hidden font-bold text-lg md:text-2xl">Invoices</p>
+            {/* Search abd filter input container*/}
+            <div className="flex  space-x-2 sm:space-x-4">
+              <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
+                <Image src={SearchIcon} alt="SearchIcon" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full outline-none bg-transparent"
+                  onChange={handleSearch}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        {/* Table Container */}
-        <div className="overflow-x-auto sm:overflow-visible">
-          {/* Head */}
-          <TableHead
-            titles={[
-              "User Name",
-              "Invoice #",
-              "Customer Name",
-              "Email Address",
-              "Grand Total",
-              "Order Date",
-              "Status",
-            ]}
-          />
-          {/* Body */}
-          {dataFromServer.length == 0 && (
-            <div className="text-center p-8 font-semibold">
-              No Data Available
-            </div>
-          )}
-          {dataFromServer.map((data, index) => (
-            <TableRow
+          {/* Table Container */}
+          <div className="overflow-x-auto sm:overflow-visible">
+            {/* Head */}
+            <TableHead
               titles={[
-                data.name,
-                data._id,
-                data.name,
-                data.email,
-                (() => {
-                  let subTotal = data.products.reduce((acc, product) => {
-                    return acc + product.quantity * product.price;
-                  }, 0);
-                  return subTotal + (data.tax * subTotal) / 100;
-                })(),
-
-                new Date(data.datePaid).toLocaleDateString(),
-                data.status,
+                "User Name",
+                "Invoice #",
+                "Customer Name",
+                "Email Address",
+                "Grand Total",
+                "Order Date",
+                "Status",
               ]}
-              key={index}
-              rowIndex={index}
-              item={data}
-              permissions={pagePermission}
             />
-          ))}
+            {/* Body */}
+            {dataFromServer.length == 0 && (
+              <div className="text-center p-8 font-semibold">
+                No Data Available
+              </div>
+            )}
+            {dataFromServer.map((data, index) => (
+              <TableRow
+                titles={[
+                  data.name,
+                  data._id,
+                  data.name,
+                  data.email,
+                  (() => {
+                    let subTotal = data.products.reduce((acc, product) => {
+                      return acc + product.quantity * product.price;
+                    }, 0);
+                    return subTotal + (data.tax * subTotal) / 100;
+                  })(),
+
+                  new Date(data.datePaid).toLocaleDateString(),
+                  data.status,
+                ]}
+                key={index}
+                rowIndex={index}
+                item={data}
+                permissions={pagePermission}
+              />
+            ))}
+          </div>
+          {/* Footer */}
+          <Footer
+            totalPage={totalPage}
+            pageNumber={pageNumber}
+            setPageNumber={setPageNumber}
+            handleRadioClick={handleRadioClick}
+          />
         </div>
-        {/* Footer */}
-        <Footer
-          totalPage={totalPage}
-          pageNumber={pageNumber}
-          setPageNumber={setPageNumber}
-          handleRadioClick={handleRadioClick}
-        />
-      </div>
+      )}
     </div>
   );
 };

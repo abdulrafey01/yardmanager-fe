@@ -1,6 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setShowSideMenu } from "../../../lib/features/shared/sharedSlice";
+import {
+  setShowSideMenu,
+  setShowToast,
+} from "../../../lib/features/shared/sharedSlice";
 import CardIcon from "../../assets/main/74-bankcard.svg";
 import BankIcon from "../../assets/main/75-bank.svg";
 import TickIcon from "../../assets/main/70-tick.svg";
@@ -10,12 +13,54 @@ import WhiteBtn from "../../abstracts/WhiteBtn";
 import GreenBtn from "../../abstracts/GreenBtn";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 import { setShowConfirmModal } from "../../../lib/features/subscription/subscriptionSlice";
+import axios from "axios";
+import { getCookie } from "../../helpers/storage";
 
 const SubscriptionSideMenu = () => {
   const dispatch = useDispatch();
   const [selectedBox, setSelectedBox] = React.useState(1);
 
   const { showSideMenu } = useSelector((state) => state.shared);
+
+  const [formState, setFormState] = React.useState({
+    number: "",
+    exp_month: "",
+    exp_year: "",
+    cvc: "",
+  });
+
+  const onInputChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const onFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/new-card",
+        {
+          ...formState,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              getCookie("token") || window?.sessionStorage.getItem("token")
+            }`,
+          },
+        }
+      );
+      if (response.data.success) {
+      } else {
+        dispatch(
+          setShowToast({ value: true, msg: response.data.message, red: true })
+        );
+      }
+    } catch (error) {
+      dispatch(
+        setShowToast({ value: true, msg: "Fail To Add Card", red: true })
+      );
+    }
+  };
   return (
     <div
       className={`fixed ${
@@ -55,7 +100,7 @@ const SubscriptionSideMenu = () => {
             )}
           </div>
           {/* Box 2 */}
-          <div
+          {/* <div
             onClick={() => setSelectedBox(2)}
             className={`flex-1 relative rounded-xl flex flex-col gap-4 p-8 justify-center items-center border-2  ${
               selectedBox === 2 && "border-black"
@@ -68,20 +113,46 @@ const SubscriptionSideMenu = () => {
                 <Image src={TickIcon} alt="TickIcon" />
               </div>
             )}
-          </div>
+          </div> */}
         </div>
         {/* Card details */}
         <div className="flex flex-col w-full gap-4">
           <p className="font-semibold tracking-wide">Add credit card details</p>
           {/* Card number input */}
-          <FancyInput identity={"cardNumber"} placeholder={"Card Number"} />
-          {/* Date and CVC input */}
+          <FancyInput
+            onChange={onInputChange}
+            name={"number"}
+            identity={"number"}
+            type={"number"}
+            placeholder={"Card Number"}
+          />
+          {/* Date input */}
           <div className="flex w-full  gap-4">
-            <FancyInput identity={"expDate"} placeholder={"Expiration Date"} />
-            <FancyInput identity={"cvc"} placeholder={"CVC"} />
+            <FancyInput
+              onChange={onInputChange}
+              name={"exp_month"}
+              identity={"exp_month"}
+              min={1}
+              max={12}
+              type={"number"}
+              placeholder={"Expiration Month"}
+            />
+            <FancyInput
+              onChange={onInputChange}
+              name={"exp_year"}
+              identity={"exp_year"}
+              type={"number"}
+              min={new Date().getFullYear()}
+              max={new Date().getFullYear() + 10}
+              placeholder={"Expiration Year"}
+            />
           </div>
-          {/* Card Holder name input */}
-          <FancyInput identity={"name"} placeholder={"Card Holder Name"} />
+          <FancyInput
+            onChange={onInputChange}
+            name={"cvc"}
+            identity={"cvc"}
+            placeholder={"CVC"}
+          />
         </div>
 
         {/* Buttons */}
@@ -95,9 +166,7 @@ const SubscriptionSideMenu = () => {
           </div>
           <div className="flex-1">
             <GreenBtn
-              onClick={() => {
-                dispatch(setShowConfirmModal(true));
-              }}
+              onClick={onFormSubmit}
               title={"Add Payment"}
               textCenter={true}
             />

@@ -4,6 +4,8 @@ const FancyInput = ({
   placeholder,
   identity,
   type,
+  min,
+  max,
   icon,
   name,
   onChange,
@@ -16,7 +18,10 @@ const FancyInput = ({
       <div className="relative bg-inherit ">
         <input
           type={type ? type : "text"}
+          onChange={onChange}
           id={identity}
+          min={min}
+          max={max}
           name={identity}
           className="peer bg-transparent p-3 w-full rounded-lg text-gray-900 placeholder-transparent ring-1 px-2 ring-gray-300 focus:ring-[#78FFB6] focus:outline-none focus:border-rose-600"
           placeholder={placeholder}

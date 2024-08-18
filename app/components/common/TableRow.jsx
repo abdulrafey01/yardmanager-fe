@@ -402,6 +402,41 @@ const TableRow = ({
       </div>
     ));
   };
+
+  const renderSubscriptionRow = (titles) => {
+    return titles.map((title, index) =>
+      index === 0 ? (
+        <div
+          key={index}
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16  text-center  p-3  flex items-center`}
+        >
+          {title}
+        </div>
+      ) : index === 5 ? (
+        <div
+          key={index}
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-20   p-3  flex-1 flex items-center`}
+        >
+          <Badge active={title} />
+        </div>
+      ) : (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16  text-center  p-3 flex-1 flex items-center`}
+        >
+          {title}
+        </div>
+      )
+    );
+  };
   return (
     <div className="w-full flex flex-col ">
       {/* Row */}
@@ -427,6 +462,8 @@ const TableRow = ({
           ? renderLocationRow(titles)
           : currentPage === "Inventory"
           ? renderInventoryRow(titles)
+          : currentPage === "SubscriptionAdmin"
+          ? renderSubscriptionRow(titles)
           : titles.map((title, index) =>
               index === 0 ? (
                 <div
@@ -451,9 +488,9 @@ const TableRow = ({
             )}
 
         <div
-          className={` min-w-16 p-3 pl-8 relative text-center flex items-center ${
+          className={` min-w-16 p-3 pl-8 relative text-center  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          }`}
+          } ${currentPage === "SubscriptionAdmin" ? "hidden" : "flex"}`}
         >
           <Image
             onClick={() => {

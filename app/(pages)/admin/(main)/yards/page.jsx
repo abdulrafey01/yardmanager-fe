@@ -37,7 +37,13 @@ const LocationPage = () => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Yards"));
-    dispatch(fetchYardsByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchYardsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+      })
+    );
   }, [dispatch, pageNumber]);
 
   // Get page permission
@@ -91,7 +97,9 @@ const LocationPage = () => {
     setPageNumber(1);
 
     setSearchInputValue(e.target.value);
-    dispatch(fetchYardsByPage({ search: e.target.value }));
+    dispatch(
+      fetchYardsByPage({ page: 1, limit: dataLimit, search: e.target.value })
+    );
   };
 
   const handleRadioClick = (e) => {

@@ -57,7 +57,14 @@ const PartsPage = ({ isAdmin = false }) => {
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Parts"));
-    dispatch(fetchPartsByPage({ page: pageNumber, limit: dataLimit, isAdmin }));
+    dispatch(
+      fetchPartsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
+    );
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -96,7 +103,14 @@ const PartsPage = ({ isAdmin = false }) => {
     setPageNumber(1);
 
     setSearchInputValue(e.target.value);
-    dispatch(fetchPartsByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchPartsByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
   const handleRadioClick = (e) => {

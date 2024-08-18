@@ -327,6 +327,62 @@ const page = () => {
         );
       });
   };
+  // Get subscription
+  const [currentSubscription, setCurrentSubscription] = React.useState(null);
+
+  useEffect(() => {
+    const getSubscription = async () => {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+        console.log("subscription", response?.data);
+        setCurrentSubscription(response?.data?.data[0]);
+      } catch (error) {}
+    };
+    getSubscription();
+  }, []);
+
+  // Cancel Subscription
+  const cancelSubscription = async () => {
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL +
+          "/subscription/cancel/" +
+          currentSubscription.id,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              getCookie("token") || window?.sessionStorage.getItem("token")
+            }`,
+          },
+        }
+      );
+      setCurrentSubscription(false);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Subscription Cancelled Successfully",
+        })
+      );
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Fail to cancel subscription",
+          red: true,
+        })
+      );
+    }
+  };
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -478,16 +534,6 @@ const page = () => {
                 disabled
               />
             </div>
-            {/* <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] ">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="User Name"
-                value={personalFormState.username}
-                name="username"
-                onChange={onPersonalInputChange}
-              />
-            </div> */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] flex justify-between items-center">
               <input
                 className="w-full outline-none"
@@ -543,11 +589,23 @@ const page = () => {
           <p className="font-bold text-[#344054] text-xl">Subscrpition</p>
           {/* Subscrpition container */}
           <div className="border w-56 sm:w-80 border-[#78FFB6] rounded-lg p-4 flex justify-between items-center">
-            <p className="font-bold">Yearly Plan</p>
-            <p>238/month</p>
+            <p className="font-bold">
+              {currentSubscription?.plan?.interval === "month"
+                ? "Monthly"
+                : "Yearly"}{" "}
+              Plan
+            </p>
+            <p>
+              {currentSubscription?.plan?.interval === "month"
+                ? "$83/month"
+                : "$105/year"}
+            </p>
           </div>
           <div className="flex justify-end">
-            <div className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center">
+            <div
+              onClick={cancelSubscription}
+              className="p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
+            >
               <p>Cancel Subscription</p>
             </div>
           </div>

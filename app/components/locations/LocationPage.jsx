@@ -40,7 +40,12 @@ const LocationPage = ({ isAdmin = false }) => {
   useEffect(() => {
     dispatch(setCurrentPage("Locations"));
     dispatch(
-      fetchLocationsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      fetchLocationsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
     );
   }, [dispatch, pageNumber]);
   // Get page permission
@@ -92,7 +97,14 @@ const LocationPage = ({ isAdmin = false }) => {
     setPageNumber(1);
 
     setSearchInputValue(e.target.value);
-    dispatch(fetchLocationsByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchLocationsByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
   const handleRadioClick = (e) => {

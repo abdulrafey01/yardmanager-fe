@@ -37,7 +37,7 @@ const Subscription = ({ isAdmin = false }) => {
   const [searchInputValue, setSearchInputValue] = React.useState("");
 
   useEffect(() => {
-    dispatch(setCurrentPage("Subscription"));
+    dispatch(setCurrentPage("SubscriptionAdmin"));
     dispatch(
       fetchSubscriptionsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
     );
@@ -72,8 +72,13 @@ const Subscription = ({ isAdmin = false }) => {
   useEffect(() => {
     if (subscriptionData) {
       setDataFromServer(subscriptionData);
-      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
-      setTotalPage(totalPage);
+      // let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
+      if (totalDataLength) {
+        setTotalPage(100);
+      } else if (!totalDataLength) {
+        setTotalPage(pageNumber);
+      }
+      console.log("subscriptionData", subscriptionData);
     }
   }, [subscriptionData, dataLimit]);
 
@@ -125,23 +130,25 @@ const Subscription = ({ isAdmin = false }) => {
     pagePermission?.read && (
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-end space-x-4  w-full p-2">
-          {/* Add Location Button */}
-          <GreenBtn
+          {/* Add Subscription Button */}
+          {/* <GreenBtn
             onClick={() =>
               dispatch(setShowSideMenu({ value: true, mode: "add" }))
             }
             title={"Add New Subscription"}
-          />
+          /> */}
         </div>
         {/* Table */}
         <div className=" border rounded-xl border-gray-300 flex flex-col">
           {/* Table Title container */}
           <div className="p-4 gap-2 w-full rounded-t-lg flex justify-between items-center">
             <p className="hidden sm:block font-bold text-lg md:text-2xl">
-              List of Locations
+              Subscription
             </p>
-            <p className="sm:hidden font-bold text-lg md:text-2xl">Locations</p>
-            {/* Search and filter input container */}
+            <p className="sm:hidden font-bold text-lg md:text-2xl">
+              Subscriptions
+            </p>
+            {/* Search and filter input container
             <div className="flex space-x-2 sm:space-x-4">
               <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <Image src={SearchIcon} alt="SearchIcon" />
@@ -153,7 +160,7 @@ const Subscription = ({ isAdmin = false }) => {
                   onChange={handleSearch}
                 />
               </div>
-            </div>
+            </div> */}
           </div>
           {/* Table Container */}
           <div className=" overflow-x-auto sm:overflow-visible">
@@ -169,22 +176,27 @@ const Subscription = ({ isAdmin = false }) => {
               ]}
             />
             {/* Body */}
-            <TableRow
-              titles={[
-                "1",
-                user?.data?.name?.first + " " + user?.data?.name?.last,
-                "Yearly",
-                // new Date(
-                //   currentSubscription?.latest_invoice?.period_start * 1000
-                // ).toLocaleDateString(),
-                // new Date(
-                //   currentSubscription?.latest_invoice?.period_end * 1000
-                // ).toLocaleDateString(),
-                // currentSubscription?.plan?.active === true
-                //   ? "Active"
-                //   : "Inactive",
-              ]}
-            />
+            {dataFromServer?.map((currentSubscription, index) => (
+              <TableRow
+                key={index}
+                titles={[
+                  index + 1,
+                  user?.data?.name?.first + " " + user?.data?.name?.last,
+                  currentSubscription?.plan?.interval === "month"
+                    ? "Monthly"
+                    : "Yearly",
+                  new Date(
+                    currentSubscription?.current_period_start * 1000
+                  ).toLocaleDateString(),
+                  new Date(
+                    currentSubscription?.current_period_end * 1000
+                  ).toLocaleDateString(),
+                  currentSubscription?.plan?.active === true
+                    ? "Active"
+                    : "Inactive",
+                ]}
+              />
+            ))}
           </div>
           {/* Footer */}
           <Footer
@@ -192,6 +204,7 @@ const Subscription = ({ isAdmin = false }) => {
             pageNumber={pageNumber}
             setPageNumber={setPageNumber}
             handleRadioClick={handleRadioClick}
+            isSubscriptionOverview={true}
           />
         </div>
       </div>

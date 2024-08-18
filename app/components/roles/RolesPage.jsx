@@ -89,7 +89,14 @@ const RolesPage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     dispatch(setCurrentPage("Roles"));
-    dispatch(fetchRolesByPage({ page: pageNumber, limit: dataLimit, isAdmin }));
+    dispatch(
+      fetchRolesByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
+    );
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -131,7 +138,14 @@ const RolesPage = ({ isAdmin = false }) => {
     setPageNumber(1);
 
     setSearchInputValue(e.target.value);
-    dispatch(fetchRolesByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchRolesByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
   const handleRadioClick = (e) => {

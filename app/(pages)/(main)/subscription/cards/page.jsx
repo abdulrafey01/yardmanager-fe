@@ -9,7 +9,11 @@ import { useDispatch } from "react-redux";
 import GreenBtn from "../../../../abstracts/GreenBtn";
 import { getCookie } from "../../../../helpers/storage";
 import axios from "axios";
-import { setCurrentPage } from "../../../../../lib/features/shared/sharedSlice";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+  setShowToast,
+} from "../../../../../lib/features/shared/sharedSlice";
 import { useRouter } from "next/navigation";
 
 const page = () => {
@@ -21,6 +25,7 @@ const page = () => {
     dispatch(setCurrentPage("Subscription"));
   }, [dispatch]);
 
+  const [refreshData, setRefreshData] = React.useState(false);
   useEffect(() => {
     const getCards = async () => {
       try {
@@ -46,7 +51,7 @@ const page = () => {
       }
     };
     getCards();
-  }, []);
+  }, [refreshData]);
 
   return (
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
@@ -60,20 +65,26 @@ const page = () => {
         >
           Back
         </div>
-        {/* Add Payment Button
+        {/* Add Payment Button */}
         <GreenBtn
           onClick={() => {
             dispatch(setShowSideMenu({ value: true, mode: "add" }));
           }}
           title={"Add Payment Method"}
-        /> */}
+        />
       </div>
 
       {/* Main container */}
       <div className="h-full bg-white border rounded-xl border-gray-300 p-6  ">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-center">
           {cardsList?.map((card) => {
-            return <PaymentCard key={card?._id} card={card} />;
+            return (
+              <PaymentCard
+                key={card?._id}
+                card={card}
+                setRefreshData={setRefreshData}
+              />
+            );
           })}
         </div>
       </div>

@@ -174,6 +174,45 @@ const SideBar = () => {
     },
   ];
 
+  // Pending subscription
+  // useEffect(() => {
+  //   if (pathName.includes("/admin")) {
+  //     setShowBtns(adminSideButtonsMain);
+  //     setShowBtnsBottom(sideButtonsBottom);
+  //     return;
+  //   }
+  //   if (user) {
+  //     if (user?.userType === "user" && user.subscription) {
+  //       setShowBtns(sideButtonsMain);
+  //       setShowBtnsBottom(sideButtonsBottom);
+  //       return;
+  //     } else if (user?.userType === "user" && !user.subscription) {
+  //       setShowBtns(
+  //         sideButtonsMain.filter((btn) => btn.name2 === "subscription")
+  //       );
+  //       setShowBtnsBottom(sideButtonsBottom);
+  //       return;
+  //     } else if (user?.userType === "employee" && user.subscription) {
+  //       const updatedHideBtns = {};
+
+  //       btnNames.forEach((name) => {
+  //         const privilege = user?.data?.role?.privileges.find(
+  //           (privilege) => privilege.name === name
+  //         );
+  //         updatedHideBtns[name] = privilege
+  //           ? !privilege?.permissions?.read
+  //           : true;
+  //       });
+  //       setHideBtns(updatedHideBtns);
+  //     } else {
+  //       setShowBtns(
+  //         sideButtonsMain.filter((btn) => btn.name2 === "subscription")
+  //       );
+  //       setShowBtnsBottom(sideButtonsBottom);
+  //       return;
+  //     }
+  //   }
+  // }, [user]);
   // Hide buttons based on user permissions
   useEffect(() => {
     if (pathName.includes("/admin")) {

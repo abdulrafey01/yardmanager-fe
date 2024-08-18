@@ -25,6 +25,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
     (state) => state.deletedItems
   );
   const { user } = useSelector((state) => state.auth);
+  const [searchInputValue, setSearchInputValue] = React.useState("");
 
   const [pagePermission, setPagePermission] = React.useState(null);
   // Get page permission
@@ -57,7 +58,12 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
   useEffect(() => {
     dispatch(setCurrentPage("DeletedItems"));
     dispatch(
-      fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      fetchDeletedItemsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
     );
   }, [dispatch, pageNumber]);
 
@@ -88,8 +94,16 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
   // Search function
   const handleSearch = (e) => {
     setPageNumber(1);
+    setSearchInputValue(e.target.value);
 
-    dispatch(fetchDeletedItemsByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchDeletedItemsByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
   const handleRadioClick = (e) => {
@@ -106,6 +120,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
       setDataLimit(10);
       setPageNumber(1);
     }
+    setSearchInputValue("");
   };
 
   const deleteAll = async () => {
@@ -179,6 +194,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
                 <Image src={SearchIcon} alt="SearchIcon" />
                 <input
                   type="text"
+                  value={searchInputValue}
                   placeholder="Search"
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}

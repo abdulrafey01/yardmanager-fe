@@ -63,7 +63,7 @@ export default function page() {
         dispatch(
           setShowToast({
             value: true,
-            msg: err.response.data.message,
+            msg: err?.response?.data?.message,
             red: true,
           })
         );

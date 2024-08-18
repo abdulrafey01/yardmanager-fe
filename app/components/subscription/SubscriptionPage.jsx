@@ -1,7 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentPage } from "../../../lib/features/shared/sharedSlice";
+import {
+  setCurrentPage,
+  setShowSideMenu,
+} from "../../../lib/features/shared/sharedSlice";
 import GreenBtn from "../../abstracts/GreenBtn";
 import NoSubscribeIcon from "../../assets/main/67-nosubscribe.svg";
 import Image from "next/image";
@@ -15,7 +18,7 @@ const page = ({ isAdmin = false }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   useEffect(() => {
-    dispatch(setCurrentPage("Subscription"));
+    dispatch(setCurrentPage("SubscriptionAdmin"));
   }, [dispatch]);
   const { user } = useSelector((state) => state.auth);
 
@@ -62,6 +65,19 @@ const page = ({ isAdmin = false }) => {
         {/* Subscribe Button */}
         <GreenBtn route={`/subscription/plans`} title={"Subscribe"} />
         <GreenBtn route={`/subscription/cards`} title={"Cards List"} />
+      </div>
+      <div
+        className={` items-center justify-end space-x-4  w-full ${
+          isAdmin ? "flex" : "hidden"
+        }`}
+      >
+        {/* Subscribe Button for admin page : Company overview*/}
+        <GreenBtn
+          onClick={() => {
+            dispatch(setShowSideMenu({ value: true, mode: "add" }));
+          }}
+          title={"Subscribe"}
+        />
       </div>
       {!currentSubscription ? (
         <div className="h-full border rounded-xl border-gray-300 flex flex-col justify-center  gap-4 items-center text-center tracking-wider">
@@ -113,9 +129,7 @@ const page = ({ isAdmin = false }) => {
                 new Date(
                   currentSubscription?.latest_invoice?.period_end * 1000
                 ).toLocaleDateString(),
-                currentSubscription?.plan?.active === true
-                  ? "Active"
-                  : "Inactive",
+                currentSubscription?.plan?.active,
               ]}
             />
           </div>

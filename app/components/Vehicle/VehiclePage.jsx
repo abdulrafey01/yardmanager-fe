@@ -82,7 +82,12 @@ const VehiclePage = ({ isAdmin = false }) => {
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
     dispatch(
-      fetchVehiclesByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      fetchVehiclesByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        search: searchInputValue,
+        isAdmin,
+      })
     );
   }, [dispatch, pageNumber]);
 
@@ -145,10 +150,17 @@ const VehiclePage = ({ isAdmin = false }) => {
     setPageNumber(1);
 
     setSearchInputValue(e.target.value);
-    dispatch(fetchVehiclesByPage({ search: e.target.value, isAdmin }));
+    dispatch(
+      fetchVehiclesByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+      })
+    );
   };
 
-  // Decode Btn CLick
+  // Decode Btn Click
   const handleDecodeBtnClick = () => {
     if (vinVal.length !== 17) {
       return dispatch(

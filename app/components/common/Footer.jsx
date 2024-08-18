@@ -1,10 +1,18 @@
 import React from "react";
 
-const Footer = ({ pageNumber, setPageNumber, totalPage, handleRadioClick }) => {
+const Footer = ({
+  pageNumber,
+  setPageNumber,
+  totalPage,
+  handleRadioClick,
+  isSubscriptionOverview = false,
+}) => {
   return (
     <div className="p-4 gap-2 w-full rounded-b-lg flex justify-between items-center">
       <p className="font-semibold text-sm">
-        Page {pageNumber > totalPage ? totalPage : pageNumber} of {totalPage}
+        {/* dont show totalpage in admin subscripiton page */}
+        Page {pageNumber > totalPage ? totalPage : pageNumber}{" "}
+        {isSubscriptionOverview ? "" : `of ${totalPage}`}
       </p>
       {/* Rows per page container */}
       <div className="relative flex items-center justify-center gap-2">

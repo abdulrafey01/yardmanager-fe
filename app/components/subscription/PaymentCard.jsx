@@ -5,11 +5,42 @@ import CardsIcon from "../../assets/main/72-cards.svg";
 import CirclesIcon from "../../assets/main/73-paycircles.svg";
 import RoundMenuIcon from "../../components/subscription/RoundMenuIcon";
 import Image from "next/image";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { getCookie } from "../../helpers/storage";
+import { setShowToast } from "../../../lib/features/shared/sharedSlice";
 
-const PaymentCard = ({ isCheckedOut = true, setIsCheckedOut, card }) => {
+const PaymentCard = ({
+  isCheckedOut = true,
+  setIsCheckedOut,
+  card,
+  setRefreshData,
+}) => {
   const [dateInputType, setDateInputType] = React.useState("text");
+  const [showMenu, setShowMenu] = React.useState(false);
   const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const deleteCard = async (id) => {
+    try {
+      const response = await axios.delete(
+        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/delete-card/" + id,
+        {
+          headers: {
+            Authorization: `Bearer ${
+              getCookie("token") || window?.sessionStorage.getItem("token")
+            }`,
+          },
+        }
+      );
+      setRefreshData(true);
+      setShowMenu(false);
+    } catch (error) {
+      dispatch(
+        setShowToast({ value: true, msg: error.response.data.error, red: true })
+      );
+    }
+  };
+
   return (
     <div
       className={`flex flex-1 flex-col  border border-gray-300 rounded-lg  `}
@@ -37,7 +68,34 @@ const PaymentCard = ({ isCheckedOut = true, setIsCheckedOut, card }) => {
             } gap-4`}
           >
             {/* Round Menu icon */}
-            <RoundMenuIcon />
+            <div className="relative ">
+              <div
+                onBlur={() =>
+                  setTimeout(() => {
+                    setShowMenu(false);
+                  }, 300)
+                }
+                tabIndex={0}
+                className="cursor-pointer"
+                onClick={() => setShowMenu(!showMenu)}
+              >
+                <RoundMenuIcon />
+              </div>
+              <div
+                className={`${
+                  showMenu ? "block" : "hidden"
+                } bg-white z-50 overflow-auto no-scrollbar absolute top-[135%] w-[100px]   left-0  rounded-lg border border-gray-300 p-3 flex flex-col justify-start max-h-40`}
+              >
+                <div
+                  onClick={() => {
+                    deleteCard(card?.id);
+                  }}
+                  className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                >
+                  Delete
+                </div>{" "}
+              </div>
+            </div>
             {/* Signal Icon */}
             <Image src={SignalIcon} alt="SignalIcon" />
           </div>

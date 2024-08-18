@@ -72,6 +72,7 @@ const EmployeePage = ({ isAdmin = false }) => {
         page: pageNumber,
         limit: dataLimit,
         filter: filterActive,
+        search: searchInputValue,
         isAdmin,
       })
     );
@@ -109,9 +110,16 @@ const EmployeePage = ({ isAdmin = false }) => {
     setFilterActive(undefined);
     setFilterAll(true); // for changing checkbox checked state
     if (e.target.value.length > 0) {
-      dispatch(fetchEmployeesByPage({ search: e.target.value, isAdmin }));
+      dispatch(
+        fetchEmployeesByPage({
+          page: 1,
+          limit: dataLimit,
+          search: e.target.value,
+          isAdmin,
+        })
+      );
     } else {
-      dispatch(fetchEmployeesByPage({ page: 1, limit: 10, isAdmin }));
+      dispatch(fetchEmployeesByPage({ page: 1, limit: dataLimit, isAdmin }));
     }
   };
 

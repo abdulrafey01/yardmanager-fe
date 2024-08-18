@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getCookie, getLocalStorage } from "./storage";
 import {
   adminLogout,
@@ -10,9 +10,49 @@ import axios from "axios";
 import { usePathname } from "next/navigation";
 import { cleanStorage } from "./cleanStorage";
 
+const defaultPrivileges = [
+  {
+    name: "employees",
+    permissions: { read: true, write: false, delete: false, update: false },
+  },
+  {
+    name: "invoices",
+    permissions: { read: true, write: true, delete: false, update: false },
+  },
+  {
+    name: "inventory",
+    permissions: { read: true, write: true, delete: true, update: false },
+  },
+  {
+    name: "locations",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+  {
+    name: "recycled",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+  {
+    name: "settings",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+  {
+    name: "parts",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+  {
+    name: "roles",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+  {
+    name: "vehicles",
+    permissions: { read: false, write: false, delete: false, update: false },
+  },
+];
 const useLoadAuthState = () => {
   const dispatch = useDispatch();
   const pathName = usePathname();
+  const { user } = useSelector((state) => state.auth);
+  const ref = useRef(false);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -71,6 +111,39 @@ const useLoadAuthState = () => {
 
     fetchUserInfo();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      if (ref.current) return;
+      ref.current = true;
+      const getSubscription = async () => {
+        try {
+          const response = await axios.get(
+            process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription",
+            {
+              headers: {
+                Authorization: `Bearer ${
+                  getCookie("token") || window?.sessionStorage.getItem("token")
+                }`,
+              },
+            }
+          );
+          if (response.data.data[0]) {
+            dispatch(setUser({ ...user, subscription: response.data.data[0] }));
+          } else {
+            dispatch(setUser({ ...user, subscription: null }));
+          }
+        } catch (error) {
+          console.log("Error fetching subscription info:", error);
+          dispatch(setUser({ ...user, subscription: null }));
+        }
+      };
+
+      if (!pathName.includes("admin")) {
+        getSubscription();
+      }
+    }
+  }, [user]);
 };
 
 export default useLoadAuthState;

@@ -56,7 +56,13 @@ const TableHead = ({ titles }) => {
           Action
         </p>
       ) : (
-        <p className=" min-w-16 p-3 bg-[#f2fff8]">Action</p>
+        <p
+          className={` min-w-16 p-3 bg-[#f2fff8] ${
+            currentPage === "SubscriptionAdmin" && "hidden"
+          }`}
+        >
+          Action
+        </p>
       )}
     </div>
   );

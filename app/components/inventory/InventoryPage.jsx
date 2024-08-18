@@ -42,6 +42,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
         limit: dataLimit,
         isAdmin,
         totalOverview,
+        search: searchInputValue,
       })
     );
   }, [dispatch, pageNumber]);
@@ -51,7 +52,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
     console.log("user", user);
 
     if (user) {
-      if (user.userType === "user" || user.userType === "admin") {
+      if (user?.userType === "user" || user?.userType === "admin") {
         return setPagePermission({
           read: true,
           write: true,
@@ -59,8 +60,17 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
           delete: true,
         });
       }
+      // Pending for subscription
+      // if (!user?.subscription) {
+      //   return setPagePermission({
+      //     read: false,
+      //     write: false,
+      //     update: false,
+      //     delete: false,
+      //   });
+      // }
       setPagePermission(
-        user.data.role.privileges.find(
+        user?.data?.role?.privileges?.find(
           (privilege) => privilege.name === "inventory"
         )?.permissions
       );
@@ -100,7 +110,13 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
     setPageNumber(1);
     setSearchInputValue(e.target.value);
     dispatch(
-      fetchInventoryByPage({ search: e.target.value, isAdmin, totalOverview })
+      fetchInventoryByPage({
+        page: 1,
+        limit: dataLimit,
+        search: e.target.value,
+        isAdmin,
+        totalOverview,
+      })
     );
   };
 
