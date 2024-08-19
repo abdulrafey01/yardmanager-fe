@@ -366,12 +366,12 @@ const page = () => {
         }
       );
       setCurrentSubscription(false);
-      dispatch(
-        setShowToast({
-          value: true,
-          msg: "Subscription Cancelled Successfully",
-        })
-      );
+      // dispatch(
+      //   setShowToast({
+      //     value: true,
+      //     msg: "Subscription Cancelled Successfully",
+      //   })
+      // );
 
       window?.location.reload();
     } catch (error) {

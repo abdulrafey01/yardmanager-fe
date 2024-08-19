@@ -39,12 +39,13 @@ const PlanBox = ({
         }
       );
       setCurrentSubscription(false);
-      dispatch(
-        setShowToast({
-          value: true,
-          msg: "Subscription Cancelled Successfully",
-        })
-      );
+      // dispatch(
+      //   setShowToast({
+      //     value: true,
+      //     msg: "Subscription Cancelled Successfully",
+      //   })
+      // );
+      window?.location.reload();
     } catch (error) {
       console.log("error", error);
       dispatch(
@@ -74,7 +75,9 @@ const PlanBox = ({
         `/subscription/my-plans?premium=${plan === "yearly" ? true : false}`
       );
     } catch (error) {
-      if (error.response.data.error.includes("Failed to update subscription")) {
+      if (
+        error?.response?.data?.error?.includes("Failed to update subscription")
+      ) {
         dispatch(
           setShowToast({
             value: true,
@@ -86,7 +89,7 @@ const PlanBox = ({
         dispatch(
           setShowToast({
             value: true,
-            msg: error.response.data.error,
+            msg: error?.response?.data?.error,
             red: true,
           })
         );
