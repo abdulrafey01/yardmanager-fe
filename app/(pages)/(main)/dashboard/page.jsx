@@ -259,263 +259,272 @@ const page = () => {
       setPageNumber(1);
     }
   }, [invoiceToast]);
+
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
-    <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-8 w-screen md:w-full ">
-      {/* First container */}
-      <div className="w-full bg-white flex flex-col items-start justify-start  p-4 rounded-xl gap-6 border border-gray-300">
-        {/* Container for Text and filter btn */}
-        <div className="flex justify-between items-center w-full">
-          <p
-            className={`font-bold text-base  ${montserrat.className} tracking-wider`}
-          >
-            AI Auto Parts
-          </p>
-          {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
+    user?.subscription && (
+      <div className="p-4 pt-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col gap-8 w-screen md:w-full ">
+        {/* First container */}
+        <div className="w-full bg-white flex flex-col items-start justify-start  p-4 rounded-xl gap-6 border border-gray-300">
+          {/* Container for Text and filter btn */}
+          <div className="flex justify-between items-center w-full">
+            <p
+              className={`font-bold text-base  ${montserrat.className} tracking-wider`}
+            >
+              AI Auto Parts
+            </p>
+            {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
             <p>Filter</p>
             <Image src={MenuIcon} alt="MenuIcon" />
           </div> */}
+          </div>
+          {/* 4 BLocks container */}
+          <div className="flex w-full justify-between items-center gap-5 flex-wrap">
+            <CountBlock
+              title={"Parts"}
+              icon={InvIcon}
+              count={data?.parts ?? 0}
+            />
+            <CountBlock
+              title={"Vehicles"}
+              icon={VhcIcon}
+              count={data?.vehicles ?? 0}
+            />
+            <CountBlock
+              title={"Locations"}
+              icon={InvoiceIcon}
+              count={data?.locations ?? 0}
+            />
+            <CountBlock
+              title={"Employees"}
+              icon={EmpIcon}
+              count={data?.employees ?? 0}
+            />
+          </div>
         </div>
-        {/* 4 BLocks container */}
-        <div className="flex w-full justify-between items-center gap-5 flex-wrap">
-          <CountBlock title={"Parts"} icon={InvIcon} count={data?.parts ?? 0} />
-          <CountBlock
-            title={"Vehicles"}
-            icon={VhcIcon}
-            count={data?.vehicles ?? 0}
-          />
-          <CountBlock
-            title={"Locations"}
-            icon={InvoiceIcon}
-            count={data?.locations ?? 0}
-          />
-          <CountBlock
-            title={"Employees"}
-            icon={EmpIcon}
-            count={data?.employees ?? 0}
-          />
-        </div>
-      </div>
-      {/* Container of 2 charts */}
-      <div className="w-full flex-col md:flex-row flex justify-center items-center gap-4">
-        <div className="w-full p-4 rounded-xl border border-gray-300 bg-white">
-          {/* First Chart */}
-          <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
-            {/* Text and input container */}
-            <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Vehicles Added</p>
-              {/* Time select input */}
-              <div
-                onClick={() => {
-                  setShowGraphFilter1(!showGraphFilter1);
-                }}
-                tabIndex={0}
-                onBlur={() => {
-                  setTimeout(() => {
-                    setShowGraphFilter1(false);
-                  }, 300);
-                }}
-                className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
-              >
-                <p>{filterValue1}</p>
-                <Image src={ArrowIcon} alt="ArrowIcon" />
-                {/* Dropdown */}
+        {/* Container of 2 charts */}
+        <div className="w-full flex-col md:flex-row flex justify-center items-center gap-4">
+          <div className="w-full p-4 rounded-xl border border-gray-300 bg-white">
+            {/* First Chart */}
+            <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
+              {/* Text and input container */}
+              <div className="w-full flex items-center justify-between">
+                <p className="font-bold text-lg">Vehicles Added</p>
+                {/* Time select input */}
                 <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
-                    showGraphFilter1 ? "block" : "hidden"
-                  }`}
+                  onClick={() => {
+                    setShowGraphFilter1(!showGraphFilter1);
+                  }}
+                  tabIndex={0}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setShowGraphFilter1(false);
+                    }, 300);
+                  }}
+                  className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
                 >
-                  <p
-                    onClick={() => {
-                      setFilterValue1("Daily");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                  <p>{filterValue1}</p>
+                  <Image src={ArrowIcon} alt="ArrowIcon" />
+                  {/* Dropdown */}
+                  <div
+                    className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
+                      showGraphFilter1 ? "block" : "hidden"
+                    }`}
                   >
-                    Daily
-                  </p>
-                  <p
-                    onClick={() => {
-                      setFilterValue1("Weekly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Weekly
-                  </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue1("Daily");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Daily
+                    </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue1("Weekly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Weekly
+                    </p>
 
-                  <p
-                    onClick={() => {
-                      setFilterValue1("Monthly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Monthly
-                  </p>
-                  <p
-                    onClick={() => {
-                      setFilterValue1("Yearly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Yearly
-                  </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue1("Monthly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Monthly
+                    </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue1("Yearly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Yearly
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* Chart */}
-            <BarChart
-              label={"Vehicles"}
-              xLabels={inventoryGraphDates}
-              data={inventoryMapData}
-              greenColor={true}
-            />
-          </div>
-        </div>
-        <div className="w-full p-4 rounded-xl border border-gray-300 bg-white">
-          {/* Second Chart Container*/}
-
-          <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
-            {/* Text and input container */}
-            <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Parts Inventoried</p>
-              {/* Time select input */}
-              <div
-                onClick={() => setShowGraphFilter2(!showGraphFilter2)}
-                tabIndex={0}
-                onBlur={() => {
-                  setTimeout(() => {
-                    setShowGraphFilter2(false);
-                  }, 300);
-                }}
-                className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
-              >
-                <p>{filterValue2}</p>
-                <Image src={ArrowIcon} alt="ArrowIcon" />
-                <div
-                  className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
-                    showGraphFilter2 ? "block" : "hidden"
-                  }`}
-                >
-                  <p
-                    onClick={() => {
-                      setFilterValue2("Daily");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Daily
-                  </p>
-                  <p
-                    onClick={() => {
-                      setFilterValue2("Weekly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Weekly
-                  </p>
-                  <p
-                    onClick={() => {
-                      setFilterValue2("Monthly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Monthly
-                  </p>
-                  <p
-                    onClick={() => {
-                      setFilterValue2("Yearly");
-                    }}
-                    className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
-                  >
-                    Yearly
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Chart */}
-            <BarChart
-              label={"Parts"}
-              xLabels={partGraphdates}
-              data={partMapData}
-              greenColor={false}
-            />
-          </div>
-        </div>
-      </div>
-      {pagePermission?.read && (
-        <div className=" border rounded-xl border-gray-300 flex flex-col">
-          {/* Table Title container */}
-          <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
-            <p className="hidden sm:block font-bold text-lg md:text-2xl">
-              Invoices List
-            </p>
-            <p className="sm:hidden font-bold text-lg md:text-2xl">Invoices</p>
-            {/* Search abd filter input container*/}
-            <div className="flex  space-x-2 sm:space-x-4">
-              <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-                <Image src={SearchIcon} alt="SearchIcon" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="w-full outline-none bg-transparent"
-                  onChange={handleSearch}
-                />
-              </div>
-            </div>
-          </div>
-          {/* Table Container */}
-          <div className="overflow-x-auto sm:overflow-visible">
-            {/* Head */}
-            <TableHead
-              titles={[
-                "User Name",
-                "Invoice #",
-                "Customer Name",
-                "Email Address",
-                "Grand Total",
-                "Order Date",
-                "Status",
-              ]}
-            />
-            {/* Body */}
-            {dataFromServer.length == 0 && (
-              <div className="text-center p-8 font-semibold">
-                No Data Available
-              </div>
-            )}
-            {dataFromServer.map((data, index) => (
-              <TableRow
-                titles={[
-                  data.name,
-                  data._id,
-                  data.name,
-                  data.email,
-                  (() => {
-                    let subTotal = data.products.reduce((acc, product) => {
-                      return acc + product.quantity * product.price;
-                    }, 0);
-                    return subTotal + (data.tax * subTotal) / 100;
-                  })(),
-
-                  new Date(data.datePaid).toLocaleDateString(),
-                  data.status,
-                ]}
-                key={index}
-                rowIndex={index}
-                item={data}
-                permissions={pagePermission}
+              {/* Chart */}
+              <BarChart
+                label={"Vehicles"}
+                xLabels={inventoryGraphDates}
+                data={inventoryMapData}
+                greenColor={true}
               />
-            ))}
+            </div>
           </div>
-          {/* Footer */}
-          <Footer
-            totalPage={totalPage}
-            pageNumber={pageNumber}
-            setPageNumber={setPageNumber}
-            handleRadioClick={handleRadioClick}
-          />
+          <div className="w-full p-4 rounded-xl border border-gray-300 bg-white">
+            {/* Second Chart Container*/}
+
+            <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
+              {/* Text and input container */}
+              <div className="w-full flex items-center justify-between">
+                <p className="font-bold text-lg">Parts Inventoried</p>
+                {/* Time select input */}
+                <div
+                  onClick={() => setShowGraphFilter2(!showGraphFilter2)}
+                  tabIndex={0}
+                  onBlur={() => {
+                    setTimeout(() => {
+                      setShowGraphFilter2(false);
+                    }, 300);
+                  }}
+                  className="p-2 relative cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3"
+                >
+                  <p>{filterValue2}</p>
+                  <Image src={ArrowIcon} alt="ArrowIcon" />
+                  <div
+                    className={`absolute top-12 bg-white rounded-lg p-2 right-0 w-[110%] border border-black ${
+                      showGraphFilter2 ? "block" : "hidden"
+                    }`}
+                  >
+                    <p
+                      onClick={() => {
+                        setFilterValue2("Daily");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Daily
+                    </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue2("Weekly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Weekly
+                    </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue2("Monthly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Monthly
+                    </p>
+                    <p
+                      onClick={() => {
+                        setFilterValue2("Yearly");
+                      }}
+                      className="p-1 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      Yearly
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {/* Chart */}
+              <BarChart
+                label={"Parts"}
+                xLabels={partGraphdates}
+                data={partMapData}
+                greenColor={false}
+              />
+            </div>
+          </div>
         </div>
-      )}
-    </div>
+        {pagePermission?.read && (
+          <div className=" border rounded-xl border-gray-300 flex flex-col">
+            {/* Table Title container */}
+            <div className="p-4 w-full gap-2 rounded-t-lg flex justify-between items-center">
+              <p className="hidden sm:block font-bold text-lg md:text-2xl">
+                Invoices List
+              </p>
+              <p className="sm:hidden font-bold text-lg md:text-2xl">
+                Invoices
+              </p>
+              {/* Search abd filter input container*/}
+              <div className="flex  space-x-2 sm:space-x-4">
+                <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
+                  <Image src={SearchIcon} alt="SearchIcon" />
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="w-full outline-none bg-transparent"
+                    onChange={handleSearch}
+                  />
+                </div>
+              </div>
+            </div>
+            {/* Table Container */}
+            <div className="overflow-x-auto sm:overflow-visible">
+              {/* Head */}
+              <TableHead
+                titles={[
+                  "User Name",
+                  "Invoice #",
+                  "Customer Name",
+                  "Email Address",
+                  "Grand Total",
+                  "Order Date",
+                  "Status",
+                ]}
+              />
+              {/* Body */}
+              {dataFromServer.length == 0 && (
+                <div className="text-center p-8 font-semibold">
+                  No Data Available
+                </div>
+              )}
+              {dataFromServer.map((data, index) => (
+                <TableRow
+                  titles={[
+                    data.name,
+                    data._id,
+                    data.name,
+                    data.email,
+                    (() => {
+                      let subTotal = data.products.reduce((acc, product) => {
+                        return acc + product.quantity * product.price;
+                      }, 0);
+                      return subTotal + (data.tax * subTotal) / 100;
+                    })(),
+
+                    new Date(data.datePaid).toLocaleDateString(),
+                    data.status,
+                  ]}
+                  key={index}
+                  rowIndex={index}
+                  item={data}
+                  permissions={pagePermission}
+                />
+              ))}
+            </div>
+            {/* Footer */}
+            <Footer
+              totalPage={totalPage}
+              pageNumber={pageNumber}
+              setPageNumber={setPageNumber}
+              handleRadioClick={handleRadioClick}
+            />
+          </div>
+        )}
+      </div>
+    )
   );
 };
 

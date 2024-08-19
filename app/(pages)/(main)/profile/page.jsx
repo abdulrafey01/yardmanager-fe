@@ -372,6 +372,8 @@ const page = () => {
           msg: "Subscription Cancelled Successfully",
         })
       );
+
+      window?.location.reload();
     } catch (error) {
       console.log("error", error);
       dispatch(
@@ -585,31 +587,34 @@ const page = () => {
           </div>
         </div>
         {/* Block 3 */}
-        <div className="w-full bg-white p-4 space-y-4 rounded-lg">
-          <p className="font-bold text-[#344054] text-xl">Subscrpition</p>
-          {/* Subscrpition container */}
-          <div className="border w-56 sm:w-80 border-[#78FFB6] rounded-lg p-4 flex justify-between items-center">
-            <p className="font-bold">
-              {currentSubscription?.plan?.interval === "month"
-                ? "Monthly"
-                : "Yearly"}{" "}
-              Plan
-            </p>
-            <p>
-              {currentSubscription?.plan?.interval === "month"
-                ? "$83/month"
-                : "$105/year"}
-            </p>
-          </div>
-          <div className="flex justify-end">
-            <div
-              onClick={cancelSubscription}
-              className="p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
-            >
-              <p>Cancel Subscription</p>
+        {currentSubscription?.id && (
+          <div className="w-full bg-white p-4 space-y-4 rounded-lg">
+            <p className="font-bold text-[#344054] text-xl">Subscrpition</p>
+            {/* Subscrpition container */}
+
+            <div className="border w-56 sm:w-80 border-[#78FFB6] rounded-lg p-4 flex justify-between items-center">
+              <p className="font-bold">
+                {currentSubscription?.plan?.interval === "month"
+                  ? "Monthly"
+                  : "Yearly"}{" "}
+                Plan
+              </p>
+              <p>
+                {currentSubscription?.plan?.interval === "month"
+                  ? "$83/month"
+                  : "$105/year"}
+              </p>
+            </div>
+            <div className="flex justify-end">
+              <div
+                onClick={cancelSubscription}
+                className="p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
+              >
+                <p>Cancel Subscription</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
       {/* Image upload modal */}
       <div

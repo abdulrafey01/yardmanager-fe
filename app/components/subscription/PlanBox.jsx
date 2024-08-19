@@ -74,13 +74,23 @@ const PlanBox = ({
         `/subscription/my-plans?premium=${plan === "yearly" ? true : false}`
       );
     } catch (error) {
-      dispatch(
-        setShowToast({
-          value: true,
-          msg: "Unsubscribe From Other Plan first",
-          red: true,
-        })
-      );
+      if (error.response.data.error.includes("Failed to update subscription")) {
+        dispatch(
+          setShowToast({
+            value: true,
+            msg: "Unsubscribe from other plan first",
+            red: true,
+          })
+        );
+      } else {
+        dispatch(
+          setShowToast({
+            value: true,
+            msg: error.response.data.error,
+            red: true,
+          })
+        );
+      }
     }
   };
   return (

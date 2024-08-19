@@ -11,8 +11,6 @@ import FancyInput from "../../components/common/FancyInput";
 import Image from "next/image";
 import WhiteBtn from "../../abstracts/WhiteBtn";
 import GreenBtn from "../../abstracts/GreenBtn";
-import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
-import { setShowConfirmModal } from "../../../lib/features/subscription/subscriptionSlice";
 import axios from "axios";
 import { getCookie } from "../../helpers/storage";
 

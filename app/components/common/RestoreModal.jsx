@@ -9,11 +9,12 @@ import Image from "next/image";
 import { setShowRestoreModal } from "../../../lib/features/deleted-items/deletedItemsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { restoreInventory } from "../../../lib/features/deleted-items/deletedItemsActions";
-import { setShowConfirmModal } from "../../../lib/features/subscription/subscriptionSlice";
+// import { setShowConfirmModal } from "../../../lib/features/subscription/subscriptionSlice";
 
 const RestoreModal = () => {
   const { showRestoreModal } = useSelector((state) => state.deletedItems);
-  const { confirmModal } = useSelector((state) => state.subscribe);
+  // const { confirmModal } = useSelector((state) => state.subscribe)
+  let confirmModal;
   const { selectedItem } = useSelector((state) => state.shared);
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();

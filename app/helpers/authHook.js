@@ -7,7 +7,7 @@ import {
   setUser,
 } from "../../lib/features/auth/authSlice";
 import axios from "axios";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cleanStorage } from "./cleanStorage";
 
 const defaultPrivileges = [
@@ -53,6 +53,7 @@ const useLoadAuthState = () => {
   const pathName = usePathname();
   const { user } = useSelector((state) => state.auth);
   const ref = useRef(false);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -132,10 +133,12 @@ const useLoadAuthState = () => {
             dispatch(setUser({ ...user, subscription: response.data.data[0] }));
           } else {
             dispatch(setUser({ ...user, subscription: null }));
+            router.push("/subscription");
           }
         } catch (error) {
           console.log("Error fetching subscription info:", error);
           dispatch(setUser({ ...user, subscription: null }));
+          router.push("/subscription");
         }
       };
 

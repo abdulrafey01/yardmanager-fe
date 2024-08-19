@@ -3,6 +3,8 @@ import React from "react";
 import SignalIcon from "../../assets/main/71-wifi.svg";
 import CardsIcon from "../../assets/main/72-cards.svg";
 import CirclesIcon from "../../assets/main/73-paycircles.svg";
+import DinersIcon from "../../assets/main/diners.svg";
+import Unionpay from "../../assets/main/unionpay.svg";
 import RoundMenuIcon from "../../components/subscription/RoundMenuIcon";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -103,7 +105,15 @@ const PaymentCard = ({
 
         {isCheckedOut && (
           <div className="flex justify-start items-center gap-4">
-            <Image src={CirclesIcon} alt="CirclesIcon" />
+            {card?.card?.brand === "mastercard" ? (
+              <Image src={CirclesIcon} alt="CirclesIcon" />
+            ) : card?.card?.brand === "diners" ? (
+              <Image src={DinersIcon} alt="DinersIcon" width={55} height={33} />
+            ) : card?.card?.brand === "unionpay" ? (
+              <Image src={Unionpay} alt="Unionpay" width={55} height={33} />
+            ) : (
+              ""
+            )}
             <p className="text-lg font-semibold">
               {user?.data?.name?.first} {user?.data?.name?.last}
             </p>

@@ -62,22 +62,42 @@ const VehiclePage = ({ isAdmin = false }) => {
   const formData = new FormData();
   // Get page permission
   useEffect(() => {
+    console.log("user", user);
+
     if (user) {
-      if (user.userType === "user" || user.userType === "admin") {
-        return setPagePermission({
+      if (user?.userType === "admin") {
+        setPagePermission({
           read: true,
           write: true,
           update: true,
           delete: true,
         });
+      } else {
+        if (user?.subscription) {
+          if (user?.userType === "user") {
+            setPagePermission({
+              read: true,
+              write: true,
+              update: true,
+              delete: true,
+            });
+          } else {
+            setPagePermission(
+              user?.data?.role?.privileges?.find(
+                (privilege) => privilege.name === "vehicles"
+              )?.permissions
+            );
+          }
+        } else {
+          setPagePermission({
+            read: false,
+            write: false,
+            update: false,
+            delete: false,
+          });
+        }
       }
-      setPagePermission(
-        user.data.role.privileges.find(
-          (privilege) => privilege.name === "vehicles"
-        )?.permissions
-      );
     }
-    console.log(user);
   }, [user]);
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
