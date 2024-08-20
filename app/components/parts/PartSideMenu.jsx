@@ -10,6 +10,7 @@ import CrossIcon from "../../assets/main/64-cross.svg";
 import Image from "next/image";
 import GreenToggle from "../common/GreenToggle";
 import { getLocalStorage, setLocalStorage } from "../../helpers/storage";
+import MultiInput from "../common/MultiInput";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { toastMsg } = useSelector((state) => state.parts);
@@ -156,61 +157,38 @@ const PartSideMenu = () => {
               />
             </div>
             {/* Part Variant input */}
-            <div className="w-full flex flex-wrap gap-2 gap-y-4 p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              {formData.variant.map((variant, index) => (
-                <div
-                  key={index}
-                  className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center gap-2 text-sm `}
-                >
-                  {variant}
-                  <Image
-                    onClick={() => removeVariantFromList(index)}
-                    className="cursor-pointer"
-                    src={CrossIcon}
-                    alt="cross"
-                  />
-                </div>
-              ))}
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
 
-                  if (e.target[0].value.length < 1) {
-                    return dispatch(
-                      setShowToast({
-                        value: true,
-                        msg: "Variant must be at least 1 character",
-                        red: true,
-                      })
-                    );
-                  } else if (e.target[0].value.length > 25) {
-                    return dispatch(
-                      setShowToast({
-                        value: true,
-                        msg: "Variant must be less than 25 characters",
-                        red: true,
-                      })
-                    );
-                  } else {
-                    setFormData({
-                      ...formData,
-                      variant: [...formData.variant, e.target[0].value],
-                    });
-                    setVariantInputVal("");
-                  }
-                }}
-                className="w-full outline-none"
-              >
-                <input
-                  className="w-full outline-none"
-                  type="text"
-                  placeholder="Variant"
-                  name="variant"
-                  onChange={(e) => setVariantInputVal(e.target.value)}
-                  value={variantInputVal}
-                />
-              </form>
-            </div>
+            <MultiInput
+              dataToMap={formData.variant}
+              placeholder="Variant"
+              name="variant"
+              onPressEnter={(e) => {
+                if (e.length < 1) {
+                  dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Variant should be at least 1 character",
+                      red: true,
+                    })
+                  );
+                } else if (e.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Variant must be less than 25 characters",
+                      red: true,
+                    })
+                  );
+                } else {
+                  setFormData({
+                    ...formData,
+                    variant: [...formData.variant, e],
+                  });
+                }
+              }}
+              removeItemFunction={removeVariantFromList}
+            />
+
             {/* Color toggle */}
             <div className="w-full flex justify-between items-center">
               {/* Text container */}

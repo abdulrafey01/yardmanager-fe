@@ -17,7 +17,7 @@ import { getCookie } from "../../../helpers/storage";
 const SubscriptionAdminSideMenu = () => {
   const dispatch = useDispatch();
   const { showSideMenu } = useSelector((state) => state.shared);
-  const [showDropDown, setShowDropDown] = React.useState(true);
+  const [showDropDown, setShowDropDown] = React.useState(false);
   const [inputVal, setInputVal] = React.useState("");
 
   const onPlanNameClick = (val) => {
