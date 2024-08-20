@@ -127,16 +127,6 @@ const VehiclePage = ({ isAdmin = false }) => {
   useEffect(() => {
     if (toastMsg) {
       if (pagePermission?.read) {
-        // if vin decode failed close the menu
-        if (toastMsg?.red === true) {
-          // reset data fields
-          setImgArray2([]);
-          setVinVal("");
-          dispatch(setVinDecodedData(null));
-          setShowDecodeMenu(false);
-        } else {
-          setShowDecodeMenu(true);
-        }
         dispatch(setShowToast({ value: true, ...toastMsg, isAdmin }));
         dispatch(resetVehicleToast());
       }
@@ -191,7 +181,18 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    dispatch(vinDecode({ number: vinVal, isAdmin }));
+    dispatch(vinDecode({ number: vinVal, isAdmin }))
+      .unwrap()
+      .then((res) => {
+        setShowDecodeMenu(true);
+      })
+      .catch((err) => {
+        // reset data fields
+        setImgArray2([]);
+        setVinVal("");
+        dispatch(setVinDecodedData(null));
+        setShowDecodeMenu(false);
+      });
     // setShowDecodeMenu(true);
   };
 
@@ -363,8 +364,8 @@ const VehiclePage = ({ isAdmin = false }) => {
                 "SKU",
                 "Part",
                 "Year",
-                "Model",
                 "Make",
+                "Model",
                 "Variant",
                 "Notes",
                 "Location",
@@ -382,8 +383,8 @@ const VehiclePage = ({ isAdmin = false }) => {
                   data.sku,
                   data.part?.name,
                   new Date(data.startYear).getFullYear(),
-                  data.model,
                   data.make,
+                  data.model,
                   data.variant,
                   data.notes !== undefined ? data.notes : "",
                   data.location?.location ? data.location.location : "",

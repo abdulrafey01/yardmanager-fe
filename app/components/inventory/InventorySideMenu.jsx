@@ -17,9 +17,15 @@ import {
   addInventory,
   updateInventory,
 } from "../../../lib/features/inventory/inventoryActions";
-import { searchLocationByName } from "../../../lib/features/locations/locationActions";
+import {
+  fetchAllLocations,
+  searchLocationByName,
+} from "../../../lib/features/locations/locationActions";
 import "../../styles.css";
-import { searchPartByName } from "../../../lib/features/parts/partActions";
+import {
+  fetchAllParts,
+  searchPartByName,
+} from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { getLocalStorage } from "../../helpers/storage";
 import PlusIcon from "../../assets/main/82-plus.svg";
@@ -111,7 +117,18 @@ const InventorySideMenu = () => {
         })
       );
     } else {
-      setShowLocDropDown(false);
+      dispatch(
+        fetchAllLocations({
+          isAdmin: user?.userType === "admin",
+          totalOverview:
+            pathName === "/admin/inventory-overview"
+              ? {
+                  value: true,
+                  id: selectedItem.company,
+                }
+              : false,
+        })
+      );
     }
   };
 
@@ -148,7 +165,16 @@ const InventorySideMenu = () => {
         })
       );
     } else {
-      setShowPartDropDown(false);
+      fetchAllParts({
+        isAdmin: user?.userType === "admin",
+        totalOverview:
+          pathName === "/admin/inventory-overview"
+            ? {
+                value: true,
+                id: selectedItem.company,
+              }
+            : false,
+      });
     }
   };
   // Function to handle image change
@@ -538,7 +564,21 @@ const InventorySideMenu = () => {
                   name="location"
                   onChange={onLocInputChange}
                   autoComplete="off"
-                  onFocus={() => setShowLocDropDown(true)}
+                  onFocus={() => {
+                    setShowLocDropDown(true);
+                    dispatch(
+                      fetchAllLocations({
+                        isAdmin: user?.userType === "admin",
+                        totalOverview:
+                          pathName === "/admin/inventory-overview"
+                            ? {
+                                value: true,
+                                id: selectedItem.company,
+                              }
+                            : false,
+                      })
+                    );
+                  }}
                   onBlur={
                     () =>
                       setTimeout(() => {
@@ -551,11 +591,11 @@ const InventorySideMenu = () => {
                 <div
                   className={`${
                     showLocDropDown ? "block" : "hidden"
-                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                  } bg-white overflow-auto z-50  absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
                 >
                   {locationSearchData.length === 0 && (
                     <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
-                      Enter character to search
+                      No results
                     </p>
                   )}
                   {locationSearchData.map((loc) => {
@@ -580,7 +620,21 @@ const InventorySideMenu = () => {
                   name="location"
                   onChange={onPartInputChange}
                   autoComplete="off"
-                  onFocus={() => setShowPartDropDown(true)}
+                  onFocus={() => {
+                    setShowPartDropDown(true);
+                    dispatch(
+                      fetchAllParts({
+                        isAdmin: user?.userType === "admin",
+                        totalOverview:
+                          pathName === "/admin/inventory-overview"
+                            ? {
+                                value: true,
+                                id: selectedItem.company,
+                              }
+                            : false,
+                      })
+                    );
+                  }}
                   onBlur={() =>
                     setTimeout(() => {
                       setShowPartDropDown(false);
@@ -592,11 +646,11 @@ const InventorySideMenu = () => {
                 <div
                   className={`${
                     showPartDropDown ? "block" : "hidden"
-                  } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                  } bg-white overflow-auto  z-50 absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
                 >
                   {partSearchData.length === 0 && (
                     <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
-                      Enter character to search
+                      No results
                     </p>
                   )}
                   {partSearchData.map((part) => {

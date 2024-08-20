@@ -131,12 +131,12 @@ const Subscription = ({ isAdmin = false }) => {
       <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
         <div className="flex items-center justify-end space-x-4  w-full p-2">
           {/* Add Subscription Button */}
-          {/* <GreenBtn
+          <GreenBtn
             onClick={() =>
               dispatch(setShowSideMenu({ value: true, mode: "add" }))
             }
             title={"Add New Subscription"}
-          /> */}
+          />
         </div>
         {/* Table */}
         <div className=" border rounded-xl border-gray-300 flex flex-col">
@@ -195,6 +195,8 @@ const Subscription = ({ isAdmin = false }) => {
                     ? "Active"
                     : "Inactive",
                 ]}
+                rowIndex={index}
+                item={currentSubscription}
               />
             ))}
           </div>

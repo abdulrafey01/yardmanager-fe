@@ -13,12 +13,22 @@ import Image from "next/image";
 import DownArrow from "../../../assets/main/28-downarrow.svg";
 import axios from "axios";
 import { getCookie } from "../../../helpers/storage";
+import DropDownInput from "../../common/DropDownInput";
+import {
+  fetchAllYards,
+  searchYardByName,
+} from "../../../../lib/features/yards/yardActions";
+import { usePathname } from "next/navigation";
 
 const SubscriptionAdminSideMenu = () => {
   const dispatch = useDispatch();
   const { showSideMenu } = useSelector((state) => state.shared);
   const [showDropDown, setShowDropDown] = React.useState(false);
   const [inputVal, setInputVal] = React.useState("");
+  const [yardInputVal, setYardInputVal] = React.useState("");
+  const { yardSearchData } = useSelector((state) => state.yards);
+  const [yardId, setYardId] = React.useState(null);
+  const pathName = usePathname();
 
   const onPlanNameClick = (val) => {
     setInputVal(val);
@@ -26,7 +36,12 @@ const SubscriptionAdminSideMenu = () => {
   };
 
   const addSubscription = async () => {
-    let companyId = JSON.parse(localStorage.getItem("companyId"));
+    let companyId;
+    if (pathName.includes("subscription-overview")) {
+      companyId = yardId;
+    } else {
+      companyId = JSON.parse(localStorage.getItem("companyId"));
+    }
     let token =
       getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
     try {
@@ -46,12 +61,13 @@ const SubscriptionAdminSideMenu = () => {
         setShowToast({
           value: true,
           msg: "Subscription added successfully",
-          red: true,
         })
       );
       setInputVal("");
+      setYardId(null);
+      setYardInputVal("");
       dispatch(setShowSideMenu({ value: false }));
-      window?.location.reload();
+      window.location.reload();
     } catch (error) {
       dispatch(
         setShowToast({
@@ -73,6 +89,8 @@ const SubscriptionAdminSideMenu = () => {
       <div
         onClick={() => {
           setInputVal("");
+          setYardId(null);
+          setYardInputVal("");
           dispatch(setShowSideMenu({ value: false }));
           console.log("clicked");
         }}
@@ -94,7 +112,12 @@ const SubscriptionAdminSideMenu = () => {
               src={CrossIcon}
               alt="CrossIcon"
               className="cursor-pointer"
-              onClick={() => dispatch(setShowSideMenu({ value: false }))}
+              onClick={() => {
+                setInputVal("");
+                setYardId(null);
+                setYardInputVal("");
+                dispatch(setShowSideMenu({ value: false }));
+              }}
             />
           </div>
           {/* This additional container to make them opaque in preview mode */}
@@ -107,6 +130,12 @@ const SubscriptionAdminSideMenu = () => {
             <div className="w-full flex justify-between items-center relative p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 onClick={() => setShowDropDown(true)}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setShowDropDown(false);
+                  }, 300)
+                }
+                tabIndex={0}
                 className="w-full outline-none cursor-pointer"
                 type="text"
                 placeholder="Select Plan"
@@ -123,7 +152,7 @@ const SubscriptionAdminSideMenu = () => {
               <div
                 className={`${
                   showDropDown ? "block" : "hidden"
-                } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+                } bg-white overflow-auto no-scrollbar z-50 absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
               >
                 <p
                   onClick={() => onPlanNameClick("Monthly")}
@@ -139,6 +168,24 @@ const SubscriptionAdminSideMenu = () => {
                 </p>
               </div>
             </div>
+            <div
+              className={`${
+                pathName.includes("subscription-overview") ? "block" : "hidden"
+              }`}
+            >
+              <DropDownInput
+                inputValue={yardInputVal}
+                keyToShow={"name"}
+                onSearch={searchYardByName}
+                placeholder={"Select Yard"}
+                searchData={yardSearchData}
+                setIdFunc={(val) => {
+                  setYardId(val);
+                }}
+                setInputValue={setYardInputVal}
+                key={"company"}
+              />
+            </div>
           </div>
         </div>
         {/* Buttons */}
@@ -147,6 +194,8 @@ const SubscriptionAdminSideMenu = () => {
             <WhiteBtn
               onClick={() => {
                 setInputVal("");
+                setYardId(null);
+                setYardInputVal("");
                 dispatch(setShowSideMenu({ value: false }));
               }}
               title={"Cancel"}
@@ -156,7 +205,7 @@ const SubscriptionAdminSideMenu = () => {
           <div className="flex-1">
             <GreenBtn
               onClick={addSubscription}
-              title={"Save"}
+              title={"Subscribe"}
               textCenter={true}
             />
           </div>

@@ -16,9 +16,15 @@ import {
   addInventory,
   updateInventory,
 } from "../../../lib/features/inventory/inventoryActions";
-import { searchLocationByName } from "../../../lib/features/locations/locationActions";
+import {
+  fetchAllLocations,
+  searchLocationByName,
+} from "../../../lib/features/locations/locationActions";
 import "../../styles.css";
-import { searchPartByName } from "../../../lib/features/parts/partActions";
+import {
+  fetchAllParts,
+  searchPartByName,
+} from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { updateVehicle } from "../../../lib/features/vehicle/vehicleActions";
 import DropDownInput from "../common/DropDownInput";
@@ -391,6 +397,7 @@ const InventorySideMenu = () => {
                 inputValue={locValue}
                 keyToShow={"location"}
                 onSearch={searchLocationByName}
+                fetchAllFunc={fetchAllLocations}
                 placeholder={"Location"}
                 searchData={locationSearchData}
                 setIdFunc={(val) => {
@@ -405,6 +412,7 @@ const InventorySideMenu = () => {
                 inputValue={partValue}
                 keyToShow={"name"}
                 onSearch={searchPartByName}
+                fetchAllFunc={fetchAllParts}
                 placeholder={"Part"}
                 searchData={partSearchData}
                 setIdFunc={(val) => {

@@ -214,7 +214,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
           <div className=" overflow-x-auto sm:overflow-visible">
             {/* Head */}
             <TableHead
-              titles={["SKU", "Part", "Year", "Model", "Make", "Variant"]}
+              titles={["SKU", "Part", "Year", "Make", "Model", "Variant"]}
             />
             {/* Body */}
 
@@ -231,8 +231,8 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
                   `${new Date(data.startYear).getFullYear()} - ${new Date(
                     data.lastYear
                   ).getFullYear()}`,
-                  data.model,
                   data.make,
+                  data.model,
                   data.variant,
                 ]}
                 key={index}

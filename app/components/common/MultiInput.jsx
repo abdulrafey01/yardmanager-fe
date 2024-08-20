@@ -44,6 +44,7 @@ const MultiInput = ({
   }, [variantMenu]);
 
   const onVariantInputChange = (e) => {
+    setVariantMenu(true);
     setVariantInputVal(e.target.value);
     setFilteredVariantList(
       variantList.filter((item) =>
@@ -90,7 +91,7 @@ const MultiInput = ({
               placeholder={placeholder}
               name={name}
               value={variantInputVal}
-              onClick={() => setVariantMenu(!variantMenu)}
+              onFocus={() => setVariantMenu(true)}
               onChange={onVariantInputChange}
             />
             <div
@@ -109,7 +110,7 @@ const MultiInput = ({
                     <p
                       onClick={() => {
                         onPressEnter(variant);
-                        setVariantMenu(!variantMenu);
+                        setVariantMenu(false);
                       }}
                       className="p-2 px-4 border-b-[1px]  cursor-pointer hover:bg-gray-100 font-medium"
                     >

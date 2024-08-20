@@ -1,6 +1,7 @@
 import React from "react";
 import DotsIcon from "../../assets/main/31-icon.svg";
 import { useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
 
 const TableHead = ({ titles }) => {
   const { currentPage } = useSelector((state) => state.shared);
@@ -58,7 +59,7 @@ const TableHead = ({ titles }) => {
       ) : (
         <p
           className={` min-w-16 p-3 bg-[#f2fff8] ${
-            currentPage === "SubscriptionAdmin" && "hidden"
+            usePathname() === "/admin/subscription" && "hidden"
           }`}
         >
           Action

@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Badge from "../invoices/Badge";
 import "../../styles.css";
 import { setShowActionMenu } from "../../../lib/features/shared/sharedSlice";
+import { usePathname } from "next/navigation";
 
 const TableRow = ({
   titles,
@@ -490,7 +491,7 @@ const TableRow = ({
         <div
           className={` min-w-16 p-3 pl-8 relative text-center  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } ${currentPage === "SubscriptionAdmin" ? "hidden" : "flex"}`}
+          } ${usePathname() === "/admin/subscription" ? "hidden" : "flex"}`}
         >
           <Image
             onClick={() => {

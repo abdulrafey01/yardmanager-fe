@@ -10,9 +10,16 @@ const DropDownInput = ({
   placeholder,
   inputValue,
   setInputValue,
+  fetchAllFunc,
   setIdFunc,
   setColorToggle = null, // for setting color only in case of part
+  type,
 }) => {
+  const datesData = [];
+  for (let i = 1950; i < 2051; i++) {
+    datesData.push(i.toString());
+  }
+
   const [showDropDown, setShowDropDown] = React.useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -29,7 +36,12 @@ const DropDownInput = ({
         })
       );
     } else {
-      setShowDropDown(false);
+      dispatch(
+        fetchAllFunc({
+          isAdmin: user?.userType === "admin",
+          totalOverview: false,
+        })
+      );
     }
   };
 
@@ -41,10 +53,19 @@ const DropDownInput = ({
     }
     setShowDropDown(false);
   };
+
   return (
     <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
       <input
-        onClick={() => setShowDropDown(true)}
+        onFocus={() => {
+          setShowDropDown(true);
+          dispatch(
+            fetchAllFunc({
+              isAdmin: user?.userType === "admin",
+              totalOverview: false,
+            })
+          );
+        }}
         className="w-full outline-none"
         type="text"
         value={inputValue}
@@ -62,11 +83,9 @@ const DropDownInput = ({
       <div
         className={`${
           showDropDown ? "block" : "hidden"
-        } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
+        } bg-white overflow-auto z-50  absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
       >
-        {searchData.length == 0 && (
-          <p className="p-2">Enter character to search</p>
-        )}
+        {searchData.length == 0 && <p className="p-2"> No results</p>}
         {searchData.map((item) => {
           return (
             <p

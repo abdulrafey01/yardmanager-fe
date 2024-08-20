@@ -19,7 +19,7 @@ import { setShowRestoreModal } from "../../../lib/features/deleted-items/deleted
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { addInventory } from "../../../lib/features/inventory/inventoryActions";
-import { setLocalStorage } from "../../helpers/storage";
+import { getCookie, setLocalStorage } from "../../helpers/storage";
 import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 import {
   addToInventory,
@@ -31,6 +31,7 @@ import {
   handleYardActivation,
 } from "../../../lib/adminApis/yardApi";
 import { fetchYardsByPage } from "../../../lib/features/yards/yardActions";
+import axios from "axios";
 
 const ActionMenu = ({ index, item, permissions, fetchYards }) => {
   const dispatch = useDispatch();
@@ -39,6 +40,40 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
   const router = useRouter();
   const pathName = usePathname();
 
+  const cancelSubscription = async () => {
+    try {
+      let token =
+        getCookie("adminToken") || window?.sessionStorage.getItem("adminToken");
+
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/cancel/" + item.id,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Subscription cancelled successfully",
+          red: false,
+        })
+      );
+      setTimeout(() => {
+        window?.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.log("error", error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: "Fail to cancel subscription",
+          red: true,
+        })
+      );
+    }
+  };
   const duplicateInventory = () => {
     console.log("item", item);
 
@@ -216,55 +251,68 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
             <p className="font-semibold hover:font-bold">Edit</p>
           </div>
         ))}
-      <div
-        onClick={() => {
-          dispatch(setShowActionMenu(-1));
-          dispatch(setSelectedItem(item));
+      {pathName === "/admin/subscription-overview" ? (
+        <div
+          onClick={() => {
+            cancelSubscription(item.id);
+          }}
+          className=" flex cursor-pointer justify-center items-center space-x-2 "
+        >
+          <Image src={DelIcon} alt="delete" height={20} width={20} />
+          <p className="font-semibold hover:font-bold">Cancel</p>
+        </div>
+      ) : (
+        <div
+          onClick={() => {
+            dispatch(setShowActionMenu(-1));
+            dispatch(setSelectedItem(item));
 
-          if (currentPage === "Invoices" || currentPage === "Dashboard") {
-            return dispatch(
-              setPreviewModal({
-                value: true,
-                data: {
-                  id: item._id,
-                  name: item.name,
-                  email: item.email,
-                  phone: item.phone,
-                  products: item.products
-                    .filter((obj) => obj.product)
-                    .map((obj) => ({
-                      name: obj.product.name,
-                      quantity: obj.quantity,
-                      price: obj.price,
-                      date: obj.date,
-                    })),
-                  tax: item.tax,
-                  paid: item.paid,
-                  status: item.status,
-                  notes: item.notes,
-                  datePaid: item.datePaid,
-                  paymentMethod: item.paymentMethod,
-                },
-              })
-            );
-          }
-          if (currentPage === "Employee") {
-            dispatch(setShowEmployeeSideMenu(true));
-            dispatch(setShowSideMenu({ value: true, mode: "preview" }));
-          } else {
-            dispatch(
-              setShowSideMenu({
-                value: true,
-                mode: "preview",
-              })
-            );
-          }
-        }}
-        className="cursor-pointer flex justify-center items-center space-x-2 "
-      >
-        <Image src={PrevIcon} alt="preview" height={20} width={20} />
-        <p className="font-semibold hover:font-bold">Preview</p>
-      </div>
+            if (currentPage === "Invoices" || currentPage === "Dashboard") {
+              return dispatch(
+                setPreviewModal({
+                  value: true,
+                  data: {
+                    id: item._id,
+                    name: item.name,
+                    email: item.email,
+                    phone: item.phone,
+                    products: item.products
+                      .filter((obj) => obj.product)
+                      .map((obj) => ({
+                        name: obj.product.name,
+                        quantity: obj.quantity,
+                        price: obj.price,
+                        date: obj.date,
+                      })),
+                    tax: item.tax,
+                    paid: item.paid,
+                    status: item.status,
+                    notes: item.notes,
+                    datePaid: item.datePaid,
+                    paymentMethod: item.paymentMethod,
+                  },
+                })
+              );
+            }
+            if (currentPage === "Employee") {
+              dispatch(setShowEmployeeSideMenu(true));
+              dispatch(setShowSideMenu({ value: true, mode: "preview" }));
+            } else {
+              dispatch(
+                setShowSideMenu({
+                  value: true,
+                  mode: "preview",
+                })
+              );
+            }
+          }}
+          className="cursor-pointer flex justify-center items-center space-x-2 "
+        >
+          <Image src={PrevIcon} alt="preview" height={20} width={20} />
+          <p className="font-semibold hover:font-bold">Preview</p>
+        </div>
+      )}
+
       {permissions?.delete && (
         <div
           onClick={() => {
