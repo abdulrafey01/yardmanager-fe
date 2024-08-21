@@ -13,16 +13,22 @@ const DropDownInput = ({
   fetchAllFunc,
   setIdFunc,
   setColorToggle = null, // for setting color only in case of part
-  type,
+  typeInventory = false,
+  typeDate = false,
 }) => {
-  const datesData = [];
-  for (let i = 1950; i < 2051; i++) {
-    datesData.push(i.toString());
-  }
-
   const [showDropDown, setShowDropDown] = React.useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
+  // Get the current year
+  const currentYear = new Date().getFullYear();
+
+  // Generate an array of years from 1950 to the current year
+  const yearsArray = Array.from({ length: currentYear - 1950 + 1 }, (_, i) =>
+    (1950 + i).toString()
+  );
+
+  // Example of using the yearsArray
+  console.log(yearsArray); // ["1950", "1951", ..., "2024"]
 
   const onInputChange = (e) => {
     setInputValue(e.target.value);
@@ -47,7 +53,11 @@ const DropDownInput = ({
 
   const onNameClick = (item) => {
     setInputValue(item[keyToShow]);
-    setIdFunc(item._id);
+    if (typeInventory) {
+      setIdFunc(item);
+    } else {
+      setIdFunc(item._id);
+    }
     if (setColorToggle) {
       setColorToggle(item.color);
     }

@@ -18,7 +18,10 @@ import {
 import GreenBtn from "../../abstracts/GreenBtn";
 import WhiteBtn from "../../abstracts/WhiteBtn";
 import DownArrow from "../../assets/main/28-downarrow.svg";
-import { searchInventoryByName } from "../../../lib/features/inventory/inventoryActions";
+import {
+  fetchAllInventory,
+  searchInventoryByName,
+} from "../../../lib/features/inventory/inventoryActions";
 import ProductDetailRow from "../../components/invoices/ProductDetailRow";
 import {
   addInvoice,
@@ -35,6 +38,8 @@ import axios from "axios";
 import { cleanStorage } from "../../helpers/cleanStorage";
 import { logout } from "../../../lib/features/auth/authSlice";
 import { resetInventorySearchData } from "../../../lib/features/inventory/inventorySlice";
+import DropDownInput from "../common/DropDownInput";
+import { fetchAllParts } from "../../../lib/features/parts/partActions";
 const CreateInvoicePage = ({ isAdmin = false }) => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { inventorySearchData, toastMsg: searchToast } = useSelector(
@@ -580,47 +585,21 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                 <div className="w-full flex-col lg:flex-row lg:flex justify-between border-gray-300 border-b">
                   <div className=" min-w-16 p-4 flex-[2] rounded-t-xl flex items-center">
                     {/* Inventory Name input */}
-                    <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                      <input
-                        className="w-full outline-none"
-                        type="text"
-                        value={productName}
-                        placeholder="Name"
-                        name="name"
-                        onChange={onProductNameInputChange}
-                        autoComplete="off"
-                        onFocus={() => setShowDropdown(true)}
-                        onBlur={() =>
-                          setTimeout(() => {
-                            setShowDropdown(false);
-                          }, 200)
-                        }
-                      />
-                      <Image src={DownArrow} alt="downarrow" />
-                      {/* Dropdown */}
-                      <div
-                        className={`${
-                          showDropdown ? "block" : "hidden"
-                        } bg-white overflow-auto no-scrollbar absolute top-[110%] w-full left-0  rounded-lg border border-black p-3 flex flex-col justify-start max-h-40`}
-                      >
-                        {inventorySearchData.length === 0 && (
-                          <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
-                            Enter character to search
-                          </p>
-                        )}
-                        {inventorySearchData.map((item, index) => {
-                          return (
-                            <p
-                              key={index}
-                              onClick={() => onProductNameClick(item)}
-                              className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-                            >
-                              {item.name}
-                            </p>
-                          );
-                        })}
-                      </div>
-                    </div>
+
+                    <DropDownInput
+                      inputValue={productName}
+                      keyToShow={"name"}
+                      onSearch={searchInventoryByName}
+                      fetchAllFunc={fetchAllInventory}
+                      placeholder={"Name"}
+                      searchData={inventorySearchData}
+                      setIdFunc={(val) => {
+                        onProductNameClick(val);
+                      }}
+                      setInputValue={setProductName}
+                      key={"name"}
+                      typeInventory={true}
+                    />
                   </div>
                   <div className=" min-w-16 p-4 flex-1 flex items-center">
                     <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
