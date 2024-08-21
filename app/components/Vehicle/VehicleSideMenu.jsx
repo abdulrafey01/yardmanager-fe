@@ -66,6 +66,12 @@ const InventorySideMenu = () => {
 
   const [partId, setPartId] = React.useState(null);
 
+  // To check during form submit
+  const currentYear = new Date().getFullYear();
+
+  const yearsArray = Array.from({ length: currentYear - 1950 + 1 }, (_, i) =>
+    (1950 + i).toString()
+  );
   // Function to handle input change
   const onInputChange = (e) => {
     // formDataRef.current.set(e.target.name, e.target.value);
@@ -111,22 +117,25 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.startYear === "") {
+    } else if (
+      formState.startYear === "" ||
+      !yearsArray.includes(formState.startYear)
+    ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Start Year field",
+          msg: "Please fill in Valid Start Year ",
           red: true,
         })
       );
     } else if (
       formState.lastYear === "" ||
-      isNaN(new Date(formState.lastYear).getTime())
+      !yearsArray.includes(formState.lastYear)
     ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Last Year field",
+          msg: "Please fill in Valid Last Year",
           red: true,
         })
       );
@@ -426,28 +435,22 @@ const InventorySideMenu = () => {
 
             {/* Inventory Dates input */}
             <div className="flex w-full space-x-4">
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  onClick={() => setDateType1(true)}
-                  className="w-full outline-none"
-                  type={dateType1 ? "date" : "text"}
-                  placeholder="Start Year"
-                  value={formState.startYear}
-                  name="startYear"
-                  onChange={onInputChange}
-                />
-              </div>
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  onClick={() => setDateType2(true)}
-                  className="w-full outline-none"
-                  type={dateType2 ? "date" : "text"}
-                  placeholder="Last Year"
-                  value={formState.lastYear}
-                  name="lastYear"
-                  onChange={onInputChange}
-                />
-              </div>
+              <DropDownInput
+                inputValue={formState.startYear}
+                setInputValue={(val) => {
+                  setFormState({ ...formState, startYear: val });
+                }}
+                typeDate={true}
+                placeholder={"Start Year"}
+              />
+              <DropDownInput
+                inputValue={formState.lastYear}
+                setInputValue={(val) => {
+                  setFormState({ ...formState, lastYear: val });
+                }}
+                typeDate={true}
+                placeholder={"Last Year"}
+              />
             </div>
 
             {/* Inventory Model input */}

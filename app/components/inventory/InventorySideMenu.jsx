@@ -27,6 +27,7 @@ import {
   searchPartByName,
 } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
+import DropDownInput from "../common/DropDownInput";
 import { getLocalStorage } from "../../helpers/storage";
 import PlusIcon from "../../assets/main/82-plus.svg";
 import ImageDropzone from "../common/ImageDropzone";
@@ -80,6 +81,12 @@ const InventorySideMenu = () => {
   // Image toggle for inventory
   const [imageToggle, setImageToggle] = React.useState(false);
 
+  // To check during form submit
+  const currentYear = new Date().getFullYear();
+
+  const yearsArray = Array.from({ length: currentYear - 1950 + 1 }, (_, i) =>
+    (1950 + i).toString()
+  );
   const pathName = usePathname();
   useEffect(() => {
     if (user) {
@@ -224,23 +231,23 @@ const InventorySideMenu = () => {
       );
     } else if (
       formState.startYear === "" ||
-      formState.startYear === "Invalid Date"
+      !yearsArray.includes(formState.startYear)
     ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the start year field",
+          msg: "Please fill in Valid Start Year",
           red: true,
         })
       );
     } else if (
       formState.lastYear === "" ||
-      formState.lastYear === "Invalid Date"
+      !yearsArray.includes(formState.lastYear)
     ) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Last Year field",
+          msg: "Please fill in Valid Last Year",
           red: true,
         })
       );
@@ -669,40 +676,22 @@ const InventorySideMenu = () => {
 
             {/* Inventory Dates input */}
             <div className="flex w-full space-x-4">
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  onClick={() => setDateType1(true)}
-                  className="w-full outline-none"
-                  type={dateType1 ? "date" : "text"}
-                  placeholder="Start Year"
-                  value={
-                    formState.startYear.length > 1 // So that not show invalid date on add mode
-                      ? !dateType1
-                        ? new Date(formState.startYear).toLocaleDateString()
-                        : formState.startYear
-                      : ""
-                  } // bcz on edge browser the date function not working on Inputs date values
-                  name="startYear"
-                  onChange={onInputChange}
-                />
-              </div>
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  onClick={() => setDateType2(true)}
-                  className="w-full outline-none"
-                  type={dateType2 ? "date" : "text"}
-                  placeholder="Last Year"
-                  value={
-                    formState.lastYear?.length > 1
-                      ? !dateType2
-                        ? new Date(formState.lastYear).toLocaleDateString()
-                        : formState.lastYear
-                      : ""
-                  }
-                  name="lastYear"
-                  onChange={onInputChange}
-                />
-              </div>
+              <DropDownInput
+                inputValue={formState.startYear}
+                setInputValue={(val) => {
+                  setFormState({ ...formState, startYear: val });
+                }}
+                typeDate={true}
+                placeholder={"Start Year"}
+              />
+              <DropDownInput
+                inputValue={formState.lastYear}
+                setInputValue={(val) => {
+                  setFormState({ ...formState, lastYear: val });
+                }}
+                typeDate={true}
+                placeholder={"Last Year"}
+              />
             </div>
             {/* Inventory Model input */}
             <MultiInput

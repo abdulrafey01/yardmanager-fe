@@ -29,10 +29,15 @@ const DropDownInput = ({
 
   // Example of using the yearsArray
   console.log(yearsArray); // ["1950", "1951", ..., "2024"]
+  const [filteredDates, setFilteredDates] = React.useState([]);
 
   const onInputChange = (e) => {
     setInputValue(e.target.value);
-    if (e.target.value.length >= 1) {
+    if (typeDate) {
+      setFilteredDates(
+        yearsArray.filter((year) => year.includes(e.target.value))
+      );
+    } else if (e.target.value.length >= 1) {
       setShowDropDown(true);
       dispatch(
         onSearch({
@@ -52,9 +57,10 @@ const DropDownInput = ({
   };
 
   const onNameClick = (item) => {
-    setInputValue(item[keyToShow]);
     if (typeInventory) {
       setIdFunc(item);
+    } else if (typeDate) {
+      return setInputValue(item);
     } else {
       setIdFunc(item._id);
     }
@@ -62,32 +68,53 @@ const DropDownInput = ({
       setColorToggle(item.color);
     }
     setShowDropDown(false);
+    setInputValue(item[keyToShow]);
   };
 
   return (
     <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-      <input
-        onFocus={() => {
-          setShowDropDown(true);
-          dispatch(
-            fetchAllFunc({
-              isAdmin: user?.userType === "admin",
-              totalOverview: false,
-            })
-          );
-        }}
-        className="w-full outline-none"
-        type="text"
-        value={inputValue}
-        placeholder={placeholder}
-        onChange={onInputChange}
-        autoComplete="off"
-        onBlur={() =>
-          setTimeout(() => {
-            setShowDropDown(false);
-          }, 300)
-        }
-      />
+      {typeDate ? (
+        <input
+          onFocus={() => {
+            setFilteredDates(yearsArray);
+            setShowDropDown(true);
+          }}
+          className="w-full outline-none"
+          type="number"
+          value={inputValue}
+          placeholder={placeholder}
+          onChange={onInputChange}
+          autoComplete="off"
+          onBlur={() =>
+            setTimeout(() => {
+              setShowDropDown(false);
+            }, 200)
+          }
+        />
+      ) : (
+        <input
+          onFocus={() => {
+            setShowDropDown(true);
+            dispatch(
+              fetchAllFunc({
+                isAdmin: user?.userType === "admin",
+                totalOverview: false,
+              })
+            );
+          }}
+          className="w-full outline-none"
+          type="text"
+          value={inputValue}
+          placeholder={placeholder}
+          onChange={onInputChange}
+          autoComplete="off"
+          onBlur={() =>
+            setTimeout(() => {
+              setShowDropDown(false);
+            }, 300)
+          }
+        />
+      )}
       <Image src={DownArrow} alt="downarrow" />
       {/* Dropdown */}
       <div
@@ -95,17 +122,35 @@ const DropDownInput = ({
           showDropDown ? "block" : "hidden"
         } bg-white overflow-auto z-50  absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
       >
-        {searchData.length == 0 && <p className="p-2"> No results</p>}
-        {searchData.map((item) => {
-          return (
-            <p
-              onClick={() => onNameClick(item)}
-              className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-            >
-              {item[keyToShow]}
-            </p>
-          );
-        })}
+        {typeDate ? (
+          <>
+            {filteredDates.map((item) => {
+              return (
+                <p
+                  onClick={() => onNameClick(item)}
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                >
+                  {item}
+                </p>
+              );
+            })}
+            {filteredDates.length == 0 && <p className="p-2"> No results</p>}
+          </>
+        ) : (
+          <>
+            {searchData.length == 0 && <p className="p-2"> No results</p>}
+            {searchData.map((item) => {
+              return (
+                <p
+                  onClick={() => onNameClick(item)}
+                  className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                >
+                  {item[keyToShow]}
+                </p>
+              );
+            })}
+          </>
+        )}
       </div>
     </div>
   );
