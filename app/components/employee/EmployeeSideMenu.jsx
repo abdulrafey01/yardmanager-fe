@@ -18,7 +18,10 @@ import {
   updateEmployee,
 } from "../../../lib/features/employee/employeeActions";
 import { searchLocationByName } from "../../../lib/features/locations/locationActions";
-import { searchRoleByName } from "../../../lib/features/roles/roleActions";
+import {
+  fetchAllRoles,
+  searchRoleByName,
+} from "../../../lib/features/roles/roleActions";
 import {
   resetRoleSearchData,
   resetState,
@@ -321,6 +324,7 @@ const EmployeeSideMenu = () => {
                 setIdFunc={(val) => {
                   setFormState({ ...formState, role: val });
                 }}
+                fetchAllFunc={fetchAllRoles}
                 placeholder={"Select Role"}
               />
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
