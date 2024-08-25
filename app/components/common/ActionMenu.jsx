@@ -251,7 +251,8 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
             <p className="font-semibold hover:font-bold">Edit</p>
           </div>
         ))}
-      {pathName === "/admin/subscription-overview" ? (
+      {pathName === "/admin/subscription-overview" ||
+      pathName === "/admin/dashboard" ? (
         <div
           onClick={() => {
             cancelSubscription(item.id);
