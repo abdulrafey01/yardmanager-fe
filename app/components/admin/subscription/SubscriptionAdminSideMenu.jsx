@@ -183,6 +183,7 @@ const SubscriptionAdminSideMenu = () => {
                   setYardId(val);
                 }}
                 setInputValue={setYardInputVal}
+                fetchAllFunc={fetchAllYards}
                 key={"company"}
               />
             </div>
