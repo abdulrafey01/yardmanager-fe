@@ -38,7 +38,7 @@ const BarChart = ({ greenColor, label, data, xLabels }) => {
             // Color of each bar
             // backgroundColor: ["#F8C513"],
             borderRadius: 5,
-            barThickness: 28,
+            barThickness: 20,
           },
         ],
       }}
