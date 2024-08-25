@@ -463,7 +463,8 @@ const TableRow = ({
           ? renderLocationRow(titles)
           : currentPage === "Inventory"
           ? renderInventoryRow(titles)
-          : currentPage === "SubscriptionAdmin"
+          : currentPage === "SubscriptionAdmin" ||
+            currentPage === "AdminDashboard"
           ? renderSubscriptionRow(titles)
           : titles.map((title, index) =>
               index === 0 ? (
