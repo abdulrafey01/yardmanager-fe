@@ -33,16 +33,16 @@ import { getCookie, getLocalStorage } from "../../../../helpers/storage";
 import { resetToast } from "../../../../../lib/features/dashboard/dashboardSlice";
 import Footer from "../../../../components/common/Footer";
 import { resetInvoiceToast } from "../../../../../lib/features/invoice/invoiceSlice";
+import { fetchSubscriptionsByPage } from "../../../../../lib/features/subscription/subscriptionActions";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 const page = () => {
   const {
     error,
-    invoiceData,
+    subscriptionData,
+    toastMsg: subToast,
     totalDataLength,
-    toastMsg: invoiceToast,
-  } = useSelector((state) => state.invoice);
-
+  } = useSelector((state) => state.subscribe);
   const { user } = useSelector((state) => state.auth);
   const { showSideMenu } = useSelector((state) => state.shared);
   const {
@@ -71,7 +71,13 @@ const page = () => {
   const [pagePermission, setPagePermission] = React.useState(null);
   useEffect(() => {
     dispatch(setCurrentPage("AdminDashboard"));
-    // dispatch(fetchInvoicesByPage({ page: pageNumber, limit: dataLimit }));
+    dispatch(
+      fetchSubscriptionsByPage({
+        page: pageNumber,
+        limit: dataLimit,
+        isAdmin: true,
+      })
+    );
   }, [dispatch, pageNumber]);
 
   useEffect(() => {
@@ -92,13 +98,6 @@ const page = () => {
     }
     // console.log(user);
   }, [user]);
-
-  useEffect(() => {
-    if (invoiceToast) {
-      dispatch(setShowToast({ value: true, ...invoiceToast }));
-    }
-    dispatch(resetInvoiceToast());
-  }, [invoiceToast]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -215,13 +214,17 @@ const page = () => {
   }, [dsbdError]);
 
   useEffect(() => {
-    // When invoice data has come set total pages
-    if (invoiceData) {
-      setDataFromServer(invoiceData);
-      let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
-      setTotalPage(totalPage);
+    if (subscriptionData) {
+      setDataFromServer(subscriptionData);
+      // let { totalPage } = calcTotalPage(totalDataLength, dataLimit);
+      if (totalDataLength) {
+        setTotalPage(100);
+      } else if (!totalDataLength) {
+        setTotalPage(pageNumber);
+      }
+      console.log("subscriptionData", subscriptionData);
     }
-  }, [invoiceData, dataLimit]);
+  }, [subscriptionData, dataLimit]);
   // If clicked on edit or preview button  of action menu then redirect to create page
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -230,16 +233,16 @@ const page = () => {
   }, [showSideMenu]);
 
   const handleRadioClick = (e) => {
-    if (e.target.value == 20) {
-      // dispatch(fetchInvoicesByPage({ page: 1, limit: 20 }));
-      setDataLimit(20);
+    if (e.target.value == 25) {
+      dispatch(fetchSubscriptionsByPage({ page: 1, limit: 25, isAdmin: true }));
+      setDataLimit(25);
       setPageNumber(1);
-    } else if (e.target.value == 30) {
-      // dispatch(fetchInvoicesByPage({ page: 1, limit: 30 }));
-      setDataLimit(30);
+    } else if (e.target.value == 50) {
+      dispatch(fetchSubscriptionsByPage({ page: 1, limit: 50, isAdmin: true }));
+      setDataLimit(50);
       setPageNumber(1);
     } else {
-      // dispatch(fetchInvoicesByPage({ page: 1, limit: 10 }));
+      dispatch(fetchSubscriptionsByPage({ page: 1, limit: 10, isAdmin: true }));
       setDataLimit(10);
       setPageNumber(1);
     }
@@ -438,80 +441,71 @@ const page = () => {
         {/* Table Title container */}
         <div className="p-4 gap-2 w-full rounded-t-lg flex justify-between items-center">
           <p className="hidden sm:block font-bold text-lg md:text-2xl">
-            Subscription Items
-          </p>
-          <p className="sm:hidden font-bold text-lg md:text-2xl">
             Subscription
           </p>
-          {/* Search and filter input container */}
-          <div className="flex space-x-2 sm:space-x-4">
-            <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-              <Image src={SearchIcon} alt="SearchIcon" />
-              <input
-                type="text"
-                name="search"
-                placeholder="Search"
-                className="w-full outline-none bg-transparent"
-                //   onChange={handleSearch}
-              />
-            </div>
-            <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
-              <p>Filter</p>
-              <Image src={MenuIcon} alt="MenuIcon" />
-            </div>
-          </div>
+          <p className="sm:hidden font-bold text-lg md:text-2xl">
+            Subscriptions
+          </p>
+          {/* Search and filter input container
+            <div className="flex space-x-2 sm:space-x-4">
+              <div className="flex p-2 w-32 sm:w-60 rounded-lg  space-x-2 border-[1.5px] border-gray-300">
+                <Image src={SearchIcon} alt="SearchIcon" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="w-full outline-none bg-transparent"
+                  value={searchInputValue}
+                  onChange={handleSearch}
+                />
+              </div>
+            </div> */}
         </div>
         {/* Table Container */}
         <div className=" overflow-x-auto sm:overflow-visible">
           {/* Head */}
           <TableHead
             titles={[
-              "Sr.No",
+              "Sr.#",
               "Name",
               "Subscription Plan",
               "Start Date",
-              "End Date",
+              "Renewal Date",
               "Status",
             ]}
           />
           {/* Body */}
-          <TableRow
-            titles={[
-              "1",
-              "Mashaim Tariq",
-              "Premium",
-              ["10/10/2022", "10/10/2022"],
-              "10/10/2022",
-              "Active",
-            ]}
-          />
+          {dataFromServer?.map((currentSubscription, index) => (
+            <TableRow
+              key={index}
+              titles={[
+                index + 1,
+                user?.data?.name?.first + " " + user?.data?.name?.last,
+                currentSubscription?.plan?.interval === "month"
+                  ? "Monthly"
+                  : "Yearly",
+                new Date(
+                  currentSubscription?.current_period_start * 1000
+                ).toLocaleDateString(),
+                new Date(
+                  currentSubscription?.current_period_end * 1000
+                ).toLocaleDateString(),
+                currentSubscription?.plan?.active === true
+                  ? "Active"
+                  : "Inactive",
+              ]}
+              rowIndex={index}
+              item={currentSubscription}
+            />
+          ))}
         </div>
         {/* Footer */}
-        <div className="p-4 w-full rounded-b-lg flex justify-between items-center">
-          <p className="font-semibold text-sm">
-            Page {pageNumber} of {totalPage}
-          </p>
-          <div className="flex space-x-2">
-            <div
-              onClick={() =>
-                setPageNumber(pageNumber === 1 ? 1 : pageNumber - 1)
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Previous
-            </div>
-            <div
-              onClick={() =>
-                setPageNumber(
-                  pageNumber === totalPage ? pageNumber : pageNumber + 1
-                )
-              }
-              className="cursor-pointer hover:bg-gray-300 py-2 px-4 border border-gray-300 text-sm font-bold rounded-lg"
-            >
-              Next
-            </div>
-          </div>
-        </div>
+        <Footer
+          totalPage={totalPage}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          handleRadioClick={handleRadioClick}
+          isSubscriptionOverview={true}
+        />
       </div>
     </div>
   );
