@@ -492,7 +492,12 @@ const TableRow = ({
         <div
           className={` min-w-16 p-3 pl-8 relative text-center  items-center ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } ${usePathname() === "/admin/subscription" ? "hidden" : "flex"}`}
+          } ${
+            usePathname() === "/admin/subscription" ||
+            usePathname() === "/subscription"
+              ? "hidden"
+              : "flex"
+          }`}
         >
           <Image
             onClick={() => {

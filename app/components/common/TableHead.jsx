@@ -59,7 +59,8 @@ const TableHead = ({ titles }) => {
       ) : (
         <p
           className={` min-w-16 p-3 bg-[#f2fff8] ${
-            usePathname() === "/admin/subscription" && "hidden"
+            usePathname() === "/admin/subscription" ||
+            (usePathname() === "/subscription" && "hidden")
           }`}
         >
           Action
