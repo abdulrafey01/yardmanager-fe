@@ -36,6 +36,24 @@ const SubscriptionAdminSideMenu = () => {
   };
 
   const addSubscription = async () => {
+    if (!inputVal) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select a plan",
+          red: true,
+        })
+      );
+    }
+    if (!yardId) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select a yard",
+          red: true,
+        })
+      );
+    }
     let companyId;
     if (pathName.includes("subscription-overview")) {
       companyId = yardId;

@@ -81,6 +81,100 @@ const YardSideMenu = () => {
 
     const formData = new FormData();
 
+    if (!formState.firstName || formState.firstName === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter First name",
+          red: true,
+        })
+      );
+    }
+    if (!formState.lastName || formState.lastName === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Last name",
+          red: true,
+        })
+      );
+    }
+    if (!formState.email || formState.email === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Email",
+          red: true,
+        })
+      );
+    }
+    if (!formState.password || formState.password === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Password",
+          red: true,
+        })
+      );
+    }
+    if (!formState.companyName || formState.companyName === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Company name",
+          red: true,
+        })
+      );
+    }
+    if (!formState.companyPhone || formState.companyPhone === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Company Phone",
+          red: true,
+        })
+      );
+    }
+    if (!formState.companyAddress || formState.companyAddress === "") {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please enter Company Address",
+          red: true,
+        })
+      );
+    }
+    if (showSideMenu.mode === "add") {
+      if (!profileImage) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please select Profile Image",
+            red: true,
+          })
+        );
+      }
+      if (!companyImage) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please select Company Image",
+            red: true,
+          })
+        );
+      }
+
+      if (!coverImage) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please select Cover Image",
+            red: true,
+          })
+        );
+      }
+    }
+
     if (showSideMenu.mode === "edit") {
       // submit personal form
       formData.append("name[first]", formState.firstName);
