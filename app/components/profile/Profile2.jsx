@@ -82,7 +82,7 @@ const Profile2 = ({ isAdmin = false }) => {
   useEffect(() => {
     if (user) {
       const routePage = async () => {
-        if ((await JSON.parse(getLocalStorage("user"))?.userType) === "user") {
+        if ((await user?.userType) === "user") {
           return router.push("/profile");
         }
       };
