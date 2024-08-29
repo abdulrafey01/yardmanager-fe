@@ -181,7 +181,9 @@ const Subscription = ({ isAdmin = false }) => {
                 key={index}
                 titles={[
                   index + 1,
-                  user?.data?.name?.first + " " + user?.data?.name?.last,
+                  currentSubscription?.user?.name?.first +
+                    " " +
+                    currentSubscription?.user?.name?.last,
                   currentSubscription?.plan?.interval === "month"
                     ? "Monthly"
                     : "Yearly",
