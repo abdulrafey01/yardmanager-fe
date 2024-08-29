@@ -45,17 +45,18 @@ const SubscriptionAdminSideMenu = () => {
         })
       );
     }
-    if (!yardId) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please select a yard",
-          red: true,
-        })
-      );
-    }
+
     let companyId;
     if (pathName.includes("subscription-overview")) {
+      if (!yardId) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please select a yard",
+            red: true,
+          })
+        );
+      }
       companyId = yardId;
     } else {
       companyId = JSON.parse(localStorage.getItem("companyId"));
