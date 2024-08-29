@@ -181,6 +181,15 @@ const InventorySideMenu = () => {
         );
       }
     }
+    if (Number(formState.lastYear) < Number(formState.startYear)) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Start Year cannot be greater than Last Year",
+          red: true,
+        })
+      );
+    }
     formData.append("name", formState.name);
     formData.append("location", locId);
     formData.append("part", partId);
