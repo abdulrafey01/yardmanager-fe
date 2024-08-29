@@ -92,6 +92,12 @@ const useLoadAuthState = () => {
             }
           );
           console.log("User info:", response.data);
+          if (response.data?.data?.company?.active === false) {
+            cleanStorage();
+            setTimeout(() => {
+              dispatch(logout());
+            }, 3000);
+          }
           dispatch(
             setUser({
               company: response.data.data.company,

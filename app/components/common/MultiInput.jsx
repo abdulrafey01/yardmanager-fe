@@ -71,9 +71,10 @@ const MultiInput = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          onPressEnter(e.target[0].value);
           if (name === "variant") {
-          } else {
-            onPressEnter(e.target[0].value);
+            setVariantInputVal("");
+            setVariantMenu(false);
           }
           e.target[0].value = "";
         }}
