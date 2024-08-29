@@ -135,7 +135,7 @@ const useLoadAuthState = () => {
               },
             }
           );
-          if (response.data.data[0]) {
+          if (response.data?.data[0]?.status === "active") {
             dispatch(setUser({ ...user, subscription: response.data.data[0] }));
           } else {
             dispatch(setUser({ ...user, subscription: null }));
