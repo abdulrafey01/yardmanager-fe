@@ -33,6 +33,7 @@ const MultiInput = ({
   const [variantMenu, setVariantMenu] = React.useState(false);
   const [variantInputVal, setVariantInputVal] = React.useState("");
 
+  const timeoutRef = useRef(null);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -79,10 +80,16 @@ const MultiInput = ({
           e.target[0].value = "";
         }}
         onBlur={() => {
-          setTimeout(() => {
+          timeoutRef.current = setTimeout(() => {
             setVariantMenu(false);
             setVariantInputVal("");
           }, 200);
+        }}
+        onFocus={() => {
+          if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+          }
+          setVariantMenu(true);
         }}
         tabIndex={0}
         className="w-full outline-none relative"
@@ -95,7 +102,6 @@ const MultiInput = ({
               placeholder={placeholder}
               name={name}
               value={variantInputVal}
-              onFocus={() => setVariantMenu(true)}
               onChange={onVariantInputChange}
             />
             <div
@@ -114,6 +120,7 @@ const MultiInput = ({
                     <p
                       onClick={() => {
                         onPressEnter(variant);
+                        setVariantInputVal("");
                         setVariantMenu(false);
                       }}
                       className="p-2 px-4 border-b-[1px]  cursor-pointer hover:bg-gray-100 font-medium"
