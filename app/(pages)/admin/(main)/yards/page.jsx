@@ -80,18 +80,18 @@ const LocationPage = () => {
     }
   }, [yardData, dataLimit]);
 
-  // useEffect(() => {
-  //   if (toastMsg) {
-  //     if (pagePermission?.read) {
-  //       dispatch(setShowToast({ value: true, ...toastMsg }));
-  //       if (toastMsg?.red === false) {
-  //         setPageNumber(1); // add yard returning different json, so on add calling fetchyard api, here just handling side effect
-  //         setDataLimit(10);
-  //       }
-  //       dispatch(resetYardToast());
-  //     }
-  //   }
-  // }, [toastMsg]);
+  useEffect(() => {
+    if (toastMsg) {
+      if (pagePermission?.read) {
+        dispatch(setShowToast({ value: true, ...toastMsg }));
+        if (toastMsg?.red === false) {
+          setPageNumber(1); // add yard returning different json, so on add calling fetchyard api, here just handling side effect
+          setDataLimit(10);
+        }
+        dispatch(resetYardToast());
+      }
+    }
+  }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {
     setPageNumber(1);

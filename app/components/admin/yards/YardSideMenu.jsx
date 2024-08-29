@@ -193,12 +193,12 @@ const YardSideMenu = () => {
           },
           userData: formData,
         })
-      );
-      // .unwrap()
-      // .then(() => {
-      //   dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
-      // })
-      // .catch((err) => {});
+      )
+        .unwrap()
+        .then(() => {
+          dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
+        })
+        .catch((err) => {});
     } else {
       formData.append("user[name][first]", formState.firstName);
       formData.append("user[name][last]", formState.lastName);
@@ -210,12 +210,12 @@ const YardSideMenu = () => {
       formData.append("companyImage", companyImage);
       formData.append("profile", profileImage);
       formData.append("cover", coverImage);
-      dispatch(addYard(formData));
-      // .unwrap()
-      // .then(() => {
-      //   dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
-      // })
-      // .catch((err) => {});
+      dispatch(addYard(formData))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchYardsByPage({ page: 1, limit: 10 }));
+        })
+        .catch((err) => {});
     }
   };
 
