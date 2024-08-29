@@ -311,6 +311,7 @@ const YardSideMenu = () => {
                   onChange={onInputChange}
                   placeholder="User Email"
                   value={formState.email}
+                  disabled={showSideMenu.mode === "edit"}
                   name="email"
                 />
               </div>
