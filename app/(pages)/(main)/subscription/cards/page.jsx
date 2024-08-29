@@ -66,12 +66,12 @@ const page = () => {
           Back
         </div>
         {/* Add Payment Button */}
-        <GreenBtn
+        {/* <GreenBtn
           onClick={() => {
             dispatch(setShowSideMenu({ value: true, mode: "add" }));
           }}
           title={"Add Payment Method"}
-        />
+        /> */}
       </div>
 
       {/* Main container */}
