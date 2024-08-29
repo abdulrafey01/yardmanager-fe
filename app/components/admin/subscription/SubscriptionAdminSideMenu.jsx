@@ -88,7 +88,7 @@ const SubscriptionAdminSideMenu = () => {
       dispatch(setShowSideMenu({ value: false }));
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
+      }, 2000);
     } catch (error) {
       dispatch(
         setShowToast({
