@@ -85,8 +85,8 @@ const LocationPage = () => {
       if (pagePermission?.read) {
         dispatch(setShowToast({ value: true, ...toastMsg }));
         if (toastMsg?.red === false) {
+          dispatch(fetchYardsByPage({ page: 1, limit: dataLimit }));
           setPageNumber(1); // add yard returning different json, so on add calling fetchyard api, here just handling side effect
-          setDataLimit(10);
         }
         dispatch(resetYardToast());
       }
@@ -119,12 +119,12 @@ const LocationPage = () => {
     setSearchInputValue("");
   };
   // on Close menu if no error
-  useEffect(() => {
-    if (toastMsg?.red === false) {
-      dispatch(fetchYardsByPage({ page: 1, limit: dataLimit }));
-      setPageNumber(1);
-    }
-  }, [toastMsg]);
+  // useEffect(() => {
+  //   if (toastMsg?.red === false) {
+  //     dispatch(fetchYardsByPage({ page: 1, limit: dataLimit }));
+  //     setPageNumber(1);
+  //   }
+  // }, [toastMsg]);
   return (
     // Width screen actullay also takes scrollbar width so that seems cut. Giving it outside container to avoid that
     // pr-6 for small devices to make content away from scrollbar due to screen width
@@ -176,7 +176,7 @@ const LocationPage = () => {
             {dataFromServer.map((data, index) => (
               <TableRow
                 titles={[
-                  index + 1,
+                  index + 1 + pageNumber * 10 - 10,
                   data?.name,
                   data?.owner?.email,
                   data?.countInventory,
