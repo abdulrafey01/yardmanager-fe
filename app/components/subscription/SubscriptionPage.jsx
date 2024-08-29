@@ -8,9 +8,9 @@ import {
 import GreenBtn from "../../abstracts/GreenBtn";
 import NoSubscribeIcon from "../../assets/main/67-nosubscribe.svg";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import axios from "axios";
-import { getCookie } from "../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../helpers/storage";
 import TableHead from "../../components/common/TableHead";
 import TableRow from "../../components/common/TableRow";
 
@@ -190,7 +190,9 @@ const page = ({ isAdmin = false }) => {
               <TableRow
                 titles={[
                   "1",
-                  user?.data?.name?.first + " " + user?.data?.name?.last,
+                  usePathname() === "/admin/subscription"
+                    ? JSON.parse(getLocalStorage("companyName"))
+                    : user?.data?.name?.first + " " + user?.data?.name?.last,
                   currentSubscription?.plan?.interval === "month"
                     ? "Monthly"
                     : "Yearly",

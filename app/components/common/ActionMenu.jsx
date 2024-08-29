@@ -392,6 +392,10 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
           <div
             onClick={() => {
               setLocalStorage("companyId", item._id);
+              setLocalStorage(
+                "companyName",
+                `${item.owner?.name?.first} ${item.owner?.name?.last}`
+              );
               router.push("/admin/overview");
             }}
             className=" flex cursor-pointer justify-center items-center space-x-2 "

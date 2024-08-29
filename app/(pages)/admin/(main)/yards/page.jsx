@@ -64,6 +64,7 @@ const LocationPage = () => {
   // Clean old data
   useEffect(() => {
     removeLocalStorage("companyId");
+    removeLocalStorage("companyName");
   }, []);
 
   useEffect(() => {
