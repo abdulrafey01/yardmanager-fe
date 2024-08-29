@@ -197,10 +197,10 @@ const page = ({ isAdmin = false }) => {
                     ? "Monthly"
                     : "Yearly",
                   new Date(
-                    currentSubscription?.latest_invoice?.period_start * 1000
+                    currentSubscription?.current_period_start * 1000
                   ).toLocaleDateString(),
                   new Date(
-                    currentSubscription?.latest_invoice?.period_end * 1000
+                    currentSubscription?.current_period_end * 1000
                   ).toLocaleDateString(),
                   currentSubscription?.plan?.active,
                 ]}
