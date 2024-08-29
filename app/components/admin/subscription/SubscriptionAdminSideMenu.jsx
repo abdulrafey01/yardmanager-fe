@@ -86,7 +86,9 @@ const SubscriptionAdminSideMenu = () => {
       setYardId(null);
       setYardInputVal("");
       dispatch(setShowSideMenu({ value: false }));
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
     } catch (error) {
       dispatch(
         setShowToast({
