@@ -22,7 +22,7 @@ const SectionOne = () => {
   }, []);
 
   return (
-    <div className="flex-1 hidden lg:flex flex-col  bg-black  p-8 justify-between items-center space-y-16 overflow-clip">
+    <div className="flex-1 hidden lg:flex flex-col  bg-black min-h-screen p-8 justify-between items-center space-y-16">
       <div className="flex flex-col space-y-4 w-full items-center overflow-visible">
         <div className="w-full">
           <Header />
