@@ -202,7 +202,7 @@ const page = ({ isAdmin = false }) => {
                   new Date(
                     currentSubscription?.current_period_end * 1000
                   ).toLocaleDateString(),
-                  currentSubscription?.plan?.active,
+                  currentSubscription?.status === "active" ? true : false,
                 ]}
               />
             </div>

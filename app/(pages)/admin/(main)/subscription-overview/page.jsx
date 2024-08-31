@@ -193,9 +193,7 @@ const Subscription = ({ isAdmin = false }) => {
                   new Date(
                     currentSubscription?.current_period_end * 1000
                   ).toLocaleDateString(),
-                  currentSubscription?.plan?.active === true
-                    ? "Active"
-                    : "Inactive",
+                  currentSubscription?.status === "active" ? true : false,
                 ]}
                 rowIndex={index}
                 item={currentSubscription}

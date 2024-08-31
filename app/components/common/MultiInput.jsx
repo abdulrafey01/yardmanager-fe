@@ -10,26 +10,10 @@ const MultiInput = ({
   removeItemFunction,
   placeholder,
   name,
+  dataList,
 }) => {
-  const variantList = [
-    "Front",
-    "Rear",
-    "Front Right",
-    "Front Left",
-    "Rear Right",
-    "Rear Left",
-    "Upper Front Right",
-    "Upper Front Left",
-    "Upper Rear Right",
-    "Upper Rear Left",
-    "Lower Front Right",
-    "Lower Front Left",
-    "Lower Rear Right",
-    "Lower Rear Left",
-  ]; // just for variant input
-
   const [filteredVariantList, setFilteredVariantList] =
-    React.useState(variantList);
+    React.useState(dataList);
   const [variantMenu, setVariantMenu] = React.useState(false);
   const [variantInputVal, setVariantInputVal] = React.useState("");
 
@@ -40,7 +24,7 @@ const MultiInput = ({
     if (variantMenu && menuRef.current) {
       menuRef.current.scrollTop = 0; // Scroll to the top whenever the menu is opened
       setVariantInputVal("");
-      setFilteredVariantList(variantList);
+      setFilteredVariantList(dataList);
     }
   }, [variantMenu]);
 
@@ -48,7 +32,7 @@ const MultiInput = ({
     setVariantMenu(true);
     setVariantInputVal(e.target.value);
     setFilteredVariantList(
-      variantList.filter((item) =>
+      dataList.filter((item) =>
         item.toLowerCase().includes(e.target.value.toLowerCase())
       )
     );

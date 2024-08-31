@@ -372,7 +372,7 @@ const page = () => {
           <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
             {/* Text and input container */}
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Parts Inventoried</p>
+              <p className="font-bold text-lg">Total Users</p>
               {/* Time select input */}
               <div
                 onClick={() => setShowGraphFilter2(!showGraphFilter2)}
@@ -428,7 +428,7 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Parts"}
+              label={"Users"}
               xLabels={partGraphdates}
               data={partMapData}
               greenColor={false}

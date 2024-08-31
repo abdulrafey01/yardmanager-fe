@@ -56,15 +56,15 @@ const PartSideMenu = () => {
         })
       );
     }
-    if (formData.variant.length === 0) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please fill in Variant field",
-          red: true,
-        })
-      );
-    }
+    // if (formData.variant.length === 0) {
+    //   return dispatch(
+    //     setShowToast({
+    //       value: true,
+    //       msg: "Please fill in Variant field",
+    //       red: true,
+    //     })
+    //   );
+    // }
 
     if (showSideMenu.mode === "edit") {
       dispatch(

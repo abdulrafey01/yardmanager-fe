@@ -145,15 +145,15 @@ const YardSideMenu = () => {
       );
     }
     if (showSideMenu.mode === "add") {
-      if (!profileImage) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please select Profile Image",
-            red: true,
-          })
-        );
-      }
+      // if (!profileImage) {
+      //   return dispatch(
+      //     setShowToast({
+      //       value: true,
+      //       msg: "Please select Profile Image",
+      //       red: true,
+      //     })
+      //   );
+      // }
       if (!companyImage) {
         return dispatch(
           setShowToast({
@@ -164,15 +164,15 @@ const YardSideMenu = () => {
         );
       }
 
-      if (!coverImage) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please select Cover Image",
-            red: true,
-          })
-        );
-      }
+      // if (!coverImage) {
+      //   return dispatch(
+      //     setShowToast({
+      //       value: true,
+      //       msg: "Please select Cover Image",
+      //       red: true,
+      //     })
+      //   );
+      // }
     }
 
     if (showSideMenu.mode === "edit") {
@@ -373,7 +373,7 @@ const YardSideMenu = () => {
                 img={profileImage}
                 onImageChange={(e) => setProfileImage(e.target.files[0])}
                 setImg={setProfileImage}
-                placeholder={"Upload Profile Image"}
+                placeholder={"Upload Profile Image (Optional)"}
               />
               {/*Company Profile and Cover Image */}
               <div className="flex w-full gap-4">
@@ -389,7 +389,7 @@ const YardSideMenu = () => {
                   img={coverImage}
                   onImageChange={(e) => setCoverImage(e.target.files[0])}
                   setImg={setCoverImage}
-                  placeholder={"Upload Cover Image"}
+                  placeholder={"Upload Cover Image (Optional)"}
                 />
               </div>
             </div>

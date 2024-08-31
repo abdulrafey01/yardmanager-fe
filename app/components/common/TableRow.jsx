@@ -29,14 +29,23 @@ const TableRow = ({
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
           }`}
         >
-          {titles[1].map((variant, index) => (
+          {titles[1].length === 0 ? (
             <div
               key={index}
               className={`bg-[#1212121A] rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
-              {variant}
+              No Variant
             </div>
-          ))}
+          ) : (
+            titles[1].map((variant, index) => (
+              <div
+                key={index}
+                className={`bg-[#1212121A] rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              >
+                {variant}
+              </div>
+            ))
+          )}
         </div>
       ) : (
         <div
