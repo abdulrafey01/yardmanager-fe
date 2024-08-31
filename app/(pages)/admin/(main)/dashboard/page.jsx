@@ -300,7 +300,7 @@ const page = () => {
           <div className="w-full flex-col  max-h-80 pb-4  flex items-center justify-between">
             {/* Text and input container */}
             <div className="w-full flex items-center justify-between">
-              <p className="font-bold text-lg">Total Inventory</p>
+              <p className="font-bold text-lg">Total Yards</p>
               {/* Time select input */}
               <div
                 onClick={() => {
