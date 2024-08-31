@@ -94,7 +94,7 @@ const MultiInput = ({
                 variantMenu ? "block" : "hidden"
               } bg-white overflow-auto absolute top-[160%] w-full left-0  rounded-lg border  shadow-md   flex flex-col justify-start max-h-40 pt-1 z-40`}
             >
-              {filteredVariantList.length === 0 ? (
+              {!filteredVariantList || filteredVariantList?.length === 0 ? (
                 <p className="p-2 px-4 border-b-[1px]  cursor-pointer text-gray-500  font-medium">
                   No Options
                 </p>
