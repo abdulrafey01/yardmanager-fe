@@ -362,7 +362,7 @@ const VehiclePage = ({ isAdmin = false }) => {
             <TableHead
               titles={[
                 "SKU",
-                "Part",
+                "Name",
                 "Year",
                 "Make",
                 "Model",

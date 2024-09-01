@@ -205,19 +205,19 @@ const InventorySideMenu = () => {
   const onFormSubmit = (e) => {
     e.preventDefault();
 
-    if (locValue === "") {
+    if (partId === null || partId === "" || !partId) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select the Name field",
+          red: true,
+        })
+      );
+    } else if (locValue === "") {
       return dispatch(
         setShowToast({
           value: true,
           msg: "Please fill the Location field",
-          red: true,
-        })
-      );
-    } else if (partId === null || partId === "" || !partId) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please select the Part field",
           red: true,
         })
       );
@@ -583,6 +583,61 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div> */}
+            {/* Inventory Part input */}
+            <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+              <input
+                className="w-full outline-none"
+                type="text"
+                value={partValue}
+                placeholder="Inventory Name"
+                name="location"
+                onChange={onPartInputChange}
+                autoComplete="off"
+                onFocus={() => {
+                  setShowPartDropDown(true);
+                  dispatch(
+                    fetchAllParts({
+                      isAdmin: user?.userType === "admin",
+                      totalOverview:
+                        pathName === "/admin/inventory-overview"
+                          ? {
+                              value: true,
+                              id: selectedItem.company,
+                            }
+                          : false,
+                    })
+                  );
+                }}
+                onBlur={() =>
+                  setTimeout(() => {
+                    setShowPartDropDown(false);
+                  }, 300)
+                }
+              />
+              <Image src={DownArrow} alt="downarrow" />
+              {/* Dropdown */}
+              <div
+                className={`${
+                  showPartDropDown ? "block" : "hidden"
+                } bg-white overflow-auto  z-50 absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
+              >
+                {partSearchData.length === 0 && (
+                  <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+                    No results
+                  </p>
+                )}
+                {partSearchData.map((part) => {
+                  return (
+                    <p
+                      onClick={() => onPartNameClick(part)}
+                      className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                    >
+                      {part.name}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
             <div className="flex w-full gap-4">
               {/* Inventory Location input */}
               <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
@@ -635,61 +690,6 @@ const InventorySideMenu = () => {
                         className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
                       >
                         {loc.location}
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
-              {/* Inventory Part input */}
-              <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="text"
-                  value={partValue}
-                  placeholder="Part"
-                  name="location"
-                  onChange={onPartInputChange}
-                  autoComplete="off"
-                  onFocus={() => {
-                    setShowPartDropDown(true);
-                    dispatch(
-                      fetchAllParts({
-                        isAdmin: user?.userType === "admin",
-                        totalOverview:
-                          pathName === "/admin/inventory-overview"
-                            ? {
-                                value: true,
-                                id: selectedItem.company,
-                              }
-                            : false,
-                      })
-                    );
-                  }}
-                  onBlur={() =>
-                    setTimeout(() => {
-                      setShowPartDropDown(false);
-                    }, 300)
-                  }
-                />
-                <Image src={DownArrow} alt="downarrow" />
-                {/* Dropdown */}
-                <div
-                  className={`${
-                    showPartDropDown ? "block" : "hidden"
-                  } bg-white overflow-auto  z-50 absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
-                >
-                  {partSearchData.length === 0 && (
-                    <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
-                      No results
-                    </p>
-                  )}
-                  {partSearchData.map((part) => {
-                    return (
-                      <p
-                        onClick={() => onPartNameClick(part)}
-                        className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-                      >
-                        {part.name}
                       </p>
                     );
                   })}

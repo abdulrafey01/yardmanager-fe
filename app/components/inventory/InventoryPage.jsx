@@ -214,7 +214,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
           <div className=" overflow-x-auto sm:overflow-visible">
             {/* Head */}
             <TableHead
-              titles={["SKU", "Part", "Year", "Make", "Model", "Variant"]}
+              titles={["SKU", "Name", "Year", "Make", "Model", "Variant"]}
             />
             {/* Body */}
 

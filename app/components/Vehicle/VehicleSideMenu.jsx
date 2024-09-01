@@ -95,15 +95,11 @@ const InventorySideMenu = () => {
     e.preventDefault();
     console.log(formState);
 
-    if (
-      formState.name === "" ||
-      !formState.name ||
-      formState.name.length <= 0
-    ) {
+    if (partId === null || partId === "" || !partId) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill the Name field",
+          msg: "Please Select Name from List",
           red: true,
         })
       );
@@ -112,14 +108,6 @@ const InventorySideMenu = () => {
         setShowToast({
           value: true,
           msg: "Please Select Location from List",
-          red: true,
-        })
-      );
-    } else if (partId === null || partId === "" || !partId) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please Select Part from List",
           red: true,
         })
       );
@@ -166,7 +154,12 @@ const InventorySideMenu = () => {
     }
     if (colorToggle === true) {
       console.log("color", formState.color);
-      if (formState.color.length === 0) {
+      if (
+        formState.color === "" ||
+        formState.color === null ||
+        formState.color === "undefined" ||
+        formState.color.length === 0
+      ) {
         return dispatch(
           setShowToast({
             value: true,
@@ -240,7 +233,7 @@ const InventorySideMenu = () => {
         });
       }
     } else {
-      formData.append("color", []);
+      // formData.append("color", []);
     }
 
     if (showSideMenu.mode === "edit") {
@@ -409,16 +402,20 @@ const InventorySideMenu = () => {
             }  flex flex-col space-y-4  items-center w-full `}
           >
             {/* Vehicle name input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                placeholder="Vehicle Name"
-                name="name"
-                value={formState.name}
-                onChange={onInputChange}
-              />
-            </div>
+            <DropDownInput
+              inputValue={partValue}
+              keyToShow={"name"}
+              onSearch={searchPartByName}
+              fetchAllFunc={fetchAllParts}
+              placeholder={"Vehicle Name"}
+              searchData={partSearchData}
+              setIdFunc={(val) => {
+                setPartId(val);
+              }}
+              setColorToggle={setColorToggle}
+              setInputValue={setPartValue}
+              key={"part"}
+            />
             <div className="flex w-full gap-4">
               {/* Vehicle Location input */}
 
@@ -436,21 +433,6 @@ const InventorySideMenu = () => {
                 key={"location"}
               />
               {/* Inventory Part input */}
-
-              <DropDownInput
-                inputValue={partValue}
-                keyToShow={"name"}
-                onSearch={searchPartByName}
-                fetchAllFunc={fetchAllParts}
-                placeholder={"Part"}
-                searchData={partSearchData}
-                setIdFunc={(val) => {
-                  setPartId(val);
-                }}
-                setColorToggle={setColorToggle}
-                setInputValue={setPartValue}
-                key={"part"}
-              />
             </div>
 
             {/* Inventory Dates input */}
