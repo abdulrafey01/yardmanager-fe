@@ -70,7 +70,7 @@ const useLoadAuthState = () => {
               },
             }
           );
-          dispatch(setUser({ data: response.data.data, userType: "admin" })); // as admin
+          dispatch(setUser({ data: response.data?.data, userType: "admin" })); // as admin
         } catch (error) {
           // Any error in fetching info ,logout
           cleanStorage();
@@ -100,9 +100,9 @@ const useLoadAuthState = () => {
           }
           dispatch(
             setUser({
-              company: response.data.data.company,
-              data: response.data.data.user,
-              userType: response.data.data.type,
+              company: response.data?.data?.company,
+              data: response.data?.data?.user,
+              userType: response.data?.data?.type,
             })
           );
         } catch (error) {

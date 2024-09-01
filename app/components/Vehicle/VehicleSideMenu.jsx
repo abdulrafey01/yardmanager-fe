@@ -407,7 +407,7 @@ const InventorySideMenu = () => {
               keyToShow={"name"}
               onSearch={searchPartByName}
               fetchAllFunc={fetchAllParts}
-              placeholder={"Vehicle Name"}
+              placeholder={"Name"}
               searchData={partSearchData}
               setIdFunc={(val) => {
                 setPartId(val);

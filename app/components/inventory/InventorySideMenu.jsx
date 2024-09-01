@@ -589,7 +589,7 @@ const InventorySideMenu = () => {
                 className="w-full outline-none"
                 type="text"
                 value={partValue}
-                placeholder="Inventory Name"
+                placeholder="Name"
                 name="location"
                 onChange={onPartInputChange}
                 autoComplete="off"
