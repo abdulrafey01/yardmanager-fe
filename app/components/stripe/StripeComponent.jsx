@@ -54,7 +54,7 @@ export default function App({ premium, clientSecret }) {
   };
 
   return (
-    <div className="App">
+    <div className="App max-sm:w-72  max-sm:overflow-x-auto">
       {clientSecret && (
         <Elements options={options} stripe={stripePromise}>
           <CheckoutForm />
