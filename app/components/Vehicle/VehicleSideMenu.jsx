@@ -233,7 +233,7 @@ const InventorySideMenu = () => {
         });
       }
     } else {
-      // formData.append("color", []);
+      formData.append("color", []);
     }
 
     if (showSideMenu.mode === "edit") {
