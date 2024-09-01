@@ -11,6 +11,7 @@ import Image from "next/image";
 import GreenToggle from "../common/GreenToggle";
 import { getLocalStorage, setLocalStorage } from "../../helpers/storage";
 import MultiInput from "../common/MultiInput";
+import { variantList } from "../../constants";
 const PartSideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { toastMsg } = useSelector((state) => state.parts);
@@ -162,6 +163,7 @@ const PartSideMenu = () => {
               dataToMap={formData.variant}
               placeholder="Variant"
               name="variant"
+              dataList={variantList}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(

@@ -77,8 +77,9 @@ const page = ({ isAdmin = false }) => {
           },
         }
       );
-      setCurrentSubscription(false);
-
+      if (isAdmin) {
+        setCurrentSubscription(false);
+      }
       if (!isAdmin) {
         window?.location.reload();
       }
@@ -103,6 +104,7 @@ const page = ({ isAdmin = false }) => {
         {/* Subscribe Button */}
         <div
           className={`${
+            //hide until loads
             (currentSubscription === null && "hidden") || currentSubscription
               ? "hidden"
               : "flex"
@@ -116,6 +118,20 @@ const page = ({ isAdmin = false }) => {
               cancelSubscription();
             }}
             title={"Cancel Subscription"}
+          />
+        </div>
+        <div
+          className={`${
+            currentSubscription?.status === "incomplete" ? "flex" : "hidden"
+          }`}
+        >
+          <GreenBtn
+            onClick={() => {
+              currentSubscription?.plan?.interval === "month"
+                ? router.push("/subscription/my-plans?premium=false")
+                : router.push("/subscription/my-plans?premium=true");
+            }}
+            title={"Complete Payment Process"}
           />
         </div>
         <GreenBtn route={`/subscription/cards`} title={"Cards List"} />

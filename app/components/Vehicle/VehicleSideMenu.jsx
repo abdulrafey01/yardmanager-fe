@@ -31,6 +31,12 @@ import DropDownInput from "../common/DropDownInput";
 import ImageDropzone from "../common/ImageDropzone";
 import { resetLocationSearchData } from "../../../lib/features/locations/locationSlice";
 import { resetPartSearchData } from "../../../lib/features/parts/partSlice";
+import {
+  variantList,
+  makeList,
+  modelList,
+  colorList,
+} from "../../constants/index";
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -57,7 +63,7 @@ const InventorySideMenu = () => {
     make: [],
     variant: [],
     notes: "",
-    color: "",
+    color: [],
     startYear: "",
     lastYear: "",
   });
@@ -117,10 +123,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (
-      formState.startYear === "" ||
-      !yearsArray.includes(formState.startYear)
-    ) {
+    } else if (formState.startYear === "") {
       return dispatch(
         setShowToast({
           value: true,
@@ -128,10 +131,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (
-      formState.lastYear === "" ||
-      !yearsArray.includes(formState.lastYear)
-    ) {
+    } else if (formState.lastYear === "") {
       return dispatch(
         setShowToast({
           value: true,
@@ -166,12 +166,7 @@ const InventorySideMenu = () => {
     }
     if (colorToggle === true) {
       console.log("color", formState.color);
-      if (
-        formState.color === "" ||
-        formState.color === null ||
-        formState.color === "undefined" ||
-        !formState.color
-      ) {
+      if (formState.color.length === 0) {
         return dispatch(
           setShowToast({
             value: true,
@@ -237,7 +232,15 @@ const InventorySideMenu = () => {
     }
 
     if (colorToggle) {
-      formData.append("color", formState.color);
+      if (formState.color.length === 1) {
+        formData.append("color", formState.color[0]);
+      } else {
+        formState.color.forEach((color, index) => {
+          formData.append(`color`, color);
+        });
+      }
+    } else {
+      formData.append("color", []);
     }
 
     if (showSideMenu.mode === "edit") {
@@ -259,7 +262,7 @@ const InventorySideMenu = () => {
         make: [],
         variant: [],
         notes: "",
-        color: "",
+        color: [],
         startYear: "",
         lastYear: "",
       });
@@ -301,6 +304,14 @@ const InventorySideMenu = () => {
     // console.log(index);
   };
 
+  const removeColorFromList = (index) => {
+    setFormState({
+      ...formState,
+      color: formState.color.filter((_, i) => i !== index),
+    });
+    // console.log(index);
+  };
+
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
@@ -336,7 +347,7 @@ const InventorySideMenu = () => {
         notes: "",
         startYear: "",
         lastYear: "",
-        color: "",
+        color: [],
       });
       setImgArray(null);
       setLocValue("");
@@ -358,7 +369,7 @@ const InventorySideMenu = () => {
       make: [],
       variant: [],
       notes: "",
-      color: "",
+      color: [],
       startYear: "",
       lastYear: "",
     });
@@ -466,7 +477,8 @@ const InventorySideMenu = () => {
             <MultiInput
               dataToMap={formState.model}
               placeholder="Model"
-              name="model"
+              name="variant"
+              dataList={modelList}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -497,7 +509,8 @@ const InventorySideMenu = () => {
             <MultiInput
               dataToMap={formState.make}
               placeholder="Make"
-              name="make"
+              name="variant"
+              dataList={makeList}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -529,6 +542,7 @@ const InventorySideMenu = () => {
               dataToMap={formState.variant}
               placeholder="Variant"
               name="variant"
+              dataList={variantList}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -557,16 +571,37 @@ const InventorySideMenu = () => {
             />
             {/* Color input based on toggle */}
             {colorToggle && (
-              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                <input
-                  className="w-full outline-none"
-                  type="text"
-                  placeholder="Color"
-                  name="color"
-                  value={formState.color}
-                  onChange={onInputChange}
-                />
-              </div>
+              <MultiInput
+                dataToMap={formState.color}
+                placeholder="Color"
+                dataList={colorList}
+                name="variant"
+                onPressEnter={(e) => {
+                  if (e.length < 1) {
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Color should be at least 1 character",
+                        red: true,
+                      })
+                    );
+                  } else if (e.length > 25) {
+                    return dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Color must be less than 25 characters",
+                        red: true,
+                      })
+                    );
+                  } else {
+                    setFormState({
+                      ...formState,
+                      color: [...(formState.color ? formState.color : []), e],
+                    });
+                  }
+                }}
+                removeItemFunction={removeColorFromList}
+              />
             )}
 
             {/* Inventory Notes input */}

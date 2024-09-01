@@ -32,7 +32,7 @@ const TableRow = ({
           {titles[1].length === 0 ? (
             <div
               key={index}
-              className={`bg-[#1212121A] rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212120c] rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
             >
               No Variant
             </div>

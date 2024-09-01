@@ -11,7 +11,7 @@ import {
 } from "../../../../../lib/features/shared/sharedSlice";
 import { useDispatch } from "react-redux";
 import StripeComponent from "../../../../components/stripe/StripeComponent";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { getCookie } from "../../../../helpers/storage";
 
@@ -25,6 +25,8 @@ const MyPlans = () => {
   useEffect(() => {
     dispatch(setCurrentPage("Subscription"));
   }, [dispatch]);
+
+  const router = useRouter();
 
   useEffect(() => {
     const getSecret = async () => {
@@ -55,12 +57,14 @@ const MyPlans = () => {
     <div className="p-4 pr-6 md:pr-4 bg-[#f9fafb] relative flex-1 flex flex-col space-y-4 w-screen md:w-full ">
       {/* First container for Buttons */}
       <div className="flex items-center justify-between space-x-4  w-full p-1">
-        <Link
-          href={"/subscription/plans"}
+        <div
+          onClick={() => {
+            router.back();
+          }}
           className="font-semibold text-lg cursor-pointer select-none"
         >
           Back
-        </Link>
+        </div>
         {/* Add Payment Button */}
         {/* <GreenBtn
           onClick={() => {

@@ -359,7 +359,7 @@ const page = () => {
             </div>
             {/* Chart */}
             <BarChart
-              label={"Inventory"}
+              label={"Yards"}
               xLabels={inventoryGraphDates}
               data={inventoryMapData}
               greenColor={true}
