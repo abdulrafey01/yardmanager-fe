@@ -112,6 +112,8 @@ const page = ({ isAdmin = false }) => {
         >
           <GreenBtn route={`/subscription/plans`} title={"Subscribe"} />
         </div>
+        <GreenBtn route={`/subscription/plans`} title={"Change Plan"} />
+
         <div className={`${currentSubscription ? "flex" : "hidden"}`}>
           <GreenBtn
             onClick={() => {

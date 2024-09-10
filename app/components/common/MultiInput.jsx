@@ -11,6 +11,7 @@ const MultiInput = ({
   placeholder,
   name,
   dataList,
+  stopOnChange = false,
 }) => {
   const [filteredVariantList, setFilteredVariantList] =
     React.useState(dataList);
@@ -86,7 +87,7 @@ const MultiInput = ({
               placeholder={placeholder}
               name={name}
               value={variantInputVal}
-              onChange={onVariantInputChange}
+              onChange={!stopOnChange ? onVariantInputChange : null}
             />
             <div
               ref={menuRef}

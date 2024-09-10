@@ -16,6 +16,7 @@ const ImageDropzone = ({
   setImgArray,
   onImageChange,
   htmlName = "image1",
+  placeholder = "Upload Part Image",
 }) => {
   const dispatch = useDispatch();
   return (
@@ -62,7 +63,7 @@ const ImageDropzone = ({
           htmlFor={htmlName}
         >
           <Image src={UploadIcon} alt="UploadIcon" />
-          <p className="text-[#01E268]">Upload Part Image</p>{" "}
+          <p className="text-[#01E268]">{placeholder}</p>{" "}
           <input
             onChange={onImageChange}
             id={htmlName}

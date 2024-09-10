@@ -41,6 +41,7 @@ const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
+
   const { toastMsg } = useSelector((state) => state.vehicle);
   const { user } = useSelector((state) => state.auth);
 
@@ -50,6 +51,7 @@ const InventorySideMenu = () => {
   // Values for inputs
   const [locValue, setLocValue] = React.useState("");
   const [partValue, setPartValue] = React.useState("");
+
   const dispatch = useDispatch();
   // for date input change types
   const [dateType1, setDateType1] = React.useState(false);
@@ -69,6 +71,7 @@ const InventorySideMenu = () => {
   });
   const [locId, setLocId] = React.useState(null);
   const [colorToggle, setColorToggle] = React.useState(false);
+  const [variantData, setVariantData] = React.useState([]);
 
   const [partId, setPartId] = React.useState(null);
 
@@ -322,6 +325,8 @@ const InventorySideMenu = () => {
         });
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem.part?.name);
+        setVariantData(selectedItem?.part?.variant);
+
         setImgArray(selectedItem?.images);
         setLocId(selectedItem.location?._id);
         setPartId(selectedItem.part?._id);
@@ -369,6 +374,7 @@ const InventorySideMenu = () => {
     setImgArray(null);
     setLocValue("");
     setPartValue("");
+    setVariantData([]);
     setDateType1(false);
     setDateType2(false);
   };
@@ -411,8 +417,10 @@ const InventorySideMenu = () => {
               searchData={partSearchData}
               setIdFunc={(val) => {
                 setPartId(val);
+                setFormState({ ...formState, variant: [] });
               }}
               setColorToggle={setColorToggle}
+              setVariantData={setVariantData}
               setInputValue={setPartValue}
               key={"part"}
             />
@@ -455,44 +463,18 @@ const InventorySideMenu = () => {
               />
             </div>
 
-            {/* Inventory Model input */}
-            <MultiInput
-              dataToMap={formState.model}
-              placeholder="Model"
-              name="variant"
-              dataList={modelList}
-              onPressEnter={(e) => {
-                if (e.length < 1) {
-                  dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model should be at least 1 character",
-                      red: true,
-                    })
-                  );
-                } else if (e.length > 25) {
-                  return dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model must be less than 25 characters",
-                      red: true,
-                    })
-                  );
-                } else {
-                  setFormState({
-                    ...formState,
-                    model: [...formState.model, e],
-                  });
-                }
-              }}
-              removeItemFunction={removeModelFromList}
-            />
             {/* Inventory Make input */}
             <MultiInput
               dataToMap={formState.make}
               placeholder="Make"
               name="variant"
-              dataList={makeList}
+              dataList={makeList.filter((item) => {
+                if (!formState.make.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -519,12 +501,57 @@ const InventorySideMenu = () => {
               }}
               removeItemFunction={removeMakeFromList}
             />
+            {/* Inventory Model input */}
+            <MultiInput
+              dataToMap={formState.model}
+              placeholder="Model"
+              name="variant"
+              dataList={modelList.filter((item) => {
+                if (!formState.model.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
+              onPressEnter={(e) => {
+                if (e.length < 1) {
+                  dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model should be at least 1 character",
+                      red: true,
+                    })
+                  );
+                } else if (e.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model must be less than 25 characters",
+                      red: true,
+                    })
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    model: [...formState.model, e],
+                  });
+                }
+              }}
+              removeItemFunction={removeModelFromList}
+            />
             {/* Inventory Variant input */}
             <MultiInput
               dataToMap={formState.variant}
               placeholder="Variant"
               name="variant"
-              dataList={variantList}
+              stopOnChange={true}
+              dataList={variantData.filter((item) => {
+                if (!formState.variant.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -556,7 +583,13 @@ const InventorySideMenu = () => {
               <MultiInput
                 dataToMap={formState.color}
                 placeholder="Color"
-                dataList={colorList}
+                dataList={colorList.filter((item) => {
+                  if (!formState.color.includes(item)) {
+                    return item;
+                  } else {
+                    return null;
+                  }
+                })}
                 name="variant"
                 onPressEnter={(e) => {
                   if (e.length < 1) {

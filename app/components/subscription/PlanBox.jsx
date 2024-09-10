@@ -59,6 +59,21 @@ const PlanBox = ({
   };
 
   const getSecret = async (plan) => {
+    // if (currentSubscription?.cancel_at_period_end === true) {
+    //   const response = await axios.put(
+    //     process.env.NEXT_PUBLIC_BASE_URL +
+    //       "/subscription/subscription/" +
+    //       plan,
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${
+    //           getCookie("token") || window?.sessionStorage.getItem("token")
+    //         }`,
+    //       },
+    //     }
+    //   );
+
+    // } else {
     try {
       const response = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription/" + plan,
@@ -95,6 +110,7 @@ const PlanBox = ({
         );
       }
     }
+    // }
   };
   return (
     <div
@@ -114,7 +130,9 @@ const PlanBox = ({
       {/* Price */}
       <div className="flex items-end gap-2">
         <p className="text-4xl font-bold text-[#6DE8A6]">{price}</p>
-        <p className="text-black font-medium">Per Month</p>
+        <p className="text-black font-medium">
+          {premium ? "Per Year" : "Per Month"}
+        </p>
       </div>
       {/* Line */}
       <hr className=" w-full" />
@@ -172,7 +190,9 @@ const PlanBox = ({
             </div>
           ) : (
             <div
-              onClick={() => getSecret("yearly")}
+              onClick={() => {
+                getSecret("yearly");
+              }}
               className="select-none cursor-pointer py-3 px-4 bg-[#78FFB6] sm:hover:bg-[#37fd93]  text-left rounded-lg flex justify-center "
             >
               <p className="font-bold text-sm">Subscribe</p>

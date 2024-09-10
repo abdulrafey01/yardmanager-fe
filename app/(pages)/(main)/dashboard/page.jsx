@@ -272,7 +272,7 @@ const page = () => {
             <p
               className={`font-bold text-base  ${montserrat.className} tracking-wider`}
             >
-              AI Auto Parts
+              {user?.company?.name}
             </p>
             {/* <div className="p-2 cursor-pointer hover:bg-gray-200 border border-gray-300 rounded-lg flex justify-between items-center space-x-3">
             <p>Filter</p>

@@ -89,6 +89,8 @@ const InventorySideMenu = () => {
   // Image toggle for inventory
   const [imageToggle, setImageToggle] = React.useState(false);
 
+  const [variantData, setVariantData] = React.useState([]);
+
   // To check during form submit
   const currentYear = new Date().getFullYear();
 
@@ -157,13 +159,16 @@ const InventorySideMenu = () => {
     // formDataRef.current.set("part", part._id);
     // formData.set("part", part._id);
     setPartId(part._id);
+    setFormState({ ...formState, variant: [] });
     setPartValue(part.name);
     setColorToggle(part.color);
+    setVariantData(part.variant);
     setShowPartDropDown(false);
   };
 
   const onPartInputChange = (e) => {
     setPartValue(e.target.value);
+    setVariantData([]);
     if (e.target.value.length >= 1) {
       setShowPartDropDown(true);
       dispatch(
@@ -486,6 +491,7 @@ const InventorySideMenu = () => {
         });
         setLocValue(selectedItem.location?.location);
         setPartValue(selectedItem?.part?.name);
+        setVariantData(selectedItem?.part?.variant);
         setImgArray(selectedItem?.images);
         setLocId(selectedItem.location?._id);
         setPartId(selectedItem?.part?._id);
@@ -538,6 +544,7 @@ const InventorySideMenu = () => {
       price: "",
     });
     setImgArray([]);
+    setVariantData([]);
     setLocValue("");
     setPartValue("");
     setDateType1(false);
@@ -716,43 +723,17 @@ const InventorySideMenu = () => {
                 placeholder={"Last Year"}
               />
             </div>
-            {/* Inventory Model input */}
-            <MultiInput
-              dataToMap={formState.model}
-              placeholder="Model"
-              name="variant"
-              dataList={modelList}
-              onPressEnter={(e) => {
-                if (e.length < 1) {
-                  dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model should be at least 1 character",
-                      red: true,
-                    })
-                  );
-                } else if (e.length > 25) {
-                  return dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model must be less than 25 characters",
-                      red: true,
-                    })
-                  );
-                } else {
-                  setFormState({
-                    ...formState,
-                    model: [...formState.model, e],
-                  });
-                }
-              }}
-              removeItemFunction={removeModelFromList}
-            />
             {/* Inventory Make input */}
             <MultiInput
               dataToMap={formState.make}
               placeholder="Make"
-              dataList={makeList}
+              dataList={makeList.filter((item) => {
+                if (!formState.make.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
               name="variant"
               onPressEnter={(e) => {
                 if (e.length < 1) {
@@ -780,12 +761,58 @@ const InventorySideMenu = () => {
               }}
               removeItemFunction={removeMakeFromList}
             />
+            {/* Inventory Model input */}
+            <MultiInput
+              dataToMap={formState.model}
+              placeholder="Model"
+              name="variant"
+              dataList={modelList.filter((item) => {
+                if (!formState.model.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
+              onPressEnter={(e) => {
+                if (e.length < 1) {
+                  dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model should be at least 1 character",
+                      red: true,
+                    })
+                  );
+                } else if (e.length > 25) {
+                  return dispatch(
+                    setShowToast({
+                      value: true,
+                      msg: "Model must be less than 25 characters",
+                      red: true,
+                    })
+                  );
+                } else {
+                  setFormState({
+                    ...formState,
+                    model: [...formState.model, e],
+                  });
+                }
+              }}
+              removeItemFunction={removeModelFromList}
+            />
+
             {/* Inventory Variant input */}
             <MultiInput
               dataToMap={formState.variant}
               placeholder="Variant"
-              dataList={variantList}
+              dataList={variantData.filter((item) => {
+                if (!formState.variant.includes(item)) {
+                  return item;
+                } else {
+                  return null;
+                }
+              })}
               name="variant"
+              stopOnChange={true}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -827,7 +854,13 @@ const InventorySideMenu = () => {
               <MultiInput
                 dataToMap={formState.color}
                 placeholder="Color"
-                dataList={colorList}
+                dataList={colorList.filter((item) => {
+                  if (!formState.color.includes(item)) {
+                    return item;
+                  } else {
+                    return null;
+                  }
+                })}
                 name="variant"
                 onPressEnter={(e) => {
                   if (e.length < 1) {

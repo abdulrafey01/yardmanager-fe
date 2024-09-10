@@ -28,6 +28,11 @@ import {
 } from "../../../lib/features/vehicle/vehicleSlice";
 import Footer from "../../components/common/Footer";
 import ImageDropzone from "../../components/common/ImageDropzone";
+import DropDownInput from "../common/DropDownInput";
+import {
+  fetchAllParts,
+  searchPartByName,
+} from "../../../lib/features/parts/partActions";
 
 const VehiclePage = ({ isAdmin = false }) => {
   const {
@@ -44,6 +49,12 @@ const VehiclePage = ({ isAdmin = false }) => {
   const [imgArray2, setImgArray2] = React.useState([]);
 
   const { user } = useSelector((state) => state.auth);
+  const { partSearchData } = useSelector((state) => state.parts);
+  const [partValue, setPartValue] = React.useState("");
+  const [partId, setPartId] = React.useState(null);
+  // THese 2 wont be used here. Declared just for not getting error
+  const [variantData, setVariantData] = React.useState([]);
+  const [colorToggle, setColorToggle] = React.useState(false);
 
   const [pagePermission, setPagePermission] = React.useState(null);
   const dispatch = useDispatch();
@@ -204,10 +215,20 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   // Create vehicle from VIN
   const handleCreateBtnClick = () => {
+    if (!partId) {
+      return dispatch(
+        setShowToast({
+          value: true,
+          msg: "Please select a part",
+          red: true,
+        })
+      );
+    }
     formData.append("vin", vinVal);
     formData.append("startYear", vinDecodedData?.year);
     formData.append("make[0]", vinDecodedData?.make);
     formData.append("model[0]", vinDecodedData?.model);
+    formData.append("part", partId);
     // in add mode
     if (imgArray2?.length > 0) {
       for (let i = 0; i < imgArray2.length; i++) {
@@ -309,6 +330,21 @@ const VehiclePage = ({ isAdmin = false }) => {
                     readOnly
                   />
                 </div>
+                <DropDownInput
+                  inputValue={partValue}
+                  keyToShow={"name"}
+                  onSearch={searchPartByName}
+                  fetchAllFunc={fetchAllParts}
+                  placeholder={"Name"}
+                  searchData={partSearchData}
+                  setIdFunc={(val) => {
+                    setPartId(val);
+                  }}
+                  setColorToggle={setColorToggle}
+                  setVariantData={setVariantData}
+                  setInputValue={setPartValue}
+                  key={"part"}
+                />
               </div>
               {/* Vehicle Image input */}
               <ImageDropzone
@@ -316,6 +352,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                 imgArray={imgArray2}
                 setImgArray={setImgArray2}
                 onImageChange={onImageChange2}
+                placeholder="Upload Vehicle Image"
               />
               <div className="flex justify-center items-center gap-2">
                 <WhiteBtn
@@ -363,7 +400,7 @@ const VehiclePage = ({ isAdmin = false }) => {
               titles={[
                 "SKU",
                 "Name",
-                "Year",
+                "Start Year",
                 "Make",
                 "Model",
                 "Variant",

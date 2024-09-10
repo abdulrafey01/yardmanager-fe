@@ -79,17 +79,19 @@ const MyPlans = () => {
         {!isCheckedOut && (
           <PlanBox
             title={premium === "true" ? "Annual Plan" : "Monthly Plan"}
-            description={`Take Your Business to the Next Level with 21 days free trails of ${
-              premium === "true" ? "annual" : "monthly"
-            } plan`}
-            price={"$83"}
-            features={[
-              "Advanced Marketing Tools",
-              "Customizable Templates",
-              "Multi-user Access",
-              "Third-party Integrations",
-              "24/7 Priority Support",
-            ]}
+            // description={`Take Your Business to the Next Level with 21 days free trails of ${
+            //   premium === "true" ? "annual" : "monthly"
+            // } plan`}
+            price={premium === "true" ? "$996" : "$105"}
+            features={
+              [
+                // "Advanced Marketing Tools",
+                // "Customizable Templates",
+                // "Multi-user Access",
+                // "Third-party Integrations",
+                // "24/7 Priority Support",
+              ]
+            }
             btnGreen={true}
             premium={premium === "true"}
             myPlanBox={true}
