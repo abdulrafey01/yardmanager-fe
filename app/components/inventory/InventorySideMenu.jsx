@@ -28,7 +28,7 @@ import {
 } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import DropDownInput from "../common/DropDownInput";
-import { getLocalStorage } from "../../helpers/storage";
+import { getCookie, getLocalStorage } from "../../helpers/storage";
 import PlusIcon from "../../assets/main/82-plus.svg";
 import ImageDropzone from "../common/ImageDropzone";
 import useLoadAuthState from "../../helpers/authHook";
@@ -42,9 +42,10 @@ import {
   modelList,
   colorList,
 } from "../../constants/index";
+import axios from "axios";
 
 const InventorySideMenu = () => {
-  useLoadAuthState(); // for updating image and price fields
+  // useLoadAuthState(); // for updating image and price fields
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
   const { partSearchData } = useSelector((state) => state.parts);
@@ -98,17 +99,45 @@ const InventorySideMenu = () => {
     (1950 + i).toString()
   );
   const pathName = usePathname();
+
   useEffect(() => {
-    if (user) {
-      if (user.userType === "admin") {
-        setImageToggle(true);
-        setPriceToggle(true);
-        return;
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(
+          "https://yardmanager-be.vercel.app/api/users/info",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+
+        setImageToggle(response.data?.data?.company?.image);
+        setPriceToggle(response.data?.data?.company?.price);
+      } catch (error) {
+        console.log("Error fetching user info in settings:", error);
       }
+    };
+    if (user?.userType === "admin") {
+      setImageToggle(true);
+      setPriceToggle(true);
+      return;
+    } else {
+      fetchUserInfo();
     }
-    setImageToggle(user?.company.image);
-    setPriceToggle(user?.company.price);
-  }, [user]);
+  }, []);
+
+  // useEffect(() => {
+  //   if (user) {
+  //     if (user.userType === "admin") {
+  //       setImageToggle(true);
+  //       setPriceToggle(true);
+  //       return;
+  //     }
+  //   }
+  // }, [user]);
 
   // Function to handle input change
   const onInputChange = (e) => {

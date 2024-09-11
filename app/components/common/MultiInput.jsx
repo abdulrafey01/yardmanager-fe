@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import CrossIcon from "../../assets/main/64-cross.svg";
 
 import Image from "next/image";
+import { fetchAllParts } from "../../../lib/features/parts/partActions";
+import { useDispatch, useSelector } from "react-redux";
 
 const MultiInput = ({
   onPressEnter,
@@ -12,14 +14,18 @@ const MultiInput = ({
   name,
   dataList,
   stopOnChange = false,
+  type = null,
 }) => {
   const [filteredVariantList, setFilteredVariantList] =
     React.useState(dataList);
   const [variantMenu, setVariantMenu] = React.useState(false);
   const [variantInputVal, setVariantInputVal] = React.useState("");
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   const timeoutRef = useRef(null);
   const menuRef = useRef(null);
+  const partFetchRef = useRef(null);
 
   useEffect(() => {
     if (variantMenu && menuRef.current) {
@@ -74,6 +80,8 @@ const MultiInput = ({
           if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
           }
+          // For part input in vehicle page
+
           setVariantMenu(true);
         }}
         tabIndex={0}
@@ -88,6 +96,17 @@ const MultiInput = ({
               name={name}
               value={variantInputVal}
               onChange={!stopOnChange ? onVariantInputChange : null}
+              onFocus={() => {
+                if (type === "part" && !partFetchRef.current) {
+                  dispatch(
+                    fetchAllParts({
+                      isAdmin: user?.userType === "admin",
+                      totalOverview: false,
+                    })
+                  );
+                  partFetchRef.current = true;
+                }
+              }}
             />
             <div
               ref={menuRef}

@@ -343,6 +343,19 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
                 })
               );
             }
+            if (
+              item.location === null ||
+              item.location === "" ||
+              !item.location
+            ) {
+              return dispatch(
+                setShowToast({
+                  value: true,
+                  msg: "Please Fill Location Field from Menu",
+                  red: true,
+                })
+              );
+            }
             dispatch(
               addToInventory({
                 id: item._id,

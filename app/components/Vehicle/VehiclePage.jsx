@@ -33,6 +33,7 @@ import {
   fetchAllParts,
   searchPartByName,
 } from "../../../lib/features/parts/partActions";
+import MultiInput from "../common/MultiInput";
 
 const VehiclePage = ({ isAdmin = false }) => {
   const {
@@ -50,8 +51,8 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   const { user } = useSelector((state) => state.auth);
   const { partSearchData } = useSelector((state) => state.parts);
-  const [partValue, setPartValue] = React.useState("");
-  const [partId, setPartId] = React.useState(null);
+  const [partValues, setPartValues] = React.useState([]);
+  const [partIds, setPartIds] = React.useState([]);
   // THese 2 wont be used here. Declared just for not getting error
   const [variantData, setVariantData] = React.useState([]);
   const [colorToggle, setColorToggle] = React.useState(false);
@@ -69,8 +70,6 @@ const VehiclePage = ({ isAdmin = false }) => {
   // Vin input state
   const [vinVal, setVinVal] = React.useState("");
 
-  // For add vehicle
-  const formData = new FormData();
   // Get page permission
   useEffect(() => {
     console.log("user", user);
@@ -146,13 +145,17 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (vehicleAddedToast) {
-      dispatch(setShowToast({ value: true, ...vehicleAddedToast }));
+      // dispatch(setShowToast({ value: true, ...vehicleAddedToast }));
       if (vehicleAddedToast?.red === false) {
-        // reset data fields
+        // reset data fields and fetch fresh data
+        dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit, isAdmin }));
+        setPageNumber(1);
         setImgArray2([]);
         setVinVal("");
         dispatch(setVinDecodedData(null));
         setShowDecodeMenu(false);
+        setPartIds([]);
+        setPartValues([]);
       }
       dispatch(resetVehicleAddedToast());
     }
@@ -196,6 +199,12 @@ const VehiclePage = ({ isAdmin = false }) => {
       .unwrap()
       .then((res) => {
         setShowDecodeMenu(true);
+        dispatch(
+          fetchAllParts({
+            isAdmin: user?.userType === "admin",
+            totalOverview: false,
+          })
+        );
       })
       .catch((err) => {
         // reset data fields
@@ -215,7 +224,7 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   // Create vehicle from VIN
   const handleCreateBtnClick = () => {
-    if (!partId) {
+    if (partIds.length === 0) {
       return dispatch(
         setShowToast({
           value: true,
@@ -224,19 +233,23 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    formData.append("vin", vinVal);
-    formData.append("startYear", vinDecodedData?.year);
-    formData.append("make[0]", vinDecodedData?.make);
-    formData.append("model[0]", vinDecodedData?.model);
-    formData.append("part", partId);
-    // in add mode
-    if (imgArray2?.length > 0) {
-      for (let i = 0; i < imgArray2.length; i++) {
-        // formDataRef.current.set("images", files[i]);
-        formData.append(`images`, imgArray2[i]);
+    partIds.forEach((partId) => {
+      let formData = new FormData();
+      formData.append("vin", vinVal);
+      formData.append("startYear", vinDecodedData?.year);
+      formData.append("make[0]", vinDecodedData?.make);
+      formData.append("model[0]", vinDecodedData?.model);
+      formData.append("part", partId);
+      // in add mode
+      if (imgArray2?.length > 0) {
+        for (let i = 0; i < imgArray2.length; i++) {
+          // formDataRef.current.set("images", files[i]);
+          formData.append(`images`, imgArray2[i]);
+        }
       }
-    }
-    dispatch(addVehicle({ data: formData, isAdmin }));
+      dispatch(addVehicle({ data: formData, isAdmin }));
+    });
+    console.log(partIds);
   };
 
   const onImageChange2 = (e) => {
@@ -248,6 +261,11 @@ const VehiclePage = ({ isAdmin = false }) => {
   //   console.log(imgArray2);
   // }, [imgArray2]);
 
+  const removePartFromList = (index) => {
+    setPartValues(partValues.filter((_, i) => i !== index));
+    setPartIds(partIds.filter((_, i) => i !== index));
+    // console.log(index);
+  };
   const handleRadioClick = (e) => {
     if (e.target.value == 25) {
       dispatch(fetchVehiclesByPage({ page: 1, limit: 25, isAdmin }));
@@ -287,7 +305,7 @@ const VehiclePage = ({ isAdmin = false }) => {
               <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
                 <input
                   type="text"
-                  placeholder="Enter VIN Number"
+                  placeholder="Enter VIN"
                   className="w-full outline-none bg-transparent"
                   value={vinVal}
                   onChange={(e) => setVinVal(e.target.value)}
@@ -330,7 +348,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                     readOnly
                   />
                 </div>
-                <DropDownInput
+                {/* <DropDownInput
                   inputValue={partValue}
                   keyToShow={"name"}
                   onSearch={searchPartByName}
@@ -344,8 +362,50 @@ const VehiclePage = ({ isAdmin = false }) => {
                   setVariantData={setVariantData}
                   setInputValue={setPartValue}
                   key={"part"}
-                />
+                /> */}
               </div>
+              <MultiInput
+                dataToMap={partValues}
+                placeholder="Parts"
+                name="variant"
+                type="part"
+                stopOnChange={true}
+                dataList={partSearchData
+                  .filter((item) => {
+                    if (!partValues.includes(item.name)) {
+                      return item;
+                    } else {
+                      return null;
+                    }
+                  })
+                  .map((item) => item.name)}
+                onPressEnter={(e) => {
+                  if (e.length < 1) {
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Part should be at least 1 character",
+                        red: true,
+                      })
+                    );
+                  } else if (e.length > 25) {
+                    return dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Part must be less than 25 characters",
+                        red: true,
+                      })
+                    );
+                  } else {
+                    setPartValues([...partValues, e]);
+                    setPartIds([
+                      ...partIds,
+                      partSearchData.find((item) => item.name === e)?._id, // Safely access the 'id' using optional chaining
+                    ]);
+                  }
+                }}
+                removeItemFunction={removePartFromList}
+              />
               {/* Vehicle Image input */}
               <ImageDropzone
                 htmlName="image2"

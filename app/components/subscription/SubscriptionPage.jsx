@@ -112,9 +112,23 @@ const page = ({ isAdmin = false }) => {
         >
           <GreenBtn route={`/subscription/plans`} title={"Subscribe"} />
         </div>
-        {/* <GreenBtn route={`/subscription/plans`} title={"Change Plan"} /> */}
+        <div
+          className={`${
+            currentSubscription?.cancel_at_period_end === true
+              ? "flex"
+              : "hidden"
+          }`}
+        >
+          <GreenBtn route={`/subscription/plans`} title={"Change Plan"} />
+        </div>
 
-        <div className={`${currentSubscription ? "flex" : "hidden"}`}>
+        <div
+          className={`${
+            currentSubscription?.cancel_at_period_end === false
+              ? "flex"
+              : "hidden"
+          }`}
+        >
           <GreenBtn
             onClick={() => {
               cancelSubscription();
@@ -202,6 +216,7 @@ const page = ({ isAdmin = false }) => {
                   "Start Date",
                   "Renewal Date",
                   "Status",
+                  "Auto-Renew",
                 ]}
               />
               {/* Body */}
@@ -221,6 +236,9 @@ const page = ({ isAdmin = false }) => {
                     currentSubscription?.current_period_end * 1000
                   ).toLocaleDateString(),
                   currentSubscription?.status === "active" ? true : false,
+                  currentSubscription?.cancel_at_period_end === true
+                    ? "OFF"
+                    : "ON",
                 ]}
               />
             </div>

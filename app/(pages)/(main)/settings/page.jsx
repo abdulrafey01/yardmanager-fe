@@ -14,7 +14,7 @@ import axios from "axios";
 import useLoadAuthState from "../../../helpers/authHook";
 
 const page = () => {
-  useLoadAuthState();
+  // useLoadAuthState();
   const dispatch = useDispatch();
   const { colorToggle } = useSelector((state) => state.settings);
 
@@ -24,9 +24,33 @@ const page = () => {
   const [partImageToggle, setPartImageToggle] = React.useState(false);
 
   useEffect(() => {
-    setPartImageToggle(user?.company.image);
-    setPriceToggle(user?.company.price);
-  }, [user]);
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get(
+          "https://yardmanager-be.vercel.app/api/users/info",
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+        setPartImageToggle(response.data?.data?.company?.image);
+        setPriceToggle(response.data?.data?.company?.price);
+      } catch (error) {
+        console.log("Error fetching user info in settings:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, [dispatch]);
+
+  // useEffect(() => {
+  //   setPartImageToggle(user?.company.image);
+  //   setPriceToggle(user?.company.price);
+  //   console.log("user in settings", user);
+  // }, [user]);
 
   useEffect(() => {
     dispatch(setCurrentPage("Settings"));

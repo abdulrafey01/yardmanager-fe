@@ -59,58 +59,83 @@ const PlanBox = ({
   };
 
   const getSecret = async (plan) => {
-    // if (currentSubscription?.cancel_at_period_end === true) {
-    //   const response = await axios.put(
-    //     process.env.NEXT_PUBLIC_BASE_URL +
-    //       "/subscription/subscription/" +
-    //       plan,
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${
-    //           getCookie("token") || window?.sessionStorage.getItem("token")
-    //         }`,
-    //       },
-    //     }
-    //   );
-
-    // } else {
-    try {
-      const response = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/subscription/subscription/" + plan,
-        {
-          headers: {
-            Authorization: `Bearer ${
-              getCookie("token") || window?.sessionStorage.getItem("token")
-            }`,
+    if (currentSubscription?.cancel_at_period_end === true) {
+      try {
+        const response = await axios.put(
+          process.env.NEXT_PUBLIC_BASE_URL +
+            "/subscription/s/" +
+            currentSubscription.id,
+          {
+            priceId: plan,
           },
-        }
-      );
-
-      router.push(
-        `/subscription/my-plans?premium=${plan === "yearly" ? true : false}`
-      );
-    } catch (error) {
-      if (
-        error?.response?.data?.error?.includes("Failed to update subscription")
-      ) {
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
         dispatch(
           setShowToast({
             value: true,
-            msg: "Unsubscribe from other plan first",
-            red: true,
+            msg: "Subscription Changed Successfully",
           })
         );
-      } else {
+        setTimeout(() => {
+          router.push("/subscription/");
+        }, 2000);
+      } catch (error) {
         dispatch(
           setShowToast({
             value: true,
-            msg: error?.response?.data?.error,
+            msg: "Failed To Change Plan",
             red: true,
           })
         );
       }
+    } else {
+      try {
+        const response = await axios.get(
+          process.env.NEXT_PUBLIC_BASE_URL +
+            "/subscription/subscription/" +
+            plan,
+          {
+            headers: {
+              Authorization: `Bearer ${
+                getCookie("token") || window?.sessionStorage.getItem("token")
+              }`,
+            },
+          }
+        );
+
+        router.push(
+          `/subscription/my-plans?premium=${plan === "yearly" ? true : false}`
+        );
+      } catch (error) {
+        if (
+          error?.response?.data?.error?.includes(
+            "Failed to update subscription"
+          )
+        ) {
+          dispatch(
+            setShowToast({
+              value: true,
+              msg: "Unsubscribe from other plan first",
+              red: true,
+            })
+          );
+        } else {
+          dispatch(
+            setShowToast({
+              value: true,
+              msg: error?.response?.data?.error,
+              red: true,
+            })
+          );
+        }
+      }
     }
-    // }
   };
   return (
     <div

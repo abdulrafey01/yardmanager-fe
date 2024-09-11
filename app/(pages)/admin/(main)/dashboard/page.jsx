@@ -287,9 +287,9 @@ const page = () => {
             count={data?.yards ?? 0}
           />
           <CountBlock
-            title={"Total Locations"}
+            title={"Total Subscriptions"}
             icon={SubIcon}
-            count={data?.locations ?? 0}
+            count={data?.subscriptions ?? 0}
           />
         </div>
       </div>
