@@ -114,7 +114,8 @@ const page = ({ isAdmin = false }) => {
         </div>
         <div
           className={`${
-            currentSubscription?.cancel_at_period_end === true
+            currentSubscription?.cancel_at_period_end === true &&
+            currentSubscription?.status === "active"
               ? "flex"
               : "hidden"
           }`}
