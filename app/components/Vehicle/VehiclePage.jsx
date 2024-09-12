@@ -421,6 +421,8 @@ const VehiclePage = ({ isAdmin = false }) => {
                     dispatch(setVinDecodedData(null));
                     setShowDecodeMenu(false);
                     setImgArray2([]);
+                    setPartValues([]);
+                    setPartIds([]);
                   }}
                   title={"Discard"}
                 />
