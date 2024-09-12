@@ -48,92 +48,94 @@ const page = () => {
           </p>
         </div>
         {/* Plans container */}
-        <div className="w-full flex-col mt-4 lg:flex-row flex justify-center items-center gap-6">
-          {currentSubscription?.cancel_at_period_end === true ? (
-            currentSubscription?.plan?.interval === "month" ? (
-              <PlanBox
-                title={"Annual Plan"}
-                // description={
-                //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
-                // }
-                price={"$996"}
-                features={
-                  [
-                    // "Advanced Marketing Tools",
-                    // "Customizable Templates",
-                    // "Multi-user Access",
-                    // "Third-party Integrations",
-                    // "24/7 Priority Support",
-                  ]
-                }
-                btnGreen={true}
-                premium={true} // used
-                currentSubscription={currentSubscription}
-                setCurrentSubscription={setCurrentSubscription}
-              />
+        {currentSubscription && (
+          <div className="w-full flex-col mt-4 lg:flex-row flex justify-center items-center gap-6">
+            {currentSubscription?.cancel_at_period_end === true ? (
+              currentSubscription?.plan?.interval === "month" ? (
+                <PlanBox
+                  title={"Annual Plan"}
+                  // description={
+                  //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
+                  // }
+                  price={"$996"}
+                  features={
+                    [
+                      // "Advanced Marketing Tools",
+                      // "Customizable Templates",
+                      // "Multi-user Access",
+                      // "Third-party Integrations",
+                      // "24/7 Priority Support",
+                    ]
+                  }
+                  btnGreen={true}
+                  premium={true} // used
+                  currentSubscription={currentSubscription}
+                  setCurrentSubscription={setCurrentSubscription}
+                />
+              ) : (
+                <PlanBox
+                  title={"Monthly Plan"}
+                  // description={
+                  //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
+                  // }
+                  price={"$105"}
+                  features={
+                    [
+                      // "Advanced Marketing Tools",
+                      // "Customizable Templates",
+                      // "Multi-user Access",
+                      // "Third-party Integrations",
+                      // "24/7 Priority Support",
+                    ]
+                  }
+                  currentSubscription={currentSubscription}
+                  setCurrentSubscription={setCurrentSubscription}
+                />
+              )
             ) : (
-              <PlanBox
-                title={"Monthly Plan"}
-                // description={
-                //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
-                // }
-                price={"$105"}
-                features={
-                  [
-                    // "Advanced Marketing Tools",
-                    // "Customizable Templates",
-                    // "Multi-user Access",
-                    // "Third-party Integrations",
-                    // "24/7 Priority Support",
-                  ]
-                }
-                currentSubscription={currentSubscription}
-                setCurrentSubscription={setCurrentSubscription}
-              />
-            )
-          ) : (
-            <>
-              <PlanBox
-                title={"Monthly Plan"}
-                // description={
-                //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
-                // }
-                price={"$105"}
-                features={
-                  [
-                    // "Advanced Marketing Tools",
-                    // "Customizable Templates",
-                    // "Multi-user Access",
-                    // "Third-party Integrations",
-                    // "24/7 Priority Support",
-                  ]
-                }
-                currentSubscription={currentSubscription}
-                setCurrentSubscription={setCurrentSubscription}
-              />
-              <PlanBox
-                title={"Annual Plan"}
-                // description={
-                //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
-                // }
-                price={"$996"}
-                features={
-                  [
-                    // "Advanced Marketing Tools",
-                    // "Customizable Templates",
-                    // "Multi-user Access",
-                    // "Third-party Integrations",
-                    // "24/7 Priority Support",
-                  ]
-                }
-                btnGreen={true}
-                premium={true} // used
-                currentSubscription={currentSubscription}
-                setCurrentSubscription={setCurrentSubscription}
-              />
-            </>
-          )}
-        </div>
+              <>
+                <PlanBox
+                  title={"Monthly Plan"}
+                  // description={
+                  //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
+                  // }
+                  price={"$105"}
+                  features={
+                    [
+                      // "Advanced Marketing Tools",
+                      // "Customizable Templates",
+                      // "Multi-user Access",
+                      // "Third-party Integrations",
+                      // "24/7 Priority Support",
+                    ]
+                  }
+                  currentSubscription={currentSubscription}
+                  setCurrentSubscription={setCurrentSubscription}
+                />
+                <PlanBox
+                  title={"Annual Plan"}
+                  // description={
+                  //   "Take Your Business to the Next Level with 21 days free trails of yearly plan"
+                  // }
+                  price={"$996"}
+                  features={
+                    [
+                      // "Advanced Marketing Tools",
+                      // "Customizable Templates",
+                      // "Multi-user Access",
+                      // "Third-party Integrations",
+                      // "24/7 Priority Support",
+                    ]
+                  }
+                  btnGreen={true}
+                  premium={true} // used
+                  currentSubscription={currentSubscription}
+                  setCurrentSubscription={setCurrentSubscription}
+                />
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
