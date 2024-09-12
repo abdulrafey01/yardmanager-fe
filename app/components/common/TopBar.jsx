@@ -23,8 +23,8 @@ const TopBar = () => {
   const data = useSelector((state) => state.auth);
 
   useEffect(() => {
-    console.log("User Logged in");
-    console.log(data);
+    // console.log("User Logged in");
+    // console.log(data);
   }, [data, router]);
 
   const [showProfileMenu, setShowProfileMenu] = React.useState(false);

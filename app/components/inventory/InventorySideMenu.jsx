@@ -449,7 +449,7 @@ const InventorySideMenu = () => {
               pathName === "/admin/inventory-overview"
                 ? {
                     value: true,
-                    id: selectedItem.company,
+                    id: selectedItem.company[0]._id,
                   }
                 : false,
           })

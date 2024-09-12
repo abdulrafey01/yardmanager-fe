@@ -15,6 +15,7 @@ const TableRow = ({
   item,
   permissions,
   fetchYards = null,
+  totalOverview = false,
 }) => {
   const { currentPage, showActionMenu } = useSelector((state) => state.shared);
   const dispatch = useDispatch();
@@ -318,39 +319,6 @@ const TableRow = ({
               {make}
             </div>
           ))}
-        </div>
-      ) : index === 6 ? (
-        <div
-          onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16  text-center p-3 flex-1 flex items-center ${
-            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          }`}
-        >
-          <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-            <input
-              type="text"
-              placeholder="Notes"
-              className="w-full outline-none bg-transparent"
-              value={titles[6]}
-            />
-          </div>
-        </div>
-      ) : index === 7 ? (
-        <div
-          onClick={() => dispatch(setShowActionMenu(-1))}
-          className={` min-w-16  text-center p-3 flex items-center flex-1 ${
-            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          }`}
-        >
-          <div className="flex p-2 w-full rounded-lg  space-x-2 border-[1.5px] border-gray-300">
-            <input
-              type="text"
-              placeholder="Location"
-              className="w-full outline-none bg-transparent"
-              value={titles[7]}
-              readOnly
-            />
-          </div>
         </div>
       ) : (
         <div

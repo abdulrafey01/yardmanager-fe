@@ -14,6 +14,33 @@ import { getCookie, getLocalStorage } from "../../helpers/storage";
 import TableHead from "../../components/common/TableHead";
 import TableRow from "../../components/common/TableRow";
 
+import moment from "moment"; // For date manipulation
+
+// Function to check if current_period_end is at least 10 days ahead
+function isAtLeast10DaysAhead(currentPeriodEnd) {
+  const currentTime = moment().unix(); // Current time in Unix timestamp
+  const tenDaysInSeconds = 10 * 24 * 60 * 60; // 10 days converted to seconds
+
+  console.log("currentPeriodEnd", currentPeriodEnd);
+  console.log("currentTime", currentTime);
+  console.log("tenDaysInSeconds", tenDaysInSeconds);
+  console.log("answer", currentPeriodEnd - currentTime);
+  // Check if current_period_end is greater than or equal to current time + 10 days
+  if (currentPeriodEnd >= currentTime + tenDaysInSeconds) {
+    return true; // current_period_end is at least 10 days ahead
+  } else {
+    return false; // current_period_end is less than 10 days ahead
+  }
+}
+
+// Example usage
+const currentPeriodEnd = 1735680000; // Example Unix timestamp for current_period_end
+if (isAtLeast10DaysAhead(currentPeriodEnd)) {
+  console.log("current_period_end is at least 10 days ahead");
+} else {
+  console.log("current_period_end is less than 10 days ahead");
+}
+
 const page = ({ isAdmin = false }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -23,6 +50,15 @@ const page = ({ isAdmin = false }) => {
   const { user } = useSelector((state) => state.auth);
 
   const [currentSubscription, setCurrentSubscription] = React.useState(null);
+
+  useEffect(() => {
+    if (currentSubscription) {
+      console.log(
+        "isAtLeast10DaysAhead",
+        isAtLeast10DaysAhead(currentSubscription?.current_period_end)
+      );
+    }
+  }, [currentSubscription]);
 
   useEffect(() => {
     const getSubscription = async () => {
@@ -139,7 +175,11 @@ const page = ({ isAdmin = false }) => {
         </div>
         <div
           className={`${
-            currentSubscription?.status === "incomplete" ? "flex" : "hidden"
+            (currentSubscription?.status === "active" &&
+              isAtLeast10DaysAhead(currentSubscription?.current_period_end)) ||
+            !currentSubscription
+              ? "hidden"
+              : "flex"
           }`}
         >
           <GreenBtn
