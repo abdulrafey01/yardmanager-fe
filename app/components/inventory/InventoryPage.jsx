@@ -228,6 +228,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
                 titles={[
                   data.sku,
                   data.part?.name,
+                  data.company._id,
                   `${new Date(data.startYear).getFullYear()} - ${new Date(
                     data.lastYear
                   ).getFullYear()}`,
