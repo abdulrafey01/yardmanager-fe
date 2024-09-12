@@ -655,7 +655,7 @@ const InventorySideMenu = () => {
               showSideMenu.mode === "preview" && "hidden"
             }`}
           >
-            {showSideMenu.mode === "edit" ? "Edit Inventory" : "Add Inventory"}
+            {showSideMenu.mode === "edit" ? "Edit Vehicle" : "Add Vehicle"}
           </div>
         </div>
       </div>
