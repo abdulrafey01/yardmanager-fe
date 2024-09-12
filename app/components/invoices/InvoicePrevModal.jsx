@@ -20,7 +20,7 @@ const InvoicePrevModal = () => {
   };
 
   useEffect(() => {
-    console.log("previewModal", previewModal);
+    // console.log("previewModal", previewModal);
     setSubTotal(
       previewModal?.data?.products?.reduce((preVal, item) => {
         return preVal + (item.total ? item.total : item.quantity * item.price);

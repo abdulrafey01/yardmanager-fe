@@ -44,7 +44,7 @@ const EmployeePage = ({ isAdmin = false }) => {
 
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -83,7 +83,7 @@ const EmployeePage = ({ isAdmin = false }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log(pagePermission);
+    // // console.log(pagePermission);
   }, [pagePermission]);
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const EmployeePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // // console.log(error);
     }
     // When employee data has come set total pages
   }, [error]);

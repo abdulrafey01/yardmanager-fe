@@ -51,7 +51,7 @@ const InvoicePage = ({ isAdmin = false }) => {
   }, [dispatch, pageNumber]);
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -91,7 +91,7 @@ const InvoicePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, [error]);
 

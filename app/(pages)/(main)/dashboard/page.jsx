@@ -118,7 +118,7 @@ const page = () => {
         })
         .then((res) => {
           // console.log("response");
-          console.log("counts", res.data);
+          // console.log("counts", res.data);
           setData(res.data);
         })
         .catch((err) => {
@@ -130,7 +130,7 @@ const page = () => {
 
   useEffect(() => {
     if (inventoryGraphData) {
-      console.log("inventory graph data", inventoryGraphData);
+      // console.log("inventory graph data", inventoryGraphData);
 
       let dateCountMap = new Map();
 
@@ -162,11 +162,11 @@ const page = () => {
   }, [inventoryGraphData, filterValue1]);
 
   useEffect(() => {
-    console.log("partsGraphData", partsGraphData);
+    // console.log("partsGraphData", partsGraphData);
   }, [partsGraphData]);
   useEffect(() => {
     if (partsGraphData) {
-      console.log("partsgraphdata", partsGraphData);
+      // console.log("partsgraphdata", partsGraphData);
 
       let dateCountMap = new Map();
 
@@ -187,12 +187,12 @@ const page = () => {
 
       let totalDaysData = Array.from(dateCountMap.values());
       let dates = Array.from(dateCountMap.keys());
-      console.log("dates", dates);
+      // console.log("dates", dates);
       setPartGraphdates(dates);
 
-      console.log(totalDaysData); // Output: [2, 1, 1]
-      console.log("totalDaysData", totalDaysData);
-      console.log("dateCountMap", dateCountMap);
+      // console.log(totalDaysData); // Output: [2, 1, 1]
+      // console.log("totalDaysData", totalDaysData);
+      // console.log("dateCountMap", dateCountMap);
       setPartMapData(totalDaysData);
     }
   }, [partsGraphData, filterValue2]);
@@ -207,7 +207,7 @@ const page = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, [error]);
   useEffect(() => {

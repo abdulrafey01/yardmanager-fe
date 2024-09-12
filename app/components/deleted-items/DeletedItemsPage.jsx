@@ -30,7 +30,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
   const [pagePermission, setPagePermission] = React.useState(null);
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -89,7 +89,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // // console.log(error);
     }
   }, [error]);
 
@@ -167,7 +167,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
           },
         }
       );
-      console.log(response.data);
+      // // console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
 
@@ -175,7 +175,7 @@ const DeletedItemsPage = ({ isAdmin = false }) => {
         fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
       );
     } catch (error) {
-      console.log(error);
+      // // console.log(error);
       dispatch(
         setShowToast({
           value: true,

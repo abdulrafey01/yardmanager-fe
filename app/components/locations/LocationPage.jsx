@@ -49,7 +49,7 @@ const LocationPage = ({ isAdmin = false }) => {
     );
   }, [dispatch, pageNumber]);
   useEffect(() => {
-    console.log("user", user);
+    // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -89,7 +89,7 @@ const LocationPage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
     // When location data has come set total pages
   }, [error]);
@@ -109,7 +109,7 @@ const LocationPage = ({ isAdmin = false }) => {
         dispatch(resetLocToast());
       }
     }
-    console.log(toastMsg);
+    // console.log(toastMsg);
   }, [toastMsg]);
   // Search function
   const handleSearch = (e) => {

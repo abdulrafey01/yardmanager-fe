@@ -48,7 +48,7 @@ const page = () => {
           </p>
         </div>
         {/* Plans container */}
-        <div className="w-full flex-col lg:flex-row flex justify-center items-center gap-6">
+        <div className="w-full flex-col mt-4 lg:flex-row flex justify-center items-center gap-6">
           {currentSubscription?.cancel_at_period_end === true ? (
             currentSubscription?.plan?.interval === "month" ? (
               <PlanBox

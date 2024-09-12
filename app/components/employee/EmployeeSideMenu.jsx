@@ -75,10 +75,10 @@ const EmployeeSideMenu = () => {
         )?.permissions
       );
     }
-    console.log("user", user);
+    // // console.log("user", user);
   }, [user]);
   useEffect(() => {
-    console.log("showEmployeeSideMenu", showEmployeeSideMenu);
+    // console.log("showEmployeeSideMenu", showEmployeeSideMenu);
   }, [showEmployeeSideMenu]);
 
   const onInputChange = (e) => {
@@ -129,7 +129,7 @@ const EmployeeSideMenu = () => {
   }, [empToast]);
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
+    // console.log(formState);
 
     if (formState.firstName === "") {
       return dispatch(

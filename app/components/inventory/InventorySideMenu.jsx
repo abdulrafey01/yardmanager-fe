@@ -117,7 +117,7 @@ const InventorySideMenu = () => {
         setImageToggle(response.data?.data?.company?.image);
         setPriceToggle(response.data?.data?.company?.price);
       } catch (error) {
-        console.log("Error fetching user info in settings:", error);
+        // console.log("Error fetching user info in settings:", error);
       }
     };
     if (user?.userType === "admin") {
@@ -400,24 +400,24 @@ const InventorySideMenu = () => {
     } else {
       // in add mode
       if (imgArray.length > 0) {
-        console.log("here 1");
+        // console.log("here 1");
         for (let i = 0; i < imgArray.length; i++) {
           // formDataRef.current.set("images", files[i]);
           formData.append(`images`, imgArray[i]);
         }
       } else {
-        console.log("here 2");
+        // console.log("here 2");
 
         formData.delete("images");
       }
     }
     formData.append("notes", formState.notes);
-    console.log(
-      "startYear",
-      getDate(formState.startYear),
-      "lastYear",
-      getDate(formState.lastYear)
-    );
+    // // console.log(
+    //   "startYear",
+    //   getDate(formState.startYear),
+    //   "lastYear",
+    //   getDate(formState.lastYear)
+    // );
     formData.append("startYear", formState.startYear);
 
     formData.append("lastYear", formState.lastYear);
@@ -483,21 +483,21 @@ const InventorySideMenu = () => {
       ...formState,
       model: formState.model.filter((_, i) => i !== index),
     });
-    // console.log(index);
+    // // console.log(index);
   };
   const removeMakeFromList = (index) => {
     setFormState({
       ...formState,
       make: formState.make.filter((_, i) => i !== index),
     });
-    // console.log(index);
+    // // console.log(index);
   };
   const removeVariantFromList = (index) => {
     setFormState({
       ...formState,
       variant: formState.variant.filter((_, i) => i !== index),
     });
-    // console.log(index);
+    // // console.log(index);
   };
 
   const removeColorFromList = (index) => {
@@ -505,14 +505,14 @@ const InventorySideMenu = () => {
       ...formState,
       color: formState.color.filter((_, i) => i !== index),
     });
-    // console.log(index);
+    // // console.log(index);
   };
 
   // When in edit mode  Update formData when selectedItem selected otherwise empty
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
-        console.log(selectedItem);
+        // console.log(selectedItem);
         setFormState({
           ...selectedItem,
           startYear: selectedItem.startYear,
