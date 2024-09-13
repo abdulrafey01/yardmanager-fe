@@ -58,7 +58,7 @@ const LocationPage = () => {
         });
       }
     }
-    console.log(user);
+    // console.log(user);
   }, [user]);
 
   // Clean old data
@@ -68,7 +68,7 @@ const LocationPage = () => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, [error]);
 

@@ -14,7 +14,7 @@ const layout = ({ children }) => {
   const router = useRouter();
   useEffect(() => {
     if (error) {
-      console.log("error", error);
+      // console.log("error", error);
     }
   }, [error, dispatch]);
 

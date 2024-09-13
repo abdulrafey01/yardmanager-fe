@@ -53,7 +53,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   const [datePaidInputType, setDatePaidInputType] = useState("text");
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -182,7 +182,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
     if (searchToast) {
       dispatch(setShowToast({ value: true, ...searchToast }));
@@ -195,7 +195,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
       setInvoiceId(JSON.parse(getLocalStorage("invoiceId")));
       setPageMode("edit");
     }
-    console.log(formData);
+    // console.log(formData);
   }, []);
 
   useEffect(() => {
@@ -248,7 +248,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   }, [invoiceId]);
 
   useEffect(() => {
-    console.log("item:", item);
+    // console.log("item:", item);
     if (item) {
       setFormData({
         name: item.name,
@@ -343,7 +343,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
       .filter(Boolean)
       .join(", ");
 
-    console.log(productData);
+    // console.log(productData);
     if (missingFields) {
       return dispatch(
         setShowToast({
@@ -389,7 +389,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   };
 
   useEffect(() => {
-    console.log(formData);
+    // console.log(formData);
     setGrandTotal(subTotal + subTotal * (formData.tax / 100));
   }, [subTotal, formData.tax]);
 
@@ -414,7 +414,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   // On form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
+    // // console.log(formData);
 
     if (formData.name.length === 0) {
       return dispatch(
@@ -494,7 +494,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
       );
     }
 
-    console.log("pageMode:", pageMode);
+    // console.log("pageMode:", pageMode);
   };
 
   const onCancel = () => {

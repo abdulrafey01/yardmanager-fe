@@ -84,6 +84,9 @@ const PlanBox = ({
         );
         setTimeout(() => {
           router.push("/subscription/");
+          setTimeout(() => {
+            window?.location.reload();
+          }, 2000);
         }, 2000);
       } catch (error) {
         dispatch(

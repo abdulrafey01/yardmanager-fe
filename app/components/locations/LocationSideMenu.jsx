@@ -79,7 +79,7 @@ const LocationSideMenu = () => {
       <div
         onClick={() => {
           dispatch(setShowSideMenu({ value: false }));
-          console.log("clicked");
+          // console.log("clicked");
         }}
         className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
       ></div>

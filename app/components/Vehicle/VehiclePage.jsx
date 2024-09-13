@@ -72,7 +72,7 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -123,7 +123,7 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // console.log(error);
     }
   }, [error]);
 
@@ -233,23 +233,44 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    partIds.forEach((partId) => {
-      let formData = new FormData();
-      formData.append("vin", vinVal);
-      formData.append("startYear", vinDecodedData?.year);
-      formData.append("make[0]", vinDecodedData?.make);
-      formData.append("model[0]", vinDecodedData?.model);
-      formData.append("part", partId);
-      // in add mode
-      if (imgArray2?.length > 0) {
-        for (let i = 0; i < imgArray2.length; i++) {
-          // formDataRef.current.set("images", files[i]);
-          formData.append(`images`, imgArray2[i]);
+    Promise.all(
+      partIds.map((partId) => {
+        let formData = new FormData();
+        formData.append("vin", vinVal);
+        formData.append("startYear", vinDecodedData?.year);
+        formData.append("make[0]", vinDecodedData?.make);
+        formData.append("model[0]", vinDecodedData?.model);
+        formData.append("part", partId);
+
+        // If there are images, append them to formData
+        if (imgArray2?.length > 0) {
+          imgArray2.forEach((image) => {
+            formData.append("images", image);
+          });
         }
-      }
-      dispatch(addVehicle({ data: formData, isAdmin }));
-    });
-    console.log(partIds);
+
+        // Dispatch the action for each partId
+        return dispatch(addVehicle({ data: formData, isAdmin }));
+      })
+    )
+      .then(() => {
+        dispatch(
+          setShowToast({
+            value: true,
+            msg: `${partValues.length} Vehicle created Successfully`,
+            red: false,
+          })
+        );
+      })
+      .catch((error) => {
+        dispatch(
+          setShowToast({
+            value: true,
+            msg: "Vehicle creation failed",
+            red: true,
+          })
+        );
+      });
   };
 
   const onImageChange2 = (e) => {

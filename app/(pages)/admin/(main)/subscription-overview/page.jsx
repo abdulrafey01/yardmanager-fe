@@ -173,6 +173,7 @@ const Subscription = ({ isAdmin = false }) => {
                 "Start Date",
                 "Renewal Date",
                 "Status",
+                "Auto-Renew",
               ]}
             />
             {/* Body */}
@@ -194,6 +195,9 @@ const Subscription = ({ isAdmin = false }) => {
                     currentSubscription?.current_period_end * 1000
                   ).toLocaleDateString(),
                   currentSubscription?.status === "active" ? true : false,
+                  currentSubscription?.cancel_at_period_end === true
+                    ? "OFF"
+                    : "ON",
                 ]}
                 rowIndex={index}
                 item={currentSubscription}

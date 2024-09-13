@@ -96,7 +96,7 @@ const InventorySideMenu = () => {
   // Function to handle form submit
   const onFormSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
+    // console.log(formState);
 
     if (partId === null || partId === "" || !partId) {
       return dispatch(
@@ -156,7 +156,7 @@ const InventorySideMenu = () => {
       );
     }
     if (colorToggle === true) {
-      console.log("color", formState.color);
+      // console.log("color", formState.color);
       if (
         formState.color === "" ||
         formState.color === null ||
@@ -637,6 +637,7 @@ const InventorySideMenu = () => {
             imgArray={imgArray}
             setImgArray={setImgArray}
             onImageChange={onImageChange}
+            placeholder="Upload Vehicle Image"
           />
         </div>
         {/* Buttons */}
@@ -654,7 +655,7 @@ const InventorySideMenu = () => {
               showSideMenu.mode === "preview" && "hidden"
             }`}
           >
-            {showSideMenu.mode === "edit" ? "Edit Inventory" : "Add Inventory"}
+            {showSideMenu.mode === "edit" ? "Edit Vehicle" : "Add Vehicle"}
           </div>
         </div>
       </div>

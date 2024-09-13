@@ -77,7 +77,7 @@ const useLoadAuthState = () => {
           setTimeout(() => {
             dispatch(adminLogout());
           }, 3000);
-          console.log("Error fetching Admin info:", error);
+          // console.log("Error fetching Admin info:", error);
         }
       } else {
         try {
@@ -91,7 +91,15 @@ const useLoadAuthState = () => {
               },
             }
           );
-          console.log("User info:", response.data);
+          if (response?.data?.data?.user === null) {
+            // If yard is deleted and user was logged in
+            cleanStorage();
+            setTimeout(() => {
+              dispatch(logout());
+            }, 3000);
+            return;
+          }
+          // console.log("User info:", response.data);
           if (response.data?.data?.company?.active === false) {
             cleanStorage();
             setTimeout(() => {

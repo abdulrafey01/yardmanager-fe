@@ -608,7 +608,11 @@ const page = () => {
             <div className="flex justify-end">
               <div
                 onClick={cancelSubscription}
-                className="p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
+                className={`p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center ${
+                  currentSubscription?.cancel_at_period_end === false
+                    ? "flex"
+                    : "hidden"
+                }`}
               >
                 <p>Cancel Subscription</p>
               </div>

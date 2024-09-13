@@ -49,7 +49,7 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
 
   // Get page permission
   useEffect(() => {
-    console.log("user", user);
+    // // console.log("user", user);
 
     if (user) {
       if (user?.userType === "admin") {
@@ -88,12 +88,12 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log(pagePermission);
+    // // console.log(pagePermission);
   }, [pagePermission]);
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      // // console.log(error);
     }
   }, [error]);
 
@@ -213,9 +213,24 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
           {/* Table Container */}
           <div className=" overflow-x-auto sm:overflow-visible">
             {/* Head */}
-            <TableHead
-              titles={["SKU", "Name", "Year", "Make", "Model", "Variant"]}
-            />
+            {totalOverview ? (
+              <TableHead
+                titles={[
+                  "SKU",
+                  "Name",
+                  "Year",
+                  "Make",
+                  "Model",
+                  "Variant",
+                  "Yard Name",
+                ]}
+              />
+            ) : (
+              <TableHead
+                titles={["SKU", "Name", "Year", "Make", "Model", "Variant"]}
+              />
+            )}
+
             {/* Body */}
 
             {dataFromServer?.length == 0 && (
@@ -223,24 +238,44 @@ const InventoryPage = ({ isAdmin = false, totalOverview = false }) => {
                 No Data Available
               </div>
             )}
-            {dataFromServer.map((data, index) => (
-              <TableRow
-                titles={[
-                  data.sku,
-                  data.part?.name,
-                  `${new Date(data.startYear).getFullYear()} - ${new Date(
-                    data.lastYear
-                  ).getFullYear()}`,
-                  data.make,
-                  data.model,
-                  data.variant,
-                ]}
-                key={index}
-                rowIndex={index}
-                item={data}
-                permissions={pagePermission}
-              />
-            ))}
+            {dataFromServer.map((data, index) =>
+              totalOverview ? (
+                <TableRow
+                  titles={[
+                    data.sku,
+                    data.part?.name,
+                    `${new Date(data.startYear).getFullYear()} - ${new Date(
+                      data.lastYear
+                    ).getFullYear()}`,
+                    data.make,
+                    data.model,
+                    data.variant,
+                    data.company[0].name,
+                  ]}
+                  key={index}
+                  rowIndex={index}
+                  item={data}
+                  permissions={pagePermission}
+                />
+              ) : (
+                <TableRow
+                  titles={[
+                    data.sku,
+                    data.part?.name,
+                    `${new Date(data.startYear).getFullYear()} - ${new Date(
+                      data.lastYear
+                    ).getFullYear()}`,
+                    data.make,
+                    data.model,
+                    data.variant,
+                  ]}
+                  key={index}
+                  rowIndex={index}
+                  item={data}
+                  permissions={pagePermission}
+                />
+              )
+            )}
           </div>
           {/* Footer */}
           <Footer
