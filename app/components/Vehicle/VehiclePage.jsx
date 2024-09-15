@@ -34,6 +34,8 @@ import {
   searchPartByName,
 } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
+import { getCookie } from "../../helpers/storage";
+import axios from "axios";
 
 const VehiclePage = ({ isAdmin = false }) => {
   const {
@@ -282,6 +284,96 @@ const VehiclePage = ({ isAdmin = false }) => {
   //   console.log(imgArray2);
   // }, [imgArray2]);
 
+  const deleteAll = async () => {
+    try {
+      let token;
+      let companyId;
+
+      // role based token
+      if (isAdmin) {
+        token =
+          getCookie("adminToken") ||
+          window?.sessionStorage.getItem("adminToken");
+        companyId = JSON.parse(localStorage.getItem("companyId"));
+      } else {
+        token = getCookie("token") || window?.sessionStorage.getItem("token");
+      }
+      const response = await axios.delete(
+        // `https://yardmanager-be.vercel.app/api/vehicles/all${
+        `${process.env.NEXT_PUBLIC_BASE_URL}/vehicles/all${
+          isAdmin ? `?company=${companyId}` : ""
+        }`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('response');
+      console.log(response.data);
+      dispatch(setShowToast({ value: true, msg: response.data.message }));
+      setDataFromServer([]);
+
+      // dispatch(
+      //   fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      // );
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: error.response.message,
+          red: true,
+        })
+      );
+    }
+  };
+
+  const addAllToInventory = async () => {
+    try {
+      let token;
+      let companyId;
+
+      // role based token
+      if (isAdmin) {
+        token =
+          getCookie("adminToken") ||
+          window?.sessionStorage.getItem("adminToken");
+        companyId = JSON.parse(localStorage.getItem("companyId"));
+      } else {
+        token = getCookie("token") || window?.sessionStorage.getItem("token");
+      }
+      const response = await axios.get(
+        // `https://yardmanager-be.vercel.app/api/vehicles/all${
+        `${process.env.NEXT_PUBLIC_BASE_URL}/vehicles/all/inventory${
+          isAdmin ? `?company=${companyId}` : ""
+        }`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log('response');
+      console.log(response.data);
+      dispatch(setShowToast({ value: true, msg: response.data.message }));
+      setDataFromServer([]);
+
+      // dispatch(
+      //   fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
+      // );
+    } catch (error) {
+      console.log(error);
+      dispatch(
+        setShowToast({
+          value: true,
+          msg: error.response.message,
+          red: true,
+        })
+      );
+    }
+  };
+
   const removePartFromList = (index) => {
     setPartValues(partValues.filter((_, i) => i !== index));
     setPartIds(partIds.filter((_, i) => i !== index));
@@ -473,6 +565,13 @@ const VehiclePage = ({ isAdmin = false }) => {
                   className="w-full outline-none bg-transparent"
                   onChange={handleSearch}
                 />
+              </div>
+              <GreenBtn onClick={addAllToInventory} title={"Add all to Inventory"} />
+              <div
+                onClick={deleteAll}
+                className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
+              >
+                <p>Clear All</p>
               </div>
             </div>
           </div>

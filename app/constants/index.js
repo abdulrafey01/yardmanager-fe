@@ -1,6 +1,8 @@
 const variantList = [
   "Front",
   "Rear",
+  "Right",
+  "Left",
   "Front Right",
   "Front Left",
   "Rear Right",

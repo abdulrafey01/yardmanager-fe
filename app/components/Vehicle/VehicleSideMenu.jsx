@@ -146,15 +146,16 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } else if (formState.variant.length === 0) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please fill the Variant field",
-          red: true,
-        })
-      );
-    }
+    } 
+    // else if (formState.variant.length === 0) {
+    //   return dispatch(
+    //     setShowToast({
+    //       value: true,
+    //       msg: "Please fill the Variant field",
+    //       red: true,
+    //     })
+    //   );
+    // }
     if (colorToggle === true) {
       // console.log("color", formState.color);
       if (

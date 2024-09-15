@@ -373,7 +373,7 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
           className=" flex cursor-pointer justify-start items-center space-x-2 "
         >
           <Image src={CartIcon} alt="delete" height={20} width={20} />
-          <p className="font-semibold hover:font-bold text-start">
+          <p className="font-semibold hover:font-bold text-start min-w-max">
             Add To Inventory
           </p>
         </div>
