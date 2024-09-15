@@ -367,7 +367,7 @@ const VehiclePage = ({ isAdmin = false }) => {
       dispatch(
         setShowToast({
           value: true,
-          msg: error.response.message,
+          msg: error.response.data.message,
           red: true,
         })
       );
