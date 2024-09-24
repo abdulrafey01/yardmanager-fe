@@ -235,26 +235,30 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    Promise.all(
-      partIds.map((partId) => {
-        let formData = new FormData();
-        formData.append("vin", vinVal);
-        formData.append("startYear", vinDecodedData?.year);
-        formData.append("make[0]", vinDecodedData?.make);
-        formData.append("model[0]", vinDecodedData?.model);
-        formData.append("part", partId);
+    const delayedPromises = partIds.map((partId, index) =>
+      new Promise((resolve) =>
+        setTimeout(() => {
+          let formData = new FormData();
+          formData.append("vin", vinVal);
+          formData.append("startYear", vinDecodedData?.year);
+          formData.append("make[0]", vinDecodedData?.make);
+          formData.append("model[0]", vinDecodedData?.model);
+          formData.append("part", partId);
 
-        // If there are images, append them to formData
-        if (imgArray2?.length > 0) {
-          imgArray2.forEach((image) => {
-            formData.append("images", image);
-          });
-        }
+          // If there are images, append them to formData
+          if (imgArray2?.length > 0) {
+            imgArray2.forEach((image) => {
+              formData.append("images", image);
+            });
+          }
 
-        // Dispatch the action for each partId
-        return dispatch(addVehicle({ data: formData, isAdmin }));
-      })
-    )
+          // Dispatch the action for each partId
+          resolve(dispatch(addVehicle({ data: formData, isAdmin })));
+        }, 100 * index)
+      )
+    );
+
+    Promise.all(delayedPromises)
       .then(() => {
         dispatch(
           setShowToast({
