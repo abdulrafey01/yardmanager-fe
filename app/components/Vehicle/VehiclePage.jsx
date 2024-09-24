@@ -566,7 +566,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                   onChange={handleSearch}
                 />
               </div>
-              <GreenBtn onClick={addAllToInventory} title={"Add all to Inventory"} />
+              <GreenBtn onClick={addAllToInventory} title={"Add All to Inventory"} />
               <div
                 onClick={deleteAll}
                 className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"

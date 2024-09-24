@@ -223,7 +223,7 @@ const InvoicePage = ({ isAdmin = false }) => {
               <TableRow
                 titles={[
                   data.name,
-                  data._id,
+                  data._id.slice(0, 10),
                   data.name,
                   data.email,
                   (() => {

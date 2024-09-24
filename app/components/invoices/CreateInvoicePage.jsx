@@ -592,7 +592,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       onSearch={searchInventoryByName}
                       fetchAllFunc={fetchAllInventory}
                       placeholder={"Name"}
-                      searchData={inventorySearchData}
+                      searchData={inventorySearchData.map((data) => ({...data, name: data.part.name})) || []}
                       setIdFunc={(val) => {
                         onProductNameClick(val);
                       }}

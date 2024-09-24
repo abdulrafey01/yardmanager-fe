@@ -47,9 +47,9 @@ const InvoicePrevModal = () => {
           <div className="flex justify-between items-center">
             <Header darkType={true} />
             <div className="flex flex-col items-end">
-              <p className="font-bold text-lg">INVOICE</p>
+              <p className="font-bold text-xl">INVOICE</p>
               {previewModal?.data?.id && (
-                <p className="break-all w-20"># {previewModal?.data?.id}</p>
+                <p className="break-all text-xs w-24 text-end"># {previewModal?.data?.id?.slice(0, 10)}</p>
               )}
             </div>
           </div>
