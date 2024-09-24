@@ -12,6 +12,7 @@ import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 const InvoicePrevModal = () => {
   const dispatch = useDispatch();
   const { previewModal } = useSelector((state) => state.invoice);
+  const { user } = useSelector((state) => state.auth);
   const [subTotal, setSubTotal] = React.useState(0);
   const [grandTotal, setGrandTotal] = React.useState(0);
 
@@ -45,7 +46,8 @@ const InvoicePrevModal = () => {
         <div className="relative bg-white p-8 w-[90%] md:w-1/2 flex flex-col gap-4  ">
           {/* First row */}
           <div className="flex justify-between items-center">
-            <Header darkType={true} />
+            {console.log('previewModal', user.company.name)}
+            <Header darkType={true} company={user?.company?.name} />
             <div className="flex flex-col items-end">
               <p className="font-bold text-xl">INVOICE</p>
               {previewModal?.data?.id && (

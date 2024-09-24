@@ -3,11 +3,11 @@ import React from "react";
 import YardIcon from "../../assets/auth/yardicon-1.svg";
 import YardIconW from "../../assets/main/58-logow.svg";
 import Image from "next/image";
-const Header = ({ darkType }) => {
+const Header = ({ darkType, company }) => {
   return (
     <div className="  flex justify-start items-center text-white space-x-1">
       {darkType ? (
-        <Image src={YardIconW} alt="logo" />
+        <Image src={YardIconW} width={40} alt="logo" />
       ) : (
         <Image src={YardIcon} alt="logo" />
       )}
@@ -17,7 +17,7 @@ const Header = ({ darkType }) => {
           darkType ? "text-black" : "text-white"
         }`}
       >
-        My Yard Manager
+        {company ??  'My Yard Manager'}
       </p>
     </div>
   );
