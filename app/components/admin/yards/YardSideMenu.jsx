@@ -154,15 +154,15 @@ const YardSideMenu = () => {
       //     })
       //   );
       // }
-      if (!companyImage) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please select Company Image",
-            red: true,
-          })
-        );
-      }
+      // if (!companyImage) {
+      //   return dispatch(
+      //     setShowToast({
+      //       value: true,
+      //       msg: "Please select Company Image",
+      //       red: true,
+      //     })
+      //   );
+      // }
 
       // if (!coverImage) {
       //   return dispatch(
@@ -382,7 +382,7 @@ const YardSideMenu = () => {
                   img={companyImage}
                   onImageChange={(e) => setCompanyImage(e.target.files[0])}
                   setImg={setCompanyImage}
-                  placeholder={"Upload Company Image"}
+                  placeholder={"Upload Company Image (Optional)"}
                 />
                 <SingleImageDropzone
                   htmlName="coverImage"
