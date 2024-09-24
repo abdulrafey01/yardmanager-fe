@@ -182,10 +182,12 @@ const PartSideMenu = () => {
                     })
                   );
                 } else {
-                  setFormData({
-                    ...formData,
-                    variant: [...formData.variant, e],
-                  });
+                  if (!formData.variant.includes(e)) {
+                    setFormData({
+                      ...formData,
+                      variant: [...formData.variant, e],
+                    });
+                  }
                 }
               }}
               removeItemFunction={removeVariantFromList}
