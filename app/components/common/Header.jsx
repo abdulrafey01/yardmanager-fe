@@ -13,7 +13,7 @@ const Header = ({ darkType, company }) => {
       )}
       <div className={`h-6 w-[2.2px] bg-white ${darkType && "hidden"}`}></div>
       <p
-        className={`text-xs sm:text-base ${
+        className={`text-xs sm:text-lg ${
           darkType ? "text-black" : "text-white"
         }`}
       >

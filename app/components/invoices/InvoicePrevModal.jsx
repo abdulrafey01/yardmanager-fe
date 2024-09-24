@@ -46,12 +46,14 @@ const InvoicePrevModal = () => {
         <div className="relative bg-white p-8 w-[90%] md:w-1/2 flex flex-col gap-4  ">
           {/* First row */}
           <div className="flex justify-between items-center">
-            {console.log('previewModal', user.company.name)}
+            {/* {console.log("previewModal", user.company.name)} */}
             <Header darkType={true} company={user?.company?.name} />
             <div className="flex flex-col items-end">
               <p className="font-bold text-xl">INVOICE</p>
               {previewModal?.data?.id && (
-                <p className="break-all text-xs w-24 text-end"># {previewModal?.data?.id?.slice(0, 10)}</p>
+                <p className="break-all text-xs w-24 text-end">
+                  # {previewModal?.data?.id?.slice(0, 10)}
+                </p>
               )}
             </div>
           </div>
@@ -77,7 +79,8 @@ const InvoicePrevModal = () => {
               <div className="font-bold">Billing And Payment Details</div>
               <div>
                 <p className="text-sm">
-                  Payment Amount:{previewModal?.data?.paid}
+                  Payment Amount: {"$"}
+                  {previewModal?.data?.paid}
                 </p>
                 <p className="text-sm">
                   Payment Method:{previewModal?.data?.paymentMethod}
