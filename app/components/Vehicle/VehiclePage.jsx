@@ -586,7 +586,7 @@ const VehiclePage = ({ isAdmin = false }) => {
               titles={[
                 "SKU",
                 "Name",
-                "Start Year",
+                "Year",
                 "Make",
                 "Model",
                 "Variant",

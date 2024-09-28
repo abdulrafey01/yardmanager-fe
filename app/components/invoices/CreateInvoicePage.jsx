@@ -167,7 +167,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
     name: "",
     quantity: "",
     price: "",
-    date: new Date(),
+    date: new Date().toJSON().slice(0, 10),
     total: 0,
   });
 
@@ -634,7 +634,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                         placeholder="Date"
                         name="date"
                         value={productData.date}
-                        defaultValue={new Date()}
+                        // defaultValue={new Date()}
                         onChange={onProductDetailInputChange}
                       />
                     </div>
@@ -778,9 +778,8 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       ? datePaidInputType === "date"
                         ? formData.datePaid
                         : new Date(formData.datePaid).toLocaleDateString()
-                      : ""
+                      : new Date().toJSON().slice(0, 10)
                   }
-                  defaultValue={new Date()}
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />

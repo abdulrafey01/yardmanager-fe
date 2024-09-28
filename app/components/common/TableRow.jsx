@@ -199,7 +199,7 @@ const TableRow = ({
           {titles[4].map((make, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
             >
               {make}
             </div>
@@ -214,7 +214,7 @@ const TableRow = ({
         >
           {titles[5].length === 0 ? (
             <div
-              className={`bg-[#12121209]   rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#12121209] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
             >
               No Variant
             </div>
@@ -222,7 +222,7 @@ const TableRow = ({
             titles[5].map((variant, index) => (
               <div
                 key={index}
-                className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+                className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
               >
                 {variant}
               </div>
@@ -298,7 +298,7 @@ const TableRow = ({
           {titles[3].map((model, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
             >
               {model}
             </div>
@@ -314,7 +314,7 @@ const TableRow = ({
           {titles[index].map((make, index) => (
             <div
               key={index}
-              className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
+              className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
             >
               {make}
             </div>
