@@ -45,6 +45,8 @@ const InventorySideMenu = () => {
   const { toastMsg } = useSelector((state) => state.vehicle);
   const { user } = useSelector((state) => state.auth);
 
+  const [priceToggle, setPriceToggle] = React.useState(false);
+  const [imageToggle, setImageToggle] = React.useState(false);
   const [imgArray, setImgArray] = React.useState(null);
   const [showLocDropDown, setShowLocDropDown] = React.useState(false);
   const [showPartDropDown, setShowPartDropDown] = React.useState(false);
@@ -78,6 +80,12 @@ const InventorySideMenu = () => {
   // To check during form submit
   const currentYear = new Date().getFullYear();
 
+  useEffect(() => {
+    // console.log('price', user)
+    setPriceToggle(user?.company?.price ?? false)
+    setImageToggle(user?.company?.image ?? false)
+  }, [user])
+  
   const yearsArray = Array.from({ length: currentYear - 1950 + 1 }, (_, i) =>
     (1950 + i).toString()
   );
@@ -156,6 +164,17 @@ const InventorySideMenu = () => {
     //     })
     //   );
     // }
+    if (priceToggle === true) {
+      if (formState.price === "" || formState.price <= 0) {
+        return dispatch(
+          setShowToast({
+            value: true,
+            msg: "Please fill the Price field",
+            red: true,
+          })
+        );
+      }
+    }
     if (colorToggle === true) {
       // console.log("color", formState.color);
       if (
@@ -313,7 +332,7 @@ const InventorySideMenu = () => {
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
-        console.log(selectedItem);
+        // console.log(selectedItem);
         setFormState({
           name: selectedItem.name,
           model: selectedItem.model,
@@ -619,7 +638,18 @@ const InventorySideMenu = () => {
                 removeItemFunction={removeColorFromList}
               />
             )}
-
+            {priceToggle || showSideMenu.mode === "preview" ? (
+                <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                  <input
+                    className="w-full outline-none"
+                    type="number"
+                    placeholder="Price"
+                    name="price"
+                    value={formState.price}
+                    onChange={onInputChange}
+                  />
+                </div>
+              ) : null}
             {/* Inventory Notes input */}
             <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <textarea
@@ -633,13 +663,21 @@ const InventorySideMenu = () => {
             </div>
           </div>
           {/* Inventory Image input */}
-          <ImageDropzone
+          {/* <ImageDropzone
             previewMode={showSideMenu.mode === "preview"}
             imgArray={imgArray}
             setImgArray={setImgArray}
             onImageChange={onImageChange}
             placeholder="Upload Vehicle Image"
-          />
+          /> */}
+          {imageToggle || showSideMenu.mode === "preview" ? (
+            <ImageDropzone
+              previewMode={showSideMenu.mode === "preview"}
+              imgArray={imgArray}
+              setImgArray={setImgArray}
+              onImageChange={onImageChange}
+            />
+          ) : null}
         </div>
         {/* Buttons */}
 

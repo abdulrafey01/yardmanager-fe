@@ -605,7 +605,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                 titles={[
                   data.sku,
                   data.part?.name,
-                  new Date(data.startYear).getFullYear(),
+                  new Date(data.startYear).getFullYear() + " - " + new Date(data.lastYear).getFullYear(),
                   data.make,
                   data.model,
                   data.variant,

@@ -361,7 +361,7 @@ const AddRoleMenu = () => {
           <PermissionMenu
             perm={locPerm}
             setPerm={setLocPerm}
-            title={"Location"}
+            title={"Locations"}
           />
           <PermissionMenu
             perm={partsPerm}
@@ -371,7 +371,7 @@ const AddRoleMenu = () => {
           <PermissionMenu
             perm={vehiclePerm}
             setPerm={setVehiclePerm}
-            title={"My Vehicles"}
+            title={"Vehicles"}
           />
           <PermissionMenu
             perm={recyclePerm}

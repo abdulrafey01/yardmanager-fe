@@ -12,16 +12,18 @@ import {
 import { permission } from "process";
 import axios from "axios";
 import useLoadAuthState from "../../../helpers/authHook";
+import { setImageToggle, setPriceToggle } from "../../../../lib/features/auth/authSlice";
 
 const page = () => {
   // useLoadAuthState();
   const dispatch = useDispatch();
-  const { colorToggle } = useSelector((state) => state.settings);
 
   const { user } = useSelector((state) => state.auth);
   const [pagePermission, setPagePermission] = React.useState(null);
-  const [priceToggle, setPriceToggle] = React.useState(false);
-  const [partImageToggle, setPartImageToggle] = React.useState(false);
+  // const [priceToggle, setPriceToggle] = React.useState(false);
+  const priceToggle = useSelector((state) => state.auth.user?.company?.price);
+  // const [partImageToggle, setPartImageToggle] = React.useState(false);
+  const partImageToggle = useSelector((state) => state.auth.user?.company?.image);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -36,8 +38,9 @@ const page = () => {
             },
           }
         );
-        setPartImageToggle(response.data?.data?.company?.image);
-        setPriceToggle(response.data?.data?.company?.price);
+        dispatch(setImageToggle(response.data?.data?.company?.image));
+        // setPriceToggle(response.data?.data?.company?.price);
+        dispatch(setPriceToggle(response.data?.data?.company?.price));
       } catch (error) {
         console.log("Error fetching user info in settings:", error);
       }
@@ -91,7 +94,8 @@ const page = () => {
       .then((res) => {
         console.log(res.data);
 
-        setPriceToggle(res.data.data.price);
+        dispatch(setPriceToggle(res.data.data.price));
+        // setPriceToggle(res.data.data.price);
       })
       .catch((err) => {
         console.log(err);
@@ -113,7 +117,7 @@ const page = () => {
       .then((res) => {
         console.log(res.data);
 
-        setPartImageToggle(res.data.data.image);
+        dispatch(setImageToggle(res.data.data.image));
       })
       .catch((err) => {
         console.log(err);

@@ -7,6 +7,7 @@ import PrfIcon from "../../assets/main/52-prficon.svg";
 import PhoneIcon from "../../assets/main/53-phoneicon.svg";
 import BasketIcon from "../../assets/main/54-basket.svg";
 import PaymentIcon from "../../assets/main/55-payment.svg";
+import PercentageIcon from "../../assets/main/percent-svgrepo-com.svg";
 import SelectIcon from "../../assets/main/28-downarrow.svg";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
@@ -116,7 +117,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
           paid: "",
           status: false,
           notes: "",
-          datePaid: "",
+          datePaid: new Date(),
           paymentMethod: "",
         });
         setProductData({
@@ -124,7 +125,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
           name: "",
           quantity: "",
           price: "",
-          date: "",
+          date: new Date(),
           total: 0,
         });
         setSubTotal(0);
@@ -155,7 +156,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
     paid: "",
     status: false,
     notes: "",
-    datePaid: "",
+    datePaid: new Date(),
   });
   // For setting productName
   const [productName, setProductName] = useState("");
@@ -166,7 +167,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
     name: "",
     quantity: "",
     price: "",
-    date: "",
+    date: new Date(),
     total: 0,
   });
 
@@ -282,7 +283,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
         paid: "",
         status: false,
         notes: "",
-        datePaid: "",
+        datePaid: new Date(),
       });
     }
   }, [item]);
@@ -592,7 +593,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       onSearch={searchInventoryByName}
                       fetchAllFunc={fetchAllInventory}
                       placeholder={"Name"}
-                      searchData={inventorySearchData.map((data) => ({...data, name: data.part.name})) || []}
+                      searchData={inventorySearchData.map((data) => ({...data, name: data.sku + ' - ' + data.part.name})).sort((a, b) => a.sku - b.sku) || []}
                       setIdFunc={(val) => {
                         onProductNameClick(val);
                       }}
@@ -633,6 +634,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                         placeholder="Date"
                         name="date"
                         value={productData.date}
+                        defaultValue={new Date()}
                         onChange={onProductDetailInputChange}
                       />
                     </div>
@@ -750,10 +752,10 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                     Card
                   </div>{" "}
                   <div
-                    onClick={() => handlePaymentMenuClick("Cash Payment")}
+                    onClick={() => handlePaymentMenuClick("Cash")}
                     className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
                   >
-                    Cash Payment
+                    Cash
                   </div>
                   <div
                     onClick={() => handlePaymentMenuClick("Bank Transfer")}
@@ -778,6 +780,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                         : new Date(formData.datePaid).toLocaleDateString()
                       : ""
                   }
+                  defaultValue={new Date()}
                   onChange={onInputChange}
                   placeholder={"Select Date Paid"}
                 />
@@ -795,7 +798,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       value={formData.tax}
                       onChange={onInputChange}
                       placeholder={"Tax Percentage %"}
-                      icon={PaymentIcon}
+                      icon={PercentageIcon}
                     />
                   </div>
                 </div>

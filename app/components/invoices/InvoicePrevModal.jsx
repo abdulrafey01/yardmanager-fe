@@ -12,6 +12,7 @@ import { setPreviewModal } from "../../../lib/features/invoice/invoiceSlice";
 const InvoicePrevModal = () => {
   const dispatch = useDispatch();
   const { previewModal } = useSelector((state) => state.invoice);
+  const company = useSelector((state) => state?.auth?.user?.company);
   const { user } = useSelector((state) => state.auth);
   const [subTotal, setSubTotal] = React.useState(0);
   const [grandTotal, setGrandTotal] = React.useState(0);
@@ -60,9 +61,10 @@ const InvoicePrevModal = () => {
           {/* Second row */}
           <div className="flex justify-start items-center">
             <div className="flex flex-col gap-1">
-              <p className="text-sm">{previewModal?.data?.name}</p>
-              <p className="text-sm">+{previewModal?.data?.phone}</p>
-              <p className="text-sm">{previewModal?.data?.email}</p>
+              {console.log('State', company)}
+              <p className="text-sm">Name: {company?.name}</p>
+              <p className="text-sm">Phone: +{company?.phone}</p>
+              <p className="text-sm">Address: {company?.address}</p>
             </div>
           </div>
           {/* Third Row */}
@@ -204,7 +206,7 @@ const InvoicePrevModal = () => {
           {/* fIFTH nOTE  Row */}
           <div className="w-full flex flex-col justify-start gap-2">
             <p className="font-semibold text-[#344054] text-xl">
-              Additional Note
+              Additional Notes
             </p>
             {previewModal?.data?.notes === "" ? (
               <p className="text-sm font-bold">Empty Note</p>

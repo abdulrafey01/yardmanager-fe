@@ -14,6 +14,7 @@ const MainInput = ({
   typeAble = true,
   onBlur,
   onClick,
+  defaultValue
 }) => {
   return (
     <div
@@ -34,6 +35,7 @@ const MainInput = ({
         // If there exist a type then use that otherwise use text
         type={type ? type : "text"}
         onBlur={onBlur}
+        defaultValue={defaultValue}
       />
 
       {icon && <Image src={icon} alt="msgicon" onClick={onIconClick} />}
