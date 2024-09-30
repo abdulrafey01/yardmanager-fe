@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import GreenBtn from "../../abstracts/GreenBtn";
 import SearchIcon from "../../assets/main/30-search.svg";
 import MenuIcon from "../../assets/main/37-menu.svg";
@@ -111,6 +111,15 @@ const VehiclePage = ({ isAdmin = false }) => {
       }
     }
   }, [user]);
+  const temp = useRef(false);
+  useEffect(() => {
+    if (temp.current && !partSearchData) return
+    temp.current = true
+
+    setPartIds(partSearchData.map((value) => value.id));
+    setPartValues(partSearchData);
+  }, [partSearchData]);
+
   useEffect(() => {
     dispatch(setCurrentPage("Vehicle"));
     dispatch(
@@ -235,27 +244,28 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    const delayedPromises = partIds.map((partId, index) =>
-      new Promise((resolve) =>
-        setTimeout(() => {
-          let formData = new FormData();
-          formData.append("vin", vinVal);
-          formData.append("startYear", vinDecodedData?.year);
-          formData.append("make[0]", vinDecodedData?.make);
-          formData.append("model[0]", vinDecodedData?.model);
-          formData.append("part", partId);
+    const delayedPromises = partIds.map(
+      (partId, index) =>
+        new Promise((resolve) =>
+          setTimeout(() => {
+            let formData = new FormData();
+            formData.append("vin", vinVal);
+            formData.append("startYear", vinDecodedData?.year);
+            formData.append("make[0]", vinDecodedData?.make);
+            formData.append("model[0]", vinDecodedData?.model);
+            formData.append("part", partId);
 
-          // If there are images, append them to formData
-          if (imgArray2?.length > 0) {
-            imgArray2.forEach((image) => {
-              formData.append("images", image);
-            });
-          }
+            // If there are images, append them to formData
+            if (imgArray2?.length > 0) {
+              imgArray2.forEach((image) => {
+                formData.append("images", image);
+              });
+            }
 
-          // Dispatch the action for each partId
-          resolve(dispatch(addVehicle({ data: formData, isAdmin })));
-        }, 100 * index)
-      )
+            // Dispatch the action for each partId
+            resolve(dispatch(addVehicle({ data: formData, isAdmin })));
+          }, 100 * index)
+        )
     );
 
     Promise.all(delayedPromises)
@@ -313,7 +323,7 @@ const VehiclePage = ({ isAdmin = false }) => {
           },
         }
       );
-      console.log('response');
+      console.log("response");
       console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
@@ -358,7 +368,7 @@ const VehiclePage = ({ isAdmin = false }) => {
           },
         }
       );
-      console.log('response');
+      console.log("response");
       console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
@@ -482,14 +492,14 @@ const VehiclePage = ({ isAdmin = false }) => {
                 /> */}
               </div>
               <MultiInput
-                dataToMap={partValues}
+                dataToMap={partValues.map((part) => part.name)}
                 placeholder="Parts"
                 name="variant"
                 type="part"
                 stopOnChange={true}
                 dataList={partSearchData
                   .filter((item) => {
-                    if (!partValues.includes(item.name)) {
+                    if (!partValues.some((part) => part._id === item._id)) {
                       return item;
                     } else {
                       return null;
@@ -497,7 +507,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                   })
                   .map((item) => item.name)}
                 onPressEnter={(e) => {
-                  if (e.length < 1) {
+                  if (e?.name?.length < 1) {
                     dispatch(
                       setShowToast({
                         value: true,
@@ -505,7 +515,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                         red: true,
                       })
                     );
-                  } else if (e.length > 25) {
+                  } else if (e?.name?.length > 25) {
                     return dispatch(
                       setShowToast({
                         value: true,
@@ -514,11 +524,12 @@ const VehiclePage = ({ isAdmin = false }) => {
                       })
                     );
                   } else {
-                    setPartValues([...partValues, e]);
-                    setPartIds([
-                      ...partIds,
-                      partSearchData.find((item) => item.name === e)?._id, // Safely access the 'id' using optional chaining
-                    ]);
+                    console.log('e', e)
+                    setPartValues([...partValues, partSearchData.find((item) => item.name === e && !partValues.some((part) => part._id === item._id))]);
+                    // setPartIds([
+                    //   ...partIds,
+                    //   partSearchData.find((item) => item.name === e)?._id, // Safely access the 'id' using optional chaining
+                    // ]);
                   }
                 }}
                 removeItemFunction={removePartFromList}
@@ -570,7 +581,10 @@ const VehiclePage = ({ isAdmin = false }) => {
                   onChange={handleSearch}
                 />
               </div>
-              <GreenBtn onClick={addAllToInventory} title={"Add All to Inventory"} />
+              <GreenBtn
+                onClick={addAllToInventory}
+                title={"Add All to Inventory"}
+              />
               <div
                 onClick={deleteAll}
                 className="p-1 sm:p-3 cursor-pointer hover:bg-red-700 border bg-[#D32F2F] text-white border-gray-300 rounded-lg flex justify-between items-center text-xs sm:text-sm text-center"
@@ -605,7 +619,9 @@ const VehiclePage = ({ isAdmin = false }) => {
                 titles={[
                   data.sku,
                   data.part?.name,
-                  new Date(data.startYear).getFullYear() + " - " + new Date(data.lastYear).getFullYear(),
+                  new Date(data.startYear).getFullYear() +
+                    " - " +
+                    new Date(data.lastYear).getFullYear(),
                   data.make,
                   data.model,
                   data.variant,
