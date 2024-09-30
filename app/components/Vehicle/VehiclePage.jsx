@@ -525,7 +525,9 @@ const VehiclePage = ({ isAdmin = false }) => {
                     );
                   } else {
                     console.log('e', e)
-                    setPartValues([...partValues, partSearchData.find((item) => item.name === e && !partValues.some((part) => part._id === item._id))]);
+                    let newPart = partSearchData.find((item) => item.name === e && !partValues.some((part) => part._id === item._id))
+                    // console.log(newPart);
+                    newPart && setPartValues([...partValues, newPart]);
                     // setPartIds([
                     //   ...partIds,
                     //   partSearchData.find((item) => item.name === e)?._id, // Safely access the 'id' using optional chaining
