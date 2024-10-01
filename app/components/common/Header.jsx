@@ -7,7 +7,7 @@ const Header = ({ darkType, company }) => {
   return (
     <div className="  flex justify-start items-center text-white space-x-1">
       {darkType ? (
-        <Image src={YardIconW} width={40} alt="logo" />
+        <Image src={YardIconW} className="w-14" alt="logo" />
       ) : (
         <Image src={YardIcon} alt="logo" />
       )}

@@ -141,12 +141,13 @@ const TopBar = () => {
               ? user?.data?.name?.last
               : ""}
           </p>
+          {console.log('user', user)}
           <p className="hidden sm:block text-xs">
             {user?.userType === "user"
               ? "Shop Owner"
               : user?.userType === "admin"
               ? "Admin"
-              : user?.userType === "employee" && "Employee"}
+              : user?.userType === "employee" && (user?.data?.position ?? "Employee")}
           </p>
         </div>
         <div className="hidden sm:block p-2">

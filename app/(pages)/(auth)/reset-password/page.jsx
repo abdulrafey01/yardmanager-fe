@@ -20,12 +20,14 @@ const Page = () => {
   const dispatch = useDispatch();
   // Function to handle reset password
   const changePwd = async () => {
-    if (pwdVal.length < 8) {
+    const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
+    if (!pwdRegex.test(pwdVal)) {
       setLoaderState(false);
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Password must be at least 8 characters",
+          msg:
+            "Password must be alphanumeric, contain at least one special character and one number, and have a minimum of 8 characters",
           red: true,
         })
       );

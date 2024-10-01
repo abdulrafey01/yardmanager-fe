@@ -789,7 +789,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
               <div className="flex p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
                 {/* Row 1  */}
                 <div className="w-full flex justify-between items-center">
-                  <p className="text-[#667085]">Enter Tax:</p>
+                  <p className="text-[#667085]">Sales Tax:</p>
                   <div className="w-2/3">
                     <MainInput
                       type="number"

@@ -69,8 +69,12 @@ const Page = () => {
             Let's get you signed in.
           </p>
           <p className="text-sm text-[#9CA3AF]">
-            Enter your email or mobile number associated with podium account and
-            we’ll send you a temporary access code!
+            Forgot your password? No worries! Just enter your email, and we’ll
+            send you a link to reset it. Check your inbox (and don’t forget to
+            look in your spam or junk folder) for further instructions to get
+            back into your account.
+            {/* Enter your email and
+            we’ll send you a temporary access code! */}
           </p>
         </div>
         {/* Input */}

@@ -338,17 +338,17 @@ const InventorySideMenu = () => {
         );
       }
     }
-    if (imageToggle === true) {
-      if (imgArray.length === 0) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please select at least one Image",
-            red: true,
-          })
-        );
-      }
-    }
+    // if (imageToggle === true) {
+    //   if (imgArray.length === 0) {
+    //     return dispatch(
+    //       setShowToast({
+    //         value: true,
+    //         msg: "Please select at least one Image",
+    //         red: true,
+    //       })
+    //     );
+    //   }
+    // }
     if (Number(formState.lastYear) < Number(formState.startYear)) {
       return dispatch(
         setShowToast({
@@ -831,7 +831,7 @@ const InventorySideMenu = () => {
             />
 
             {/* Inventory Variant input */}
-            <MultiInput
+            {variantData.length > 0 && (<MultiInput
               dataToMap={formState.variant}
               placeholder="Variant"
               dataList={variantData.filter((item) => {
@@ -868,7 +868,7 @@ const InventorySideMenu = () => {
                 }
               }}
               removeItemFunction={removeVariantFromList}
-            />
+            />)}
             {/* Color input based on toggle */}
             {colorToggle && (
               // <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">

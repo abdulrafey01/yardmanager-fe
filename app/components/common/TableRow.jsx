@@ -350,9 +350,18 @@ const TableRow = ({
           onClick={() => dispatch(setShowActionMenu(-1))}
           className={` ${
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
-          } min-w-16  p-3  text-center flex-1 flex items-center`}
+          } min-w-16  p-3  text-center flex-[0.7] flex items-center`}
         >
           <Badge active={title} />
+        </div>
+      ) : index === 2 ? (
+        <div
+          onClick={() => dispatch(setShowActionMenu(-1))}
+          className={` ${
+            rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb] "
+          } min-w-16  text-center  p-3 flex-[1.8] flex items-center`}
+        >
+          {title}
         </div>
       ) : (
         <div

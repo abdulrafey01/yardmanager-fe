@@ -42,6 +42,10 @@ const TableHead = ({ titles }) => {
           ) : (
             <p className=" min-w-16 p-3 bg-[#f2fff8] flex-1">{title}</p>
           )
+        ) : index === 2 && currentPage === "Employee" ? (
+          <p className=" min-w-16 p-3 bg-[#f2fff8] flex-[1.8]">{title}</p>
+        ) : index === 6 && currentPage === "Employee" ? (
+          <p className=" min-w-16 p-3 bg-[#f2fff8] flex-[0.7]">{title}</p>
         ) : index === 3 ? (
           renderBadgeCells(title)
         ) : index === 4 || index === 5 || index === 7 ? (

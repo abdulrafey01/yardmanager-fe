@@ -30,24 +30,24 @@ const SectionOne = () => {
         <div className=" relative overflow-visible">
           <Image
             // className="sm:w-80 sm:h-80"
-            className="invisible"
+            className="hidden"
             src={ManImg}
             alt="logo"
             width={350}
             height={450}
           />
           <Image
-            className="absolute sm:top-56 sm:right-48 sm:w-56 sm:h-56 top-24 right-28 w-32 h-32"
+            className="absolute sm:top-56 sm:right-48 sm:w-56 sm:h-56 top-24 right-28 w-32 h-32 hidden"
             src={BoxImg1}
             alt="logo"
           />
           <Image
-            className="absolute top-16 left-36 sm:w-48 sm:h-48 sm:top-32 sm:left-64  w-32 h-32"
+            className="absolute top-16 left-36 sm:w-48 sm:h-48 sm:top-32 sm:left-64  w-32 h-32 hidden"
             src={BoxImg2}
             alt="logo"
           />
           <Image
-            className="absolute top-48 left-28 w-32 h-32 sm:w-52 sm:h-52 sm:top-[360px] sm:left-36"
+            className="absolute top-48 left-28 w-32 h-32 sm:w-52 sm:h-52 sm:top-[360px] sm:left-36 hidden"
             src={BoxImg3}
             alt="logo"
           />

@@ -26,9 +26,9 @@ const ImagePrevModal = () => {
                 : URL.createObjectURL(prevImage?.img)
             }
             alt="preview"
-            className="relative rounded-2xl flex flex-col justify-center items-center gap-4  "
-            width={300}
-            height={300}
+            className="relative max-w-[75vw] rounded-2xl flex flex-col justify-center items-center gap-4  "
+            width={1300}
+            height={1100}
           />
           {/* Cross icon */}
           <Image

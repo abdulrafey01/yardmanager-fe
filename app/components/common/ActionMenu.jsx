@@ -280,7 +280,7 @@ const ActionMenu = ({ index, item, permissions, fetchYards }) => {
                     products: item.products
                       .filter((obj) => obj.product)
                       .map((obj) => ({
-                        name: obj.product.name,
+                        name: obj.product.part.name,
                         quantity: obj.quantity,
                         price: obj.price,
                         date: obj.date,

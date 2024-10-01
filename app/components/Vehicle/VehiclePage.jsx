@@ -3,7 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useRef } from "react";
 import GreenBtn from "../../abstracts/GreenBtn";
 import SearchIcon from "../../assets/main/30-search.svg";
-import MenuIcon from "../../assets/main/37-menu.svg";
+// import MenuIcon from "../../assets/main/37-menu.svg";
 import { calcTotalPage, displayData } from "../../helpers/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import TableHead from "../../components/common/TableHead";
@@ -28,10 +28,10 @@ import {
 } from "../../../lib/features/vehicle/vehicleSlice";
 import Footer from "../../components/common/Footer";
 import ImageDropzone from "../../components/common/ImageDropzone";
-import DropDownInput from "../common/DropDownInput";
+// import DropDownInput from "../common/DropDownInput";
 import {
   fetchAllParts,
-  searchPartByName,
+  // searchPartByName,
 } from "../../../lib/features/parts/partActions";
 import MultiInput from "../common/MultiInput";
 import { getCookie } from "../../helpers/storage";
@@ -56,8 +56,8 @@ const VehiclePage = ({ isAdmin = false }) => {
   const [partValues, setPartValues] = React.useState([]);
   const [partIds, setPartIds] = React.useState([]);
   // THese 2 wont be used here. Declared just for not getting error
-  const [variantData, setVariantData] = React.useState([]);
-  const [colorToggle, setColorToggle] = React.useState(false);
+  // const [variantData, setVariantData] = React.useState([]);
+  // const [colorToggle, setColorToggle] = React.useState(false);
 
   const [pagePermission, setPagePermission] = React.useState(null);
   const dispatch = useDispatch();
@@ -113,10 +113,12 @@ const VehiclePage = ({ isAdmin = false }) => {
   }, [user]);
   const temp = useRef(false);
   useEffect(() => {
-    if (temp.current && !partSearchData) return
-    temp.current = true
+    if (temp.current && !partSearchData) return;
+    temp.current = true;
 
-    setPartIds(partSearchData.map((value) => value.id));
+    console.log("partSearchData", partValues);
+
+    // setPartIds(partSearchData.map((value) => value.id));
     setPartValues(partSearchData);
   }, [partSearchData]);
 
@@ -229,13 +231,13 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   useEffect(() => {
     if (vinDecodedData) {
-      console.log(vinDecodedData);
+      // console.log(vinDecodedData);
     }
   }, [vinDecodedData]);
 
   // Create vehicle from VIN
   const handleCreateBtnClick = () => {
-    if (partIds.length === 0) {
+    if (partValues.length === 0) {
       return dispatch(
         setShowToast({
           value: true,
@@ -244,7 +246,7 @@ const VehiclePage = ({ isAdmin = false }) => {
         })
       );
     }
-    const delayedPromises = partIds.map(
+    const delayedPromises = partValues.map(
       (partId, index) =>
         new Promise((resolve) =>
           setTimeout(() => {
@@ -253,7 +255,7 @@ const VehiclePage = ({ isAdmin = false }) => {
             formData.append("startYear", vinDecodedData?.year);
             formData.append("make[0]", vinDecodedData?.make);
             formData.append("model[0]", vinDecodedData?.model);
-            formData.append("part", partId);
+            formData.append("part", partId?._id);
 
             // If there are images, append them to formData
             if (imgArray2?.length > 0) {
@@ -262,6 +264,7 @@ const VehiclePage = ({ isAdmin = false }) => {
               });
             }
 
+            console.log("formData", index, partId);
             // Dispatch the action for each partId
             resolve(dispatch(addVehicle({ data: formData, isAdmin })));
           }, 100 * index)
@@ -273,16 +276,20 @@ const VehiclePage = ({ isAdmin = false }) => {
         dispatch(
           setShowToast({
             value: true,
-            msg: `${partValues.length} Vehicle created Successfully`,
+            msg: `${partValues.length} Part${partValues.length > 1 ? "s" : ""} Added Successfuly`,
             red: false,
           })
         );
+        setShowDecodeMenu(false);
+        setVinVal("");
+        setPartValues([]);
+        setVinDecodedData(null);
       })
       .catch((error) => {
         dispatch(
           setShowToast({
             value: true,
-            msg: "Vehicle creation failed",
+            msg: "Part creation failed",
             red: true,
           })
         );
@@ -390,7 +397,7 @@ const VehiclePage = ({ isAdmin = false }) => {
 
   const removePartFromList = (index) => {
     setPartValues(partValues.filter((_, i) => i !== index));
-    setPartIds(partIds.filter((_, i) => i !== index));
+    // setPartIds(partIds.filter((_, i) => i !== index));
     // console.log(index);
   };
   const handleRadioClick = (e) => {
@@ -499,7 +506,9 @@ const VehiclePage = ({ isAdmin = false }) => {
                 stopOnChange={true}
                 dataList={partSearchData
                   .filter((item) => {
+                    console.log('Datalist')
                     if (!partValues.some((part) => part._id === item._id)) {
+                      console.log(item);
                       return item;
                     } else {
                       return null;
@@ -507,6 +516,7 @@ const VehiclePage = ({ isAdmin = false }) => {
                   })
                   .map((item) => item.name)}
                 onPressEnter={(e) => {
+                  console.log('press enter', e)
                   if (e?.name?.length < 1) {
                     dispatch(
                       setShowToast({
@@ -524,10 +534,16 @@ const VehiclePage = ({ isAdmin = false }) => {
                       })
                     );
                   } else {
-                    console.log('e', e)
-                    let newPart = partSearchData.find((item) => item.name === e && !partValues.some((part) => part._id === item._id))
+                    console.log("e", e);
+                    let newPart = partSearchData.find(
+                      (item) =>
+                        item.name === e &&
+                        !partValues.some((part) => part._id === item._id)
+                    );
                     // console.log(newPart);
-                    newPart && setPartValues([...partValues, newPart]);
+                    if (newPart !== undefined) {
+                      setPartValues([...partValues, newPart]);
+                    }
                     // setPartIds([
                     //   ...partIds,
                     //   partSearchData.find((item) => item.name === e)?._id, // Safely access the 'id' using optional chaining

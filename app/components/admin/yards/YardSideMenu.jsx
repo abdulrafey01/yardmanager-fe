@@ -108,11 +108,12 @@ const YardSideMenu = () => {
         })
       );
     }
-    if (!formState.password || formState.password === "") {
+    const passwordRegex = new RegExp("^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$");
+    if (!formState.password || !passwordRegex.test(formState.password)) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please enter Password",
+          msg: "Password must contain alphanumeric, at least one special character and one number with at least 8 characters",
           red: true,
         })
       );

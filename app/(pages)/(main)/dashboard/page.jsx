@@ -284,7 +284,7 @@ const page = () => {
             <CountBlock
               title={"Parts"}
               icon={InvIcon}
-              count={data?.parts ?? 0}
+              count={data?.inventories ?? 0}
             />
             <CountBlock
               title={"Vehicles"}

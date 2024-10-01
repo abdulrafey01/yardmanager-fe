@@ -111,9 +111,10 @@ const Page = () => {
       >
         {/* Text Container */}
         <div className="flex flex-col space-y-2">
-          <p className="font-bold text-xl sm:text-3xl">Enter Code Received</p>
+          <p className="font-bold text-xl sm:text-3xl">Enter Code</p>
           <p className="text-sm text-[#9CA3AF]">
-            Enter the code sent to your email or mobile number.
+            Enter the verification code sent to your email address. If you don’t
+            see it, be sure to check your spam or junk folder.
           </p>
         </div>
         <div className="flex justify-between items-center">
@@ -125,9 +126,21 @@ const Page = () => {
               <input
                 type="number"
                 value={digit}
-                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onChange={(e) => {
+                  handleOtpChange(index, e.target.value);
+                  if (e.target.value) {
+                    const nextInput = document.querySelector(
+                      `input[name="otp"][id="${index + 1}"]`
+                    );
+                    if (nextInput) {
+                      nextInput.focus();
+                    }
+                  }
+                }}
                 className="w-full h-full text-center outline-none text-3xl"
                 placeholder="0"
+                id={index}
+                name="otp"
               />
             </div>
           ))}
@@ -138,7 +151,7 @@ const Page = () => {
         </div>
         {/* Text */}
         <div className="flex justify-start items-center space-x-1">
-          <p className="text-gray-600">Didn’t receive the OTP? </p>
+          <p className="text-gray-600">Didn't receive a code?</p>
           <p
             onClick={resendOtp}
             className="font-semibold text-[#6DE8A6] cursor-pointer select-none"

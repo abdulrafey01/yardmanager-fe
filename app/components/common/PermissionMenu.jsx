@@ -51,7 +51,7 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
     <div className="border-b-2 p-6 border-gray-100 flex flex-col  space-y-8  w-full ">
       <div className="flex justify-between  w-full items-center">
         <GreenToggle
-          onChange={() => setOpenPermissionDetail(!openPermissionDetail)}
+          onChange={() => {setOpenPermissionDetail(!openPermissionDetail); onCheckboxChange({target: {name: 'read', checked: !openPermissionDetail}})}}
           checked={openPermissionDetail}
           title={title}
         />
@@ -64,7 +64,7 @@ const PermissionMenu = ({ title, perm, setPerm }) => {
           />
         ) : (
           <Image
-            onClick={() => setOpenPermissionDetail(true)}
+            onClick={() => {setOpenPermissionDetail(true); onCheckboxChange({target: {name: 'read', checked: true}})}}
             src={DownArrowIcon}
             alt="DownArrowIcon"
             className="cursor-pointer"

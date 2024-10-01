@@ -22,7 +22,7 @@ const InvoicePrevModal = () => {
   };
 
   useEffect(() => {
-    // console.log("previewModal", previewModal);
+    console.log("previewModal", previewModal);
     setSubTotal(
       previewModal?.data?.products?.reduce((preVal, item) => {
         return preVal + (item.total ? item.total : item.quantity * item.price);
@@ -62,9 +62,9 @@ const InvoicePrevModal = () => {
           <div className="flex justify-start items-center">
             <div className="flex flex-col gap-1">
               {console.log('State', company)}
-              <p className="text-sm">Name: {company?.name}</p>
-              <p className="text-sm">Phone: +{company?.phone}</p>
-              <p className="text-sm">Address: {company?.address}</p>
+              <p className="text-sm">{company?.name}</p>
+              <p className="text-sm">{company?.phone}</p>
+              <p className="text-sm">{company?.address}</p>
             </div>
           </div>
           {/* Third Row */}
@@ -85,7 +85,7 @@ const InvoicePrevModal = () => {
                   {previewModal?.data?.paid}
                 </p>
                 <p className="text-sm">
-                  Payment Method:{previewModal?.data?.paymentMethod}
+                  Payment Method: {previewModal?.data?.paymentMethod}
                 </p>
                 <p className="text-sm">
                   Date:{" "}
@@ -144,8 +144,8 @@ const InvoicePrevModal = () => {
                               {product.price}
                             </p>
                           </div>
-                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
-                            <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
+                          <div className=" min-w-20 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                            <p className="mx-auto break-all flex-1 min-w-max flex items-center justify-start font-bold">
                               {new Date(product.date).toLocaleDateString()}
                             </p>
                           </div>
@@ -220,7 +220,7 @@ const InvoicePrevModal = () => {
               {/* Row 1  */}
 
               <div className="w-full flex justify-between items-center">
-                <p className="text-[#667085]">Enter Tax:</p>
+                <p className="text-[#667085]">Sales Tax:</p>
                 <p className="font-bold">{previewModal?.data?.tax}</p>
               </div>
               {/* Row 2 */}
@@ -237,8 +237,19 @@ const InvoicePrevModal = () => {
               <hr />
               {/* Row 4 */}
               <div className="w-full flex justify-between items-center">
-                <p className="text-[#667085]">Grand Total:</p>
+                <p className="text-[#667085]">Total:</p>
                 <p className="font-bold">{grandTotal}</p>
+              </div>
+              {/* Row 3 */}
+              <div className="w-full flex justify-between items-center">
+                <p className="text-[#667085]">Paid Amount <span className="text-xs block">{'('}{new Date(previewModal?.data?.datePaid).toLocaleDateString()}{')'}</span></p>
+                <p className="font-bold">{previewModal?.data?.paid}</p>
+              </div>
+              <hr />
+              {/* Row 4 */}
+              <div className="w-full flex justify-between items-center">
+                <p className="text-[#667085]">Grand Total:</p>
+                <p className="font-bold">{grandTotal - previewModal?.data?.paid}</p>
               </div>
               <div></div>
             </div>
