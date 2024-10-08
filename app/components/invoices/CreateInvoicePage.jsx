@@ -425,23 +425,25 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
           red: true,
         })
       );
-    } else if (formData.email.length === 0) {
+    } else if (formData.email.length === 0 && formData.phone.length === 0) {
       return dispatch(
         setShowToast({
           value: true,
-          msg: "Please fill Customer Email field",
+          msg: "Please fill Customer Email or Phone Number field",
           red: true,
         })
       );
-    } else if (formData.phone.length === 0) {
-      return dispatch(
-        setShowToast({
-          value: true,
-          msg: "Please fill Customer Phone field",
-          red: true,
-        })
-      );
-    } else if (formData.products.length === 0) {
+    }
+    // else if (formData.phone.length === 0) {
+    //   return dispatch(
+    //     setShowToast({
+    //       value: true,
+    //       msg: "Please fill Customer Phone field",
+    //       red: true,
+    //     })
+    //   );
+    // }
+    else if (formData.products.length === 0) {
       return dispatch(
         setShowToast({
           value: true,
@@ -487,9 +489,19 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
         })
       );
     } else {
+      let {email, phone, ...form} = {...formData};
+      if (email) {
+        form.email = email.toLowerCase();
+      }
+      // if (form.email === null) {
+      //   delete form.email;
+      // } else {
+      //   form.email = form.email.toLowerCase();
+      // }
       dispatch(
         addInvoice({
-          data: { ...formData, email: formData.email.toLowerCase() },
+          // data: { ...formData, email: formData.email.toLowerCase() },
+          data: {...form, email, phone},
           isAdmin,
         })
       );
@@ -593,7 +605,14 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       onSearch={searchInventoryByName}
                       fetchAllFunc={fetchAllInventory}
                       placeholder={"Name"}
-                      searchData={inventorySearchData.map((data) => ({...data, name: data.sku + ' - ' + data.part.name})).sort((a, b) => a.sku - b.sku) || []}
+                      searchData={
+                        inventorySearchData
+                          .map((data) => ({
+                            ...data,
+                            name: data.sku + " - " + data.part.name,
+                          }))
+                          .sort((a, b) => a.sku - b.sku) || []
+                      }
                       setIdFunc={(val) => {
                         onProductNameClick(val);
                       }}
@@ -810,7 +829,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                 {/* Row 3 */}
                 <div className="w-full flex justify-between items-center">
                   <p className="text-[#667085]">Tax Amount:</p>
-                  <p className="font-bold">{formData.tax}</p>
+                  <p className="font-bold">{subTotal * (formData.tax / 100)}</p>
                 </div>
                 <hr />
                 {/* Row 4 */}

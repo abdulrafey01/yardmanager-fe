@@ -180,7 +180,7 @@ const TableRow = ({
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
-          {titles[3].map((model, index) => (
+          {titles[3] && titles[3].map((model, index) => (
             <div
               key={index}
               className={`bg-[#1212121A]  rounded-full min-w-20 p-3 h-4 flex justify-center items-center text-xs `}
@@ -196,7 +196,7 @@ const TableRow = ({
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
-          {titles[4].map((make, index) => (
+          {titles[4] && titles[4].map((make, index) => (
             <div
               key={index}
               className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
@@ -212,14 +212,14 @@ const TableRow = ({
             rowIndex % 2 === 0 ? "bg-white" : "bg-[#fbfbfb]"
           }`}
         >
-          {titles[5].length === 0 ? (
+          {titles[5]?.length === 0 ? (
             <div
               className={`bg-[#12121209] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}
             >
               No Variant
             </div>
           ) : (
-            titles[5].map((variant, index) => (
+            titles[5] && titles[5].map((variant, index) => (
               <div
                 key={index}
                 className={`bg-[#1212121A] rounded-2xl min-w-20 px-3 py-1 flex justify-center items-center text-xs `}

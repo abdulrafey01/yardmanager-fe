@@ -384,11 +384,11 @@ const VehiclePage = ({ isAdmin = false }) => {
       //   fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
       // );
     } catch (error) {
-      console.log(error);
+      console.log('error', error);
       dispatch(
         setShowToast({
           value: true,
-          msg: error.response.data.message,
+          msg: error.response?.data?.message || error.response?.message,
           red: true,
         })
       );

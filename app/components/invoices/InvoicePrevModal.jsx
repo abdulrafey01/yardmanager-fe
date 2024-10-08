@@ -72,9 +72,9 @@ const InvoicePrevModal = () => {
             <div className="flex flex-col gap-1">
               <div className="font-bold">Customer Information</div>
               <div>
-                <p className="text-sm">Name: {previewModal?.data?.name}</p>
-                <p className="text-sm">Email: {previewModal?.data?.email}</p>
-                <p className="text-sm">Contact: {previewModal?.data?.phone}</p>
+                <p className="text-sm">{previewModal?.data?.name}</p>
+                <p className="text-sm">{previewModal?.data?.email}</p>
+                <p className="text-sm">{previewModal?.data?.phone}</p>
               </div>
             </div>
             <div className="flex flex-col gap-1">
@@ -232,7 +232,7 @@ const InvoicePrevModal = () => {
               {/* Row 3 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Tax Amount:</p>
-                <p className="font-bold">{previewModal?.data?.tax}</p>
+                <p className="font-bold">{(previewModal?.data?.tax/100) * subTotal}</p>
               </div>
               <hr />
               {/* Row 4 */}
