@@ -161,7 +161,7 @@ const page = ({ isAdmin = false }) => {
 
         <div
           className={`${
-            currentSubscription?.cancel_at_period_end === false
+            currentSubscription?.cancel_at_period_end === false && !user?.data?.role
               ? "flex"
               : "hidden"
           }`}

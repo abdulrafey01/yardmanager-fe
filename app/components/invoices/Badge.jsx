@@ -19,7 +19,7 @@ const Badge = ({ received, active }) => {
           received ? "text-[#027A48]" : "text-[#68200c]"
         } font-semibold text-sm`}
       >
-        {received ? "Received" : "Pending"}
+        {received ? "Paid" : "Pending"}
       </p>
     </div>
   ) : (

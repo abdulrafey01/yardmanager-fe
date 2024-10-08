@@ -165,32 +165,32 @@ const InventorySideMenu = () => {
     //   );
     // }
     if (priceToggle === true) {
-      if (formState.price === "" || formState.price <= 0) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please fill the Price field",
-            red: true,
-          })
-        );
-      }
+      // if (formState.price === "" || formState.price <= 0) {
+      //   return dispatch(
+      //     setShowToast({
+      //       value: true,
+      //       msg: "Please fill the Price field",
+      //       red: true,
+      //     })
+      //   );
+      // }
     }
     if (colorToggle === true) {
       // console.log("color", formState.color);
-      if (
-        formState.color === "" ||
-        formState.color === null ||
-        formState.color === "undefined" ||
-        formState.color.length === 0
-      ) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please fill the Color field",
-            red: true,
-          })
-        );
-      }
+      // if (
+      //   formState.color === "" ||
+      //   formState.color === null ||
+      //   formState.color === "undefined" ||
+      //   formState.color.length === 0
+      // ) {
+      //   return dispatch(
+      //     setShowToast({
+      //       value: true,
+      //       msg: "Please fill the Color field",
+      //       red: true,
+      //     })
+      //   );
+      // }
     }
     if (Number(formState.lastYear) < Number(formState.startYear)) {
       return dispatch(

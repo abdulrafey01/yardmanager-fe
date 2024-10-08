@@ -45,7 +45,7 @@ const MultiInput = ({
     );
   };
   return (
-    <div className="w-full flex flex-wrap gap-2 gap-y-4 p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+    <div className="w-full flex flex-wrap gap-2 gap-y-4 p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD] relative">
       {dataToMap?.map((item, index) => (
         <div
           key={index}
@@ -85,12 +85,12 @@ const MultiInput = ({
           setVariantMenu(true);
         }}
         tabIndex={0}
-        className="w-full outline-none relative"
+        className="outline-none relative flex flex-1 w-auto min-w-28 items-center bg-slate-400"
       >
         {name === "variant" ? (
           <>
             <input
-              className="w-full outline-none"
+              className="w-full outline-none flex"
               type="text"
               placeholder={placeholder}
               name={name}
