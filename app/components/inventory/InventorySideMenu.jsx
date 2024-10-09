@@ -35,6 +35,7 @@ import useLoadAuthState from "../../helpers/authHook";
 import { usePathname } from "next/navigation";
 import { resetLocationSearchData } from "../../../lib/features/locations/locationSlice";
 import { resetPartSearchData } from "../../../lib/features/parts/partSlice";
+import InventoryModal from "./InventoryModal";
 
 import {
   variantList,
@@ -301,7 +302,7 @@ const InventorySideMenu = () => {
           red: true,
         })
       );
-    } 
+    }
     // else if (formState.variant.length === 0) {
     //   return dispatch(
     //     setShowToast({
@@ -581,36 +582,32 @@ const InventorySideMenu = () => {
     setDateType2(false);
   };
   return (
-    <div
-      className={`fixed flex w-full ${
-        showSideMenu.value ? "flex" : "hidden"
-      }   h-full  z-20 overflow-y-clip `}
-    >
-      {/* Black part */}
+    <>
       <div
-        onClick={onCloseMenu}
-        className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
-      ></div>
+        className={`fixed flex w-full ${
+          showSideMenu.value && showSideMenu.mode !== "preview"
+            ? "flex"
+            : "hidden"
+        }   h-full  z-20 overflow-y-clip `}
+      >
+        {/* Black part */}
+        <div
+          onClick={onCloseMenu}
+          className="flex-1  lg:flex-[2] hidden sm:block h-full bg-black opacity-50"
+        ></div>
 
-      {/* Main container */}
-      <div className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start ">
-        <div className="p-6 flex w-full flex-col space-y-4">
-          <p className="font-semibold">
-            {showSideMenu.mode === "edit"
-              ? "Edit Inventory"
-              : showSideMenu.mode === "preview"
-              ? "Preview Inventory"
-              : "Add New Inventory"}
-          </p>
-          {/* This additional container to make them opaque in preview mode */}
-          <div
-            className={`${
-              showSideMenu.mode === "preview" &&
-              "opacity-50 pointer-events-none"
-            }  flex flex-col space-y-4  items-center w-full `}
-          >
-            {/* Inventory name input */}
-            {/* <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+        {/* Main container */}
+        <div className="flex-1 bg-white  overflow-y-auto  no-scrollbar flex flex-col justify-start items-start ">
+          <div className="p-6 flex w-full flex-col space-y-4">
+            <p className="font-semibold">
+              {showSideMenu.mode === "edit"
+                ? "Edit Inventory"
+                : "Add New Inventory"}
+            </p>
+            {/* This additional container to make them opaque in preview mode */}
+            <div className={`flex flex-col space-y-4  items-center w-full `}>
+              {/* Inventory name input */}
+              {/* <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
               <input
                 className="w-full outline-none"
                 type="text"
@@ -620,76 +617,20 @@ const InventorySideMenu = () => {
                 onChange={onInputChange}
               />
             </div> */}
-            {/* Inventory Part input */}
-            <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <input
-                className="w-full outline-none"
-                type="text"
-                value={partValue}
-                placeholder="Name"
-                name="location"
-                onChange={onPartInputChange}
-                autoComplete="off"
-                onFocus={() => {
-                  setShowPartDropDown(true);
-                  dispatch(
-                    fetchAllParts({
-                      isAdmin: user?.userType === "admin",
-                      totalOverview:
-                        pathName === "/admin/inventory-overview"
-                          ? {
-                              value: true,
-                              id: selectedItem.company,
-                            }
-                          : false,
-                    })
-                  );
-                }}
-                onBlur={() =>
-                  setTimeout(() => {
-                    setShowPartDropDown(false);
-                  }, 300)
-                }
-              />
-              <Image src={DownArrow} alt="downarrow" />
-              {/* Dropdown */}
-              <div
-                className={`${
-                  showPartDropDown ? "block" : "hidden"
-                } bg-white overflow-auto  z-50 absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
-              >
-                {partSearchData.length === 0 && (
-                  <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
-                    No results
-                  </p>
-                )}
-                {partSearchData.map((part) => {
-                  return (
-                    <p
-                      onClick={() => onPartNameClick(part)}
-                      className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
-                    >
-                      {part.name}
-                    </p>
-                  );
-                })}
-              </div>
-            </div>
-            <div className="flex w-full gap-4">
-              {/* Inventory Location input */}
+              {/* Inventory Part input */}
               <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
                   type="text"
-                  value={locValue}
-                  placeholder="Location"
+                  value={partValue}
+                  placeholder="Name"
                   name="location"
-                  onChange={onLocInputChange}
+                  onChange={onPartInputChange}
                   autoComplete="off"
                   onFocus={() => {
-                    setShowLocDropDown(true);
+                    setShowPartDropDown(true);
                     dispatch(
-                      fetchAllLocations({
+                      fetchAllParts({
                         isAdmin: user?.userType === "admin",
                         totalOverview:
                           pathName === "/admin/inventory-overview"
@@ -701,191 +642,120 @@ const InventorySideMenu = () => {
                       })
                     );
                   }}
-                  onBlur={
-                    () =>
-                      setTimeout(() => {
-                        setShowLocDropDown(false);
-                      }, 300) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
+                  onBlur={() =>
+                    setTimeout(() => {
+                      setShowPartDropDown(false);
+                    }, 300)
                   }
                 />
                 <Image src={DownArrow} alt="downarrow" />
                 {/* Dropdown */}
                 <div
                   className={`${
-                    showLocDropDown ? "block" : "hidden"
-                  } bg-white overflow-auto z-50  absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
+                    showPartDropDown ? "block" : "hidden"
+                  } bg-white overflow-auto  z-50 absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
                 >
-                  {locationSearchData.length === 0 && (
+                  {partSearchData.length === 0 && (
                     <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
                       No results
                     </p>
                   )}
-                  {locationSearchData.map((loc) => {
+                  {partSearchData.map((part) => {
                     return (
                       <p
-                        onClick={() => onLocNameClick(loc)}
+                        onClick={() => onPartNameClick(part)}
                         className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
                       >
-                        {loc.location}
+                        {part.name}
                       </p>
                     );
                   })}
                 </div>
               </div>
-            </div>
+              <div className="flex w-full gap-4">
+                {/* Inventory Location input */}
+                <div className="w-full relative p-3 flex justify-between items-center hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                  <input
+                    className="w-full outline-none"
+                    type="text"
+                    value={locValue}
+                    placeholder="Location"
+                    name="location"
+                    onChange={onLocInputChange}
+                    autoComplete="off"
+                    onFocus={() => {
+                      setShowLocDropDown(true);
+                      dispatch(
+                        fetchAllLocations({
+                          isAdmin: user?.userType === "admin",
+                          totalOverview:
+                            pathName === "/admin/inventory-overview"
+                              ? {
+                                  value: true,
+                                  id: selectedItem.company,
+                                }
+                              : false,
+                        })
+                      );
+                    }}
+                    onBlur={
+                      () =>
+                        setTimeout(() => {
+                          setShowLocDropDown(false);
+                        }, 300) // timeout for dropdown to close because to let the onNameClick (dropdown functions) run before closing
+                    }
+                  />
+                  <Image src={DownArrow} alt="downarrow" />
+                  {/* Dropdown */}
+                  <div
+                    className={`${
+                      showLocDropDown ? "block" : "hidden"
+                    } bg-white overflow-auto z-50  absolute top-[110%] w-full left-0  rounded-lg border shadow-md p-3 flex flex-col justify-start max-h-40`}
+                  >
+                    {locationSearchData.length === 0 && (
+                      <p className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg">
+                        No results
+                      </p>
+                    )}
+                    {locationSearchData.map((loc) => {
+                      return (
+                        <p
+                          onClick={() => onLocNameClick(loc)}
+                          className="p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                        >
+                          {loc.location}
+                        </p>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
 
-            {/* Inventory Dates input */}
-            <div className="flex w-full space-x-4">
-              <DropDownInput
-                inputValue={formState.startYear}
-                setInputValue={(val) => {
-                  setFormState({ ...formState, startYear: val });
-                }}
-                typeDate={true}
-                placeholder={"Start Year"}
-              />
-              <DropDownInput
-                inputValue={formState.lastYear}
-                setInputValue={(val) => {
-                  setFormState({ ...formState, lastYear: val });
-                }}
-                typeDate={true}
-                placeholder={"Last Year"}
-              />
-            </div>
-            {/* Inventory Make input */}
-            <MultiInput
-              dataToMap={formState.make}
-              placeholder="Make"
-              dataList={makeList.filter((item) => {
-                if (!formState.make.includes(item)) {
-                  return item;
-                } else {
-                  return null;
-                }
-              })}
-              name="variant"
-              onPressEnter={(e) => {
-                if (e.length < 1) {
-                  dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Make should be at least 1 character",
-                      red: true,
-                    })
-                  );
-                } else if (e.length > 25) {
-                  return dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Make must be less than 25 characters",
-                      red: true,
-                    })
-                  );
-                } else {
-                  setFormState({
-                    ...formState,
-                    make: [...formState.make, e],
-                  });
-                }
-              }}
-              removeItemFunction={removeMakeFromList}
-            />
-            {/* Inventory Model input */}
-            <MultiInput
-              dataToMap={formState.model}
-              placeholder="Model"
-              name="variant"
-              dataList={modelList.filter((item) => {
-                if (!formState.model.includes(item)) {
-                  return item;
-                } else {
-                  return null;
-                }
-              })}
-              onPressEnter={(e) => {
-                if (e.length < 1) {
-                  dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model should be at least 1 character",
-                      red: true,
-                    })
-                  );
-                } else if (e.length > 25) {
-                  return dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Model must be less than 25 characters",
-                      red: true,
-                    })
-                  );
-                } else {
-                  setFormState({
-                    ...formState,
-                    model: [...formState.model, e],
-                  });
-                }
-              }}
-              removeItemFunction={removeModelFromList}
-            />
-
-            {/* Inventory Variant input */}
-            {variantData.length > 0 && (<MultiInput
-              dataToMap={formState.variant}
-              placeholder="Variant"
-              dataList={variantData.filter((item) => {
-                if (!formState.variant.includes(item)) {
-                  return item;
-                } else {
-                  return null;
-                }
-              })}
-              name="variant"
-              stopOnChange={true}
-              onPressEnter={(e) => {
-                if (e.length < 1) {
-                  dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Variant should be at least 1 character",
-                      red: true,
-                    })
-                  );
-                } else if (e.length > 25) {
-                  return dispatch(
-                    setShowToast({
-                      value: true,
-                      msg: "Variant must be less than 25 characters",
-                      red: true,
-                    })
-                  );
-                } else {
-                  setFormState({
-                    ...formState,
-                    variant: [...formState.variant, e],
-                  });
-                }
-              }}
-              removeItemFunction={removeVariantFromList}
-            />)}
-            {/* Color input based on toggle */}
-            {colorToggle && (
-              // <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              //   <input
-              //     className="w-full outline-none"
-              //     type="text"
-              //     placeholder="Color"
-              //     name="color"
-              //     value={formState.color}
-              //     onChange={onInputChange}
-              //   />
-              // </div>
+              {/* Inventory Dates input */}
+              <div className="flex w-full space-x-4">
+                <DropDownInput
+                  inputValue={formState.startYear}
+                  setInputValue={(val) => {
+                    setFormState({ ...formState, startYear: val });
+                  }}
+                  typeDate={true}
+                  placeholder={"Start Year"}
+                />
+                <DropDownInput
+                  inputValue={formState.lastYear}
+                  setInputValue={(val) => {
+                    setFormState({ ...formState, lastYear: val });
+                  }}
+                  typeDate={true}
+                  placeholder={"Last Year"}
+                />
+              </div>
+              {/* Inventory Make input */}
               <MultiInput
-                dataToMap={formState.color}
-                placeholder="Color"
-                dataList={colorList.filter((item) => {
-                  if (!formState.color.includes(item)) {
+                dataToMap={formState.make}
+                placeholder="Make"
+                dataList={makeList.filter((item) => {
+                  if (!formState.make.includes(item)) {
                     return item;
                   } else {
                     return null;
@@ -897,7 +767,7 @@ const InventorySideMenu = () => {
                     dispatch(
                       setShowToast({
                         value: true,
-                        msg: "Color should be at least 1 character",
+                        msg: "Make should be at least 1 character",
                         red: true,
                       })
                     );
@@ -905,36 +775,165 @@ const InventorySideMenu = () => {
                     return dispatch(
                       setShowToast({
                         value: true,
-                        msg: "Color must be less than 25 characters",
+                        msg: "Make must be less than 25 characters",
                         red: true,
                       })
                     );
                   } else {
                     setFormState({
                       ...formState,
-                      color: [...(formState.color ? formState.color : []), e],
+                      make: [...formState.make, e],
                     });
                   }
                 }}
-                removeItemFunction={removeColorFromList}
+                removeItemFunction={removeMakeFromList}
               />
-            )}
-            <div className="flex w-full gap-4">
-              {/* Inventory Price input */}
-              {priceToggle || showSideMenu.mode === "preview" ? (
-                <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-                  <input
-                    className="w-full outline-none"
-                    type="number"
-                    placeholder="Price"
-                    name="price"
-                    value={formState.price}
-                    onChange={onInputChange}
-                  />
-                </div>
-              ) : null}
+              {/* Inventory Model input */}
+              <MultiInput
+                dataToMap={formState.model}
+                placeholder="Model"
+                name="variant"
+                dataList={modelList.filter((item) => {
+                  if (!formState.model.includes(item)) {
+                    return item;
+                  } else {
+                    return null;
+                  }
+                })}
+                onPressEnter={(e) => {
+                  if (e.length < 1) {
+                    dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Model should be at least 1 character",
+                        red: true,
+                      })
+                    );
+                  } else if (e.length > 25) {
+                    return dispatch(
+                      setShowToast({
+                        value: true,
+                        msg: "Model must be less than 25 characters",
+                        red: true,
+                      })
+                    );
+                  } else {
+                    setFormState({
+                      ...formState,
+                      model: [...formState.model, e],
+                    });
+                  }
+                }}
+                removeItemFunction={removeModelFromList}
+              />
 
-              {/* Inventory SKU input
+              {/* Inventory Variant input */}
+              {variantData.length > 0 && (
+                <MultiInput
+                  dataToMap={formState.variant}
+                  placeholder="Variant"
+                  dataList={variantData.filter((item) => {
+                    if (!formState.variant.includes(item)) {
+                      return item;
+                    } else {
+                      return null;
+                    }
+                  })}
+                  name="variant"
+                  stopOnChange={true}
+                  onPressEnter={(e) => {
+                    if (e.length < 1) {
+                      dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Variant should be at least 1 character",
+                          red: true,
+                        })
+                      );
+                    } else if (e.length > 25) {
+                      return dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Variant must be less than 25 characters",
+                          red: true,
+                        })
+                      );
+                    } else {
+                      setFormState({
+                        ...formState,
+                        variant: [...formState.variant, e],
+                      });
+                    }
+                  }}
+                  removeItemFunction={removeVariantFromList}
+                />
+              )}
+              {/* Color input based on toggle */}
+              {colorToggle && (
+                // <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                //   <input
+                //     className="w-full outline-none"
+                //     type="text"
+                //     placeholder="Color"
+                //     name="color"
+                //     value={formState.color}
+                //     onChange={onInputChange}
+                //   />
+                // </div>
+                <MultiInput
+                  dataToMap={formState.color}
+                  placeholder="Color"
+                  dataList={colorList.filter((item) => {
+                    if (!formState.color.includes(item)) {
+                      return item;
+                    } else {
+                      return null;
+                    }
+                  })}
+                  name="variant"
+                  onPressEnter={(e) => {
+                    if (e.length < 1) {
+                      dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Color should be at least 1 character",
+                          red: true,
+                        })
+                      );
+                    } else if (e.length > 25) {
+                      return dispatch(
+                        setShowToast({
+                          value: true,
+                          msg: "Color must be less than 25 characters",
+                          red: true,
+                        })
+                      );
+                    } else {
+                      setFormState({
+                        ...formState,
+                        color: [...(formState.color ? formState.color : []), e],
+                      });
+                    }
+                  }}
+                  removeItemFunction={removeColorFromList}
+                />
+              )}
+              <div className="flex w-full gap-4">
+                {/* Inventory Price input */}
+                {priceToggle ? (
+                  <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                    <input
+                      className="w-full outline-none"
+                      type="number"
+                      placeholder="Price"
+                      name="price"
+                      value={formState.price}
+                      onChange={onInputChange}
+                    />
+                  </div>
+                ) : null}
+
+                {/* Inventory SKU input
               <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
                 <input
                   className="w-full outline-none"
@@ -945,49 +944,52 @@ const InventorySideMenu = () => {
                   onChange={onInputChange}
                 />
               </div> */}
+              </div>
+              {/* Inventory Notes input */}
+              <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
+                <textarea
+                  className="w-full outline-none min-h-20 max-h-32"
+                  type="text"
+                  placeholder="Notes"
+                  name="notes"
+                  value={formState.notes}
+                  onChange={onInputChange}
+                />
+              </div>
             </div>
-            {/* Inventory Notes input */}
-            <div className="w-full p-3 hover:border-gray-400 rounded-lg border border-[#D0D5DD]">
-              <textarea
-                className="w-full outline-none min-h-20 max-h-32"
-                type="text"
-                placeholder="Notes"
-                name="notes"
-                value={formState.notes}
-                onChange={onInputChange}
+            {/* Inventory Image input */}
+            {imageToggle ? (
+              <ImageDropzone
+                imgArray={imgArray}
+                setImgArray={setImgArray}
+                onImageChange={onImageChange}
               />
-            </div>
+            ) : null}
           </div>
-          {/* Inventory Image input */}
-          {imageToggle || showSideMenu.mode === "preview" ? (
-            <ImageDropzone
-              previewMode={showSideMenu.mode === "preview"}
-              imgArray={imgArray}
-              setImgArray={setImgArray}
-              onImageChange={onImageChange}
-            />
-          ) : null}
-        </div>
-        {/* Buttons */}
+          {/* Buttons */}
 
-        <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
-          <div
-            onClick={onCloseMenu}
-            className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
-          >
-            Cancel
-          </div>
-          <div
-            onClick={onFormSubmit}
-            className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none ${
-              showSideMenu.mode === "preview" && "hidden"
-            }`}
-          >
-            {showSideMenu.mode === "edit" ? "Edit Inventory" : "Add Inventory"}
+          <div className="flex flex-1 place-items-end p-6  w-full justify-center space-x-4 ">
+            <div
+              onClick={onCloseMenu}
+              className="flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-white border border-gray-300 font-semibold cursor-pointer select-none hover:bg-gray-200"
+            >
+              Cancel
+            </div>
+            <div
+              onClick={onFormSubmit}
+              className={`flex-1 flex justify-center items-center px-4 py-3 rounded-lg bg-[#78FFB6] hover:bg-[#37fd93] font-semibold cursor-pointer select-none`}
+            >
+              {showSideMenu.mode === "edit"
+                ? "Edit Inventory"
+                : "Add Inventory"}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {showSideMenu.value && showSideMenu.mode === "preview" && (
+        <InventoryModal />
+      )}
+    </>
   );
 };
 
