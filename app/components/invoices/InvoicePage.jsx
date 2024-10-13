@@ -208,7 +208,7 @@ const InvoicePage = ({ isAdmin = false }) => {
                 "Invoice #",
                 "Customer Name",
                 "Email Address",
-                "Grand Total",
+                "Balance Due",
                 "Order Date",
                 "Status",
               ]}

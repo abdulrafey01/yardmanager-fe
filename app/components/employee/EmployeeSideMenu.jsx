@@ -192,7 +192,7 @@ const EmployeeSideMenu = () => {
       );
     }
     // check if password and confirm password are same
-    if (formState.password !== formState.confirmPassword) {
+    if (formState.password !== formState.confirmPassword && showSideMenu.mode === "add") {
       return dispatch(
         setShowToast({
           value: true,
@@ -205,7 +205,9 @@ const EmployeeSideMenu = () => {
     formData.append("name[first]", formState.firstName);
     formData.append("name[last]", formState.lastName);
     formData.append("email", formState.email.toLowerCase());
-    formData.append("password", formState.confirmPassword);
+    if (showSideMenu.mode === "add") {
+      formData.append("password", formState.confirmPassword);
+    }
     formData.append("role", formState.role);
     formData.append("position", formState.position);
     formData.append("date", formState.date);
@@ -371,7 +373,7 @@ const EmployeeSideMenu = () => {
             </div>
 
             {/* Confirm password input */}
-            <div className="w-full ">
+            {showSideMenu.mode === "add" && (<div className="w-full ">
               <MainInput
                 placeholder="Confirm Password"
                 type={togglePWDC ? "text" : "password"}
@@ -381,7 +383,7 @@ const EmployeeSideMenu = () => {
                 onChange={onInputChange}
                 name={"confirmPassword"}
               />
-            </div>
+            </div>)}
           </div>
         </div>
         {/* Buttons */}

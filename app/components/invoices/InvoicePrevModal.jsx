@@ -248,7 +248,7 @@ const InvoicePrevModal = () => {
               <hr />
               {/* Row 4 */}
               <div className="w-full flex justify-between items-center">
-                <p className="text-[#667085]">Grand Total:</p>
+                <p className="text-[#667085]">Balance Due:</p>
                 <p className="font-bold">{grandTotal - previewModal?.data?.paid}</p>
               </div>
               <div></div>

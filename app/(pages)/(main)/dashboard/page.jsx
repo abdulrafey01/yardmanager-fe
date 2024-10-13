@@ -479,7 +479,7 @@ const page = () => {
                   "Invoice #",
                   "Customer Name",
                   "Email Address",
-                  "Grand Total",
+                  "Balance Due",
                   "Order Date",
                   "Status",
                 ]}
