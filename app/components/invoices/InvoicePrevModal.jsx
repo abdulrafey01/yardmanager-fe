@@ -204,25 +204,23 @@ const InvoicePrevModal = () => {
           </div>
 
           {/* fIFTH nOTE  Row */}
-          <div className="w-full flex flex-col justify-start gap-2">
-            <p className="font-semibold text-[#344054] text-xl">
-              Additional Notes
-            </p>
-            {previewModal?.data?.notes === "" ? (
-              <p className="text-sm font-bold">Empty Note</p>
-            ) : (
-              <p>{previewModal?.data?.notes}</p>
-            )}
-          </div>
+            {previewModal?.data?.notes === "" && previewModal?.data?.notes ? (
+              <div className="w-full flex flex-col justify-start gap-2">
+                <p className="font-semibold text-[#344054] text-xl">
+                  Additional Notes
+                </p>
+                <p>{previewModal?.data?.notes}</p>
+              </div>
+            ) : null}
           {/* Sixth box row */}
           <div className="flex w-full justify-end">
             <div className="flex  md:w-1/2 p-4 flex-col space-y-4 bg-[#fbfbfb] border border-gray-300 rounded-lg">
               {/* Row 1  */}
 
-              <div className="w-full flex justify-between items-center">
+              {/* <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Sales Tax:</p>
                 <p className="font-bold">{previewModal?.data?.tax}</p>
-              </div>
+              </div> */}
               {/* Row 2 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Sub Total:</p>
@@ -231,7 +229,7 @@ const InvoicePrevModal = () => {
               </div>
               {/* Row 3 */}
               <div className="w-full flex justify-between items-center">
-                <p className="text-[#667085]">Tax Amount:</p>
+                <p className="text-[#667085]">Tax {`(${previewModal?.data?.tax}%)`}:</p>
                 <p className="font-bold">{(previewModal?.data?.tax/100) * subTotal}</p>
               </div>
               <hr />
@@ -243,7 +241,7 @@ const InvoicePrevModal = () => {
               {/* Row 3 */}
               <div className="w-full flex justify-between items-center">
                 <p className="text-[#667085]">Paid Amount <span className="text-xs block">{'('}{new Date(previewModal?.data?.datePaid).toLocaleDateString()}{')'}</span></p>
-                <p className="font-bold">{previewModal?.data?.paid}</p>
+                <p className="font-bold">-{previewModal?.data?.paid}</p>
               </div>
               <hr />
               {/* Row 4 */}
