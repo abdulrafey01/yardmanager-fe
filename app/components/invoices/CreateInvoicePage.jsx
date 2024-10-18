@@ -580,10 +580,10 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
               {/* Head */}
               <div className="hidden lg:flex w-full font-semibold bg-[#78FFB6] border-t border-[#EDEEF2] text-sm  justify-between rounded-t-xl ">
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-[2] rounded-t-xl">
-                  Product Name
+                  Part Name
                 </p>
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Quantity</p>
-                <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Unit Price</p>
+                <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Price</p>
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Date</p>
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1 text-center">
                   Total
@@ -835,7 +835,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                 {/* Row 4 */}
                 <div className="w-full flex justify-between items-center">
                   <p className="text-[#667085]">Balance Due:</p>
-                  <p className="font-bold">{grandTotal}</p>
+                  <p className="font-bold">{grandTotal && parseFloat(grandTotal).toFixed(2)}</p>
                 </div>
                 <div></div>
               </div>

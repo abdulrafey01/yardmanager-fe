@@ -196,7 +196,7 @@ const SideBar = () => {
 
         btnNames.forEach((name) => {
           const privilege = user?.data?.role?.privileges.find(
-            (privilege) => privilege.name === name
+            (privilege) => privilege.name === name && name !== "subscription"
           );
           updatedHideBtns[name] = privilege
             ? !privilege?.permissions?.read
