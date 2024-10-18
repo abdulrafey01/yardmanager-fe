@@ -107,10 +107,10 @@ const InvoicePrevModal = () => {
                 <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1">
                   Product Name
                 </p>
-                <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1">Quantity</p>
-                <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1">Unit Price</p>
-                <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1 ">Date</p>
-                <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1 rounded-t-xl">
+                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Quantity</p>
+                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Unit Price</p>
+                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1 ">Date</p>
+                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1 rounded-t-xl">
                   Amount
                 </p>
               </div>
@@ -124,32 +124,32 @@ const InvoicePrevModal = () => {
                     return (
                       <>
                         <div className="w-full hidden lg:flex justify-between border-gray-300 border-b">
-                          <div className=" min-w-16 p-4  border border-[#EAECF0]  flex items-center">
+                          <div className=" min-w-16 px-2 py-4  border border-[#EAECF0]  flex items-center">
                             <p className="  px-2 break-all flex-1 flex items-center ">
                               {index + 1}
                             </p>
                           </div>
-                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                          <div className=" min-w-16 px-2 py-4 border border-[#EAECF0] flex-1 flex items-center">
                             <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
                               {product.name}
                             </p>
                           </div>
-                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                          <div className=" min-w-16 px-2 py-4 border border-[#EAECF0] flex-1 flex items-center">
                             <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
                               {product.quantity}
                             </p>
                           </div>
-                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                          <div className=" min-w-16 px-2 py-4 border border-[#EAECF0] flex-1 flex items-center">
                             <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
                               {product.price}
                             </p>
                           </div>
-                          <div className=" min-w-20 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                          <div className=" min-w-20 px-2 py-4 border border-[#EAECF0] flex-1 flex items-center">
                             <p className="mx-auto break-all flex-1 min-w-max flex items-center justify-start font-bold">
                               {new Date(product.date).toLocaleDateString()}
                             </p>
                           </div>
-                          <div className=" min-w-16 p-4 border border-[#EAECF0] flex-1 flex items-center">
+                          <div className=" min-w-16 px-2 py-4 border border-[#EAECF0] flex-1 flex items-center">
                             <p className=" px-2 break-all flex-1  flex items-center justify-start font-bold">
                               {product.quantity * product.price}
                             </p>
