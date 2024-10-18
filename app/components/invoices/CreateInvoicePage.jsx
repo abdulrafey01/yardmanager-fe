@@ -638,7 +638,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                       <input
                         className="w-full outline-none"
                         type="number"
-                        placeholder="Unit Price"
+                        placeholder="Price"
                         name="price"
                         value={productData.price}
                         onChange={onProductDetailInputChange}
@@ -829,7 +829,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                 {/* Row 3 */}
                 <div className="w-full flex justify-between items-center">
                   <p className="text-[#667085]">Tax Amount:</p>
-                  <p className="font-bold">{subTotal * (formData.tax / 100)}</p>
+                  <p className="font-bold">{parseFloat(subTotal * (formData.tax / 100).toFixed(2))}</p>
                 </div>
                 <hr />
                 {/* Row 4 */}
@@ -840,7 +840,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                 <div></div>
               </div>
             </div>
-          </div>
+          </div>``
         </div>
 
         {/* Button Container */}

@@ -312,33 +312,33 @@ const InventorySideMenu = () => {
     //     })
     //   );
     // }
-    if (priceToggle === true) {
-      if (formState.price === "" || formState.price <= 0) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please fill the Price field",
-            red: true,
-          })
-        );
-      }
-    }
-    if (colorToggle === true) {
-      if (
-        formState.color === "" ||
-        formState.color === null ||
-        formState.color === "undefined" ||
-        formState.color.length === 0
-      ) {
-        return dispatch(
-          setShowToast({
-            value: true,
-            msg: "Please fill the Color field",
-            red: true,
-          })
-        );
-      }
-    }
+    // if (priceToggle === true) {
+    //   if (formState.price === "" || formState.price <= 0) {
+    //     return dispatch(
+    //       setShowToast({
+    //         value: true,
+    //         msg: "Please fill the Price field",
+    //         red: true,
+    //       })
+    //     );
+    //   }
+    // }
+    // if (colorToggle === true) {
+    //   if (
+    //     formState.color === "" ||
+    //     formState.color === null ||
+    //     formState.color === "undefined" ||
+    //     formState.color.length === 0
+    //   ) {
+    //     return dispatch(
+    //       setShowToast({
+    //         value: true,
+    //         msg: "Please fill the Color field",
+    //         red: true,
+    //       })
+    //     );
+    //   }
+    // }
     // if (imageToggle === true) {
     //   if (imgArray.length === 0) {
     //     return dispatch(

@@ -241,7 +241,11 @@ const SideBar = () => {
   // }, [user]);
 
   useEffect(() => {
-    setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
+    if (user?.userType === "employee") {
+      setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2] && btn.name2 !== "subscription"));
+    } else {
+      setShowBtns(sideButtonsMain.filter((btn) => !hideBtns[btn.name2]));
+    }
     setShowBtnsBottom(sideButtonsBottom.filter((btn) => !hideBtns[btn.name2]));
   }, [hideBtns]);
 

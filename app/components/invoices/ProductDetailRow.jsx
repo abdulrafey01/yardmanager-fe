@@ -70,7 +70,7 @@ const ProductDetailRow = ({
           {/* Container 2 */}
           <div className="flex  items-center w-full gap-1">
             <div className="flex flex-col gap-1 flex-1 justify-center items-center">
-              <p className="font-semibold">Unit Price</p>
+              <p className="font-semibold">Price</p>
               <p className="text-[gray]">{price}</p>
             </div>
             <div className="w-[1px] h-8 bg-[gray]" />

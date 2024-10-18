@@ -90,6 +90,7 @@ const InventoryModal = () => {
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
+        open={showSideMenu.mode === "preview"}
         onClose={() => {
           onCloseMenu();
           // resetState();

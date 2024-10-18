@@ -108,7 +108,7 @@ const InvoicePrevModal = () => {
                   Product Name
                 </p>
                 <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Quantity</p>
-                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Unit Price</p>
+                <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Price</p>
                 <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1 ">Date</p>
                 <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1 rounded-t-xl">
                   Amount
@@ -168,7 +168,7 @@ const InvoicePrevModal = () => {
                             {/* Container 2 */}
                             <div className="flex  items-center w-full gap-1">
                               <div className="flex flex-col gap-1 flex-1 justify-center items-center">
-                                <p className="font-semibold">Unit Price</p>
+                                <p className="font-semibold">Price</p>
                                 <p className="text-[gray]">{product.price}</p>
                               </div>
                               <div className="w-[1px] h-8 bg-[gray]" />
@@ -204,7 +204,7 @@ const InvoicePrevModal = () => {
           </div>
 
           {/* fIFTH nOTE  Row */}
-            {previewModal?.data?.notes === "" && previewModal?.data?.notes ? (
+            {previewModal?.data?.notes ? (
               <div className="w-full flex flex-col justify-start gap-2">
                 <p className="font-semibold text-[#344054] text-xl">
                   Additional Notes

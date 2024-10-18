@@ -27,7 +27,7 @@ const Page = () => {
         setShowToast({
           value: true,
           msg:
-            "Password must be alphanumeric, contain at least one special character and one number, and have a minimum of 8 characters",
+            "Your password must be at least 8 characters long and include both letters and numbers, as well as at least one special character (e.g., @, #, $, %, &). Please try again.",
           red: true,
         })
       );
