@@ -379,6 +379,7 @@ const VehiclePage = ({ isAdmin = false }) => {
       console.log(response.data);
       dispatch(setShowToast({ value: true, msg: response.data.message }));
       setDataFromServer([]);
+      dispatch(fetchVehiclesByPage({ page: 1, limit: dataLimit, isAdmin }));
 
       // dispatch(
       //   fetchDeletedItemsByPage({ page: pageNumber, limit: dataLimit, isAdmin })
