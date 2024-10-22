@@ -336,7 +336,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
 
   const onAddProductClick = () => {
     const missingFields = [
-      productName === "" && "Product Name",
+      productName === "" && "Part",
       productData.quantity === 0 || (productData.quantity === "" && "Quantity"),
       productData.price === 0 || (productData.price === "" && "Price"),
       productData.date === "" && "Date",
@@ -580,7 +580,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
               {/* Head */}
               <div className="hidden lg:flex w-full font-semibold bg-[#78FFB6] border-t border-[#EDEEF2] text-sm  justify-between rounded-t-xl ">
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-[2] rounded-t-xl">
-                  Part Name
+                  Part
                 </p>
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Quantity</p>
                 <p className=" min-w-16 p-4 bg-[#78FFB6] flex-1">Price</p>
@@ -611,7 +611,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                             ...data,
                             name: data.sku + " - " + data.part.name,
                           }))
-                          .sort((a, b) => a.sku - b.sku) || []
+                          .sort((a, b) => b.sku - a.sku) || []
                       }
                       setIdFunc={(val) => {
                         onProductNameClick(val);

@@ -105,7 +105,7 @@ const InvoicePrevModal = () => {
                   Sr #
                 </p>
                 <p className=" min-w-16 p-4  bg-[#D0D5DD] flex-1">
-                  Product Name
+                  Part
                 </p>
                 <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Quantity</p>
                 <p className=" min-w-16 px-2 py-4  bg-[#D0D5DD] flex-1">Price</p>
@@ -161,7 +161,7 @@ const InvoicePrevModal = () => {
                             {/* Container 1 */}
                             <div className="flex justify-between items-center w-full">
                               <div className="flex flex-col gap-1 flex-1 ">
-                                <p className="font-semibold">Product Name</p>
+                                <p className="font-semibold">Part</p>
                                 <p className="text-[gray]">{product.name}</p>
                               </div>
                             </div>
