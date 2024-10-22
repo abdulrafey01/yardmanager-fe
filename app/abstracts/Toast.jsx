@@ -35,7 +35,7 @@ const Toast = ({}) => {
       {showToast.map((toast) => (
         <div
           key={toast.id}
-          className={`animate-slideInOut h-14 w-80 sm:w-96 ${
+          className={`animate-slideInOut h-14 w-80 min-h-max sm:w-96 ${
             toast.red ? "bg-red-300" : "bg-[#c2e8d0]"
           } rounded-lg flex justify-start items-center p-4 space-x-2`}
         >
