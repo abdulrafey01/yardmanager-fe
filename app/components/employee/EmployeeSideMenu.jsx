@@ -360,7 +360,7 @@ const EmployeeSideMenu = () => {
 
             <div className="w-full ">
               <MainInput
-                placeholder="Password"
+                placeholder="Enter your password"
                 type={togglePWD ? "text" : "password"}
                 icon={togglePWD ? PWDIcon : PwdHideIcon}
                 onIconClick={() => setTogglePWD(!togglePWD)}
