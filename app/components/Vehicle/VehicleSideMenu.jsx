@@ -68,7 +68,7 @@ const InventorySideMenu = () => {
     variant: [],
     notes: "",
     color: [],
-    price: 0,
+    price: "",
     startYear: "",
     lastYear: "",
   });
@@ -283,7 +283,7 @@ const InventorySideMenu = () => {
         make: [],
         variant: [],
         notes: "",
-        price: 0,
+        price: "",
         color: [],
         startYear: "",
         lastYear: "",
@@ -345,7 +345,7 @@ const InventorySideMenu = () => {
           make: selectedItem.make,
           color: selectedItem.color,
           variant: selectedItem.variant,
-          price: selectedItem.price,
+          price: selectedItem.price > 0 ? selectedItem.price : "",
           notes: selectedItem.notes ? selectedItem.notes : "",
           startYear: new Date(selectedItem.startYear).getFullYear(),
           lastYear: new Date(selectedItem.lastYear).getFullYear(),
@@ -357,11 +357,12 @@ const InventorySideMenu = () => {
         setImgArray(selectedItem?.images);
         setLocId(selectedItem.location?._id);
         setPartId(selectedItem.part?._id);
-        if (selectedItem?.color) {
+        if (selectedItem?.part?.color) {
           setColorToggle(true);
         } else {
           setColorToggle(false);
         }
+        // console.log("color toggle", selectedItem);
       }
     } else {
       setFormState({
@@ -370,7 +371,7 @@ const InventorySideMenu = () => {
         make: [],
         variant: [],
         notes: "",
-        price: 0,
+        price: "",
         startYear: "",
         lastYear: "",
         color: [],
@@ -395,7 +396,7 @@ const InventorySideMenu = () => {
       make: [],
       variant: [],
       notes: "",
-      price: 0,
+      price: "",
       color: [],
       startYear: "",
       lastYear: "",
@@ -608,6 +609,7 @@ const InventorySideMenu = () => {
               removeItemFunction={removeVariantFromList}
             />
             {/* Color input based on toggle */}
+            {/* {console.log('toggle ', colorToggle, formState.color)} */}
             {colorToggle && (
               <MultiInput
                 dataToMap={formState.color}
