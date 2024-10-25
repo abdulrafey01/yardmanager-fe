@@ -68,6 +68,7 @@ const InventorySideMenu = () => {
     variant: [],
     notes: "",
     color: [],
+    price: 0,
     startYear: "",
     lastYear: "",
   });
@@ -257,6 +258,10 @@ const InventorySideMenu = () => {
       }
     } else {
       formData.append("color", []);
+    }
+
+    if (priceToggle) {
+      formData.append("price", formState.price);
     }
 
     if (showSideMenu.mode === "edit") {
