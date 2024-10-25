@@ -609,7 +609,7 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
                         inventorySearchData
                           .map((data) => ({
                             ...data,
-                            name: data.sku + " - " + data.part.name,
+                            name: data.sku + " - " + data.part?.name,
                           }))
                           .sort((a, b) => b.sku - a.sku) || []
                       }

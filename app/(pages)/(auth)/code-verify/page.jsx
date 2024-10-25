@@ -36,15 +36,15 @@ const Page = () => {
       );
       setLoaderState(false);
       console.log("Verification response:", response.data);
-      setTimeout(() => {
-        router.push(`/reset-password?token=${response.data.data}`);
-      }, 1000);
-      dispatch(
-        setShowToast({
-          value: true,
-          msg: response.data.message,
-        })
-      );
+      // dispatch(
+      //   setShowToast({
+      //     value: true,
+      //     msg: response.data.message,
+      //   })
+      // );
+      router.push(`/reset-password?token=${response.data.data}`);
+      // setTimeout(() => {
+      // }, 1000);
     } catch (error) {
       console.error("Error verifying OTP:", error);
       setLoaderState(false);
