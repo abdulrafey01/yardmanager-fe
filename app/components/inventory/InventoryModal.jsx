@@ -77,19 +77,19 @@ const InventoryModal = () => {
     ...item
   } = selectedItem || locationSearchData || partSearchData || {};
 
-  const { name: yardName = "", _id: yardId = "" } = location || {};
+  // const { name: yardName = "", _id: yardId = "" } = location || {};
 
-  const { name: partName = "", _id: partId = "", variant = [] } = part || {};
+  // const { name: partName = "", _id: partId = "", variant = [] } = part || {};
 
   return (
-    <Transition
-      appear
-      show={showSideMenu.mode === "preview"}
-      as={React.Fragment}
-    >
+    // <Transition
+    //   appear
+    //   show={showSideMenu.mode === "preview"}
+    //   as={React.Fragment}
+    // >
       <Dialog
-        as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        // as="div"
+        className="fixed top-0 bottom-0 left-0 right-0 z-10 overflow-y-auto"
         open={showSideMenu.mode === "preview"}
         onClose={() => {
           onCloseMenu();
@@ -146,19 +146,19 @@ const InventoryModal = () => {
               <div className="mt-4 space-y-2">
                 <p className="text-sm">
                   <p className="font-medium">Model</p>
-                  <div className="my-1 gap-1">
+                  <div className="flex my-1 gap-1">
                     {selectedItem.model ? selectedItem.model.map((item, index) => (<p key={index} className="bg-gray-300 rounded-full max-w-fit px-3 py-0.5">{item}</p>)): <p className="bg-gray-300/50 rounded-full max-w-fit px-3 py-0.5">No Model</p>}
                   </div>
                 </p>
                 <p className="text-sm">
                   <p className="font-medium">Make</p>
-                  <div className="my-1 gap-1">
+                  <div className="flex my-1 gap-1">
                     {selectedItem.make ? selectedItem.make.map((item, index) => (<p key={index} className="bg-gray-300 rounded-full max-w-fit px-3 py-0.5">{item}</p>)): <p className="bg-gray-300/50 rounded-full max-w-fit px-3 py-0.5">No Make</p>}
                   </div>
                 </p>
                 <p className="text-sm">
                   <p className="font-medium">Variant</p>
-                  <div className="my-1 gap-1">
+                  <div className="flex my-1 gap-1">
                     {selectedItem.variant ? selectedItem.variant.map((item, index) => (<p key={index} className="bg-gray-300 rounded-full max-w-fit px-3 py-0.5">{item}</p>)): <p className="bg-gray-300/50 rounded-full max-w-fit px-3 py-0.5">No Variant</p>}
                   </div>
                 </p>
@@ -237,7 +237,7 @@ const InventoryModal = () => {
           </Transition.Child>
         </div>
       </Dialog>
-    </Transition>
+    // </Transition>
   );
 };
 

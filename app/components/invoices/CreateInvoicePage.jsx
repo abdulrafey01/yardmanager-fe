@@ -249,10 +249,10 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
   }, [invoiceId]);
 
   useEffect(() => {
-    // console.log("item:", item);
+    console.log("item:", item);
     if (item) {
       setFormData({
-        name: item.name,
+        name: item.part?.name,
         email: item.email,
         phone: item.phone,
         products: item.products
