@@ -252,13 +252,13 @@ const CreateInvoicePage = ({ isAdmin = false }) => {
     console.log("item:", item);
     if (item) {
       setFormData({
-        name: item.part?.name,
+        name: item.name,
         email: item.email,
         phone: item.phone,
         products: item.products
           .filter((obj) => obj.product)
           .map((obj) => ({
-            name: obj.product.name,
+            name: obj.product.sku + " - " + obj.product.part.name,
             product: obj.product._id,
             quantity: obj.quantity,
             price: obj.price,
