@@ -29,7 +29,7 @@ const DropDownInput = ({
   );
 
   // Example of using the yearsArray
-  console.log(yearsArray); // ["1950", "1951", ..., "2024"]
+  // console.log(yearsArray); // ["1950", "1951", ..., "2024"]
   const [filteredDates, setFilteredDates] = React.useState([]);
 
   const onInputChange = (e) => {

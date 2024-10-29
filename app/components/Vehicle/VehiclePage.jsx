@@ -267,7 +267,7 @@ const VehiclePage = ({ isAdmin = false }) => {
             console.log("formData", index, partId);
             // Dispatch the action for each partId
             resolve(dispatch(addVehicle({ data: formData, isAdmin })));
-          }, 150 * index)
+          }, 350 * index)
         )
     );
 
