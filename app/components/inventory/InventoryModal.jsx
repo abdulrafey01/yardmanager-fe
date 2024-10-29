@@ -181,10 +181,10 @@ const InventoryModal = () => {
                   <p className="font-medium">Location</p>
                   <p>{selectedItem?.location?.location}</p>
                 </p>
-                <p className="text-sm">
+                {selectedItem.price ? (<p className="text-sm">
                   <p className="font-medium">Price</p>
                   <p>${selectedItem.price}</p>
-                </p>
+                </p>) : null}
               </div>
 
               <div className="mt-4">
