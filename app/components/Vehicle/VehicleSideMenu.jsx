@@ -338,12 +338,12 @@ const InventorySideMenu = () => {
   useEffect(() => {
     if (showSideMenu.mode === "edit" || showSideMenu.mode === "preview") {
       if (selectedItem) {
-        // console.log(selectedItem);
+        console.log('selected ', selectedItem);
         setFormState({
           name: selectedItem.name,
           model: selectedItem.model,
           make: selectedItem.make,
-          color: selectedItem.color,
+          color: selectedItem.color || [],
           variant: selectedItem.variant,
           price: selectedItem.price > 0 ? selectedItem.price : "",
           notes: selectedItem.notes ? selectedItem.notes : "",
@@ -615,6 +615,7 @@ const InventorySideMenu = () => {
                 dataToMap={formState.color}
                 placeholder="Color"
                 dataList={colorList.filter((item) => {
+                  console.log('Color', formState.color, item);
                   if (!formState.color.includes(item)) {
                     return item;
                   } else {
