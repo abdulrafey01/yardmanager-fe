@@ -656,6 +656,7 @@ const InventorySideMenu = () => {
                     type="number"
                     placeholder="Price"
                     name="price"
+                    min={0}
                     value={formState.price}
                     onChange={onInputChange}
                   />
