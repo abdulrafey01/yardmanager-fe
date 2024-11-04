@@ -1,0 +1,5707 @@
+[
+    {
+        "make": "ACURA",
+        "models": [
+            {
+                "model": "MDX",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "MDX",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "MDX",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "MDX",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "RDX",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "RDX",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "RDX",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "ILX",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "ILX",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "RLX",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "ZDX",
+                "startYear": 2010,
+                "endYear": 2013
+            },
+            {
+                "model": "NSX",
+                "startYear": 1991,
+                "endYear": 2005
+            },
+            {
+                "model": "NSX",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "TLX",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "TLX",
+                "startYear": 2021,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "ALFA ROMEO",
+        "models": [
+            {
+                "model": "Giulia",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "Stelvio",
+                "startYear": 2018,
+                "endYear": 2023
+            },
+            {
+                "model": "4C",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Tonale",
+                "startYear": 2022,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "ASTON MARTIN",
+        "models": [
+            {
+                "model": "Vantage 12",
+                "startYear": 2011,
+                "endYear": 2018
+            },
+            {
+                "model": "Vantage 8",
+                "startYear": 2006,
+                "endYear": 2016
+            },
+            {
+                "model": "Vantage 8",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "DBS V12",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "DBS V12 Volante",
+                "startYear": 2009,
+                "endYear": 2012
+            },
+            {
+                "model": "Vantage S Roadster",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "DB11",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "Vantage GT8",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "8 Vantage S Roadster",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "DB11 Volante",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "DBX",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "Zagato",
+                "startYear": 2011,
+                "endYear": 2024
+            },
+            {
+                "model": "Rapide AMR",
+                "startYear": 2010,
+                "endYear": 2017
+            },
+            {
+                "model": "Vantage S",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "Rapide E",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "Valhalla",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "Speedster",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "Vantage Roadster",
+                "startYear": 2021,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "AUDI",
+        "models": [
+            {
+                "model": "R8 Spyder",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "R8 Coupe",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "Q7",
+                "startYear": 2006,
+                "endYear": 2015
+            },
+            {
+                "model": "Q7",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "R8 GT",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "SQ7",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "SQ8",
+                "startYear": 2020,
+                "endYear": 2023
+            },
+            {
+                "model": "Q8",
+                "startYear": 2019,
+                "endYear": 2023
+            },
+            {
+                "model": "S8",
+                "startYear": 1996,
+                "endYear": 2002
+            },
+            {
+                "model": "S8",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "S8",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "S8",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "A3 Sedan",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "A3",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "A3",
+                "startYear": 2004,
+                "endYear": 2013
+            },
+            {
+                "model": "Q5",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "Q5",
+                "startYear": 2018,
+                "endYear": 2021
+            },
+            {
+                "model": "SQ5",
+                "startYear": 2014,
+                "endYear": 2017
+            },
+            {
+                "model": "SQ5",
+                "startYear": 2018,
+                "endYear": 2021
+            },
+            {
+                "model": "AUDI S3 Sportback",
+                "startYear": 2008,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI S3 Sportback",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI S3 Sedan",
+                "startYear": 2013,
+                "endYear": 2020
+            },
+            {
+                "model": "AUDI S3 Sedan",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI RS 3 Sedan",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "AUDI RS 3 Sedan",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI S5 Cabriolet",
+                "startYear": 2010,
+                "endYear": 2017
+            },
+            {
+                "model": "AUDI S5 Cabriolet",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI S5 Sportback",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A5 Sportback",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A5 Sportback",
+                "startYear": 2007,
+                "endYear": 2011
+            },
+            {
+                "model": "AUDI A5 Sportback",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "AUDI A5 Sportback",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A6 Allroad",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A4 Avant",
+                "startYear": 1998,
+                "endYear": 2001
+            },
+            {
+                "model": "AUDI A4 Avant",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "AUDI A4 Avant",
+                "startYear": 2006,
+                "endYear": 2008
+            },
+            {
+                "model": "AUDI A4 Avant",
+                "startYear": 2009,
+                "endYear": 2012
+            },
+            {
+                "model": "AUDI S6 Avant",
+                "startYear": 2007,
+                "endYear": 2011
+            },
+            {
+                "model": "AUDI S6 Avant",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "AUDI S6 Avant",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI RS5 Sportback",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI S4 Avant",
+                "startYear": 2001,
+                "endYear": 2002
+            },
+            {
+                "model": "AUDI S4 Avant",
+                "startYear": 2004,
+                "endYear": 2005
+            },
+            {
+                "model": "AUDI S4 Avant",
+                "startYear": 2006,
+                "endYear": 2008
+            },
+            {
+                "model": "AUDI S4",
+                "startYear": 2000,
+                "endYear": 2002
+            },
+            {
+                "model": "AUDI S5",
+                "startYear": 2004,
+                "endYear": 2005
+            },
+            {
+                "model": "AUDI S6",
+                "startYear": 2006,
+                "endYear": 2008
+            },
+            {
+                "model": "AUDI S7",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI S8",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A4",
+                "startYear": 1997,
+                "endYear": 1998
+            },
+            {
+                "model": "AUDI A4",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "AUDI A4",
+                "startYear": 2006,
+                "endYear": 2008
+            },
+            {
+                "model": "AUDI A4",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI A4",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "TT RS",
+                "startYear": 2012,
+                "endYear": 2013
+            },
+            {
+                "model": "TT RS",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "RS6 Avant",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "RS7",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "RS7",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "RS5 Coupe",
+                "startYear": 2013,
+                "endYear": 2015
+            },
+            {
+                "model": "RS5 Coupe",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Q3",
+                "startYear": 2015,
+                "endYear": 2018
+            },
+            {
+                "model": "Q3",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "A6",
+                "startYear": 1996,
+                "endYear": 1997
+            },
+            {
+                "model": "A6",
+                "startYear": 1998,
+                "endYear": 2004
+            },
+            {
+                "model": "A6",
+                "startYear": 2005,
+                "endYear": 2011
+            },
+            {
+                "model": "A6",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "A6",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "A6 Avant",
+                "startYear": 1997,
+                "endYear": 1998
+            },
+            {
+                "model": "A6 Avant",
+                "startYear": 1999,
+                "endYear": 2004
+            },
+            {
+                "model": "A6 Avant",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "TT Coupe",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "TT Coupe",
+                "startYear": 2008,
+                "endYear": 2015
+            },
+            {
+                "model": "TT Coupe",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "RS3",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "RS3",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "S7 Sportback",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "S7 Sportback",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "A7 Sportback",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "A7 Sportback",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "A8",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "A8",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "A8",
+                "startYear": 2011,
+                "endYear": 2018
+            },
+            {
+                "model": "A8",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "A3 Convertible",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "AUDI S5",
+                "startYear": 2008,
+                "endYear": 2017
+            },
+            {
+                "model": "AUDI S5",
+                "startYear": 2018,
+                "endYear": 2019
+            },
+            {
+                "model": "A4 Allroad",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "A4 Allroad",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI A5 Cabriolet",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI A5 Sportback",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI A5",
+                "startYear": 2008,
+                "endYear": 2016
+            },
+            {
+                "model": "AUDI A5",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "AUDI Q4 e-tron",
+                "startYear": 2022,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "BMW",
+        "models": [
+            {
+                "model": "BMW 1 Series",
+                "startYear": 2004,
+                "endYear": 2011
+            },
+            {
+                "model": "BMW 1 Series",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "BMW 1 Series",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW 2 Series",
+                "startYear": 2014,
+                "endYear": 2021
+            },
+            {
+                "model": "BMW 4 Series",
+                "startYear": 2013,
+                "endYear": 2020
+            },
+            {
+                "model": "BMW 4 Series",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "BMW M4",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "BMW M4",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "X5",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "X5",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "X5",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "X5",
+                "startYear": 2019,
+                "endYear": 2025
+            },
+            {
+                "model": "X6",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "X6",
+                "startYear": 2015,
+                "endYear": 2018
+            },
+            {
+                "model": "X6",
+                "startYear": 2019,
+                "endYear": 2025
+            },
+            {
+                "model": "M5",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "M5",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "M5",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "M5",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "M2",
+                "startYear": 2017,
+                "endYear": 2021
+            },
+            {
+                "model": "M2",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW 3 SERIES",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "BMW 3 SERIES",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "BMW 3 SERIES",
+                "startYear": 2006,
+                "endYear": 2012
+            },
+            {
+                "model": "BMW 3 SERIES",
+                "startYear": 2013,
+                "endYear": 2019
+            },
+            {
+                "model": "BMW 3 SERIES",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW 7 SERIES",
+                "startYear": 1996,
+                "endYear": 2001
+            },
+            {
+                "model": "BMW 7 SERIES",
+                "startYear": 2002,
+                "endYear": 2008
+            },
+            {
+                "model": "BMW 7 SERIES",
+                "startYear": 2009,
+                "endYear": 2015
+            },
+            {
+                "model": "BMW 7 SERIES",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "BMW 7 SERIES",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW X1",
+                "startYear": 2010,
+                "endYear": 2015
+            },
+            {
+                "model": "BMW X1",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "BMW X1",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW X4",
+                "startYear": 2015,
+                "endYear": 2018
+            },
+            {
+                "model": "BMW X4",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW X3",
+                "startYear": 2003,
+                "endYear": 2010
+            },
+            {
+                "model": "BMW X3",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "BMW X3",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "BMW 5 SERIES",
+                "startYear": 1995,
+                "endYear": 2003
+            },
+            {
+                "model": "BMW 5 SERIES",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "BMW 5 SERIES",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "BMW 5 SERIES",
+                "startYear": 2018,
+                "endYear": 2023
+            },
+            {
+                "model": "BMW Z4 Roadster",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "BMW Z4 Roadster",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "BMW Z4 Roadster",
+                "startYear": 2018,
+                "endYear": 2023
+            }
+        ]
+    },
+    {
+        "make": "BUICK",
+        "models": [
+            {
+                "model": "BUICK CASCADA",
+                "startYear": 2016,
+                "endYear": 2019
+            },
+            {
+                "model": "BUICK Lacrosse",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "BUICK Lacrosse",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "BUICK Lacrosse",
+                "startYear": 2017,
+                "endYear": 2019
+            },
+            {
+                "model": "BUICK Century",
+                "startYear": 1990,
+                "endYear": 2005
+            },
+            {
+                "model": "BUICK ENCLAVE",
+                "startYear": 2008,
+                "endYear": 2017
+            },
+            {
+                "model": "BUICK ENCLAVE",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "BUICK Encore",
+                "startYear": 2013,
+                "endYear": 2022
+            },
+            {
+                "model": "BUICK ENVISION",
+                "startYear": 2016,
+                "endYear": 2020
+            },
+            {
+                "model": "BUICK ENVISION",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "BUICK LESABRE",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "BUICK LESABRE",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "BUICK LUCERNE",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "BUICK PARK AVENUE",
+                "startYear": 1991,
+                "endYear": 1996
+            },
+            {
+                "model": "BUICK PARK AVENUE",
+                "startYear": 1997,
+                "endYear": 2005
+            },
+            {
+                "model": "BUICK RAINIER",
+                "startYear": 2004,
+                "endYear": 2007
+            },
+            {
+                "model": "BUICK REATTA",
+                "startYear": 1990,
+                "endYear": 1991
+            },
+            {
+                "model": "BUICK REGAL",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "BUICK REGAL",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "BUICK REGAL",
+                "startYear": 2018,
+                "endYear": 2020
+            },
+            {
+                "model": "BUICK Rendezvous",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "BUICK Riviera",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "BUICK Roadmaster",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "BUICK Skylark",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "BUICK Terraza",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "BUICK Verano",
+                "startYear": 2012,
+                "endYear": 2017
+            }
+        ]
+    },
+    {
+        "make": "CADILLAC",
+        "models": [
+            {
+                "model": "CADILLAC ESCALADE",
+                "startYear": 1999,
+                "endYear": 2000
+            },
+            {
+                "model": "CADILLAC ESCALADE",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "CADILLAC ESCALADE",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "CADILLAC ESCALADE",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "CADILLAC ESCALADE",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "CADILLAC ATS",
+                "startYear": 2013,
+                "endYear": 2019
+            },
+            {
+                "model": "CADILLAC CT4",
+                "startYear": 2020,
+                "endYear": 2023
+            },
+            {
+                "model": "CADILLAC Catera",
+                "startYear": 1997,
+                "endYear": 2002
+            },
+            {
+                "model": "CADILLAC CTS",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "CADILLAC CTS",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "CADILLAC CTS",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "CADILLAC DeVille",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "CADILLAC DTS",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "CADILLAC Eldorado",
+                "startYear": 1992,
+                "endYear": 2002
+            },
+            {
+                "model": "CADILLAC ELR",
+                "startYear": 2014,
+                "endYear": 2016
+            },
+            {
+                "model": "CADILLAC Seville",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "CADILLAC Seville",
+                "startYear": 1998,
+                "endYear": 2004
+            },
+            {
+                "model": "CADILLAC SRX",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "CADILLAC SRX",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "CADILLAC STS",
+                "startYear": 2005,
+                "endYear": 2011
+            },
+            {
+                "model": "CADILLAC XLR",
+                "startYear": 2004,
+                "endYear": 2009
+            },
+            {
+                "model": "CADILLAC XT5",
+                "startYear": 2017,
+                "endYear": 2022
+            }
+        ]
+    },
+    {
+        "make": "CHEVROLET",
+        "models": [
+            {
+                "model": "CHEVROLET EQUINOX",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "CHEVROLET EQUINOX",
+                "startYear": 2010,
+                "endYear": 2017
+            },
+            {
+                "model": "CHEVROLET EQUINOX",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET TAHOE",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "CHEVROLET TAHOE",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "CHEVROLET TAHOE",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "CHEVROLET TAHOE",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "CHEVROLET TAHOE",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Silverado 15",
+                "startYear": 1999,
+                "endYear": 2006
+            },
+            {
+                "model": "CHEVROLET Silverado 15",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "CHEVROLET Silverado 15",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "CHEVROLET Silverado 15",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Silverado 25",
+                "startYear": 1999,
+                "endYear": 2006
+            },
+            {
+                "model": "CHEVROLET Silverado 25",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "CHEVROLET Silverado 25",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "CHEVROLET Silverado 25",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "CHEVROLET Colorado",
+                "startYear": 2004,
+                "endYear": 2012
+            },
+            {
+                "model": "CHEVROLET Colorado",
+                "startYear": 2015,
+                "endYear": 2022
+            },
+            {
+                "model": "CHEVROLET Colorado",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET S-10 Blazer",
+                "startYear": 1994,
+                "endYear": 2004
+            },
+            {
+                "model": "CHEVROLET Trailblazer",
+                "startYear": 2002,
+                "endYear": 2009
+            },
+            {
+                "model": "CHEVROLET Trailblazer",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "CHEVROLET Suburban",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "CHEVROLET Suburban",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "CHEVROLET Suburban",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "CHEVROLET Suburban",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "CHEVROLET Suburban",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "CHEVROLET Traverse",
+                "startYear": 2009,
+                "endYear": 2017
+            },
+            {
+                "model": "CHEVROLET Traverse",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Malibu",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "CHEVROLET Malibu",
+                "startYear": 2004,
+                "endYear": 2007
+            },
+            {
+                "model": "CHEVROLET Malibu",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "CHEVROLET Malibu",
+                "startYear": 2013,
+                "endYear": 2015
+            },
+            {
+                "model": "CHEVROLET Malibu",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Camaro",
+                "startYear": 1993,
+                "endYear": 2002
+            },
+            {
+                "model": "CHEVROLET Camaro",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "CHEVROLET Camaro",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "CHEVROLET Impala",
+                "startYear": 1994,
+                "endYear": 1996
+            },
+            {
+                "model": "CHEVROLET Impala",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "CHEVROLET Impala",
+                "startYear": 2006,
+                "endYear": 2013
+            },
+            {
+                "model": "CHEVROLET Impala",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "CHEVROLET Express 150",
+                "startYear": 1995,
+                "endYear": 2015
+            },
+            {
+                "model": "CHEVROLET Express 250",
+                "startYear": 1995,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Express 350",
+                "startYear": 1995,
+                "endYear": 2024
+            },
+            {
+                "model": "CHEVROLET Express Tra",
+                "startYear": 1998,
+                "endYear": 2004
+            },
+            {
+                "model": "CHEVROLET Blazer",
+                "startYear": 1995,
+                "endYear": 2005
+            },
+            {
+                "model": "CHEVROLET Blazer",
+                "startYear": 2019,
+                "endYear": 2023
+            },
+            {
+                "model": "CHEVROLET Corvette",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "CHEVROLET Corvette",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "CHEVROLET Corvette",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "CHEVROLET Corvette",
+                "startYear": 2020,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "CHRYSLER",
+        "models": [
+            {
+                "model": "CHRYSLER 300",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "CHRYSLER 300",
+                "startYear": 2011,
+                "endYear": 2023
+            },
+            {
+                "model": "CHRYSLER Pacifica",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "CHRYSLER Town and Cou",
+                "startYear": 1991,
+                "endYear": 1995
+            },
+            {
+                "model": "CHRYSLER Town and Cou",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "CHRYSLER Town and Cou",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "CHRYSLER Town and Cou",
+                "startYear": 2008,
+                "endYear": 2016
+            },
+            {
+                "model": "CHRYSLER 200",
+                "startYear": 2011,
+                "endYear": 2014
+            },
+            {
+                "model": "CHRYSLER 200",
+                "startYear": 2015,
+                "endYear": 2017
+            },
+            {
+                "model": "CHRYSLER Voyager",
+                "startYear": 1991,
+                "endYear": 1995
+            },
+            {
+                "model": "CHRYSLER Voyager",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "CHRYSLER Voyager",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "CHRYSLER Voyager",
+                "startYear": 2008,
+                "endYear": 2015
+            },
+            {
+                "model": "CHRYSLER Voyager",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "CHRYSLER Sebring",
+                "startYear": 1995,
+                "endYear": 2000
+            },
+            {
+                "model": "CHRYSLER Sebring",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "CHRYSLER Sebring",
+                "startYear": 2007,
+                "endYear": 2010
+            },
+            {
+                "model": "CHRYSLER Imperial",
+                "startYear": 1990,
+                "endYear": 1993
+            },
+            {
+                "model": "CHRYSLER New Yorker",
+                "startYear": 1994,
+                "endYear": 1996
+            },
+            {
+                "model": "CHRYSLER Prowler",
+                "startYear": 1997,
+                "endYear": 2002
+            },
+            {
+                "model": "CHRYSLER Crossfire",
+                "startYear": 2004,
+                "endYear": 2007
+            },
+            {
+                "model": "CHRYSLER PT Cruiser",
+                "startYear": 2001,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "DODGE",
+        "models": [
+            {
+                "model": "DODGE DURANGO",
+                "startYear": 1998,
+                "endYear": 2003
+            },
+            {
+                "model": "DODGE DURANGO",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "DODGE DURANGO",
+                "startYear": 2011,
+                "endYear": 2024
+            },
+            {
+                "model": "DODGE MAGNUM",
+                "startYear": 2005,
+                "endYear": 2008
+            },
+            {
+                "model": "DODGE CARAVAN",
+                "startYear": 1991,
+                "endYear": 1995
+            },
+            {
+                "model": "DODGE CARAVAN",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "DODGE CARAVAN",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "DODGE CARAVAN",
+                "startYear": 2008,
+                "endYear": 2020
+            },
+            {
+                "model": "DODGE VIPER",
+                "startYear": 1992,
+                "endYear": 2002
+            },
+            {
+                "model": "DODGE VIPER",
+                "startYear": 2003,
+                "endYear": 2010
+            },
+            {
+                "model": "DODGE VIPER",
+                "startYear": 2015,
+                "endYear": 2017
+            },
+            {
+                "model": "DODGE CHARGER",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "DODGE CHARGER",
+                "startYear": 2011,
+                "endYear": 2023
+            },
+            {
+                "model": "DODGE JOURNEY",
+                "startYear": 2009,
+                "endYear": 2020
+            },
+            {
+                "model": "DODGE Ram Van",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "DODGE Ram Van",
+                "startYear": 1998,
+                "endYear": 2003
+            },
+            {
+                "model": "DODGE Ram 1500",
+                "startYear": 1994,
+                "endYear": 2002
+            },
+            {
+                "model": "DODGE Ram 1500",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "DODGE Ram 1500",
+                "startYear": 2009,
+                "endYear": 2018
+            },
+            {
+                "model": "DODGE Ram 1500",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "DODGE Ram 2500",
+                "startYear": 1994,
+                "endYear": 2002
+            },
+            {
+                "model": "DODGE Ram 2500",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "DODGE Ram 2500",
+                "startYear": 2010,
+                "endYear": 2011
+            },
+            {
+                "model": "DODGE Ram 3500",
+                "startYear": 1994,
+                "endYear": 2002
+            },
+            {
+                "model": "DODGE Ram 3500",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "DODGE Ram 3500",
+                "startYear": 2010,
+                "endYear": 2011
+            }
+        ]
+    },
+    {
+        "make": "FERRARI",
+        "models": [
+            {
+                "model": "FERRARI F12berlinetta",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "FERRARI GTC4Lusso",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "FERRARI 488",
+                "startYear": 2016,
+                "endYear": 2020
+            },
+            {
+                "model": "FERRARI F430",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "FERRARI F355",
+                "startYear": 1995,
+                "endYear": 2000
+            },
+            {
+                "model": "FERRARI F360",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "FERRARI F456M",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "FERRARI F458",
+                "startYear": 2012,
+                "endYear": 2015
+            },
+            {
+                "model": "FERRARI 550 Maranello",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "FERRARI California",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "FERRARI California",
+                "startYear": 2015,
+                "endYear": 2018
+            },
+            {
+                "model": "FERRARI FF",
+                "startYear": 2012,
+                "endYear": 2016
+            },
+            {
+                "model": "FERRARI Enzo",
+                "startYear": 2002,
+                "endYear": 2004
+            }
+        ]
+    },
+    {
+        "make": "FIAT",
+        "models": [
+            {
+                "model": "FIAT 500",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "FIAT 500X",
+                "startYear": 2015,
+                "endYear": 2023
+            },
+            {
+                "model": "FIAT 500L",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "FIAT 124 Spider",
+                "startYear": 2017,
+                "endYear": 2020
+            }
+        ]
+    },
+    {
+        "make": "FORD",
+        "models": [
+            {
+                "model": "FORD MUSTANG",
+                "startYear": 1994,
+                "endYear": 2004
+            },
+            {
+                "model": "FORD MUSTANG",
+                "startYear": 2005,
+                "endYear": 2014
+            },
+            {
+                "model": "FORD MUSTANG",
+                "startYear": 2015,
+                "endYear": 2023
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 1991,
+                "endYear": 1994
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 1995,
+                "endYear": 2001
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 2011,
+                "endYear": 2019
+            },
+            {
+                "model": "FORD Explorer",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "FORD Escape",
+                "startYear": 2001,
+                "endYear": 2012
+            },
+            {
+                "model": "FORD Escape",
+                "startYear": 2013,
+                "endYear": 2019
+            },
+            {
+                "model": "FORD Escape",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD Bronco",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "FORD Bronco",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD C-Max",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "FORD C-Max",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "FORD Crown Victoria",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "FORD Crown Victoria",
+                "startYear": 1998,
+                "endYear": 2012
+            },
+            {
+                "model": "FORD Edge",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "FORD Edge",
+                "startYear": 2015,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD Excursion",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "FORD EXPEDITION",
+                "startYear": 1997,
+                "endYear": 2002
+            },
+            {
+                "model": "FORD EXPEDITION",
+                "startYear": 2003,
+                "endYear": 2006
+            },
+            {
+                "model": "FORD EXPEDITION",
+                "startYear": 2007,
+                "endYear": 2017
+            },
+            {
+                "model": "FORD EXPEDITION",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD Explorer Sport Trac",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "FORD Explorer Sport Trac",
+                "startYear": 2007,
+                "endYear": 2010
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 2004,
+                "endYear": 2008
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "FORD F-150",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 1999,
+                "endYear": 2007
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 2008,
+                "endYear": 2010
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 2017,
+                "endYear": 2022
+            },
+            {
+                "model": "FORD F-250",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "FORD Probe",
+                "startYear": 1993,
+                "endYear": 1997
+            },
+            {
+                "model": "FORD Taurus",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "FORD Taurus",
+                "startYear": 1996,
+                "endYear": 1999
+            },
+            {
+                "model": "FORD Taurus",
+                "startYear": 2000,
+                "endYear": 2007
+            },
+            {
+                "model": "FORD Taurus",
+                "startYear": 2008,
+                "endYear": 2009
+            },
+            {
+                "model": "FORD Taurus",
+                "startYear": 2010,
+                "endYear": 2019
+            },
+            {
+                "model": "FORD Thunderbird",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "FORD Thunderbird",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "FORD Transit Connect",
+                "startYear": 2010,
+                "endYear": 2013
+            },
+            {
+                "model": "FORD Transit Connect",
+                "startYear": 2014,
+                "endYear": 2023
+            },
+            {
+                "model": "FORD Five Hundred",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "FORD Focus",
+                "startYear": 2000,
+                "endYear": 2007
+            },
+            {
+                "model": "FORD Focus",
+                "startYear": 2008,
+                "endYear": 2016
+            },
+            {
+                "model": "FORD Focus",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "FORD Focus",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "FORD Fusion",
+                "startYear": 2006,
+                "endYear": 2012
+            },
+            {
+                "model": "FORD Fusion",
+                "startYear": 2013,
+                "endYear": 2020
+            }
+        ]
+    },
+    {
+        "make": "GENESIS",
+        "models": [
+            {
+                "model": "G80",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "G80",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "G90",
+                "startYear": 2017,
+                "endYear": 2022
+            },
+            {
+                "model": "G90",
+                "startYear": 2023,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "GEO",
+        "models": [
+            {
+                "model": "GEO Storm",
+                "startYear": 1990,
+                "endYear": 1993
+            }
+        ]
+    },
+    {
+        "make": "GMC",
+        "models": [
+            {
+                "model": "ACADIA",
+                "startYear": 2007,
+                "endYear": 2016
+            },
+            {
+                "model": "ACADIA",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "GMC Envoy",
+                "startYear": 1990,
+                "endYear": 2000
+            },
+            {
+                "model": "GMC Envoy",
+                "startYear": 2002,
+                "endYear": 2009
+            },
+            {
+                "model": "GMC Terrain",
+                "startYear": 2010,
+                "endYear": 2017
+            },
+            {
+                "model": "GMC Terrain",
+                "startYear": 2018,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "HONDA",
+        "models": [
+            {
+                "model": "HONDA Accord",
+                "startYear": 1990,
+                "endYear": 1993
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 1994,
+                "endYear": 1997
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 2013,
+                "endYear": 2017
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 2018,
+                "endYear": 2022
+            },
+            {
+                "model": "HONDA Accord",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "HONDA Accord Crosstour",
+                "startYear": 2010,
+                "endYear": 2011
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 1990,
+                "endYear": 1991
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 2012,
+                "endYear": 2015
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "HONDA Civic",
+                "startYear": 2022,
+                "endYear": 2025
+            },
+            {
+                "model": "HONDA CR-V",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "HONDA CR-V",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "HONDA CR-V",
+                "startYear": 2007,
+                "endYear": 2011
+            },
+            {
+                "model": "HONDA CR-V",
+                "startYear": 2012,
+                "endYear": 2016
+            },
+            {
+                "model": "HONDA CR-V",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "HONDA CR-X del Sol",
+                "startYear": 1993,
+                "endYear": 1997
+            },
+            {
+                "model": "HONDA Element",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "HONDA Element",
+                "startYear": 2008,
+                "endYear": 2011
+            },
+            {
+                "model": "HONDA Fit",
+                "startYear": 2007,
+                "endYear": 2008
+            },
+            {
+                "model": "HONDA Fit",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "HONDA Fit",
+                "startYear": 2015,
+                "endYear": 2020
+            },
+            {
+                "model": "HONDA HR -V",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "HONDA HR -V",
+                "startYear": 2023,
+                "endYear": 2025
+            },
+            {
+                "model": "Insight",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "Insight",
+                "startYear": 2010,
+                "endYear": 2014
+            },
+            {
+                "model": "Insight",
+                "startYear": 2019,
+                "endYear": 2022
+            },
+            {
+                "model": "Odyssey",
+                "startYear": 1995,
+                "endYear": 1998
+            },
+            {
+                "model": "Odyssey",
+                "startYear": 1999,
+                "endYear": 2004
+            },
+            {
+                "model": "Odyssey",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "Odyssey",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "Odyssey",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Passport",
+                "startYear": 1994,
+                "endYear": 1997
+            },
+            {
+                "model": "Passport",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "Passport",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "Pilot",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Pilot",
+                "startYear": 2009,
+                "endYear": 2015
+            },
+            {
+                "model": "Pilot",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "Pilot",
+                "startYear": 2023,
+                "endYear": 2025
+            },
+            {
+                "model": "Prelude",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "Prelude",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "Ridgeline",
+                "startYear": 2006,
+                "endYear": 2014
+            },
+            {
+                "model": "Ridgeline",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "S2000",
+                "startYear": 2000,
+                "endYear": 2009
+            }
+        ]
+    },
+    {
+        "make": "HUMMER",
+        "models": [
+            {
+                "model": "H1",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "H2",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "H3",
+                "startYear": 2006,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "HYUNDAI",
+        "models": [
+            {
+                "model": "Accent",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "Accent",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Accent",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "Accent",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Accent",
+                "startYear": 2018,
+                "endYear": 2022
+            },
+            {
+                "model": "Elantra",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "Elantra",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "Elantra",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "Elantra",
+                "startYear": 2007,
+                "endYear": 2010
+            },
+            {
+                "model": "Elantra",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "Elantra",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "Elantra",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Equus",
+                "startYear": 2000,
+                "endYear": 2009
+            },
+            {
+                "model": "Equus",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "Genesis",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "Genesis",
+                "startYear": 2015,
+                "endYear": 2016
+            },
+            {
+                "model": "Ioniq EV",
+                "startYear": 2017,
+                "endYear": 2021
+            },
+            {
+                "model": "Santa Fe",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "Santa Fe",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "Santa Fe",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "Santa Fe",
+                "startYear": 2019,
+                "endYear": 2023
+            },
+            {
+                "model": "Sonata",
+                "startYear": 1995,
+                "endYear": 1998
+            },
+            {
+                "model": "Sonata",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "Sonata",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Sonata",
+                "startYear": 2011,
+                "endYear": 2014
+            },
+            {
+                "model": "Sonata",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "Sonata",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "Tiburon",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "Tiburon",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Tucson",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "Tucson",
+                "startYear": 2010,
+                "endYear": 2015
+            },
+            {
+                "model": "Tucson",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "Tucson",
+                "startYear": 2022,
+                "endYear": 2025
+            },
+            {
+                "model": "Veloster",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Veloster",
+                "startYear": 2019,
+                "endYear": 2021
+            },
+            {
+                "model": "Veracruz",
+                "startYear": 2007,
+                "endYear": 2012
+            }
+        ]
+    },
+    {
+        "make": "INFINITI",
+        "models": [
+            {
+                "model": "QX50",
+                "startYear": 2014,
+                "endYear": 2017
+            },
+            {
+                "model": "QX50",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "FX/QX70",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "FX/QX71",
+                "startYear": 2009,
+                "endYear": 2017
+            },
+            {
+                "model": "INFINITI G Line",
+                "startYear": 1991,
+                "endYear": 1996
+            },
+            {
+                "model": "INFINITI G Line",
+                "startYear": 1999,
+                "endYear": 2002
+            },
+            {
+                "model": "INFINITI G Line",
+                "startYear": 2003,
+                "endYear": 2006
+            },
+            {
+                "model": "INFINITI G Line",
+                "startYear": 2007,
+                "endYear": 2015
+            },
+            {
+                "model": "J30",
+                "startYear": 1993,
+                "endYear": 1997
+            },
+            {
+                "model": "QX60",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "QX60",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "INFINITI M30",
+                "startYear": 1990,
+                "endYear": 1992
+            },
+            {
+                "model": "INFINITI M",
+                "startYear": 2003,
+                "endYear": 2004
+            },
+            {
+                "model": "INFINITI M",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "INFINITI M/Q70",
+                "startYear": 2011,
+                "endYear": 2019
+            },
+            {
+                "model": "Q45",
+                "startYear": 1990,
+                "endYear": 1996
+            },
+            {
+                "model": "Q45",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "Q45",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "Q50",
+                "startYear": 2014,
+                "endYear": 2024
+            },
+            {
+                "model": "Q60",
+                "startYear": 2014,
+                "endYear": 2015
+            },
+            {
+                "model": "Q60",
+                "startYear": 2017,
+                "endYear": 2022
+            },
+            {
+                "model": "Q70",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Q7L",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "QX56",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "QX80",
+                "startYear": 2014,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "ISUZU",
+        "models": [
+            {
+                "model": "Amigo",
+                "startYear": 1992,
+                "endYear": 1994
+            },
+            {
+                "model": "Amigo",
+                "startYear": 1998,
+                "endYear": 2000
+            },
+            {
+                "model": "Ascender",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Axiom",
+                "startYear": 2002,
+                "endYear": 2004
+            },
+            {
+                "model": "Piazza",
+                "startYear": 1991,
+                "endYear": 1993
+            },
+            {
+                "model": "Gemini",
+                "startYear": 1991,
+                "endYear": 1993
+            },
+            {
+                "model": "Gemini",
+                "startYear": 1994,
+                "endYear": 1997
+            },
+            {
+                "model": "Gemini",
+                "startYear": 1998,
+                "endYear": 2000
+            },
+            {
+                "model": "Trooper",
+                "startYear": 1992,
+                "endYear": 2002
+            },
+            {
+                "model": "VehiCROSS",
+                "startYear": 1999,
+                "endYear": 2001
+            }
+        ]
+    },
+    {
+        "make": "JAGUAR",
+        "models": [
+            {
+                "model": "F-Type",
+                "startYear": 2014,
+                "endYear": 2024
+            },
+            {
+                "model": "F-Pace",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "S-Type",
+                "startYear": 1999,
+                "endYear": 2008
+            },
+            {
+                "model": "XE",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "XF",
+                "startYear": 2009,
+                "endYear": 2015
+            },
+            {
+                "model": "XF",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "XJ",
+                "startYear": 2010,
+                "endYear": 2019
+            },
+            {
+                "model": "XJS",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "XK",
+                "startYear": 1997,
+                "endYear": 2006
+            },
+            {
+                "model": "XK",
+                "startYear": 2007,
+                "endYear": 2015
+            },
+            {
+                "model": "X-Type",
+                "startYear": 2001,
+                "endYear": 2008
+            }
+        ]
+    },
+    {
+        "make": "JEEP",
+        "models": [
+            {
+                "model": "Cherokee",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "Cherokee",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "Cherokee",
+                "startYear": 2014,
+                "endYear": 2023
+            },
+            {
+                "model": "Commander",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Compass",
+                "startYear": 2007,
+                "endYear": 2016
+            },
+            {
+                "model": "Compass",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "Grand Cherokee",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Grand Cherokee",
+                "startYear": 1999,
+                "endYear": 2004
+            },
+            {
+                "model": "Grand Cherokee",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "Grand Cherokee",
+                "startYear": 2011,
+                "endYear": 2021
+            },
+            {
+                "model": "Grand Cherokee",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "Liberty",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "Liberty",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "Patriot",
+                "startYear": 2007,
+                "endYear": 2017
+            },
+            {
+                "model": "Renegade",
+                "startYear": 2015,
+                "endYear": 2023
+            },
+            {
+                "model": "Wagoneer",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Wagoneer",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "Wrangler",
+                "startYear": 1997,
+                "endYear": 2006
+            },
+            {
+                "model": "Wrangler",
+                "startYear": 2007,
+                "endYear": 2017
+            },
+            {
+                "model": "Wrangler",
+                "startYear": 2018,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "KIA",
+        "models": [
+            {
+                "model": "Opirus",
+                "startYear": 2003,
+                "endYear": 2012
+            },
+            {
+                "model": "Borrego",
+                "startYear": 2009,
+                "endYear": 2011
+            },
+            {
+                "model": "Cadenza",
+                "startYear": 2014,
+                "endYear": 2016
+            },
+            {
+                "model": "Cadenza",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "Forte",
+                "startYear": 2010,
+                "endYear": 2013
+            },
+            {
+                "model": "Forte",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "Forte",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "K9",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "K9",
+                "startYear": 2019,
+                "endYear": 2023
+            },
+            {
+                "model": "Niro",
+                "startYear": 2017,
+                "endYear": 2022
+            },
+            {
+                "model": "Niro",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "Optima",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "Optima",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Optima",
+                "startYear": 2011,
+                "endYear": 2015
+            },
+            {
+                "model": "Optima",
+                "startYear": 2016,
+                "endYear": 2020
+            },
+            {
+                "model": "K5",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "Rio",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "Rio",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "Rio",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Rio",
+                "startYear": 2018,
+                "endYear": 2023
+            },
+            {
+                "model": "Carens",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "Carens",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "Carens",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Carens",
+                "startYear": 2022,
+                "endYear": 2023
+            },
+            {
+                "model": "Carnival",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "Carnival",
+                "startYear": 2006,
+                "endYear": 2014
+            },
+            {
+                "model": "Carnival",
+                "startYear": 2015,
+                "endYear": 2021
+            },
+            {
+                "model": "Carnival",
+                "startYear": 2022,
+                "endYear": 2025
+            },
+            {
+                "model": "Sephia",
+                "startYear": 1994,
+                "endYear": 1997
+            },
+            {
+                "model": "Sephia",
+                "startYear": 1998,
+                "endYear": 2001
+            },
+            {
+                "model": "Sorento",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "Sorento",
+                "startYear": 2011,
+                "endYear": 2015
+            },
+            {
+                "model": "Sorento",
+                "startYear": 2016,
+                "endYear": 2020
+            },
+            {
+                "model": "Sorento",
+                "startYear": 2021,
+                "endYear": 2025
+            },
+            {
+                "model": "Soul",
+                "startYear": 2010,
+                "endYear": 2013
+            },
+            {
+                "model": "Soul",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Soul",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Sportage",
+                "startYear": 1995,
+                "endYear": 2002
+            },
+            {
+                "model": "Sportage",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "Sportage",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "Sportage",
+                "startYear": 2017,
+                "endYear": 2022
+            },
+            {
+                "model": "Sportage",
+                "startYear": 2023,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "LAMBORGHINI",
+        "models": [
+            {
+                "model": "Aventador",
+                "startYear": 2012,
+                "endYear": 2022
+            },
+            {
+                "model": "Diablo",
+                "startYear": 1990,
+                "endYear": 2001
+            },
+            {
+                "model": "Gallardo",
+                "startYear": 2004,
+                "endYear": 2014
+            },
+            {
+                "model": "Huracan",
+                "startYear": 2015,
+                "endYear": 2023
+            },
+            {
+                "model": "Murcieago",
+                "startYear": 2002,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "LAND ROVER",
+        "models": [
+            {
+                "model": "Defender",
+                "startYear": 1990,
+                "endYear": 1997
+            },
+            {
+                "model": "Defender",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Discovery Sport",
+                "startYear": 2015,
+                "endYear": 2024
+            },
+            {
+                "model": "Range Rover Evoque",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "Range Rover Evoque",
+                "startYear": 2020,
+                "endYear": 204
+            },
+            {
+                "model": "Range Rover Freelander",
+                "startYear": 1998,
+                "endYear": 2006
+            },
+            {
+                "model": "Range Rover Freelander",
+                "startYear": 2007,
+                "endYear": 2015
+            },
+            {
+                "model": "Range Rover",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "Range Rover",
+                "startYear": 1996,
+                "endYear": 2002
+            },
+            {
+                "model": "Range Rover",
+                "startYear": 2003,
+                "endYear": 2012
+            },
+            {
+                "model": "Range Rover",
+                "startYear": 2013,
+                "endYear": 2021
+            },
+            {
+                "model": "Range Rover",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "Range Rover Sport",
+                "startYear": 2006,
+                "endYear": 2013
+            },
+            {
+                "model": "Range Rover Sport",
+                "startYear": 2014,
+                "endYear": 2022
+            },
+            {
+                "model": "Range Rover Sport",
+                "startYear": 2023,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "LEXUS",
+        "models": [
+            {
+                "model": "CT",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "ES",
+                "startYear": 1990,
+                "endYear": 1991
+            },
+            {
+                "model": "ES",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "ES",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "ES",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "ES",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "ES",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "ES",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "GS",
+                "startYear": 1993,
+                "endYear": 1997
+            },
+            {
+                "model": "GS",
+                "startYear": 1998,
+                "endYear": 2005
+            },
+            {
+                "model": "GS",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "GS",
+                "startYear": 2012,
+                "endYear": 2020
+            },
+            {
+                "model": "GX",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "GX",
+                "startYear": 2010,
+                "endYear": 2023
+            },
+            {
+                "model": "HS",
+                "startYear": 2010,
+                "endYear": 2012
+            },
+            {
+                "model": "IS",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "IS",
+                "startYear": 2006,
+                "endYear": 2013
+            },
+            {
+                "model": "IS",
+                "startYear": 2014,
+                "endYear": 2024
+            },
+            {
+                "model": "LS",
+                "startYear": 1990,
+                "endYear": 1994
+            },
+            {
+                "model": "LS",
+                "startYear": 1995,
+                "endYear": 2000
+            },
+            {
+                "model": "LS",
+                "startYear": 2001,
+                "endYear": 2003
+            },
+            {
+                "model": "LS",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "LS",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "LX",
+                "startYear": 1996,
+                "endYear": 1998
+            },
+            {
+                "model": "LX",
+                "startYear": 1998,
+                "endYear": 2007
+            },
+            {
+                "model": "LX",
+                "startYear": 2008,
+                "endYear": 2021
+            },
+            {
+                "model": "LX",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "NX",
+                "startYear": 2015,
+                "endYear": 2021
+            },
+            {
+                "model": "NX",
+                "startYear": 2022,
+                "endYear": 2025
+            },
+            {
+                "model": "RX",
+                "startYear": 1999,
+                "endYear": 2003
+            },
+            {
+                "model": "RX",
+                "startYear": 2004,
+                "endYear": 2009
+            },
+            {
+                "model": "RX",
+                "startYear": 2010,
+                "endYear": 2015
+            },
+            {
+                "model": "RX",
+                "startYear": 2016,
+                "endYear": 2022
+            },
+            {
+                "model": "RX",
+                "startYear": 2023,
+                "endYear": 2024
+            },
+            {
+                "model": "SC",
+                "startYear": 1992,
+                "endYear": 2000
+            },
+            {
+                "model": "SC",
+                "startYear": 2002,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "LINCOLN",
+        "models": [
+            {
+                "model": "Aviator",
+                "startYear": 2003,
+                "endYear": 2005
+            },
+            {
+                "model": "Aviator",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Blackwood",
+                "startYear": 2002,
+                "endYear": 2003
+            },
+            {
+                "model": "Continental",
+                "startYear": 1990,
+                "endYear": 1994
+            },
+            {
+                "model": "Continental",
+                "startYear": 1995,
+                "endYear": 2002
+            },
+            {
+                "model": "Continental",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "LS",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "Mark Series",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "MKC",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "MKS",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "MKT",
+                "startYear": 2010,
+                "endYear": 2019
+            },
+            {
+                "model": "MKX",
+                "startYear": 2007,
+                "endYear": 2015
+            },
+            {
+                "model": "MKX",
+                "startYear": 2016,
+                "endYear": 2018
+            },
+            {
+                "model": "MKZ",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "MKZ",
+                "startYear": 2013,
+                "endYear": 2020
+            },
+            {
+                "model": "NAVIGATOR",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "NAVIGATOR",
+                "startYear": 2003,
+                "endYear": 2006
+            },
+            {
+                "model": "NAVIGATOR",
+                "startYear": 2007,
+                "endYear": 2017
+            },
+            {
+                "model": "NAVIGATOR",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Town Car",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "Town Car",
+                "startYear": 1998,
+                "endYear": 2011
+            }
+        ]
+    },
+    {
+        "make": "LOTUS",
+        "models": [
+            {
+                "model": "Elise",
+                "startYear": 2004,
+                "endYear": 2011
+            },
+            {
+                "model": "Esprit",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "Evora",
+                "startYear": 2010,
+                "endYear": 2021
+            },
+            {
+                "model": "Exige",
+                "startYear": 2000,
+                "endYear": 2001
+            },
+            {
+                "model": "Exige",
+                "startYear": 2005,
+                "endYear": 2012
+            },
+            {
+                "model": "Exige",
+                "startYear": 2013,
+                "endYear": 2021
+            }
+        ]
+    },
+    {
+        "make": "MASERATI",
+        "models": [
+            {
+                "model": "Coupe",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "GranSport",
+                "startYear": 2005,
+                "endYear": 2008
+            },
+            {
+                "model": "Ghibli",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Ghibli",
+                "startYear": 2014,
+                "endYear": 2024
+            },
+            {
+                "model": "GranTurismo",
+                "startYear": 2008,
+                "endYear": 2019
+            },
+            {
+                "model": "GranTurismo",
+                "startYear": 2023,
+                "endYear": 2025
+            },
+            {
+                "model": "Levante",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "Quattroporte",
+                "startYear": 1995,
+                "endYear": 2001
+            },
+            {
+                "model": "Quattroporte",
+                "startYear": 2004,
+                "endYear": 2013
+            },
+            {
+                "model": "Quattroporte",
+                "startYear": 2014,
+                "endYear": 2024
+            }
+        ]
+    },
+    {
+        "make": "MAZDA",
+        "models": [
+            {
+                "model": "Familia",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "Familia",
+                "startYear": 1999,
+                "endYear": 2003
+            },
+            {
+                "model": "Capella",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "Capella",
+                "startYear": 1998,
+                "endYear": 2005
+            },
+            {
+                "model": "B-Series",
+                "startYear": 1999,
+                "endYear": 2006
+            },
+            {
+                "model": "CX-3",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "CX-5",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "CX-5",
+                "startYear": 2017,
+                "endYear": 2025
+            },
+            {
+                "model": "CX-7",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "CX-9",
+                "startYear": 2007,
+                "endYear": 2015
+            },
+            {
+                "model": "CX-9",
+                "startYear": 2016,
+                "endYear": 2023
+            },
+            {
+                "model": "MAZDA2",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "MAZDA2",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "MAZDA2",
+                "startYear": 2016,
+                "endYear": 2023
+            },
+            {
+                "model": "MAZDA3",
+                "startYear": 2004,
+                "endYear": 2009
+            },
+            {
+                "model": "MAZDA3",
+                "startYear": 2010,
+                "endYear": 2013
+            },
+            {
+                "model": "MAZDA3",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "MAZDA3",
+                "startYear": 2019,
+                "endYear": 2025
+            },
+            {
+                "model": "Premacy",
+                "startYear": 2000,
+                "endYear": 2004
+            },
+            {
+                "model": "Premacy",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "Premacy",
+                "startYear": 2011,
+                "endYear": 2018
+            },
+            {
+                "model": "MAZDA6",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "MAZDA6",
+                "startYear": 2009,
+                "endYear": 2013
+            },
+            {
+                "model": "MAZDA6",
+                "startYear": 2014,
+                "endYear": 2021
+            },
+            {
+                "model": "Millenia",
+                "startYear": 1995,
+                "endYear": 2002
+            },
+            {
+                "model": "MPV",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "MPV",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "MPV",
+                "startYear": 2007,
+                "endYear": 2016
+            },
+            {
+                "model": "MX-3",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "MX-6",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "Navajo",
+                "startYear": 1992,
+                "endYear": 1994
+            },
+            {
+                "model": "RX-7",
+                "startYear": 1993,
+                "endYear": 1995
+            },
+            {
+                "model": "RX-8",
+                "startYear": 2004,
+                "endYear": 2011
+            },
+            {
+                "model": "Tribute",
+                "startYear": 2001,
+                "endYear": 2006
+            },
+            {
+                "model": "Tribute",
+                "startYear": 2008,
+                "endYear": 2011
+            }
+        ]
+    },
+    {
+        "make": "MCLaren",
+        "models": [
+            {
+                "model": "570S",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "650S",
+                "startYear": 2015,
+                "endYear": 2017
+            }
+        ]
+    },
+    {
+        "make": "Mercedes-Benz",
+        "models": [
+            {
+                "model": "S-Class",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "S-Class",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "S-Class",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "S-Class",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "S-Class",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "A-Class",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "A-Class",
+                "startYear": 2005,
+                "endYear": 2012
+            },
+            {
+                "model": "A-Class",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "A-Class",
+                "startYear": 2019,
+                "endYear": 2022
+            },
+            {
+                "model": "C-Class",
+                "startYear": 1994,
+                "endYear": 2000
+            },
+            {
+                "model": "C-Class",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "C-Class",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "C-Class",
+                "startYear": 2015,
+                "endYear": 2021
+            },
+            {
+                "model": "C-Class",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "CL-Class",
+                "startYear": 1998,
+                "endYear": 1999
+            },
+            {
+                "model": "CL-Class",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "CL-Class",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "CLA-Class",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "CLA-Class",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "CLK-Class",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "CLK-Class",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "CLS-Class",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "CLS-Class",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "CLS-Class",
+                "startYear": 2019,
+                "endYear": 2023
+            },
+            {
+                "model": "E-Class",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "E-Class",
+                "startYear": 1996,
+                "endYear": 2002
+            },
+            {
+                "model": "E-Class",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "E-Class",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "E-Class",
+                "startYear": 2017,
+                "endYear": 2023
+            },
+            {
+                "model": "E-Class",
+                "startYear": 2024,
+                "endYear": 2025
+            },
+            {
+                "model": "G-Class",
+                "startYear": 2002,
+                "endYear": 2018
+            },
+            {
+                "model": "G-Class",
+                "startYear": 2019,
+                "endYear": 2025
+            },
+            {
+                "model": "GL-Class",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "GL-Class",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "GLK-Class",
+                "startYear": 2010,
+                "endYear": 2015
+            },
+            {
+                "model": "M-Class",
+                "startYear": 1998,
+                "endYear": 2005
+            },
+            {
+                "model": "M-Class",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "M-Class",
+                "startYear": 2012,
+                "endYear": 2015
+            },
+            {
+                "model": "GLE -Class",
+                "startYear": 2016,
+                "endYear": 2019
+            },
+            {
+                "model": "GLE -Class",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "R-Class",
+                "startYear": 2006,
+                "endYear": 2017
+            },
+            {
+                "model": "SL-Class",
+                "startYear": 1992,
+                "endYear": 2002
+            },
+            {
+                "model": "SL-Class",
+                "startYear": 2003,
+                "endYear": 2012
+            },
+            {
+                "model": "SL-Class",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "SLK-Class",
+                "startYear": 1998,
+                "endYear": 2004
+            },
+            {
+                "model": "SLK-Class",
+                "startYear": 2005,
+                "endYear": 2011
+            },
+            {
+                "model": "SLK-Class",
+                "startYear": 2012,
+                "endYear": 2016
+            },
+            {
+                "model": "SLR McLaren",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "SLS AMG",
+                "startYear": 2011,
+                "endYear": 2015
+            },
+            {
+                "model": "AMG CLS 63",
+                "startYear": 2007,
+                "endYear": 2011
+            },
+            {
+                "model": "AMG CLS 63",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "Sprinter",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "Sprinter",
+                "startYear": 2008,
+                "endYear": 2018
+            },
+            {
+                "model": "Sprinter",
+                "startYear": 2019,
+                "endYear": 2023
+            }
+        ]
+    },
+    {
+        "make": "MERCURY",
+        "models": [
+            {
+                "model": "Capri",
+                "startYear": 1991,
+                "endYear": 1994
+            },
+            {
+                "model": "Cougar",
+                "startYear": 1991,
+                "endYear": 1997
+            },
+            {
+                "model": "Cougar",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "Grand Marquis",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "Grand Marquis",
+                "startYear": 1998,
+                "endYear": 2005
+            },
+            {
+                "model": "Grand Marquis",
+                "startYear": 2003,
+                "endYear": 2011
+            },
+            {
+                "model": "Maraunder",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "Mariner",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "Milan",
+                "startYear": 2006,
+                "endYear": 2011
+            },
+            {
+                "model": "Montego",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "Mountaineer",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "Mountaineer",
+                "startYear": 2002,
+                "endYear": 2005
+            },
+            {
+                "model": "Mountaineer",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Sable",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "Sable",
+                "startYear": 1996,
+                "endYear": 1999
+            },
+            {
+                "model": "Sable",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Sable",
+                "startYear": 2006,
+                "endYear": 2009
+            },
+            {
+                "model": "Tracer",
+                "startYear": 1991,
+                "endYear": 1996
+            },
+            {
+                "model": "Tracer",
+                "startYear": 1997,
+                "endYear": 1999
+            },
+            {
+                "model": "Villager",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Villager",
+                "startYear": 1999,
+                "endYear": 2002
+            }
+        ]
+    },
+    {
+        "make": "MINI",
+        "models": [
+            {
+                "model": "Clubman",
+                "startYear": 2013,
+                "endYear": 2014
+            },
+            {
+                "model": "Clubman",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "Countryman",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "Countryman",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "Paceman",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "Coupe/Roadster",
+                "startYear": 2012,
+                "endYear": 2015
+            }
+        ]
+    },
+    {
+        "make": "MITSUBISHI",
+        "models": [
+            {
+                "model": "3000GT",
+                "startYear": 1991,
+                "endYear": 1993
+            },
+            {
+                "model": "3000GT",
+                "startYear": 1994,
+                "endYear": 1999
+            },
+            {
+                "model": "Diamante",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "Diamante",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "Eclipse",
+                "startYear": 1990,
+                "endYear": 1994
+            },
+            {
+                "model": "Eclipse",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "Eclipse",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Eclipse",
+                "startYear": 2006,
+                "endYear": 2012
+            },
+            {
+                "model": "Eclipse",
+                "startYear": 2018,
+                "endYear": 2023
+            },
+            {
+                "model": "Endeavor",
+                "startYear": 2004,
+                "endYear": 2011
+            },
+            {
+                "model": "Galant",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "Galant",
+                "startYear": 1999,
+                "endYear": 2003
+            },
+            {
+                "model": "Galant",
+                "startYear": 2004,
+                "endYear": 2012
+            },
+            {
+                "model": "I i-MiEV",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Mirage",
+                "startYear": 1993,
+                "endYear": 1996
+            },
+            {
+                "model": "Mirage",
+                "startYear": 1997,
+                "endYear": 2002
+            },
+            {
+                "model": "Mirage",
+                "startYear": 2014,
+                "endYear": 2024
+            },
+            {
+                "model": "Outlander",
+                "startYear": 2003,
+                "endYear": 2006
+            },
+            {
+                "model": "Outlander",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "Outlander",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "Outlander",
+                "startYear": 2022,
+                "endYear": 2024
+            },
+            {
+                "model": "ASX",
+                "startYear": 2011,
+                "endYear": 2022
+            },
+            {
+                "model": "Raider",
+                "startYear": 2006,
+                "endYear": 2009
+            }
+        ]
+    },
+    {
+        "make": "NISSAN",
+        "models": [
+            {
+                "model": "Altima",
+                "startYear": 1992,
+                "endYear": 1997
+            },
+            {
+                "model": "Altima",
+                "startYear": 1998,
+                "endYear": 2001
+            },
+            {
+                "model": "Altima",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "Altima",
+                "startYear": 2007,
+                "endYear": 2012
+            },
+            {
+                "model": "Altima",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "Altima",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "Armada",
+                "startYear": 2004,
+                "endYear": 2015
+            },
+            {
+                "model": "Armada",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "Cube",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "GT-R",
+                "startYear": 2009,
+                "endYear": 2024
+            },
+            {
+                "model": "Juke",
+                "startYear": 2010,
+                "endYear": 2019
+            },
+            {
+                "model": "Juke",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "Leaf",
+                "startYear": 2010,
+                "endYear": 2017
+            },
+            {
+                "model": "Leaf",
+                "startYear": 2018,
+                "endYear": 2025
+            },
+            {
+                "model": "Maxima",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "Maxima",
+                "startYear": 2000,
+                "endYear": 2003
+            },
+            {
+                "model": "Maxima",
+                "startYear": 2004,
+                "endYear": 2008
+            },
+            {
+                "model": "Maxima",
+                "startYear": 2009,
+                "endYear": 2015
+            },
+            {
+                "model": "Maxima",
+                "startYear": 2016,
+                "endYear": 2023
+            },
+            {
+                "model": "Murano",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Murano",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "Murano",
+                "startYear": 2015,
+                "endYear": 2024
+            },
+            {
+                "model": "NV",
+                "startYear": 2012,
+                "endYear": 2021
+            },
+            {
+                "model": "Pathfinder",
+                "startYear": 1996,
+                "endYear": 2004
+            },
+            {
+                "model": "Pathfinder",
+                "startYear": 2005,
+                "endYear": 2012
+            },
+            {
+                "model": "Pathfinder",
+                "startYear": 2013,
+                "endYear": 2020
+            },
+            {
+                "model": "Pathfinder",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Quest",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Quest",
+                "startYear": 1999,
+                "endYear": 2003
+            },
+            {
+                "model": "Quest",
+                "startYear": 2004,
+                "endYear": 2009
+            },
+            {
+                "model": "Quest",
+                "startYear": 2011,
+                "endYear": 2017
+            },
+            {
+                "model": "Rogue",
+                "startYear": 2008,
+                "endYear": 2013
+            },
+            {
+                "model": "Rogue",
+                "startYear": 2014,
+                "endYear": 2020
+            },
+            {
+                "model": "Rogue",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Titan",
+                "startYear": 2004,
+                "endYear": 2015
+            },
+            {
+                "model": "Titan",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "Xterra",
+                "startYear": 2000,
+                "endYear": 2004
+            },
+            {
+                "model": "Xterra",
+                "startYear": 2005,
+                "endYear": 2015
+            }
+        ]
+    },
+    {
+        "make": "OLDSMOBILE",
+        "models": [
+            {
+                "model": "Achieva",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "Alero",
+                "startYear": 1999,
+                "endYear": 2004
+            },
+            {
+                "model": "Aurora",
+                "startYear": 1995,
+                "endYear": 2003
+            },
+            {
+                "model": "Bravada",
+                "startYear": 1991,
+                "endYear": 1994
+            },
+            {
+                "model": "Bravada",
+                "startYear": 1996,
+                "endYear": 2001
+            },
+            {
+                "model": "Bravada",
+                "startYear": 2002,
+                "endYear": 2004
+            },
+            {
+                "model": "Custom Cruiser",
+                "startYear": 1991,
+                "endYear": 1992
+            },
+            {
+                "model": "88",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "Intrigue",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "Silhouette",
+                "startYear": 1990,
+                "endYear": 1996
+            },
+            {
+                "model": "Silhouette",
+                "startYear": 1997,
+                "endYear": 2004
+            }
+        ]
+    },
+    {
+        "make": "PLYMOUTH",
+        "models": [
+            {
+                "model": "Grand Voyager",
+                "startYear": 1991,
+                "endYear": 1995
+            },
+            {
+                "model": "Grand Voyager",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "Laser",
+                "startYear": 1990,
+                "endYear": 1994
+            }
+        ]
+    },
+    {
+        "make": "PONTIAC",
+        "models": [
+            {
+                "model": "Aztek",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "Bonneville",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "Bonneville",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Firebird",
+                "startYear": 1993,
+                "endYear": 2002
+            },
+            {
+                "model": "G6",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "G8",
+                "startYear": 2008,
+                "endYear": 2009
+            },
+            {
+                "model": "Grand Am",
+                "startYear": 1992,
+                "endYear": 1998
+            },
+            {
+                "model": "Grand Am",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "Grand Prix",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "Grand Prix",
+                "startYear": 1997,
+                "endYear": 2003
+            },
+            {
+                "model": "Grand Prix",
+                "startYear": 2004,
+                "endYear": 2008
+            },
+            {
+                "model": "Montana",
+                "startYear": 1999,
+                "endYear": 2004
+            },
+            {
+                "model": "Montana",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "Solstice",
+                "startYear": 2006,
+                "endYear": 2009
+            },
+            {
+                "model": "Sunfire",
+                "startYear": 1995,
+                "endYear": 2005
+            },
+            {
+                "model": "Torrent",
+                "startYear": 2006,
+                "endYear": 2009
+            },
+            {
+                "model": "Trans Sport",
+                "startYear": 1990,
+                "endYear": 1996
+            },
+            {
+                "model": "Trans Sport",
+                "startYear": 1997,
+                "endYear": 1999
+            },
+            {
+                "model": "Vibe",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Vibe",
+                "startYear": 2009,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "PORSCHE",
+        "models": [
+            {
+                "model": "911 Carrera",
+                "startYear": 1992,
+                "endYear": 1993
+            },
+            {
+                "model": "911 Carrera",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "911 Carrera",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "911 Carrera",
+                "startYear": 2005,
+                "endYear": 2011
+            },
+            {
+                "model": "911 Carrera",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "911 Carrera",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "968",
+                "startYear": 1992,
+                "endYear": 1995
+            },
+            {
+                "model": "Boxster",
+                "startYear": 1997,
+                "endYear": 2004
+            },
+            {
+                "model": "Boxster",
+                "startYear": 2005,
+                "endYear": 2012
+            },
+            {
+                "model": "Boxster",
+                "startYear": 2013,
+                "endYear": 2016
+            },
+            {
+                "model": "Carrera GT",
+                "startYear": 2004,
+                "endYear": 2006
+            },
+            {
+                "model": "Cayenne",
+                "startYear": 2003,
+                "endYear": 2010
+            },
+            {
+                "model": "Cayenne",
+                "startYear": 2011,
+                "endYear": 2018
+            },
+            {
+                "model": "Cayenne",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "Macan",
+                "startYear": 2015,
+                "endYear": 2024
+            },
+            {
+                "model": "Panamera",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "Panamera",
+                "startYear": 2017,
+                "endYear": 2023
+            }
+        ]
+    },
+    {
+        "make": "ROLLS-ROYCE",
+        "models": [
+            {
+                "model": "Dawn",
+                "startYear": 2016,
+                "endYear": 2021
+            },
+            {
+                "model": "Ghost",
+                "startYear": 2010,
+                "endYear": 2019
+            },
+            {
+                "model": "Ghost",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Phantom",
+                "startYear": 2004,
+                "endYear": 2011
+            },
+            {
+                "model": "Phantom",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Phantom",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Silver Seraph",
+                "startYear": 1998,
+                "endYear": 2003
+            },
+            {
+                "model": "Wraith",
+                "startYear": 2014,
+                "endYear": 2021
+            }
+        ]
+    },
+    {
+        "make": "SAAB",
+        "models": [
+            {
+                "model": "900",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "9-3X",
+                "startYear": 2010,
+                "endYear": 2011
+            },
+            {
+                "model": "9-5X",
+                "startYear": 1999,
+                "endYear": 2009
+            },
+            {
+                "model": "9-5X",
+                "startYear": 2010,
+                "endYear": 2011
+            },
+            {
+                "model": "9-7X",
+                "startYear": 2005,
+                "endYear": 2009
+            }
+        ]
+    },
+    {
+        "make": "SATURN",
+        "models": [
+            {
+                "model": "Astra",
+                "startYear": 2008,
+                "endYear": 2009
+            },
+            {
+                "model": "Aura",
+                "startYear": 2007,
+                "endYear": 2009
+            },
+            {
+                "model": "Ion",
+                "startYear": 2003,
+                "endYear": 2007
+            },
+            {
+                "model": "L-Series",
+                "startYear": 1991,
+                "endYear": 2010
+            },
+            {
+                "model": "Outlook",
+                "startYear": 2007,
+                "endYear": 2010
+            },
+            {
+                "model": "Relay",
+                "startYear": 2005,
+                "endYear": 2007
+            },
+            {
+                "model": "S Series",
+                "startYear": 1991,
+                "endYear": 1996
+            },
+            {
+                "model": "S Series",
+                "startYear": 1997,
+                "endYear": 2002
+            },
+            {
+                "model": "S Series",
+                "startYear": 2003,
+                "endYear": 2010
+            },
+            {
+                "model": "Sky",
+                "startYear": 2007,
+                "endYear": 2010
+            },
+            {
+                "model": "Vue",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "Vue",
+                "startYear": 2008,
+                "endYear": 2010
+            }
+        ]
+    },
+    {
+        "make": "SCION",
+        "models": [
+            {
+                "model": "tC",
+                "startYear": 2005,
+                "endYear": 2010
+            },
+            {
+                "model": "tC",
+                "startYear": 2011,
+                "endYear": 2016
+            },
+            {
+                "model": "xA",
+                "startYear": 2004,
+                "endYear": 2006
+            },
+            {
+                "model": "xB",
+                "startYear": 2004,
+                "endYear": 2007
+            },
+            {
+                "model": "xB",
+                "startYear": 2008,
+                "endYear": 2015
+            },
+            {
+                "model": "xD",
+                "startYear": 2008,
+                "endYear": 2014
+            }
+        ]
+    },
+    {
+        "make": "SUBARU",
+        "models": [
+            {
+                "model": "BAJA",
+                "startYear": 2003,
+                "endYear": 2006
+            },
+            {
+                "model": "Forester",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "Forester",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Forester",
+                "startYear": 2009,
+                "endYear": 2013
+            },
+            {
+                "model": "Forester",
+                "startYear": 2014,
+                "endYear": 2018
+            },
+            {
+                "model": "Forester",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "Impreza",
+                "startYear": 1993,
+                "endYear": 2000
+            },
+            {
+                "model": "Impreza",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "Impreza",
+                "startYear": 2008,
+                "endYear": 2011
+            },
+            {
+                "model": "Impreza",
+                "startYear": 2012,
+                "endYear": 2016
+            },
+            {
+                "model": "Impreza",
+                "startYear": 2017,
+                "endYear": 2024
+            },
+            {
+                "model": "Legacy",
+                "startYear": 1992,
+                "endYear": 1994
+            },
+            {
+                "model": "Legacy",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "Legacy",
+                "startYear": 2000,
+                "endYear": 2004
+            },
+            {
+                "model": "Legacy",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "Legacy",
+                "startYear": 2010,
+                "endYear": 2014
+            },
+            {
+                "model": "Legacy",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "Legacy",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Outback",
+                "startYear": 1994,
+                "endYear": 1999
+            },
+            {
+                "model": "Outback",
+                "startYear": 2000,
+                "endYear": 2004
+            },
+            {
+                "model": "Outback",
+                "startYear": 2005,
+                "endYear": 2009
+            },
+            {
+                "model": "Outback",
+                "startYear": 2010,
+                "endYear": 2014
+            },
+            {
+                "model": "Outback",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "Outback",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Alcyone SVX",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "Tribeca",
+                "startYear": 2008,
+                "endYear": 2014
+            },
+            {
+                "model": "XV Crosstrek",
+                "startYear": 2013,
+                "endYear": 2017
+            },
+            {
+                "model": "XV Crosstrek",
+                "startYear": 2018,
+                "endYear": 2023
+            },
+            {
+                "model": "XV Crosstrek",
+                "startYear": 2024,
+                "endYear": 2025
+            }
+        ]
+    },
+    {
+        "make": "SUZUKI",
+        "models": [
+            {
+                "model": "Aerio",
+                "startYear": 2002,
+                "endYear": 2007
+            },
+            {
+                "model": "Equator",
+                "startYear": 2009,
+                "endYear": 2012
+            },
+            {
+                "model": "Vitara",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "Vitara",
+                "startYear": 2006,
+                "endYear": 2015
+            },
+            {
+                "model": "Vitara",
+                "startYear": 2016,
+                "endYear": 2023
+            },
+            {
+                "model": "Kizashi",
+                "startYear": 2010,
+                "endYear": 2016
+            },
+            {
+                "model": "SX4",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "SX4",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "X-90",
+                "startYear": 1996,
+                "endYear": 1998
+            },
+            {
+                "model": "XL7",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "XL7",
+                "startYear": 2007,
+                "endYear": 2009
+            }
+        ]
+    },
+    {
+        "make": "TESLA",
+        "models": [
+            {
+                "model": "Model S",
+                "startYear": 2012,
+                "endYear": 2024
+            },
+            {
+                "model": "Model X",
+                "startYear": 2016,
+                "endYear": 2024
+            },
+            {
+                "model": "Roadster",
+                "startYear": 2008,
+                "endYear": 2011
+            }
+        ]
+    },
+    {
+        "make": "TOYOTA",
+        "models": [
+            {
+                "model": "86",
+                "startYear": 2017,
+                "endYear": 2020
+            },
+            {
+                "model": "4Runner",
+                "startYear": 1990,
+                "endYear": 1995
+            },
+            {
+                "model": "4Runner",
+                "startYear": 1996,
+                "endYear": 2002
+            },
+            {
+                "model": "4Runner",
+                "startYear": 2003,
+                "endYear": 2009
+            },
+            {
+                "model": "4Runner",
+                "startYear": 2010,
+                "endYear": 2024
+            },
+            {
+                "model": "Avalon",
+                "startYear": 1995,
+                "endYear": 1999
+            },
+            {
+                "model": "Avalon",
+                "startYear": 2000,
+                "endYear": 2007
+            },
+            {
+                "model": "Avalon",
+                "startYear": 2008,
+                "endYear": 2012
+            },
+            {
+                "model": "Avalon",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "Avalon",
+                "startYear": 2019,
+                "endYear": 2022
+            },
+            {
+                "model": "Camry",
+                "startYear": 1992,
+                "endYear": 1996
+            },
+            {
+                "model": "Camry",
+                "startYear": 1997,
+                "endYear": 2001
+            },
+            {
+                "model": "Camry",
+                "startYear": 2002,
+                "endYear": 2006
+            },
+            {
+                "model": "Camry",
+                "startYear": 2007,
+                "endYear": 2011
+            },
+            {
+                "model": "Camry",
+                "startYear": 2012,
+                "endYear": 2017
+            },
+            {
+                "model": "Camry",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Celica",
+                "startYear": 1994,
+                "endYear": 1999
+            },
+            {
+                "model": "Celica",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Corolla",
+                "startYear": 1993,
+                "endYear": 1997
+            },
+            {
+                "model": "Corolla",
+                "startYear": 1998,
+                "endYear": 2002
+            },
+            {
+                "model": "Corolla",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Corolla",
+                "startYear": 2009,
+                "endYear": 2013
+            },
+            {
+                "model": "Corolla",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Corolla",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "FJ Cruiser",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "Highlander",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "Highlander",
+                "startYear": 2008,
+                "endYear": 2013
+            },
+            {
+                "model": "Highlander",
+                "startYear": 2014,
+                "endYear": 2019
+            },
+            {
+                "model": "Highlander",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Matrix",
+                "startYear": 2003,
+                "endYear": 2008
+            },
+            {
+                "model": "Matrix",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "Mirai",
+                "startYear": 2016,
+                "endYear": 2020
+            },
+            {
+                "model": "Mirai",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Paseo",
+                "startYear": 1992,
+                "endYear": 1999
+            },
+            {
+                "model": "Previa",
+                "startYear": 1991,
+                "endYear": 1997
+            },
+            {
+                "model": "Prius v",
+                "startYear": 2012,
+                "endYear": 2018
+            },
+            {
+                "model": "RAV4",
+                "startYear": 1996,
+                "endYear": 2000
+            },
+            {
+                "model": "RAV4",
+                "startYear": 2001,
+                "endYear": 2005
+            },
+            {
+                "model": "RAV4",
+                "startYear": 2006,
+                "endYear": 2012
+            },
+            {
+                "model": "RAV4",
+                "startYear": 2013,
+                "endYear": 2018
+            },
+            {
+                "model": "RAV4",
+                "startYear": 2019,
+                "endYear": 2024
+            },
+            {
+                "model": "RAV4 EV",
+                "startYear": 2012,
+                "endYear": 2014
+            },
+            {
+                "model": "Sequoia",
+                "startYear": 2001,
+                "endYear": 2007
+            },
+            {
+                "model": "Sequoia",
+                "startYear": 2008,
+                "endYear": 2017
+            },
+            {
+                "model": "Sequoia",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Sienna",
+                "startYear": 1998,
+                "endYear": 2003
+            },
+            {
+                "model": "Sienna",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "Sienna",
+                "startYear": 2011,
+                "endYear": 2020
+            },
+            {
+                "model": "Sienna",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Supra",
+                "startYear": 1994,
+                "endYear": 1998
+            },
+            {
+                "model": "Supra",
+                "startYear": 2020,
+                "endYear": 2024
+            },
+            {
+                "model": "T100",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Tacoma",
+                "startYear": 1995,
+                "endYear": 2004
+            },
+            {
+                "model": "Tacoma",
+                "startYear": 2005,
+                "endYear": 2015
+            },
+            {
+                "model": "Tacoma",
+                "startYear": 2016,
+                "endYear": 2023
+            },
+            {
+                "model": "Tercel",
+                "startYear": 1990,
+                "endYear": 1999
+            },
+            {
+                "model": "Tundra",
+                "startYear": 2000,
+                "endYear": 2006
+            },
+            {
+                "model": "Tundra",
+                "startYear": 2007,
+                "endYear": 2013
+            },
+            {
+                "model": "Tundra",
+                "startYear": 2014,
+                "endYear": 2021
+            },
+            {
+                "model": "Venza",
+                "startYear": 2009,
+                "endYear": 2016
+            },
+            {
+                "model": "Venza",
+                "startYear": 2021,
+                "endYear": 2024
+            },
+            {
+                "model": "Yaris",
+                "startYear": 2000,
+                "endYear": 2005
+            },
+            {
+                "model": "Yaris",
+                "startYear": 2007,
+                "endYear": 2014
+            },
+            {
+                "model": "Yaris",
+                "startYear": 2015,
+                "endYear": 2020
+            }
+        ]
+    },
+    {
+        "make": "VOLKSWAGEN",
+        "models": [
+            {
+                "model": "CC",
+                "startYear": 2009,
+                "endYear": 2017
+            },
+            {
+                "model": "Eos",
+                "startYear": 2007,
+                "endYear": 2016
+            },
+            {
+                "model": "Transporter",
+                "startYear": 1991,
+                "endYear": 2003
+            },
+            {
+                "model": "New Beetle",
+                "startYear": 1998,
+                "endYear": 2010
+            },
+            {
+                "model": "Golf GTI",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Golf GTI",
+                "startYear": 1999,
+                "endYear": 2006
+            },
+            {
+                "model": "Golf GTI",
+                "startYear": 2015,
+                "endYear": 2021
+            },
+            {
+                "model": "Golf R",
+                "startYear": 2012,
+                "endYear": 2013
+            },
+            {
+                "model": "Golf R",
+                "startYear": 2015,
+                "endYear": 2019
+            },
+            {
+                "model": "Golf R",
+                "startYear": 2022,
+                "endYear": 2025
+            },
+            {
+                "model": "Jetta",
+                "startYear": 1993,
+                "endYear": 1998
+            },
+            {
+                "model": "Jetta",
+                "startYear": 1999,
+                "endYear": 2005
+            },
+            {
+                "model": "Jetta",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Jetta",
+                "startYear": 2011,
+                "endYear": 2018
+            },
+            {
+                "model": "Jetta",
+                "startYear": 2019,
+                "endYear": 2025
+            },
+            {
+                "model": "Passat",
+                "startYear": 1993,
+                "endYear": 1996
+            },
+            {
+                "model": "Passat",
+                "startYear": 1997,
+                "endYear": 2005
+            },
+            {
+                "model": "Passat",
+                "startYear": 2006,
+                "endYear": 2010
+            },
+            {
+                "model": "Passat",
+                "startYear": 2012,
+                "endYear": 2019
+            },
+            {
+                "model": "Passat",
+                "startYear": 2020,
+                "endYear": 2025
+            },
+            {
+                "model": "Routan",
+                "startYear": 2009,
+                "endYear": 2014
+            },
+            {
+                "model": "Tiguan",
+                "startYear": 2009,
+                "endYear": 2017
+            },
+            {
+                "model": "Tiguan",
+                "startYear": 2018,
+                "endYear": 2024
+            },
+            {
+                "model": "Touareg",
+                "startYear": 2004,
+                "endYear": 2010
+            },
+            {
+                "model": "Touareg",
+                "startYear": 2011,
+                "endYear": 2018
+            }
+        ]
+    }
+]

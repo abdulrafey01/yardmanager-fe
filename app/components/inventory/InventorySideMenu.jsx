@@ -36,6 +36,7 @@ import { usePathname } from "next/navigation";
 import { resetLocationSearchData } from "../../../lib/features/locations/locationSlice";
 import { resetPartSearchData } from "../../../lib/features/parts/partSlice";
 import InventoryModal from "./InventoryModal";
+import carData from "../../constants/car_data.json";
 
 import {
   variantList,
@@ -752,15 +753,13 @@ const InventorySideMenu = () => {
               </div>
               {/* Inventory Make input */}
               <MultiInput
-                dataToMap={formState.make}
+                dataToMap={formState.make}  
                 placeholder="Make"
-                dataList={makeList.filter((item) => {
-                  if (!formState.make.includes(item)) {
-                    return item;
-                  } else {
-                    return null;
+                dataList={carData.map(({make}) => {
+                  if (!formState.make.includes(make)) {
+                    return make;
                   }
-                })}
+                }).filter((item) => item)}
                 name="variant"
                 onPressEnter={(e) => {
                   if (e.length < 1) {
@@ -793,13 +792,11 @@ const InventorySideMenu = () => {
                 dataToMap={formState.model}
                 placeholder="Model"
                 name="variant"
-                dataList={modelList.filter((item) => {
-                  if (!formState.model.includes(item)) {
-                    return item;
-                  } else {
-                    return null;
+                dataList={[...new Set(carData.flatMap((item) => {
+                  if (formState.make.includes(item.make)) {
+                    return item.models.map((model) => !formState.model.includes(model.model) && model.model);
                   }
-                })}
+                }))].filter((item) => item)}
                 onPressEnter={(e) => {
                   if (e.length < 1) {
                     dispatch(

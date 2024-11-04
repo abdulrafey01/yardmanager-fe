@@ -37,6 +37,8 @@ import {
   modelList,
   colorList,
 } from "../../constants/index";
+import carData from "../../constants/car_data.json";
+
 const InventorySideMenu = () => {
   const { showSideMenu, selectedItem } = useSelector((state) => state.shared);
   const { locationSearchData } = useSelector((state) => state.locations);
@@ -498,13 +500,11 @@ const InventorySideMenu = () => {
               dataToMap={formState.make}
               placeholder="Make"
               name="variant"
-              dataList={makeList.filter((item) => {
-                if (!formState.make.includes(item)) {
-                  return item;
-                } else {
-                  return null;
-                }
-              })}
+              dataList={carData.map(({make}) => {
+                  if (!formState.make.includes(make)) {
+                    return make;
+                  }
+                }).filter((item) => item)}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
@@ -536,13 +536,11 @@ const InventorySideMenu = () => {
               dataToMap={formState.model}
               placeholder="Model"
               name="variant"
-              dataList={modelList.filter((item) => {
-                if (!formState.model.includes(item)) {
-                  return item;
-                } else {
-                  return null;
-                }
-              })}
+              dataList={[...new Set(carData.flatMap((item) => {
+                  if (formState.make.includes(item.make)) {
+                    return item.models.map((model) => !formState.model.includes(model.model) && model.model);
+                  }
+                }))].filter((item) => item)}
               onPressEnter={(e) => {
                 if (e.length < 1) {
                   dispatch(
